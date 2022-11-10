@@ -28,7 +28,7 @@ export default function SidePanel() {
 		<div className="flex flex-col text-white bg-blue-800 p-4 w-64 h-screen">
 			<div className="space-y-4">
 				<span>TODO: get bitformance icon</span>
-			
+
 				<Link className="flex flex-row items-center gap-2">
 					<FontAwesomeIcon icon={faHouse} color={secondaryColor} />
 					<span>Home</span>

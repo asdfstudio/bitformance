@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route ,Link, Routes} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 //Pages
 import HomePage from './pages/HomePage'
 //layout components
@@ -9,7 +9,7 @@ import TopBar from './components/TopBar'
 const MainLayout = ({ path, children }) => (
   <div className="flex flex-row">
     <SidePanel path={path} />
-    <div className="w-full">
+    <div className="w-full h-screen overflow-y">
       <TopBar />
       {children}
     </div>
