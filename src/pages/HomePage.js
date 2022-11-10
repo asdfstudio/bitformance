@@ -1,5 +1,6 @@
 import RecentlyAdded from '../components/RecentlyAdded'
 import TopFive from '../components/TopFiveCryptos'
+import TopMarketCap from '../components/TopMarketCapCryptos'
 
 export default function HomePage() {
 	return(
@@ -10,6 +11,7 @@ export default function HomePage() {
 				<RecentlyAdded />
 			</div>
 			<TopFive />
+			<TopMarketCap />
 		</div>
 	)
 }

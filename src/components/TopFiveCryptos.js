@@ -32,6 +32,12 @@ export default function TopFiveCryptos() {
 			</div>
 
 			<BFGraph />
+
+			<hr />
+
+			<div>
+				holdings TODO
+			</div>
 		</div>
 	)
 }
