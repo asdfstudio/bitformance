@@ -1,7 +1,7 @@
 
 export default function HomePage() {
 	return(
-		<div>
+		<div className="p-4">
 			main view
 		</div>
 	)
