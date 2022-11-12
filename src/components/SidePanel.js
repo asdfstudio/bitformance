@@ -19,7 +19,7 @@ import {
 
 const secondaryColor = '#40C8B8'
 
-export default function SidePanel() {
+export default function SidePanel({ setShowModalType }) {
 
 	const expandIndexesSection = () => {
 		//TODO:
@@ -42,10 +42,10 @@ export default function SidePanel() {
 					<FontAwesomeIcon icon={faCodeCompare} color={secondaryColor} />
 					<span>Compare</span>
 				</Link>
-				<Link className="flex flex-row items-center gap-2">
+				<button onClick={() => setShowModalType('CONTACT_US')} className="flex flex-row items-center gap-2">
 					<FontAwesomeIcon icon={faEnvelope} color={secondaryColor} />
 					<span>Contact Us</span>
-				</Link>
+				</button>
 				<Link className="flex flex-row items-center gap-2">
 					<FontAwesomeIcon icon={faBook} color={secondaryColor} />
 					<span>Knowledge Base</span>
