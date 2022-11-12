@@ -2,7 +2,6 @@ import { useState } from 'react'
 import CoinRow from './CoinRow'
 import exampleIcon from '../exampleIcon.png'
 
-
 export default function TopMarketCapCryptos() {
 
 	const [sortOrder, setSortOrder] = useState('ASC') //'DESC'
@@ -47,22 +46,32 @@ export default function TopMarketCapCryptos() {
 	]
 
 	return(
-		<div className="bg-white p-4 space-y-4">
+		<div className="bg-white min-w-full overflow-y-auto p-4 space-y-4 rounded shadow">
 			<h1>Top Cryptocurrencies by Market Cap</h1>
-			<div className="grid grid-cols-6">
-				{sortables.map(label => (
-					<button 
-						key={label}
-						className="px-4 py-2 bg-gray-200 "
-						onClick={() => sortBy(label)} 
-					>
-						{label} {sortOrder === 'ASC' ? '^' : 'v'}
-					</button>
-				))}
-			</div>
-			{data.map(coin => {
+			<table className="table-fixed">
+				<thead className="bg-gray-200">
+					<tr>
+						{sortables.map(label => (<th>
+							<button 
+								key={label}
+								className="px-4 py-2"
+								onClick={() => sortBy(label)} 
+							>
+								{label} {sortOrder === 'ASC' ? '^' : 'v'}
+							</button></th>
+						))}
+					</tr>
+				</thead>
+				<tbody>
+					{data.map(coin => (
+						<tr><CoinRow key={coin.id} {...coin} /></tr>
+					))}
+				</tbody>
+
+			</table>
+{/*			{data.map(coin => (
 				<CoinRow key={coin.id} {...coin} />
-			})}
+			))}*/}
 		</div>
 	)
 }
