@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import BitLogoWhite from '../bitLogoWhite.png'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
@@ -27,7 +28,7 @@ export default function SidePanel() {
 	return (
 		<div className="flex flex-col text-white bg-blue-800 p-4 w-64 h-screen">
 			<div className="space-y-4">
-				<span>TODO: get bitformance icon</span>
+				<img src={BitLogoWhite} alt="bitformance logo" />
 
 				<Link className="flex flex-row items-center gap-2">
 					<FontAwesomeIcon icon={faHouse} color={secondaryColor} />

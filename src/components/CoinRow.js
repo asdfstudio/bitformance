@@ -49,7 +49,7 @@ export default function CoinRow({
 					: <DownTag change={weeklyPercentageChange} />
 				}
 			</td>
-			<td className="text-sm">{marketCap}</td>
+			<td className="text-sm pl-5">{marketCap}</td>
 		</>
 	)
 }

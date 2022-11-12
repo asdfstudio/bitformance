@@ -14,7 +14,7 @@ export default function TopMarketCapCryptos() {
 
 	const data = [
 		{
-			id: 1,
+			id: 109,
 			image: exampleIcon,
 			name: 'Bitcoin',
 			ticker: 'BTC',
@@ -24,7 +24,7 @@ export default function TopMarketCapCryptos() {
 			marketCap: '$380.44B'
 		},
 		{
-			id: 2,
+			id: 209,
 			image: exampleIcon,
 			name: 'Ethereum',
 			ticker: 'ETH',
@@ -34,7 +34,7 @@ export default function TopMarketCapCryptos() {
 			marketCap: '$320.44B'
 		},
 		{
-			id: 3,
+			id: 309,
 			image: exampleIcon,
 			name: 'Tether',
 			ticker: 'USDT',
@@ -51,9 +51,8 @@ export default function TopMarketCapCryptos() {
 			<table className="table-fixed">
 				<thead className="bg-gray-200">
 					<tr>
-						{sortables.map(label => (<th>
+						{sortables.map(label => (<th key={label}>
 							<button 
-								key={label}
 								className="px-4 py-2 whitespace-pre"
 								onClick={() => sortBy(label)} 
 							>
@@ -64,7 +63,7 @@ export default function TopMarketCapCryptos() {
 				</thead>
 				<tbody>
 					{data.map(coin => (
-						<tr><CoinRow key={coin.id} {...coin} /></tr>
+						<tr key={coin.id}><CoinRow {...coin} /></tr>
 					))}
 				</tbody>
 

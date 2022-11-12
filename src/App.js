@@ -8,7 +8,7 @@ import TopBar from './components/TopBar'
 //TODO: create mobile layout
 const MainLayout = ({ path, children }) => (
   <div className="flex flex-row">
-    <SidePanel path={path} />
+    <SidePanel />
     <div className="w-full h-screen overflow-y">
       <TopBar />
       {children}
