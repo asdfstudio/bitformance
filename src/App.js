@@ -13,7 +13,7 @@ const MainLayout = ({ showModalType, setShowModalType, children }) => {
 
   return(
     <>
-      {showModalType && <BFModal type={showModalType} />}
+      {showModalType && <BFModal showModalType={showModalType} setShowModalType={setShowModalType} />}
       <div className="flex flex-row">
         <SidePanel setShowModalType={setShowModalType} />
         <div className="w-full h-screen overflow-y">
@@ -34,7 +34,7 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={
-            <MainLayout showModalType={showModalType} setShowModalType={setShowModalType} >
+            <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
               <HomePage />
             </MainLayout>
           } />

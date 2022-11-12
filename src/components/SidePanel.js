@@ -1,22 +1,6 @@
 import { Link } from 'react-router-dom'
 import BitLogoWhite from '../bitLogoWhite.png'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { 
-	faHouse, 
-	faCodeCompare, 
-	faEnvelope, 
-	faBook,
-	faChartLine,
-} from '@fortawesome/free-solid-svg-icons'
-
-import {
-	faFacebook,
-	faTwitter,
-	faTelegram,
-	faDiscord,
-} from '@fortawesome/free-brands-svg-icons'
-
+import BFIcon from './BFIcon'
 const secondaryColor = '#40C8B8'
 
 export default function SidePanel({ setShowModalType }) {
@@ -31,23 +15,24 @@ export default function SidePanel({ setShowModalType }) {
 				<img src={BitLogoWhite} alt="bitformance logo" />
 
 				<Link className="flex flex-row items-center gap-2">
-					<FontAwesomeIcon icon={faHouse} color={secondaryColor} />
+					<BFIcon iconName="home" color={secondaryColor} />
 					<span>Home</span>
 				</Link>
 				<div className="flex flex-row items-center gap-2" onClick={() => expandIndexesSection()}>
-					<FontAwesomeIcon icon={faChartLine} color={secondaryColor} />
+					<BFIcon iconName="indexes" color={secondaryColor} />
 					<span>Indexes</span>
 				</div>
 				<Link className="flex flex-row items-center gap-2">
-					<FontAwesomeIcon icon={faCodeCompare} color={secondaryColor} />
+					<BFIcon iconName="compare" color={secondaryColor} />
+
 					<span>Compare</span>
 				</Link>
 				<button onClick={() => setShowModalType('CONTACT_US')} className="flex flex-row items-center gap-2">
-					<FontAwesomeIcon icon={faEnvelope} color={secondaryColor} />
+					<BFIcon iconName="contact-us" color={secondaryColor} />
 					<span>Contact Us</span>
 				</button>
 				<Link className="flex flex-row items-center gap-2">
-					<FontAwesomeIcon icon={faBook} color={secondaryColor} />
+					<BFIcon iconName="knowledge-base" color={secondaryColor} />
 					<span>Knowledge Base</span>
 				</Link>
 				<br />
@@ -58,10 +43,10 @@ export default function SidePanel({ setShowModalType }) {
 
 			<div className="mt-auto space-y-4">
 				<div className="flex flex-row justify-between	">
-					<FontAwesomeIcon icon={faFacebook} size="lg" />
-					<FontAwesomeIcon icon={faTwitter} size="lg" />
-					<FontAwesomeIcon icon={faTelegram} size="lg" />
-					<FontAwesomeIcon icon={faDiscord} size="lg" />
+					<BFIcon iconName="facebook" size="lg" />
+					<BFIcon iconName="twitter" size="lg" />
+					<BFIcon iconName="telegram" size="lg" />
+					<BFIcon iconName="discord" size="lg" />
 				</div>
 
 				<div className="border-b border-gray-300 opacity-10" />
