@@ -11,8 +11,8 @@ export default function HomePage() {
 				<RecentlyAdded />
 			</div>
 			<TopFive />
-			<div className="grid grid-cols-2 xl:grid-cols-3">
-				<div className="bg-white col-span-2">
+			<div className="grid grid-cols-3 xl:grid-cols-4">
+				<div className="bg-white col-span-3">
 					<TopMarketCap />
 				</div>
 			</div>

@@ -12,6 +12,22 @@ export default function CoinRow({
 	marketCap,
 }) {
 
+	const DownTag = ({ change }) => (<div className="w-20 mx-auto">
+			<div className="flex flex-row px-2 py-1 rounded-lg justify-center items-center gap-1 rounded bg-red-100">
+				<FontAwesomeIcon icon={faArrowLeft} size="xs" transform={{ rotate: -45}} color="red" />
+				<p className="text-sm text-red-400">{Math.abs(change).toFixed(2)}%</p>
+			</div>
+		</div>
+	)
+
+	const UpTag = ({ change }) => (<div className="w-20 mx-auto">
+			<div className="flex flex-row px-2 py-1 rounded-lg justify-center items-center gap-1 rounded bg-green-100">
+				<FontAwesomeIcon icon={faArrowRight} size="xs" transform={{ rotate: -45}} color="green" />
+				<p className="text-sm text-green-500">{Math.abs(change).toFixed(2)}%</p>
+			</div>
+		</div>
+	)
+
 	return (
 		<>
 			<td className="flex flex-row items-center gap-2">
@@ -22,22 +38,16 @@ export default function CoinRow({
 			<td className="text-sm text-gray-400">{ticker}</td>
 			<td className="text-sm">${price}</td>
 			<td>
-				<div className="flex flex-row items-center gap-1">
-					{hourlyPercentageChange > 0 
-						? <FontAwesomeIcon icon={faArrowRight} size="xs" transform={{ rotate: -45}} color="green" />
-						: <FontAwesomeIcon icon={faArrowLeft} size="xs" transform={{ rotate: -45}} color="red" />
-					}
-					<p className="text-sm">{Math.abs(hourlyPercentageChange).toFixed(2)}%</p>
-				</div>
+				{hourlyPercentageChange > 0 
+					? <UpTag change={hourlyPercentageChange} />
+					: <DownTag change={hourlyPercentageChange} />
+				}
 			</td>
 			<td>	
-				<div className="flex flex-row items-center gap-1">
-					{weeklyPercentageChange > 0 
-						? <FontAwesomeIcon icon={faArrowRight} size="xs" transform={{ rotate: -45}} color="green" />
-						: <FontAwesomeIcon icon={faArrowLeft} size="xs" transform={{ rotate: -45}} color="red" />
-					}
-					<p className="text-sm">{Math.abs(weeklyPercentageChange).toFixed(2)}%</p>
-				</div>
+				{weeklyPercentageChange > 0 
+					? <UpTag change={weeklyPercentageChange} />
+					: <DownTag change={weeklyPercentageChange} />
+				}
 			</td>
 			<td className="text-sm">{marketCap}</td>
 		</>

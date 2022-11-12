@@ -6,7 +6,7 @@ export default function TopMarketCapCryptos() {
 
 	const [sortOrder, setSortOrder] = useState('ASC') //'DESC'
 
-	const sortables = ['Cryptocurrency', 'Tickers', 'Price', '24h %', '7d %', 'Market Cap']
+	const sortables = ['Cryptocurrency', 'Tickers', 'Price    ', '     24h %', '      7d %   ', 'Market Cap']
 
 	const sortBy = (label) => {
 		//TODO: backend query
@@ -54,7 +54,7 @@ export default function TopMarketCapCryptos() {
 						{sortables.map(label => (<th>
 							<button 
 								key={label}
-								className="px-4 py-2"
+								className="px-4 py-2 whitespace-pre"
 								onClick={() => sortBy(label)} 
 							>
 								{label} {sortOrder === 'ASC' ? '^' : 'v'}
