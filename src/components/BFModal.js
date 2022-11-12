@@ -4,7 +4,9 @@ export default function BFModal({ showModalType, setShowModalType }) {
 
 
 	const modals = [
-		{ type: 'CONTACT_US' , component: <ContactUs /> }
+		{ type: 'CONTACT_US' , component: <ContactUs setShowModalType={setShowModalType} /> },
+		{ type: 'SIGN_UP', component: </> },
+		{ type: 'SIGN_IN', component: </> }
 	]
 
 	const modal = modals.find(obj => obj.type === showModalType)

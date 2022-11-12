@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
-export default function TopBar({ isLoggedIn }) {
+export default function TopBar({ isLoggedIn, setShowModalType }) {
 
 	let location = useLocation()
 	const [pathArray, setPathArray] = useState([])
@@ -20,15 +20,6 @@ export default function TopBar({ isLoggedIn }) {
 		}
 	}, [location])
 
-
-	const openCreateAccountModal = () => {
-
-	}
-
-	const openSignInModal = () => {
-
-	}
-
 	//TODO: switch state based on login
 	return(
 		<div className="flex flex-row items-center w-full bg-white shadow p-2">
@@ -43,8 +34,8 @@ export default function TopBar({ isLoggedIn }) {
 			</div>
 			<div className="ml-auto flex flex-row items-center gap-4">
 				<p>Search bar</p>
-				<button onClick={() => openCreateAccountModal()} className="text-sm rounded bg-red-100 font-bold text-red-700 w-32 py-2">Sign In</button>
-				<button onClick={() => openSignInModal()} className="text-sm rounded bg-blue-500 font-bold text-white w-32 py-2">Sign Up</button>
+				<button onClick={() => setShowModalType('SIGN_IN')} className="text-sm rounded bg-red-100 font-bold text-red-700 w-32 py-2">Sign In</button>
+				<button onClick={() => setShowModalType('SIGN_UP')} className="text-sm rounded bg-blue-500 font-bold text-white w-32 py-2">Sign Up</button>
 			</div>
 		</div>
 	)

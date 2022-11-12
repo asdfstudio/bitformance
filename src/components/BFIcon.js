@@ -14,6 +14,8 @@ import {
 	faDiscord,
 } from '@fortawesome/free-brands-svg-icons'
 
+const secondaryColor = '#40C8B8'
+
 export default function BFIcon({ iconName, color, size }) {
 
 
