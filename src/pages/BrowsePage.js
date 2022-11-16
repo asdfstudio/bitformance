@@ -56,10 +56,10 @@ export default function BrowsePage() {
 
 	return (
 		<div className="p-4">
-			<table className="table-fixed w-full border-separate border rounded-md">
+			<table className="table-auto w-full border-separate border rounded-md">
 				<thead>
 					<tr>
-						{sortables.map(label => (<th key={label}>
+						{sortables.map(label => (<th className="" key={label}>
 							<button 
 								className="px-4 py-2 whitespace-pre text-sm"
 								onClick={() => sortBy(label)} 

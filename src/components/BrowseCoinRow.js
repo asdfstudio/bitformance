@@ -48,7 +48,7 @@ export default function BrowseCoinRow({
 		</td>
 		<td className="text-sm pl-5">{marketCap}</td>
 		<td>date time tag, weighting balancing</td>
-		<td>Actions</td>
+		<td className="text-right">Actions</td>
 
 	</>)
 }	
