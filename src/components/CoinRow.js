@@ -30,13 +30,13 @@ export default function CoinRow({
 
 	return (
 		<>
-			<td className="flex flex-row items-center gap-2">
+			<td className="flex flex-row items-center ml-4 gap-2">
 				<img className="w-6 h-6" src={image} alt={name} />
 				<p>{name}</p>
 			</td>
 
-			<td className="text-sm text-gray-400">{ticker}</td>
-			<td className="text-sm">${price}</td>
+			<td className="text-gray-400">{ticker}</td>
+			<td>${price}</td>
 			<td>
 				{hourlyPercentageChange > 0 
 					? <UpTag change={hourlyPercentageChange} />
@@ -49,7 +49,7 @@ export default function CoinRow({
 					: <DownTag change={weeklyPercentageChange} />
 				}
 			</td>
-			<td className="text-sm pl-5">{marketCap}</td>
+			<td className="pl-5">{marketCap}</td>
 		</>
 	)
 }

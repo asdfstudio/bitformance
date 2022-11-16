@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import BrowseCoinRow from '../components/BrowseCoinRow'
 import exampleIcon from '../exampleIcon.png'
+import BFTable from '../components/small/BFTable'
 
 export default function BrowsePage() {
 
@@ -55,26 +55,8 @@ export default function BrowsePage() {
 
 
 	return (
-		<div className="p-4">
-			<table className="table-auto w-full border-separate border rounded-md">
-				<thead>
-					<tr>
-						{sortables.map(label => (<th className="" key={label}>
-							<button 
-								className="px-4 py-2 whitespace-pre text-sm"
-								onClick={() => sortBy(label)} 
-							>
-								{label} {sortOrder === 'ASC' ? '^' : 'v'}
-							</button></th>
-						))}
-					</tr>
-				</thead>
-				<tbody>
-					{data.map(coin => (
-						<tr key={coin.id}><BrowseCoinRow {...coin} /></tr>
-					))}
-				</tbody>
-			</table>
+		<div className="p-4 bg-gray-50">
+			<BFTable headers={sortables} rows={data} type="browse-cryptos" tableStyle="border-separate border-spacing-y-5" />
 		</div>
 	)
 }

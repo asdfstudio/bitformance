@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import CoinRow from './CoinRow'
+import BFTable from './small/BFTable'
 import exampleIcon from '../exampleIcon.png'
 
 export default function TopMarketCapCryptos() {
@@ -48,25 +48,7 @@ export default function TopMarketCapCryptos() {
 	return(
 		<div className="bg-white min-w-full overflow-y-auto p-4 space-y-4 rounded shadow">
 			<h1>Top Cryptocurrencies by Market Cap</h1>
-			<table className="table-fixed border-collapse">
-				<thead className="bg-gray-100 text-sm">
-					<tr>
-						{sortables.map(label => (<th key={label}>
-							<button 
-								className="px-4 py-2 whitespace-pre"
-								onClick={() => sortBy(label)} 
-							>
-								{label} {sortOrder === 'ASC' ? '^' : 'v'}
-							</button></th>
-						))}
-					</tr>
-				</thead>
-				<tbody>
-					{data.map(coin => (
-						<tr key={coin.id}><CoinRow {...coin} /></tr>
-					))}
-				</tbody>
-			</table>
+			<BFTable headers={sortables} rows={data} type="top-cryptos" />
 		</div>
 	)
 }
