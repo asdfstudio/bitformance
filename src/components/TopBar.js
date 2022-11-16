@@ -15,20 +15,25 @@ export default function TopBar({ isLoggedIn, setShowModalType }) {
 				setPathArray(['Home'])
 				return
 			}
-			const path = location.pathname.split('/')
+			const path = location.pathname.split('/').slice(1)
+
 			setPathArray(path)
 		}
 	}, [location])
 
+	function capitalizeFirstLetter(string) {
+	  return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+
 	//TODO: switch state based on login
 	return(
 		<div className="flex flex-row items-center w-full bg-white shadow p-2">
-			<div className="ml-2">
+			<div className="ml-2 flex flex-row gap-2 items-center text-sm text-gray-500">
 				{pathArray.map((crumb, index) => {
-					if (pathArray.length === 1 || pathArray.length === index) {
-						return <Link key={crumb}>{crumb || 'Home'}</Link>
+					if (pathArray.length === 1 || pathArray.length - 1 === index) {
+						return <Link key={crumb}>{capitalizeFirstLetter(crumb) || 'Home'}</Link>
 					} else {
-						return (<><Link key={crumb}>{crumb || 'Home'}</Link> <FontAwesomeIcon icon={faArrowRight} /></>)
+						return (<><Link key={crumb}>{capitalizeFirstLetter(crumb) || 'Home'}</Link> <FontAwesomeIcon icon={faArrowRight} /></>)
 					}
 				})}
 			</div>

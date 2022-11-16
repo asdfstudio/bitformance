@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 //Pages
 import HomePage from './pages/HomePage'
+import BrowsePage from './pages/BrowsePage'
 //layout components
 import SidePanel from './components/SidePanel'
 import TopBar from './components/TopBar'
@@ -37,7 +38,12 @@ function App() {
             <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
               <HomePage />
             </MainLayout>
-          } />
+          }/>
+          <Route exact path="/indexes/browse" element={
+            <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
+              <BrowsePage />
+            </MainLayout>
+          }/>
 
         </Routes>
       </Router>

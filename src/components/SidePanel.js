@@ -23,7 +23,7 @@ export default function SidePanel({ setShowModalType }) {
 				</div>
 				{indexesExpanded && <>
 					<div className="ml-2 cursor-pointer">
-						<Link to="/browse">
+						<Link to="/indexes/browse">
 							<BFIcon iconName="browse" color="white" />
 							<span className="ml-2">Browse</span>
 						</Link>
