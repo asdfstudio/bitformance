@@ -12,6 +12,8 @@ export default function BFTable({ headers, rows, type, tableStyle = '' }) {
 		</th>
 	)
 
+	const showHoldings = false
+
 	return(
 		<div class="overflow-x-auto relative sm:rounded-lg">
 		    <table className={`w-full text-sm text-left ${tableStyle}`}>
@@ -25,7 +27,16 @@ export default function BFTable({ headers, rows, type, tableStyle = '' }) {
 		        <tbody>
 		        		{rows.map(coin => {
 		        			return type === 'top-cryptos' ? (<tr className="p-4 bg-white dark:bg-gray-800 dark:border-gray-700"><CoinRow key={coin.id} {...coin} /></tr>)
-		        				: type === 'browse-cryptos' ? (<tr className="shadow bg-white dark:bg-gray-800 dark:border-gray-700"><BrowseCoinRow key={coin.id} {...coin} /></tr>)
+		        				: type === 'browse-cryptos' ? (<>
+		        					<tr className="shadow bg-white dark:bg-gray-800 dark:border-gray-700">
+		        						<BrowseCoinRow key={coin.id} {...coin} />
+		        					</tr>
+		        					{showHoldings &&
+		        					<tr>
+		        						holdingsTable	
+		        					</tr>
+		        					}
+		        				</>)
 		        				: (<tr>no valid type</tr>)
 		        		})}
 		        </tbody>
