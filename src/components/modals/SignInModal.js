@@ -14,7 +14,7 @@ export default function SignInModal({ setShowModalType }) {
 			
 		    <div className="grid grid-cols-1 sm:grid-cols-5">
 		    	<div className="col-span-2 bg-blue-900 text-white flex flex-col p-4 space-y-15">
-		    		<BitformanceLeftPanel setShowModalType={setShowModalType} showInfo={viewShown === 'sign-in'}  />
+		    		<BitformanceLeftPanel setShowModalType={setShowModalType} showInfo={viewShown}  />
 		    	</div>
 
 		    	<div className="col-span-3 p-4 space-y-4">

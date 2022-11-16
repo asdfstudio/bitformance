@@ -1,6 +1,7 @@
 import ReCAPTCHA from "react-google-recaptcha"
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import CloseModal from '../small/CloseModal'
 
 export default function SignInForm({ setShowModalType, viewShown, setViewShown }) {
 
@@ -32,21 +33,11 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 		>
 			back
 		</button>
- 		<button 
- 			onClick={() => setShowModalType('')} 
- 			className="absolute top-0 right-4 rounded-full px-1 bg-gray-100"
- 		>
- 			x
- 		</button>
+ 		<CloseModal setShowModalType={setShowModalType} topStyle="top-0" />
 	</>)
 
 	const SignIn = () => (<>
-		<button 
-			onClick={() => setShowModalType('')} 
-			className="absolute top-2 right-4 rounded-full px-1 bg-gray-100"
-		>
-			x
-		</button>
+		<CloseModal setShowModalType={setShowModalType} />
 		<div>
 			<label className="font-bold">Username or Email Address</label>
 			<input className="w-full py-1 border rounded" type="text" />
