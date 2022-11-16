@@ -48,8 +48,8 @@ export default function TopMarketCapCryptos() {
 	return(
 		<div className="bg-white min-w-full overflow-y-auto p-4 space-y-4 rounded shadow">
 			<h1>Top Cryptocurrencies by Market Cap</h1>
-			<table className="table-fixed">
-				<thead className="bg-gray-200">
+			<table className="table-fixed border-collapse">
+				<thead className="bg-gray-100 text-sm">
 					<tr>
 						{sortables.map(label => (<th key={label}>
 							<button 
@@ -66,11 +66,7 @@ export default function TopMarketCapCryptos() {
 						<tr key={coin.id}><CoinRow {...coin} /></tr>
 					))}
 				</tbody>
-
 			</table>
-{/*			{data.map(coin => (
-				<CoinRow key={coin.id} {...coin} />
-			))}*/}
 		</div>
 	)
 }
