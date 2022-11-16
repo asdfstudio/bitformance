@@ -13,7 +13,7 @@ export default function SidePanel({ setShowModalType }) {
 			<div className="space-y-4">
 				<img src={BitLogoWhite} alt="bitformance logo" />
 
-				<Link className="flex flex-row items-center gap-2 cursor-pointer">
+				<Link to="/" className="flex flex-row items-center gap-2 cursor-pointer">
 					<BFIcon iconName="home" color={secondaryColor} />
 					<span>Home</span>
 				</Link>
@@ -23,8 +23,10 @@ export default function SidePanel({ setShowModalType }) {
 				</div>
 				{indexesExpanded && <>
 					<div className="ml-2 cursor-pointer">
-						<BFIcon iconName="browse" color="white" />
-						<span className="ml-2">Browse</span>
+						<Link to="/browse">
+							<BFIcon iconName="browse" color="white" />
+							<span className="ml-2">Browse</span>
+						</Link>
 					</div>
 					<div className="ml-2 flex flex-row gap-2 items-center cursor-pointer">
 						<BFIcon iconName="my-indexes" color="white" />
