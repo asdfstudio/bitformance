@@ -39,20 +39,20 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 	const SignIn = () => (<>
 		<CloseModal setShowModalType={setShowModalType} />
 		<div>
-			<label className="font-bold">Username or Email Address</label>
+			<label className="font-bold text-sm">Username or Email Address</label>
 			<input className="w-full py-1 border rounded" type="text" />
 		</div>
 
 		<div>
-			<label className="font-bold">Password</label>
+			<label className="font-bold text-sm">Password</label>
 			<input className="w-full py-1 border rounded" type="password" />
 		</div>
 
 		<div className="flex flex-row gap-2">
 			<input type="checkbox" />
-			<label>Remember</label>
+			<label className="text-sm">Remember</label>
 
-			<button onClick={() => setViewShown('forgot-password')} className="ml-auto underline text-blue-500">Forgot Password?</button>
+			<button onClick={() => setViewShown('forgot-password')} className="ml-auto underline text-blue-500 text-sm">Forgot Password?</button>
 		</div>
 
 		<ReCAPTCHA

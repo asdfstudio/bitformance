@@ -1,5 +1,6 @@
 import BitformanceLeftPanel from '../small/BitformanceLeftPanel'
 import CloseModal from '../small/CloseModal'
+import SignUpForm from '../small/SignUpForm'
 
 export default function SignUpModal({ setShowModalType }) {
 	return (
@@ -14,6 +15,7 @@ export default function SignUpModal({ setShowModalType }) {
 
 		    	<div className="col-span-3 p-4 space-y-4">
 		    		<CloseModal setShowModalType={setShowModalType} />
+		    		<SignUpForm />
 		    	</div>
 		    </div>
 		  </div>
