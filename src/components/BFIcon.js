@@ -5,6 +5,8 @@ import {
 	faEnvelope, 
 	faBook,
 	faChartLine,
+	faHeart,
+	faListAlt,
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -25,6 +27,8 @@ export default function BFIcon({ iconName, color, size }) {
 		{ name: 'knowledge-base', icon: faBook },
 		{ name: 'contact-us', icon: faEnvelope },
 		{ name: 'indexes', icon: faChartLine },
+		{ name: 'my-indexes', icon: faListAlt },
+		{ name: 'favorite', icon: faHeart },
 		{ name: 'facebook', icon: faFacebook },
 		{ name: 'twitter', icon: faTwitter },
 		{ name: 'telegram', icon: faTelegram },

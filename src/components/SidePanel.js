@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import BitLogoWhite from '../bitLogoWhite.png'
 import BFIcon from './BFIcon'
@@ -5,33 +6,46 @@ const secondaryColor = '#40C8B8'
 
 export default function SidePanel({ setShowModalType }) {
 
-	const expandIndexesSection = () => {
-		//TODO:
-	}
+	const [indexesExpanded, setIndexesExpanded] = useState(false)
 
 	return (
 		<div className="flex flex-col text-white bg-blue-800 p-4 w-64 h-screen">
 			<div className="space-y-4">
 				<img src={BitLogoWhite} alt="bitformance logo" />
 
-				<Link className="flex flex-row items-center gap-2">
+				<Link className="flex flex-row items-center gap-2 cursor-pointer">
 					<BFIcon iconName="home" color={secondaryColor} />
 					<span>Home</span>
 				</Link>
-				<div className="flex flex-row items-center gap-2" onClick={() => expandIndexesSection()}>
+				<div className="flex flex-row items-center gap-2 cursor-pointer" onClick={() => setIndexesExpanded(!indexesExpanded)}>
 					<BFIcon iconName="indexes" color={secondaryColor} />
 					<span>Indexes</span>
 				</div>
-				<Link className="flex flex-row items-center gap-2">
+				{indexesExpanded && <>
+					<div className="ml-2 cursor-pointer">
+						<BFIcon iconName="browse" color="white" />
+						<span className="ml-2">Browse</span>
+					</div>
+					<div className="ml-2 flex flex-row gap-2 items-center cursor-pointer">
+						<BFIcon iconName="my-indexes" color="white" />
+						<span>My Indexes</span>
+						<span className="ml-auto w-6 h-6 rounded-full bg-blue-900 text-sm flex items-center justify-center">18</span>
+					</div>
+					<div className="ml-2 flex flex-row items-center gap-2 cursor-pointer">
+						<BFIcon iconName="favorite" color="white" />
+						<span>My Favorites</span>
+						<span className="ml-auto w-6 h-6 rounded-full bg-blue-900 text-sm flex items-center justify-center">2</span>
+					</div>
+				</>}
+				<Link className="flex flex-row items-center gap-2 cursor-pointer">
 					<BFIcon iconName="compare" color={secondaryColor} />
-
 					<span>Compare</span>
 				</Link>
 				<button onClick={() => setShowModalType('CONTACT_US')} className="flex flex-row items-center gap-2">
 					<BFIcon iconName="contact-us" color={secondaryColor} />
 					<span>Contact Us</span>
 				</button>
-				<Link className="flex flex-row items-center gap-2">
+				<Link className="flex flex-row items-center gap-2 cursor-pointer">
 					<BFIcon iconName="knowledge-base" color={secondaryColor} />
 					<span>Knowledge Base</span>
 				</Link>
@@ -42,7 +56,7 @@ export default function SidePanel({ setShowModalType }) {
 			</div>
 
 			<div className="mt-auto space-y-4">
-				<div className="flex flex-row justify-between	">
+				<div className="flex flex-row justify-between cursor-pointer">
 					<BFIcon iconName="facebook" size="lg" />
 					<BFIcon iconName="twitter" size="lg" />
 					<BFIcon iconName="telegram" size="lg" />
@@ -54,9 +68,9 @@ export default function SidePanel({ setShowModalType }) {
 
 				<p className="text-gray-300 text-xs">© 2022 Bitformance Ltd. Trademarks and brands are the property of their respective owners</p>
 				<p className="text-sm">
-					<Link>Privacy Policy</Link>
+					<Link className="hover:text-gray-200">Privacy Policy</Link>
 					<span>	•  </span>
-					<Link>Terms of Services</Link>
+					<Link className="hover:text-gray-200">Terms of Services</Link>
 				</p>
 			</div>
 
