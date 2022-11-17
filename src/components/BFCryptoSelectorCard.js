@@ -15,7 +15,7 @@ export default function BFCryptoSelectorCard({ selectedCrypto, selectCrypto, id 
 
 	const CryptoView = () => (
 		<div>
-			{JSON.stringify(selectedCrypto)}
+			display data
 		</div>
 	)
 
