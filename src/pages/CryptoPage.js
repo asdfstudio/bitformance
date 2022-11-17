@@ -13,7 +13,7 @@ export default function CryptoPage() {
 	const coin = COINS.find(coin => coin.id == params.id)
 
 	const PanelOne = ({ id, name }) => (
-		<div className="col-span-3 p-6 space-y-4 border shadow">
+		<div className="col-span-3 p-6 space-y-4 border h-fit bg-white">
 			<div className="flex flex-row items-center gap-2">
 				<img className="shadow-md w-16 h-16 rounded-full bg-white p-1" src={exampleIcon} alt="crypto" />
 				<h2 className="text-xl">{name}</h2>
@@ -37,10 +37,10 @@ export default function CryptoPage() {
 
 
 	return (
-		<div className="grid grid-cols-10">
+		<div className="grid grid-cols-10 bg-gray-50">
 			<PanelOne {...coin} />
 
-			<div className="col-span-7 bg-gray-50 p-4 space-y-4">
+			<div className="col-span-7 p-4 space-y-4">
 
 				<div className="p-4 bg-white rounded-md border space-y-4">
 					<h2 className="font-bold text-xl">Overview</h2>
@@ -91,7 +91,7 @@ export default function CryptoPage() {
 
 				<div className="bg-white rounded-md border p-4 flex flex-row justify-between items-center">
 					<h2 className="text-xl font-bold">Holdings <span className="bg-gray-100 rounded py-1 px-2 text-sm font-normal">5</span></h2>
-					
+
 
 				</div>
 
