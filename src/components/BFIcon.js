@@ -9,9 +9,14 @@ import {
 	faListAlt,
 	faArrowRight, 
 	faArrowLeft,
-	faCircle,
 	faCircleCheck,
+	faSearch,
+	faScaleBalanced
 } from '@fortawesome/free-solid-svg-icons'
+
+import {
+	faCircle
+} from '@fortawesome/free-regular-svg-icons'
 
 import {
 	faFacebook,
@@ -41,6 +46,8 @@ export default function BFIcon({ iconName, color, size }) {
 		{ name: 'down-left-arrow', icon: faArrowLeft },
 		{ name: 'open-circle', icon: faCircle },
 		{ name: 'checked-circle', icon: faCircleCheck },
+		{ name: 'search', icon: faSearch },
+		{ name: 'scale', icon: faScaleBalanced }
 	]
 
 	const icon = icons.find(icon => icon.name === iconName) || { icon: faHouse }
