@@ -39,7 +39,7 @@ export default function SidePanel({ setShowModalType }) {
 						<span className="ml-auto w-6 h-6 rounded-full bg-blue-900 text-sm flex items-center justify-center">2</span>
 					</div>
 				</>}
-				<Link className="flex flex-row items-center gap-2 cursor-pointer">
+				<Link to="/compare" className="flex flex-row items-center gap-2 cursor-pointer">
 					<BFIcon iconName="compare" color={secondaryColor} />
 					<span>Compare</span>
 				</Link>

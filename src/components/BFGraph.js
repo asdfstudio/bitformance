@@ -1,4 +1,11 @@
-import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { 
+	CartesianGrid, 
+	XAxis, 
+	YAxis, 
+	Area, 
+	AreaChart,
+	Tooltip,
+} from 'recharts';
 
 import moment from 'moment'
 import { useState } from 'react'
@@ -15,8 +22,10 @@ export default function BFGraph() {
 		const array = []
 		while (start < end) {
 			array.push({
-				date: moment(start).format(),
-				price: Math.floor((Math.random() * 100))
+				name: moment(start).format().slice(0, 10),
+				uv: Math.floor((Math.random() * 100)),
+				pv: Math.floor((Math.random() * 100)),
+				amt: Math.floor((Math.random() * 100)),
 			})
 			const newDate = start.setDate(start.getDate() + 1)
 			start = new Date(newDate)
@@ -25,10 +34,7 @@ export default function BFGraph() {
 	}
 
 	//TODO: replace with real data
-	const data = [
-		{name: '11/20', uv: 400, pv: 2400, amt: 2400},
-		{name: '11/21', uv: 500, pv: 2400, amt: 2400},
-	];
+	const data = createData()
 
 	const [plotInterval, setPlotInterval] = useState('7D')
 	const intervals = {
@@ -63,58 +69,23 @@ export default function BFGraph() {
 	  }
 	}
 
-	// const options = {
-	//   scales: {
-	//     xAxes: {
-	//       grid: {
-	//         display: false,
-	//       },
-	//       ticks: {
-	//         callback: (value, index) => {
-
-	//           if (index === 0 || index === (graphDates.length - 1)) {
-	//             if (plotInterval === "3Y") {
-	//               return moment.unix(value).format("MM/DD/YY")
-	//             }
-	//             return moment.unix(value).format("MMM Do")
-	//           } 
-	//           return formatDate(value, plotInterval)
-	           
-	         
-	//         },
-	//       },
-	//     },
-	//     yAxes: {
-	//       ticks: {
-	//         callback: (value, index, values) => {
-	//           return ("$" + value.toLocaleString('en-US'))
-	//         }
-	//       }
-	//     }
-	//   },
-	//   plugins: {
-	//     legend: {
-	//       display: false,
-	//     },
-	//   },
-	//   elements: {
-	//     point: {
-	//       radius: 2
-	//     },
-	//     line: {
-	//       borderColor: '#0953F5',
-	//       borderWidth: 2,
-	//       borderJoinStyle: "round" //miter, round, bevel
-	//     }
-	//   }
-	// };
-
 	return(
-		<LineChart width={width - 286} height={400} data={data} margin={{ top: 0, right: 0, bottom: 0, left: -20 }}>
-		  <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+		<AreaChart width={width - 286} height={400} data={data} margin={{ top: 0, right: 0, bottom: 0, left: -20 }}>
+		 	<defs>
+        <linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
+          <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
+        </linearGradient>
+        <linearGradient id="colorGreen" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
+          <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
+        </linearGradient>
+      </defs>
 		  <CartesianGrid stroke="#ccc" />
+		  <Tooltip />
+		  <Area type="monotone" dataKey="uv" strokeWidth={1} stroke="#82ca9d" fillOpacity={1} fill="url(#colorGreen)" />
 		  <XAxis dataKey="name" />
 		  <YAxis />
-		</LineChart>
+		</AreaChart>
 	)
 }

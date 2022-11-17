@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 //Pages
 import HomePage from './pages/HomePage'
 import BrowsePage from './pages/BrowsePage'
+import ComparePage from './pages/ComparePage'
 //layout components
 import SidePanel from './components/SidePanel'
 import TopBar from './components/TopBar'
@@ -42,6 +43,11 @@ function App() {
           <Route exact path="/indexes/browse" element={
             <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
               <BrowsePage />
+            </MainLayout>
+          }/>
+          <Route exact path="/compare" element={
+            <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
+              <ComparePage />
             </MainLayout>
           }/>
 
