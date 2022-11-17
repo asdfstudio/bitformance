@@ -1,7 +1,7 @@
 import CoinRow from '../CoinRow'
 import BrowseCoinRow from '../BrowseCoinRow'
 
-export default function BFTable({ headers, rows, type, tableStyle = '' }) {
+export default function BFTable({ headers, rows, type, tableStyle = '', onRowClicked = function () {} }) {
 
 	const HeaderColumn = ({ label, sortable }) => (
 		<th scope="col" class="py-3 px-6">
@@ -26,18 +26,14 @@ export default function BFTable({ headers, rows, type, tableStyle = '' }) {
 		        </thead>
 		        <tbody>
 		        		{rows.map(coin => {
-		        			return type === 'top-cryptos' ? (<tr className="p-4 bg-white dark:bg-gray-800 dark:border-gray-700"><CoinRow key={coin.id} {...coin} /></tr>)
-		        				: type === 'browse-cryptos' ? (<>
-		        					<tr className="shadow bg-white dark:bg-gray-800 dark:border-gray-700">
+		        			return type === 'top-cryptos' ? (<tr key={coin.id} className="p-4 bg-white dark:bg-gray-800 dark:border-gray-700"><CoinRow key={coin.id} {...coin} /></tr>)
+		        				: type === 'browse-cryptos' ? (
+		        					<tr key={coin.id} onClick={() => onRowClicked(coin)} className="shadow bg-white dark:bg-gray-800 dark:border-gray-700">
 		        						<BrowseCoinRow key={coin.id} {...coin} />
+		        						{showHoldings && <p>+holdings</p>}
 		        					</tr>
-		        					{showHoldings &&
-		        					<tr>
-		        						holdingsTable	
-		        					</tr>
-		        					}
-		        				</>)
-		        				: (<tr>no valid type</tr>)
+		        				)
+		        				: (<tr key={coin.id}>no valid type</tr>)
 		        		})}
 		        </tbody>
 		    </table>

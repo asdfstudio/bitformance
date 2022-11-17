@@ -1,7 +1,7 @@
 import BFGraph from './BFGraph'
 import { useState } from 'react'
 
-export default function TopFiveCryptos() {
+export default function GraphCard({ title, subtractWidth = 0, holdings }) {
 
 	const [graphColor, setGraphColor] = useState('Solid Colored')
 	const [graphInterval, setGraphInterval] = useState('7D')
@@ -11,8 +11,8 @@ export default function TopFiveCryptos() {
 
 
 	return(
-		<div className="bg-white p-4 mt-4">
-			<h1 className="text-xl mb-4">Top 5 Currency Indexes</h1>
+		<div className="bg-white p-4">
+			<h1 className="text-lg mb-4 font-bold">{title}</h1>
 			<div className="flex flex-row mb-6">
 				<div className="border rounded-xl">
 					{colorOptions.map(option => (
@@ -31,13 +31,8 @@ export default function TopFiveCryptos() {
 				</div>
 			</div>
 
-			<BFGraph />
-
-			<hr />
-
-			<div>
-				holdings TODO
-			</div>
+			<BFGraph subtractWidth={subtractWidth} />
+	
 		</div>
 	)
 }

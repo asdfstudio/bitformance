@@ -1,5 +1,5 @@
 import RecentlyAdded from '../components/RecentlyAdded'
-import TopFive from '../components/TopFiveCryptos'
+import GraphCard from '../components/GraphCard'
 import TopMarketCap from '../components/TopMarketCapCryptos'
 
 export default function HomePage() {
@@ -10,7 +10,7 @@ export default function HomePage() {
 				<RecentlyAdded />
 				<RecentlyAdded />
 			</div>
-			<TopFive />
+			<GraphCard title="Top 5 Currency Indexes" />
 			<div className="grid grid-cols-3 xl:grid-cols-4">
 				<div className="bg-white col-span-3">
 					<TopMarketCap />

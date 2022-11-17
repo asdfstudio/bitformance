@@ -11,7 +11,7 @@ import moment from 'moment'
 import { useState } from 'react'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-export default function BFGraph() {
+export default function BFGraph({ subtractWidth = 0 }) {
 
 	const { width } = useWindowDimensions();
 
@@ -70,7 +70,7 @@ export default function BFGraph() {
 	}
 
 	return(
-		<AreaChart width={width - 286} height={400} data={data} margin={{ top: 0, right: 0, bottom: 0, left: -20 }}>
+		<AreaChart width={width - 286 - subtractWidth} height={400} data={data} margin={{ top: 0, right: 0, bottom: 0, left: -20 }}>
 		 	<defs>
         <linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
           <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>

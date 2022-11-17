@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import BitLogoWhite from '../bitLogoWhite.png'
 import BFIcon from './BFIcon'
+import SocialIconsRow from './small/SocialIconsRow'
+
 const secondaryColor = '#40C8B8'
 
 export default function SidePanel({ setShowModalType }) {
@@ -59,12 +61,8 @@ export default function SidePanel({ setShowModalType }) {
 
 			<div className="mt-auto space-y-4">
 				<div className="flex flex-row justify-between cursor-pointer">
-					<BFIcon iconName="facebook" size="lg" />
-					<BFIcon iconName="twitter" size="lg" />
-					<BFIcon iconName="telegram" size="lg" />
-					<BFIcon iconName="discord" size="lg" />
+					<SocialIconsRow showCopyLink={false} />
 				</div>
-
 				<div className="border-b border-gray-300 opacity-10" />
 	
 

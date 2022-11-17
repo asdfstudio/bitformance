@@ -30,10 +30,15 @@ export default function TopBar({ isLoggedIn, setShowModalType }) {
 		<div className="flex flex-row items-center w-full bg-white shadow p-2">
 			<div className="ml-2 flex flex-row gap-2 items-center text-sm text-gray-500">
 				{pathArray.map((crumb, index) => {
+					let to = `/${pathArray.slice(0, index + 1).join('/')}`
+					if (to === '/indexes') {
+						to = '/'
+					}
+
 					if (pathArray.length === 1 || pathArray.length - 1 === index) {
-						return <Link key={crumb}>{capitalizeFirstLetter(crumb) || 'Home'}</Link>
+						return <Link to={to} key={crumb}>{capitalizeFirstLetter(crumb) || 'Home'}</Link>
 					} else {
-						return (<><Link key={crumb}>{capitalizeFirstLetter(crumb) || 'Home'}</Link> <FontAwesomeIcon icon={faArrowRight} /></>)
+						return (<Link to={to} key={crumb}>{capitalizeFirstLetter(crumb) || 'Home'} &nbsp;<FontAwesomeIcon icon={faArrowRight} /></Link>)
 					}
 				})}
 			</div>

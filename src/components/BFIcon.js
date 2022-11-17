@@ -11,11 +11,13 @@ import {
 	faArrowLeft,
 	faCircleCheck,
 	faSearch,
-	faScaleBalanced
+	faScaleBalanced,
+	faLink,
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
-	faCircle
+	faCircle,
+	faHeart as faHeartOpen,
 } from '@fortawesome/free-regular-svg-icons'
 
 import {
@@ -38,6 +40,7 @@ export default function BFIcon({ iconName, color, size }) {
 		{ name: 'indexes', icon: faChartLine },
 		{ name: 'my-indexes', icon: faListAlt },
 		{ name: 'favorite', icon: faHeart },
+		{ name: 'open-favorite', icon: faHeartOpen },
 		{ name: 'facebook', icon: faFacebook },
 		{ name: 'twitter', icon: faTwitter },
 		{ name: 'telegram', icon: faTelegram },
@@ -47,7 +50,8 @@ export default function BFIcon({ iconName, color, size }) {
 		{ name: 'open-circle', icon: faCircle },
 		{ name: 'checked-circle', icon: faCircleCheck },
 		{ name: 'search', icon: faSearch },
-		{ name: 'scale', icon: faScaleBalanced }
+		{ name: 'scale', icon: faScaleBalanced },
+		{ name: 'share-link', icon: faLink }
 	]
 
 	const icon = icons.find(icon => icon.name === iconName) || { icon: faHouse }

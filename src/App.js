@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import HomePage from './pages/HomePage'
 import BrowsePage from './pages/BrowsePage'
 import ComparePage from './pages/ComparePage'
+import CryptoPage from './pages/CryptoPage'
 //layout components
 import SidePanel from './components/SidePanel'
 import TopBar from './components/TopBar'
@@ -48,6 +49,11 @@ function App() {
           <Route exact path="/compare" element={
             <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
               <ComparePage />
+            </MainLayout>
+          }/>
+          <Route exact path="/indexes/browse/:id" element={
+            <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
+              <CryptoPage />
             </MainLayout>
           }/>
 
