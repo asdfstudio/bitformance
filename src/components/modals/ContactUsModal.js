@@ -1,16 +1,26 @@
 import BFIcon from '../BFIcon'
+import ReCAPTCHA from "react-google-recaptcha"
+import CloseModal from '../small/CloseModal'
 
 export default function ContactUsModal({ setShowModalType }) {
 
 	const sendContactForm = () => {
-		//TODO: 
+		//TODO: send form
 		setShowModalType('')
 	}
+
+	const onRecaptchaChange = (value) => {
+		console.log('captch value: ', value)
+		// setCompletedRecaptcha(true)
+	}
+
+
 
 	return(
 		<div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
 		  <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
 		    <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 bg-gray-50">
+		    	<CloseModal setShowModalType={setShowModalType} />
 		      <div className="sm:flex items-center">
 		        <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-10 sm:w-10">
 		          <BFIcon color="#40C8B8" iconName="contact-us" size="2xl" />
@@ -21,13 +31,39 @@ export default function ContactUsModal({ setShowModalType }) {
 		      </div>
 		    </div>
 
-		    <div className="px-4">
-		    	TODO:form for contact
-		    </div>
+		    <div className="p-4 space-y-4">
+		    	<div>
+		    		<label className="font-bold text-sm">Username</label>
+		    		<input className="w-full p-2 border rounded" type="text" placeholder="e. g. johndoe" />
+		    	</div>
+		    	<div>
+		    		<label className="font-bold text-sm">Subject</label>
+		    		<input className="w-full p-2 border rounded" type="text" placeholder="e. g. Need Support" />
+		    	</div>
+		    	<div>
+		    		<label className="font-bold text-sm">Email Address</label>
+		    		<input className="w-full p-2 border rounded" type="text" placeholder="e. g. yourname@gmail.com" />
+		    	</div>
+		    	<div>
+		    		icon: Please enter a valid email address. We will reply to your inquiries to this email.
+		    	</div>
+		    	<div>
+		    		<label className="font-bold text-sm">Description</label>
+		    		<br />
+		    		<textarea className='w-full border h-32'></textarea>
+		    	</div>
 
-		    <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-		      <button onClick={() => sendContactForm()} type="button" className="inline-flex w-full justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm">Submit</button>
-		      <button onClick={() => setShowModalType('')} type="button" className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
+		    	<ReCAPTCHA
+		    	  sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
+		    	  onChange={onRecaptchaChange}
+		    	/>
+
+		    	<hr />
+		    	<div className="mt-auto flex flex-row gap-2">
+		    		<button className="w-full text-sm rounded bg-blue-50 hover:bg-blue-200 font-bold text-blue-500 py-2" onClick={() => setShowModalType('')}>Cancel</button>
+		    		<button className="font-bold w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2" onClick={() => sendContactForm()}>Submit</button>
+		    	</div>
+
 		    </div>
 		  </div>
 		</div>
