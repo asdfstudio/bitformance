@@ -1,7 +1,9 @@
 import BFGraph from './BFGraph'
 import { useState } from 'react'
 
-export default function GraphCard({ title, subtractWidth = 0, holdings }) {
+export default function GraphCard({ title, subtractWidth = 0, holdings, hook = function () { return { data: {}, isLoading: false, isError: false }} }) {
+
+	const { data, isLoading, isError } = hook()
 
 	const [graphColor, setGraphColor] = useState('Solid Colored')
 	const [graphInterval, setGraphInterval] = useState('7D')
@@ -9,6 +11,13 @@ export default function GraphCard({ title, subtractWidth = 0, holdings }) {
 	const colorOptions = ['Price Colored', 'Solid Colored']
 	const dateOptions = ['24H', '7D', '1M', '3M', '6M', '1Y', '3Y']
 
+	if (isLoading) return 'Loading...'
+	if (isError) {
+		console.log(isError)
+		return 'Error...'
+	}
+
+	console.log(data)
 
 	return(
 		<div className="bg-white p-4">

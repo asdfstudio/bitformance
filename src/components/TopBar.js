@@ -2,11 +2,13 @@ import { Link, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import BFSearchBar from './small/BFSearchBar'
 
 export default function TopBar({ isLoggedIn, setShowModalType }) {
 
 	let location = useLocation()
 	const [pathArray, setPathArray] = useState([])
+	const [searchText, setSearchText] = useState('')
 
 	useEffect(() => {
 		console.log(location)
@@ -44,7 +46,7 @@ export default function TopBar({ isLoggedIn, setShowModalType }) {
 				})}
 			</div>
 			<div className="ml-auto flex flex-row items-center gap-4">
-				<p>Search bar</p>
+				<BFSearchBar onChange={setSearchText} placeholder="Search Index..." />
 				<button onClick={() => setShowModalType('SIGN_IN')} className="text-sm rounded bg-red-100 font-bold text-red-700 w-32 py-2">Sign In</button>
 				<button onClick={() => setShowModalType('SIGN_UP')} className="text-sm rounded bg-blue-500 font-bold text-white w-32 py-2">Sign Up</button>
 			</div>
