@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import BFSearchBar from './small/BFSearchBar'
+import BFIcon from './BFIcon'
 
 export default function TopBar({ isLoggedIn, setShowModalType }) {
 
@@ -12,6 +13,7 @@ export default function TopBar({ isLoggedIn, setShowModalType }) {
 	const [username, setUsername] = useState('')
 	const [firstName, setFirstName] = useState('')
 	const [lastName, setLastName] = useState('')
+	const [picture, setPicture] = useState('')
 
 	useEffect(() => {
 		if (location && location.pathname) {
@@ -29,11 +31,12 @@ export default function TopBar({ isLoggedIn, setShowModalType }) {
 		const username = localStorage.getItem('username')
 		const firstName = localStorage.getItem('firstName')
 		const lastName = localStorage.getItem('lastName')
-
+		const picture = localStorage.getItem('picture')
 		if (username) {
 			setUsername(username)
 			setFirstName(firstName)
 			setLastName(lastName)
+			setPicture(picture)
 		}
 	}, [setShowModalType])
 
@@ -60,8 +63,14 @@ export default function TopBar({ isLoggedIn, setShowModalType }) {
 				})}
 			</div>
 			{username &&
-				<div>
-					hi
+				<div className="ml-auto flex flex-row items-center gap-2">
+					<div>
+						<p className="text-sm">{firstName} {lastName}</p>
+						<p className="text-xs text-gray-400 text-right">@{username}</p>
+					</div>
+					<div className="rounded-full bg-white shadow p-1">
+						{picture ? <img src={picture} /> : <div className="w-6 h-6 flex justify-center items-center rounded-full bg-gray-100 p-2"><BFIcon iconName="no-picture" size="xs" /></div>}
+					</div>
 				</div>
 			}
 			{!username && 

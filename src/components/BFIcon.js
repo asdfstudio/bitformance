@@ -14,6 +14,7 @@ import {
 	faScaleBalanced,
 	faLink,
 	faImage,
+	faUser,
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -54,6 +55,7 @@ export default function BFIcon({ iconName, color, size }) {
 		{ name: 'scale', icon: faScaleBalanced },
 		{ name: 'share-link', icon: faLink },
 		{ name: 'placeholder-image', icon: faImage },
+		{ name: 'no-picture', icon: faUser }
 	]
 
 	const icon = icons.find(icon => icon.name === iconName) || { icon: faHouse }
