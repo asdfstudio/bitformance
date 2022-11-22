@@ -13,6 +13,7 @@ import {
 	faSearch,
 	faScaleBalanced,
 	faLink,
+	faImage,
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -51,7 +52,8 @@ export default function BFIcon({ iconName, color, size }) {
 		{ name: 'checked-circle', icon: faCircleCheck },
 		{ name: 'search', icon: faSearch },
 		{ name: 'scale', icon: faScaleBalanced },
-		{ name: 'share-link', icon: faLink }
+		{ name: 'share-link', icon: faLink },
+		{ name: 'placeholder-image', icon: faImage },
 	]
 
 	const icon = icons.find(icon => icon.name === iconName) || { icon: faHouse }

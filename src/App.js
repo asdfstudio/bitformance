@@ -4,6 +4,8 @@ import HomePage from './pages/HomePage'
 import BrowsePage from './pages/BrowsePage'
 import ComparePage from './pages/ComparePage'
 import CryptoPage from './pages/CryptoPage'
+import CreateIndexPage from './pages/CreateIndexPage'
+
 //layout components
 import SidePanel from './components/SidePanel'
 import TopBar from './components/TopBar'
@@ -54,6 +56,11 @@ function App() {
           <Route exact path="/indexes/browse/:id" element={
             <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
               <CryptoPage />
+            </MainLayout>
+          }/>
+          <Route exact path="/indexes/create-index" element={
+            <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
+              <CreateIndexPage />
             </MainLayout>
           }/>
 

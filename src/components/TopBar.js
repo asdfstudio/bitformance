@@ -22,6 +22,7 @@ export default function TopBar({ isLoggedIn, setShowModalType }) {
 	}, [location])
 
 	function capitalizeFirstLetter(string) {
+		string = string.replace('-', ' ')
 	  return string.charAt(0).toUpperCase() + string.slice(1);
 	}
 

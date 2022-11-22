@@ -55,7 +55,7 @@ export default function SidePanel({ setShowModalType }) {
 				</Link>
 				<br />
 				<div className="rounded bg-blue-500 text-center px-4 py-2 w-full">
-					<Link className="">+ Create Index</Link>
+					<Link to="/indexes/create-index" className="">+ Create Index</Link>
 				</div>
 			</div>
 
