@@ -43,13 +43,12 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 			return
 		}
 
-		//TODO: save token
 		localStorage.setItem('accessToken', result['access-token'])
 		localStorage.setItem('userId', result.user.id)
 		localStorage.setItem('firstName', result.user.first_name)
 		localStorage.setItem('lastName', result.user.last_name)
 		localStorage.setItem('username', result.user.username)
-		// localStorage.setItem('picture', result.user.profile)
+		localStorage.setItem('picture', result.user.profile_pic)
 		setShowModalType('')
 	}
 

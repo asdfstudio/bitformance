@@ -22,7 +22,7 @@ const MainLayout = ({ showModalType, setShowModalType, children }) => {
       <div className="flex flex-row">
         <SidePanel setShowModalType={setShowModalType} />
         <div className="w-full h-screen overflow-y">
-          <TopBar setShowModalType={setShowModalType} />
+          <TopBar showModalType={showModalType} setShowModalType={setShowModalType} />
           {children}
         </div>
       </div>

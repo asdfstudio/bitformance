@@ -15,6 +15,8 @@ import {
 	faLink,
 	faImage,
 	faUser,
+	faSliders,
+	faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -55,13 +57,18 @@ export default function BFIcon({ iconName, color, size }) {
 		{ name: 'scale', icon: faScaleBalanced },
 		{ name: 'share-link', icon: faLink },
 		{ name: 'placeholder-image', icon: faImage },
-		{ name: 'no-picture', icon: faUser }
+		{ name: 'no-picture', icon: faUser },
+		{ name: 'settings', icon: faSliders },
+		{ name: 'logout', icon: faRightFromBracket },
 	]
 
 	const icon = icons.find(icon => icon.name === iconName) || { icon: faHouse }
 
 	if (icon.name === 'up-right-arrow' || icon.name === 'down-left-arrow') {
 		return <FontAwesomeIcon icon={icon.icon} size={size} transform={{ rotate: -45}} color={color} />
+	}
+	if (icon.name === 'settings') {
+		return <FontAwesomeIcon icon={icon.icon} size={size} transform={{ rotate: 90}} color={color} />
 	}
 
 	return(
