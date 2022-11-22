@@ -1,5 +1,6 @@
 import BFSearchBar from './small/BFSearchBar'
 import BFIcon from './BFIcon'
+
 export default function BFCryptoSelectorCard({ selectedCrypto, selectCrypto, id }) {
 	
 	//TODO: show cryptos list from DB 
