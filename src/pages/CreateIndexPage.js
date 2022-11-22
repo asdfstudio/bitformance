@@ -10,7 +10,7 @@ export default function CreateIndexPage() {
 	const navigate = useNavigate()
 
 	const [weightingMethod, setWeightingMethod] = useState('equal-weight')
-
+	const [rebalancePeriod, setRebalancePeriod] = useState('never')
 	const addCrypto = (text) => {
 		//TODO:
 	}
@@ -54,8 +54,14 @@ export default function CreateIndexPage() {
 
 						<div className="flex flex-col mt-1">
 							<label className="font-bold text-sm">Rebalance Period</label>
-							<select className="rounded border px-2 py-[5px]">
-								<option>Never</option>
+							<select onChange={(e) => setRebalancePeriod(e.target?.value)} value={rebalancePeriod} className="rounded border px-2 py-[5px]">
+								<option value="never">Never</option>
+								<option value="daily">Daily</option>
+								<option value="weekly">Weekly</option>
+								<option value="monthly">Monthly</option>
+								<option value="quarterly">Quarterly</option>
+								<option value="six-months">6 Months</option>
+								<option value="yearly">Yearly</option>
 							</select>
 						</div>
 					</div>
@@ -91,6 +97,12 @@ export default function CreateIndexPage() {
 							}
 						]} />
 					</div>
+					{weightingMethod === 'custom-weights' && <hr />}
+					{weightingMethod === 'custom-weights' && 
+						<div>
+							for selected coins allow weight entry
+						</div>
+					}
 				</div>
 
 				<div className="bg-white mt-4 rounded-md border space-y-4">
