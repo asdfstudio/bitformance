@@ -17,7 +17,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, hook = f
 		return 'Error...'
 	}
 
-	console.log(data)
+	// console.log(data)
 
 	return(
 		<div className="bg-white p-4">

@@ -9,9 +9,11 @@ export default function TopBar({ isLoggedIn, setShowModalType }) {
 	let location = useLocation()
 	const [pathArray, setPathArray] = useState([])
 	const [searchText, setSearchText] = useState('')
+	const [username, setUsername] = useState('')
+	const [firstName, setFirstName] = useState('')
+	const [lastName, setLastName] = useState('')
 
 	useEffect(() => {
-		console.log(location)
 		if (location && location.pathname) {
 			if (location.pathname === '/') {
 				setPathArray(['Home'])
@@ -22,6 +24,18 @@ export default function TopBar({ isLoggedIn, setShowModalType }) {
 			setPathArray(path)
 		}
 	}, [location])
+
+	useEffect(() => {
+		const username = localStorage.getItem('username')
+		const firstName = localStorage.getItem('firstName')
+		const lastName = localStorage.getItem('lastName')
+
+		if (username) {
+			setUsername(username)
+			setFirstName(firstName)
+			setLastName(lastName)
+		}
+	}, [setShowModalType])
 
 	function capitalizeFirstLetter(string) {
 		string = string.replace('-', ' ')
@@ -45,11 +59,18 @@ export default function TopBar({ isLoggedIn, setShowModalType }) {
 					}
 				})}
 			</div>
-			<div className="ml-auto flex flex-row items-center gap-4">
-				<BFSearchBar onChange={setSearchText} placeholder="Search Index..." />
-				<button onClick={() => setShowModalType('SIGN_IN')} className="text-sm rounded bg-red-100 font-bold text-red-700 w-32 py-2">Sign In</button>
-				<button onClick={() => setShowModalType('SIGN_UP')} className="text-sm rounded bg-blue-500 font-bold text-white w-32 py-2">Sign Up</button>
-			</div>
+			{username &&
+				<div>
+					hi
+				</div>
+			}
+			{!username && 
+				<div className="ml-auto flex flex-row items-center gap-4">
+					<BFSearchBar onChange={setSearchText} placeholder="Search Index..." />
+					<button onClick={() => setShowModalType('SIGN_IN')} className="text-sm rounded bg-red-100 font-bold text-red-700 w-32 py-2">Sign In</button>
+					<button onClick={() => setShowModalType('SIGN_UP')} className="text-sm rounded bg-blue-500 font-bold text-white w-32 py-2">Sign Up</button>
+				</div>
+			}
 		</div>
 	)
 }
