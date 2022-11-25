@@ -32,7 +32,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, hook = f
 				})
 			}
 			setFullGraphData(array)
-			setShownGraphData(array)
+			setShownGraphData(array.slice(-1095))
 			const hourly = []
 			const { dates: hourlyDates, prices: hourlyPrices} = data.index.fivemin_graph_data
 			console.log(hourlyPrices)
@@ -72,7 +72,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, hook = f
 	      setShownGraphData(fullGraphData.slice(-365))
 	      break;
 	    case "3Y":
-	      setShownGraphData(fullGraphData)
+	      setShownGraphData(fullGraphData.slice(-1095))
 	      break;
 	    default:
 	      setShownGraphData([])
