@@ -8,10 +8,10 @@ import {
 } from 'recharts';
 
 import moment from 'moment'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-export default function BFGraph({ subtractWidth = 0 }) {
+export default function BFGraph({ subtractWidth = 0, data = [] }) {
 
 	const { width } = useWindowDimensions();
 
@@ -32,9 +32,6 @@ export default function BFGraph({ subtractWidth = 0 }) {
 		}
 		return array
 	}
-
-	//TODO: replace with real data
-	const data = createData()
 
 	const [plotInterval, setPlotInterval] = useState('7D')
 	const intervals = {
@@ -69,8 +66,24 @@ export default function BFGraph({ subtractWidth = 0 }) {
 	  }
 	}
 
+	const formatter = new Intl.NumberFormat('en-US', {
+	  style: 'currency',
+	  currency: 'USD',
+	  // These options are needed to round to whole numbers if that's what you want.
+	  //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+	  maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+	});
+
+	const formatYAxis = (value) => {
+		return formatter.format(value)
+	}
+
+	const formatXAxis = (value) => {
+		return formatDate(value, '3Y')
+	}
+ 
 	return(
-		<AreaChart width={width - 286 - subtractWidth} height={400} data={data} margin={{ top: 0, right: 0, bottom: 0, left: -20 }}>
+		<AreaChart width={width - 286 - subtractWidth} height={400} data={data} margin={{ top: 0, right: 0, bottom: 0, left: 14 }}>
 		 	<defs>
         <linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
           <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
@@ -83,9 +96,9 @@ export default function BFGraph({ subtractWidth = 0 }) {
       </defs>
 		  <CartesianGrid stroke="#ccc" />
 		  <Tooltip />
-		  <Area type="monotone" dataKey="uv" strokeWidth={1} stroke="#82ca9d" fillOpacity={1} fill="url(#colorGreen)" />
-		  <XAxis dataKey="name" />
-		  <YAxis />
+		  <Area type="monotone" dataKey="amt" strokeWidth={1} stroke="#8884d8" fillOpacity={1} fill="url(#colorBlue)" />
+		  <XAxis dataKey="name" tickFormatter={formatXAxis} />
+		  <YAxis tickFormatter={formatYAxis} domain={['dataMin', 'auto']} />
 		</AreaChart>
 	)
 }

@@ -1,5 +1,5 @@
 import BFGraph from './BFGraph'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function GraphCard({ title, subtractWidth = 0, holdings, hook = function () { return { data: {}, isLoading: false, isError: false }} }) {
 
@@ -8,16 +8,69 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, hook = f
 	const [graphColor, setGraphColor] = useState('Solid Colored')
 	const [graphInterval, setGraphInterval] = useState('7D')
 
+	const [finalDates, setFinalDates] = useState([])
+	const [finalPrices, setFinalPrices] = useState([])
+
 	const colorOptions = ['Price Colored', 'Solid Colored']
 	const dateOptions = ['24H', '7D', '1M', '3M', '6M', '1Y', '3Y']
+
+	const [fullGraphData, setFullGraphData] = useState([])
+	const [shownGraphData, setShownGraphData] = useState([])
+
+	useEffect(() => {
+		console.log('loading')
+		if (data && data.index && fullGraphData.length === 0) {
+			const { dates, prices } = data.index.daily_graph_data
+			// switch (graphInterval)
+			const array = []
+			for (let i = 0; i < dates.length; i++) {
+				array.push({
+					name: dates[i],
+					amt: prices[i]
+				})
+			}
+			setFullGraphData(array)
+			setShownGraphData(array)
+		}
+
+	}, [data])
+
+	useEffect(() => {
+		displayGraphData(graphInterval)
+	}, [graphInterval])
+
+	function displayGraphData(plotPeriod) {
+	  switch (plotPeriod) {
+	    case "24H":
+				setShownGraphData(fullGraphData.slice(-1))	      
+	    case "7D":
+	      setShownGraphData(fullGraphData.slice(-7))
+	      break;
+	    case "1M":
+	      setShownGraphData(fullGraphData.slice(-30))
+	      break;
+	    case "3M":
+	      setShownGraphData(fullGraphData.slice(-90))
+	      break;
+	    case "6M":
+	     setShownGraphData(fullGraphData.slice(-180))
+	     break;
+	    case "1Y":
+	      setShownGraphData(fullGraphData.slice(-365))
+	      break;
+	    case "3Y":
+	      setShownGraphData(fullGraphData)
+	      break;
+	    default:
+	      setShownGraphData([])
+	  }
+	}
 
 	if (isLoading) return 'Loading...'
 	if (isError) {
 		console.log(isError)
 		return 'Error...'
 	}
-
-	// console.log(data)
 
 	return(
 		<div className="bg-white p-4">
@@ -40,7 +93,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, hook = f
 				</div>
 			</div>
 
-			<BFGraph subtractWidth={subtractWidth} />
+			<BFGraph subtractWidth={subtractWidth} data={shownGraphData} />
 	
 		</div>
 	)

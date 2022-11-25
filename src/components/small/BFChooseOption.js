@@ -22,7 +22,9 @@ export default function BFChooseOption({ onSelect, selected, options }) {
 	return(
 		<>
 			{options.map(option => {
-				return option.id === selected ? <SelectedButton id={option.id} label={option.label} /> : <NotSelectedButton id={option.id} label={option.label} />
+				return option.id === selected 
+					? <SelectedButton key={option.id} id={option.id} label={option.label} /> 
+					: <NotSelectedButton key={option.id} id={option.id} label={option.label} />
 			})}
 		</>
 	)

@@ -48,7 +48,7 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 		localStorage.setItem('firstName', result.user.first_name)
 		localStorage.setItem('lastName', result.user.last_name)
 		localStorage.setItem('username', result.user.username)
-		localStorage.setItem('picture', result.user.profile_pic)
+		localStorage.setItem('picture', result.user.profile_pic || '')
 		setShowModalType('')
 	}
 

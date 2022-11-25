@@ -14,10 +14,10 @@ const POST_DATA_OPTIONS = (data) => {
 }
 
 export const useTopFifty = () => {
-	const { data, error } = useSWR(baseUrl('/get-index?id=62a63d8845cc471234deec49'), fetcher)
+	const { data, error } = useSWR(baseUrl('/get-top50-index'), fetcher)
 
   return {
-    data: data ? data.data : {},
+    data: data,
     isLoading: !error && !data,
     isError: error
   }
