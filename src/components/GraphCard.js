@@ -6,7 +6,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, hook = f
 	const { data, isLoading, isError } = hook()
 
 	const [graphColor, setGraphColor] = useState('Solid Colored')
-	const [graphInterval, setGraphInterval] = useState('7D')
+	const [graphInterval, setGraphInterval] = useState('3Y')
 
 	const [finalDates, setFinalDates] = useState([])
 	const [finalPrices, setFinalPrices] = useState([])
@@ -16,10 +16,12 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, hook = f
 
 	const [fullGraphData, setFullGraphData] = useState([])
 	const [shownGraphData, setShownGraphData] = useState([])
+	const [hourlyData, setHourlyData] = useState([])
 
 	useEffect(() => {
 		console.log('loading')
 		if (data && data.index && fullGraphData.length === 0) {
+			console.log(data.index)
 			const { dates, prices } = data.index.daily_graph_data
 			// switch (graphInterval)
 			const array = []
@@ -31,6 +33,16 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, hook = f
 			}
 			setFullGraphData(array)
 			setShownGraphData(array)
+			const hourly = []
+			const { dates: hourlyDates, prices: hourlyPrices} = data.index.fivemin_graph_data
+			console.log(hourlyPrices)
+			for (let z = 0; z < hourlyDates.length; z++) {
+				hourly.push({
+					name: hourlyDates[z],
+					amt: hourlyPrices[z]
+				})
+			}
+			setHourlyData(hourly)
 		}
 
 	}, [data])
@@ -42,7 +54,8 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, hook = f
 	function displayGraphData(plotPeriod) {
 	  switch (plotPeriod) {
 	    case "24H":
-				setShownGraphData(fullGraphData.slice(-1))	      
+				setShownGraphData(hourlyData)	      
+				break;
 	    case "7D":
 	      setShownGraphData(fullGraphData.slice(-7))
 	      break;

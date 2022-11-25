@@ -12,7 +12,7 @@ export default function HomePage() {
 				<RecentlyAdded />
 				<RecentlyAdded />
 			</div>
-			<GraphCard title="Top 5 Currency Indexes" hook={useTopFifty} />
+			<GraphCard title="Top 50 Currency Indexes" hook={useTopFifty} />
 			<div className="grid grid-cols-3 xl:grid-cols-4">
 				<div className="bg-white col-span-3">
 					<TopMarketCap />

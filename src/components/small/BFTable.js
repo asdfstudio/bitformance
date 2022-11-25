@@ -15,7 +15,7 @@ export default function BFTable({ headers, rows, type, tableStyle = '', onRowCli
 	const showHoldings = false
 
 	return(
-		<div class="overflow-x-auto relative sm:rounded-lg">
+		<div className="overflow-x-auto relative sm:rounded-lg">
 		    <table className={`w-full text-sm text-left ${tableStyle}`}>
 		        <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
 	            <tr>
