@@ -4,6 +4,7 @@ import { COINS } from '../data/fakeData'
 import BFIcon from '../components/BFIcon'
 import SocialIconsRow from '../components/small/SocialIconsRow'
 import GraphCard from '../components/GraphCard'
+import BFInfoTags from '../components/small/BFInfoTags'
 
 export default function CryptoPage() {
 	const params = useParams()
@@ -61,13 +62,7 @@ export default function CryptoPage() {
 							<label className="text-gray-500">Market Cap</label>
 							<p className="font-bold">${coin.price}</p>
 						</div>
-						<div className="flex flex-col flex-start text-xs items-end gap-0.5">
-							<p className="px-4 py-1 bg-gray-100 rounded">11/22/22 11:00:12AM</p>
-							<div className="my-1">
-								<span className="px-4 py-1 mx-1 bg-gray-100 rounded">Equal Weighting</span>
-								<span className="px-4 py-1 bg-gray-100 rounded">Rebalanced Daily</span>
-							</div>
-						</div>
+						<BFInfoTags />
 					</div>
 				</div>
 
