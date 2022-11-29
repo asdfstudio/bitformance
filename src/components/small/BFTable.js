@@ -1,7 +1,10 @@
 import CoinRow from '../CoinRow'
 import BrowseCoinRow from '../BrowseCoinRow'
+import { useState } from 'react'
 
 export default function BFTable({ headers, rows, type, tableStyle = '', onRowClicked = function () {} }) {
+
+	const [showHoldingRow, setShowHoldingRow] = useState(null)
 
 	const HeaderColumn = ({ label, sortable }) => (
 		<th scope="col" class="py-3 px-6">
@@ -12,7 +15,13 @@ export default function BFTable({ headers, rows, type, tableStyle = '', onRowCli
 		</th>
 	)
 
-	const showHoldings = false
+	const showHoldings = (id) => {
+		if (id === showHoldingRow) {
+			setShowHoldingRow(null)
+		} else {
+			setShowHoldingRow(id)
+		}
+	}
 
 	return(
 		<div className="overflow-x-auto relative sm:rounded-lg">
@@ -27,16 +36,26 @@ export default function BFTable({ headers, rows, type, tableStyle = '', onRowCli
 		        <tbody>
 		        		{rows.map(coin => {
 		        			return type === 'top-cryptos' ? (<tr key={coin.id} className="p-4 bg-white dark:bg-gray-800 dark:border-gray-700"><CoinRow key={coin.id} {...coin} /></tr>)
-		        				: type === 'browse-cryptos' ? (
+		        				: type === 'browse-cryptos' ? (<>
 		        					<tr key={coin.id} onClick={() => onRowClicked(coin)} className="shadow bg-white dark:bg-gray-800 dark:border-gray-700">
-		        						<BrowseCoinRow key={coin.id} {...coin} />
-		        						{showHoldings && <p>+holdings</p>}
+		        						<BrowseCoinRow key={coin.id} {...coin} showHoldings={showHoldings} />
 		        					</tr>
-		        				)
+		        					{showHoldingRow === coin.id && <tr>
+		        						<td>cell 1</td>
+		        						<td>cell 2</td>
+		        						<td>cell 3</td>
+		        						<td>cell 4</td>
+		        						<td>cell 5</td>
+		        						<td>cell 6 cell 7 cell 8</td>
+		        						<td>cell 9</td>
+		        					</tr>}
+
+		        				</>)
 		        				: (<tr key={coin.id}>no valid type</tr>)
 		        		})}
 		        </tbody>
 		    </table>
+
 		</div>
 
 	)

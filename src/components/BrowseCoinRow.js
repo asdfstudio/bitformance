@@ -10,6 +10,7 @@ export default function BrowseCoinRow({
 	hourlyPercentageChange,
 	weeklyPercentageChange,
 	marketCap,
+	showHoldings
 }) {
 
 	const DownTag = ({ change }) => (<div className="w-20 mx-auto">
@@ -42,7 +43,10 @@ export default function BrowseCoinRow({
 				<img className="shadow border rounded-full p-1 bg-white w-16 h-16" src={image} alt={name} />
 				<p className="font-bold text-lg">{name}</p>
 			</div>
-			<div className="flex flex-row items-center rounded-full p-1 border shadow ">
+			<div onClick={(e) => {
+				e.stopPropagation()
+				showHoldings(id)
+			}} className="flex flex-row items-center rounded-full p-1 border shadow ">
 				<img className="w-8 h-8 shadow border rounded-full p-0.5 bg-white z-10" src={image} alt={name} />
 				<img className="w-8 h-8 shadow border rounded-full p-0.5 bg-white z-20 ml-[-8px]" src={image} alt={name} />
 				<img className="w-8 h-8 shadow border rounded-full p-0.5 bg-white z-30 ml-[-8px]" src={image} alt={name} />
