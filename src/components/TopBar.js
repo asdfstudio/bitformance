@@ -66,6 +66,8 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 					let to = `/${pathArray.slice(0, index + 1).join('/')}`
 					if (to === '/indexes') {
 						to = '/'
+					} else if (to === '/settings') {
+						crumb = 'Settings & Account'
 					}
 
 					if (pathArray.length === 1 || pathArray.length - 1 === index) {
@@ -75,7 +77,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 					}
 				})}
 			</div>
-			{username && <div className="ml-auto relative">
+			{username && <div className="ml-auto relative cursor-pointer">
 				<div id="dropdownDefault" data-dropdown-toggle="dropdown" onClick={() => setShowMenu(!showMenu)} className="flex flex-row items-center gap-2">
 					<div>
 						<p className="text-sm">{firstName} {lastName}</p>
@@ -90,7 +92,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 				    <ul className="space-y-2 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
 				      <li className="flex flex-row items-center gap-2">
 				      	<BFIcon iconName="settings" size="lg" color="gray" />
-				        <Link to="" className="font-bold block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings & Account</Link>
+				        <Link to="/settings" onClick={() => setShowMenu(false)} className="font-bold block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings & Account</Link>
 				      </li>
 				      <li className="flex flex-row items-center gap-2">
 				      	<BFIcon iconName="logout" size="lg" color="gray" />

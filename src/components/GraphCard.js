@@ -35,7 +35,6 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, hook = f
 			setShownGraphData(array.slice(-1095))
 			const hourly = []
 			const { dates: hourlyDates, prices: hourlyPrices} = data.index.fivemin_graph_data
-			console.log(hourlyPrices)
 			for (let z = 0; z < hourlyDates.length; z++) {
 				hourly.push({
 					name: hourlyDates[z],

@@ -17,6 +17,7 @@ import {
 	faUser,
 	faSliders,
 	faRightFromBracket,
+	faShieldHalved,
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -58,6 +59,8 @@ export default function BFIcon({ iconName, color, size }) {
 		{ name: 'share-link', icon: faLink },
 		{ name: 'placeholder-image', icon: faImage },
 		{ name: 'no-picture', icon: faUser },
+		{ name: 'profile', icon: faUser },
+		{ name: 'account', icon: faShieldHalved },
 		{ name: 'settings', icon: faSliders },
 		{ name: 'logout', icon: faRightFromBracket },
 	]
