@@ -1,5 +1,6 @@
 import CoinRow from '../CoinRow'
 import BrowseCoinRow from '../BrowseCoinRow'
+import BFHoldingsTable from './BFHoldingsTable'
 import { useState } from 'react'
 
 export default function BFTable({ headers, rows, type, tableStyle = '', onRowClicked = function () {} }) {
@@ -23,6 +24,7 @@ export default function BFTable({ headers, rows, type, tableStyle = '', onRowCli
 		}
 	}
 
+	console.log(rows)
 	return(
 		<div className="overflow-x-auto relative sm:rounded-lg">
 		    <table className={`w-full text-sm text-left ${tableStyle}`}>
@@ -40,14 +42,10 @@ export default function BFTable({ headers, rows, type, tableStyle = '', onRowCli
 		        					<tr key={coin.id} onClick={() => onRowClicked(coin)} className="shadow bg-white dark:bg-gray-800 dark:border-gray-700">
 		        						<BrowseCoinRow key={coin.id} {...coin} showHoldings={showHoldings} />
 		        					</tr>
-		        					{showHoldingRow === coin.id && <tr>
-		        						<td>cell 1</td>
-		        						<td>cell 2</td>
-		        						<td>cell 3</td>
-		        						<td>cell 4</td>
-		        						<td>cell 5</td>
-		        						<td>cell 6 cell 7 cell 8</td>
-		        						<td>cell 9</td>
+		        					{showHoldingRow === coin.id && <tr key={coin.id + '-holdings'}>
+		        						<td className="bg-white" colspan="8">
+		        							<BFHoldingsTable holdings={rows} />
+		        						</td>
 		        					</tr>}
 
 		        				</>)
