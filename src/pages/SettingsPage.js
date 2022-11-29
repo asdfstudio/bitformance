@@ -12,7 +12,7 @@ export default function SettingsPage() {
 	}
 
 	const ProfileForm = () => (
-		<div className="pt-4 pb-4 space-y-4">
+		<div className="py-4 px-4 w-full space-y-4">
 			<div>
 				<h1 className="font-bold mb-2">Profile Picture</h1>
 				<BFUploadImage />
@@ -29,8 +29,26 @@ export default function SettingsPage() {
 	)
 
 	const AccountForm = () => (
-		<div>
-
+		<div className="w-full">
+			<h2 className="px-4 pt-4 text-sm text-gray-400">Password</h2>
+			<div className="px-4 py-2">
+				<label className="font-bold text-sm">Current Password</label>
+				<input name="current-password" className="w-full py-1 border rounded" type="password" />
+			</div>
+			<div className="px-4 py-2">
+				<label className="font-bold text-sm">New Password</label>
+				<input name="new-password"  className="w-full py-1 border rounded" type="password" />
+			</div>
+			<div className="px-4 py-2 pb-4">
+				<label className="font-bold text-sm">Confirm New Password</label>
+				<input name="confirm-new-password" className="w-full py-1 border rounded" type="password" />
+			</div>
+			<hr />
+			<h2 className="px-4 pt-4 text-sm text-gray-400">Email</h2>
+			<div className="px-4 py-2 pb-4">
+				<label className="font-bold text-sm">Login Email</label>
+				<input name="login-email" className="w-full py-1 border rounded" type="text" />
+			</div>
 		</div>
 	)
 
@@ -40,8 +58,8 @@ export default function SettingsPage() {
 	return(
 		<div className="bg-gray-100 h-screen p-4">
 			<div className="bg-white rounded-md shadow mx-auto max-w-[740px]">
-				<div className="flex flex-row gap-4">
-					<div className="w-44 space-y-4 p-4 border-r">
+				<div className="flex flex-row">
+					<div className="w-56 space-y-4 p-4 border-r">
 						<p onClick={() => setTabSelected('profile')} className={tabSelected === 'profile' ? selected : notSelected}>
 							<BFIcon iconName="profile" color="#5390F4" />
 							&nbsp;&nbsp;Profile
