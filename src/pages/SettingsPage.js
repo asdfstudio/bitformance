@@ -12,7 +12,7 @@ export default function SettingsPage() {
 	}
 
 	const ProfileForm = () => (
-		<div className="space-y-4">
+		<div className="pt-4 pb-4 space-y-4">
 			<div>
 				<h1 className="font-bold mb-2">Profile Picture</h1>
 				<BFUploadImage />
@@ -39,9 +39,9 @@ export default function SettingsPage() {
 
 	return(
 		<div className="bg-gray-100 h-screen p-4">
-			<div className="bg-white rounded shadow mx-auto max-w-[740px] p-4">
+			<div className="bg-white rounded-md shadow mx-auto max-w-[740px]">
 				<div className="flex flex-row gap-4">
-					<div className="w-44 space-y-4">
+					<div className="w-44 space-y-4 p-4 border-r">
 						<p onClick={() => setTabSelected('profile')} className={tabSelected === 'profile' ? selected : notSelected}>
 							<BFIcon iconName="profile" color="#5390F4" />
 							&nbsp;&nbsp;Profile
@@ -53,7 +53,7 @@ export default function SettingsPage() {
 					</div>
 					{ tabSelected === 'profile' ? <ProfileForm /> : <AccountForm /> }
 				</div>
-				<div className="mt-4 	text-right">
+				<div className="p-2 border-t text-right">
 {/*					<button className="w-full text-sm rounded bg-blue-50 hover:bg-blue-200 font-bold text-blue-500 py-2" onClick={() => setShowModalType('SIGN_UP')}>Cancel</button>
 */}					<button className="px-8 text-sm rounded bg-blue-50 hover:bg-blue-200 font-bold text-blue-500 py-2" onClick={() => saveProfile()}>Save</button>
 
