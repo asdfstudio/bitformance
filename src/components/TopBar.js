@@ -66,7 +66,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 		<div className="flex flex-row items-center w-full bg-blue-800 md:bg-white shadow p-2">
 			
 			<div className="flex items-center md:hidden w-full">
-				<img src={bitLogoWhite} className="ml-1 w-44" alt="bitformance logo" />
+				<Link to="/"><img src={bitLogoWhite} className="ml-1 w-44" alt="bitformance logo" /></Link>
 				<div className="ml-auto mr-4 space-x-4 cursor-pointer">
 					<BFIcon iconName="search" color="white" />
 					<span onClick={() => setShowMobileMenu(!showMobileMenu)}>

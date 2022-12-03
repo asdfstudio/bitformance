@@ -58,8 +58,8 @@ export default function SettingsPage() {
 	return(
 		<div className="bg-gray-100 h-screen p-4">
 			<div className="bg-white rounded-md shadow mx-auto max-w-[740px]">
-				<div className="flex flex-row">
-					<div className="w-56 space-y-4 p-4 border-r">
+				<div className="flex flex-col md:flex-row">
+					<div className="w-full md:w-56 space-y-4 p-4 border-b md:border-r">
 						<p onClick={() => setTabSelected('profile')} className={tabSelected === 'profile' ? selected : notSelected}>
 							<BFIcon iconName="profile" color="#5390F4" />
 							&nbsp;&nbsp;Profile

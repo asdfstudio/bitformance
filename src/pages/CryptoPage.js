@@ -5,6 +5,7 @@ import BFIcon from '../components/BFIcon'
 import SocialIconsRow from '../components/small/SocialIconsRow'
 import GraphCard from '../components/GraphCard'
 import BFInfoTags from '../components/small/BFInfoTags'
+import BFHoldingsTable from '../components/small/BFHoldingsTable'
 
 export default function CryptoPage() {
 	const params = useParams()
@@ -38,7 +39,7 @@ export default function CryptoPage() {
 
 
 	return (
-		<div className="grid grid-cols-10 bg-gray-50">
+		<div className="grid grid-cols-1 md:grid-cols-10 bg-gray-50">
 			<PanelOne {...coin} />
 
 			<div className="col-span-7 p-4 space-y-4">
@@ -84,11 +85,11 @@ export default function CryptoPage() {
 					</div>
 				</div>
 
-				<div className="bg-white rounded-md border p-4 flex flex-row justify-between items-center">
+				<div className="bg-white rounded-md border p-4 min-w-full overflow-y-auto space-y-4">
 					<h2 className="text-xl font-bold">Holdings <span className="bg-gray-100 rounded py-1 px-2 text-sm font-normal">5</span></h2>
-
-
+					<BFHoldingsTable holdings={COINS} />
 				</div>
+
 
 			</div>
 		</div>

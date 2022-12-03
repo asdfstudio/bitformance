@@ -21,7 +21,7 @@ export default function CreateIndexPage() {
 	}
 
 	return (
-		<div className="grid grid-cols-5 bg-gray-50">
+		<div className="grid grid-cols-1 md:grid-cols-5 bg-gray-50">
 			<div className="col-span-2 space-y-4 bg-white rounded border p-4 m-4">
 				<h1 className="text-xl font-bold mb-4">Basic</h1>
 				<label>Index Logo</label>
