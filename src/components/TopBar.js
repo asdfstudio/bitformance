@@ -81,7 +81,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 				    </ul>
 				</div>
 			}
-			{!username && <div className="ml-auto relative cursor-pointer">
+			{!username && <div className="ml-auto md:hidden relative cursor-pointer">
 				<div id="dropdownDefault" data-dropdown-toggle="dropdown" onClick={() => setShowMenu(!showMenu)} className="flex flex-row items-center gap-2">
 					<div className="hidden md:block">
 						<p className="text-sm">{firstName} {lastName}</p>
