@@ -18,6 +18,8 @@ import {
 	faSliders,
 	faRightFromBracket,
 	faShieldHalved,
+	faBars,
+	faX,
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -63,6 +65,9 @@ export default function BFIcon({ iconName, color, size }) {
 		{ name: 'account', icon: faShieldHalved },
 		{ name: 'settings', icon: faSliders },
 		{ name: 'logout', icon: faRightFromBracket },
+		{ name: 'menu', icon: faBars },
+		{ name: 'close', icon: faX },
+
 	]
 
 	const icon = icons.find(icon => icon.name === iconName) || { icon: faHouse }

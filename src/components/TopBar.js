@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import BFSearchBar from './small/BFSearchBar'
 import BFIcon from './BFIcon'
+import bitLogoWhite from '../bitLogoWhite.png'
+import SiteLinks from './small/SiteLinks'
 
 export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) {
 
@@ -16,6 +18,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 	const [firstName, setFirstName] = useState('')
 	const [lastName, setLastName] = useState('')
 	const [picture, setPicture] = useState('')
+	const [showMobileMenu, setShowMobileMenu] = useState(false)
 
 	useEffect(() => {
 		if (location && location.pathname) {
@@ -59,9 +62,27 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 		setShowMenu(false)
 	}
 
-	return(
-		<div className="flex flex-row items-center w-full bg-white shadow p-2">
-			<div className="ml-2 flex flex-row gap-2 items-center text-sm text-gray-500">
+	return(<>
+		<div className="flex flex-row items-center w-full bg-blue-800 md:bg-white shadow p-2">
+			
+			<div className="flex items-center md:hidden w-full">
+				<img src={bitLogoWhite} className="ml-1 w-44" alt="bitformance logo" />
+				<div className="ml-auto mr-4 space-x-4 cursor-pointer">
+					<BFIcon iconName="search" color="white" />
+					<span onClick={() => setShowMobileMenu(!showMobileMenu)}>
+						{!showMobileMenu ? <BFIcon iconName="menu" color="white" /> : <BFIcon iconName="close" color="white" />}
+					</span>
+				</div>
+			</div>
+			{showMobileMenu &&
+				<div id="dropdown" className="p-4 absolute left-0 top-12 z-10 w-full bg-blue-800 border-t border-blue-900 divide-y divide-gray-100 shadow dark:bg-gray-700">
+				    <ul className="space-y-4 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+				     	<SiteLinks setShowModalType={setShowModalType} colorStyle="text-white" />
+				    </ul>
+				</div>
+			}
+
+			<div className="ml-2 hidden md:flex flex-row gap-2 items-center text-sm text-gray-500">
 				{pathArray.map((crumb, index) => {
 					let to = `/${pathArray.slice(0, index + 1).join('/')}`
 					if (to === '/indexes') {
@@ -79,7 +100,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 			</div>
 			{username && <div className="ml-auto relative cursor-pointer">
 				<div id="dropdownDefault" data-dropdown-toggle="dropdown" onClick={() => setShowMenu(!showMenu)} className="flex flex-row items-center gap-2">
-					<div>
+					<div className="hidden md:block">
 						<p className="text-sm">{firstName} {lastName}</p>
 						<p className="text-xs text-gray-400 text-right">@{username}</p>
 					</div>
@@ -112,5 +133,5 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 				</div>
 			}
 		</div>
-	)
+	</>)
 }
