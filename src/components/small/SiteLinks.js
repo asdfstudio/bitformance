@@ -4,12 +4,12 @@ import BFIcon from '../BFIcon'
 
 const secondaryColor = '#40C8B8'
 
-export default function SiteLinks({ setShowModalType, colorStyle = '' }) {
+export default function SiteLinks({ setShowModalType, setShowMobileMenu = function(){} , colorStyle = '' }) {
 
 	const [indexesExpanded, setIndexesExpanded] = useState(false)
 
 	return(<>
-		<Link to="/" className={`flex flex-row items-center gap-2 cursor-pointer`}>
+		<Link to="/" onClick={() => setShowMobileMenu(false)} className={`flex flex-row items-center gap-2 cursor-pointer`}>
 			<BFIcon iconName="home" color={secondaryColor} />
 			<span className={colorStyle}>Home</span>
 		</Link>
@@ -19,7 +19,7 @@ export default function SiteLinks({ setShowModalType, colorStyle = '' }) {
 		</div>
 		{indexesExpanded && <>
 			<div className="ml-2 cursor-pointer">
-				<Link to="/indexes/browse">
+				<Link onClick={() => setShowMobileMenu(false)}  to="/indexes/browse">
 					<BFIcon iconName="browse" color="white" />
 					<span className={`ml-2 ${colorStyle}`}>Browse</span>
 				</Link>
@@ -35,11 +35,16 @@ export default function SiteLinks({ setShowModalType, colorStyle = '' }) {
 				<span className="ml-auto w-6 h-6 rounded-full bg-blue-900 text-sm flex items-center justify-center">2</span>
 			</div>
 		</>}
-		<Link to="/compare" className="flex flex-row items-center gap-2 cursor-pointer">
+		<Link onClick={() => setShowMobileMenu(false)}  to="/compare" className="flex flex-row items-center gap-2 cursor-pointer">
 			<BFIcon iconName="compare" color={secondaryColor} />
 			<span className={colorStyle}>Compare</span>
 		</Link>
-		<button onClick={() => setShowModalType('CONTACT_US')} className="flex flex-row items-center gap-2">
+		<button onClick={() => {
+			if (setShowMobileMenu) {
+				setShowMobileMenu(false)
+			}
+			setShowModalType('CONTACT_US')
+		}} className="flex flex-row items-center gap-2">
 			<BFIcon iconName="contact-us" color={secondaryColor} />
 			<span className={colorStyle}>Contact Us</span>
 		</button>
@@ -48,7 +53,7 @@ export default function SiteLinks({ setShowModalType, colorStyle = '' }) {
 			<span className={colorStyle}>Knowledge Base</span>
 		</Link>
 		<br />
-		<div className="rounded bg-blue-500 text-center px-4 py-2 w-full">
+		<div onClick={() => setShowMobileMenu(false)}  className="rounded bg-blue-500 text-center px-4 py-2 w-full">
 			<Link to="/indexes/create-index" className={colorStyle}>+ Create Index</Link>
 		</div>
 	</>)

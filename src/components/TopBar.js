@@ -77,10 +77,33 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 			{showMobileMenu &&
 				<div id="dropdown" className="p-4 absolute left-0 top-12 z-10 w-full bg-blue-800 border-t border-blue-900 divide-y divide-gray-100 shadow dark:bg-gray-700">
 				    <ul className="space-y-4 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
-				     	<SiteLinks setShowModalType={setShowModalType} colorStyle="text-white" />
+				     	<SiteLinks setShowMobileMenu={setShowMobileMenu} setShowModalType={setShowModalType} colorStyle="text-white" />
 				    </ul>
 				</div>
 			}
+			{!username && <div className="ml-auto relative cursor-pointer">
+				<div id="dropdownDefault" data-dropdown-toggle="dropdown" onClick={() => setShowMenu(!showMenu)} className="flex flex-row items-center gap-2">
+					<div className="hidden md:block">
+						<p className="text-sm">{firstName} {lastName}</p>
+						<p className="text-xs text-gray-400 text-right">@{username}</p>
+					</div>
+					<div className="rounded-full bg-white shadow p-1">
+						{picture ? <img src={picture} /> : <div className="w-6 h-6 flex justify-center items-center rounded-full bg-gray-100 p-2"><BFIcon iconName="no-picture" size="xs" /></div>}
+					</div>
+				</div>
+				{showMenu &&
+				<div id="dropdown" className="p-4 absolute right-2 top-12 z-10 w-56 bg-white rounded-lg divide-y divide-gray-100 shadow dark:bg-gray-700">
+				    <ul className="space-y-2 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+				      <li className="flex flex-row items-center gap-2">
+				      	<button onClick={() => { setShowModalType('SIGN_IN'); setShowMenu(false);}} className="text-sm rounded bg-red-100 font-bold text-red-700 w-full py-2">Sign In</button>
+				      </li>
+				      <li className="flex flex-row items-center gap-2">
+				      	<button onClick={() => { setShowModalType('SIGN_UP'); setShowMenu(false); }} className="text-sm rounded bg-blue-500 font-bold text-white w-full py-2">Sign Up</button>
+				      </li>
+				    </ul>
+				</div>
+				}
+			</div>}
 
 			<div className="ml-2 hidden md:flex flex-row gap-2 items-center text-sm text-gray-500">
 				{pathArray.map((crumb, index) => {
@@ -123,10 +146,9 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 				    </ul>
 				</div>
 				}
-
 			</div>}
 			{!username && 
-				<div className="ml-auto flex flex-row items-center gap-4">
+				<div className="hidden md:flex ml-auto flex-row items-center gap-4">
 					<BFSearchBar onChange={setSearchText} placeholder="Search Index..." />
 					<button onClick={() => setShowModalType('SIGN_IN')} className="text-sm rounded bg-red-100 font-bold text-red-700 w-32 py-2">Sign In</button>
 					<button onClick={() => setShowModalType('SIGN_UP')} className="text-sm rounded bg-blue-500 font-bold text-white w-32 py-2">Sign Up</button>
