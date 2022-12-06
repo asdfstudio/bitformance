@@ -14,9 +14,9 @@ export default function BFModal({ showModalType, setShowModalType }) {
 	const modal = modals.find(obj => obj.type === showModalType)
 
 	return(
-		<div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+		<div className="relative z-[60]" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 		  <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-		  <div className="fixed inset-0 z-10 overflow-y-auto">
+		  <div className="fixed inset-0 z-[70] overflow-y-auto">
 		    {modal.component}
 		  </div>
 		</div>

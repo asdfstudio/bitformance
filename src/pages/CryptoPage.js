@@ -6,13 +6,17 @@ import SocialIconsRow from '../components/small/SocialIconsRow'
 import GraphCard from '../components/GraphCard'
 import BFInfoTags from '../components/small/BFInfoTags'
 import BFHoldingsTable from '../components/small/BFHoldingsTable'
+import { useCryptoById } from '../endpoints/index'
 
 export default function CryptoPage() {
 	const params = useParams()
 	console.log(params.id)
+	const { data, loading, error } = useCryptoById(params.id)
+	console.log(data)
+
 	//TODO: get crypto
 
-	const coin = COINS.find(coin => coin.id == params.id)
+	const coin = COINS.find(coin => coin.id == 209)
 
 	const PanelOne = ({ id, name }) => (
 		<div className="col-span-3 p-6 space-y-4 border h-fit bg-white">

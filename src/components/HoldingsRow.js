@@ -9,7 +9,6 @@ export default function HoldingsRow({
 	hourlyPercentageChange,
 	weeklyPercentageChange,
 	marketCap,
-	
 }) {
 	return(<>
 		<CoinRow 

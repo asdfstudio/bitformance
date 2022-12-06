@@ -1,15 +1,21 @@
 import BFIcon from './BFIcon'
 import BFInfoTags from './small/BFInfoTags'
+import BFCryptoImage from './small/BFCryptoImage'
 
 export default function BrowseCoinRow({
 	id,
-	image,
+	logo,
 	name,
 	ticker,
-	price,
-	hourlyPercentageChange,
-	weeklyPercentageChange,
-	marketCap,
+	value,
+	changepct_24hour,
+	changepct_7d,
+	marketcap,
+	cryptos,
+	favorites,
+	updated,
+	weighting_method,
+	rebalancing_interval,
 	showHoldings
 }) {
 
@@ -37,39 +43,60 @@ export default function BrowseCoinRow({
 		//TODO: favorite
 	}
 
+	const formatter = new Intl.NumberFormat('en-US', {
+	  style: 'currency',
+	  currency: 'USD',
+	  // These options are needed to round to whole numbers if that's what you want.
+	  //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+	  //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+	});
+
 	return(<>
 		<td>
 			<div className="flex flex-row items-center gap-2 mb-2">
-				<img className="shadow border rounded-full p-1 bg-white w-16 h-16" src={image} alt={name} />
+				<img className="shadow border rounded-full p-1 bg-white w-16 h-16" src={logo} alt={name} />
 				<p className="font-bold text-lg">{name}</p>
 			</div>
 			<div onClick={(e) => {
 				e.stopPropagation()
 				showHoldings(id)
-			}} className="flex flex-row items-center rounded-full p-1 border shadow ">
-				<img className="w-8 h-8 shadow border rounded-full p-0.5 bg-white z-10" src={image} alt={name} />
-				<img className="w-8 h-8 shadow border rounded-full p-0.5 bg-white z-20 ml-[-8px]" src={image} alt={name} />
-				<img className="w-8 h-8 shadow border rounded-full p-0.5 bg-white z-30 ml-[-8px]" src={image} alt={name} />
-				<button className="ml-auto mr-1 px-4 h-6 text-sm rounded-xl shadow bg-blue-200 text-blue-400"> View</button>
+			}} className="hidden md:flex">
+				<div className="flex flex-row items-center rounded-full px-2 py-1 border shadow">
+				{cryptos.slice(0, 4).map((crypto, index) => <BFCryptoImage symbol={crypto} index={index} />)}
+				{cryptos.length > 4 && <BFCryptoImage symbol={cryptos.length - 4} index={4} showNumber={true} /> }
+				<button className="ml-2 mr-1 px-4 h-6 text-sm rounded-xl shadow bg-blue-200 text-blue-400"> View</button>
+				</div>
+			</div>
+			<div onClick={(e) => {
+				e.stopPropagation()
+				showHoldings(id)
+			}} className="flex md:hidden">
+				<div className="flex flex-row items-center rounded-full px-2 py-1 border shadow">
+				{cryptos.slice(0, 2).map((crypto, index) => <BFCryptoImage symbol={crypto} index={index} />)}
+				{cryptos.length > 2 && <BFCryptoImage symbol={cryptos.length - 2} index={3} showNumber={true} /> }
+				<button className="ml-2 mr-1 px-4 h-6 text-sm rounded-xl shadow bg-blue-200 text-blue-400"> View</button>
+				</div>
 			</div>
 		</td>
-		<td className="text-sm align-top pt-8">${price}</td>
+		<td className="text-sm align-top pt-8">{formatter.format(value)}</td>
 		<td className="align-top pt-7">
-			{hourlyPercentageChange > 0 
-				? <UpTag change={hourlyPercentageChange} />
-				: <DownTag change={hourlyPercentageChange} />
+			{changepct_24hour > 0 
+				? <UpTag change={changepct_24hour} />
+				: <DownTag change={changepct_24hour} />
 			}
 		</td>
 		<td className="align-top pt-7">	
-			{weeklyPercentageChange > 0 
-				? <UpTag change={weeklyPercentageChange} />
-				: <DownTag change={weeklyPercentageChange} />
+			{changepct_7d > 0 
+				? <UpTag change={changepct_7d} />
+				: <DownTag change={changepct_7d} />
 			}
 		</td>
-		<td className="text-sm pl-5 align-top pt-8">{marketCap}</td>
-		<td className="align-top pt-8"><BFInfoTags /></td>
+		<td className="text-sm pl-5 align-top pt-8">{formatter.format(marketcap)}</td>
+		<td className="align-top pt-8">
+			<BFInfoTags timestamp={updated.$date} weightingMethod={weighting_method} rebalancingInterval={rebalancing_interval} />
+		</td>
 		<td className="text-right pr-4">
-			<span onClick={() => favoriteRow(id)} >1.2k <BFIcon iconName="favorite" size="sm" color="gray" />&nbsp;&nbsp;</span>
+			<span onClick={() => favoriteRow(id)} >{favorites.length} <BFIcon iconName="favorite" size="sm" color="gray" />&nbsp;&nbsp;</span>
 			<span onClick={() => compareRow(id)}> <BFIcon iconName="compare" size="sm" color="gray" /> </span>
 		</td>
 

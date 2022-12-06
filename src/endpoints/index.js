@@ -21,7 +21,26 @@ export const useTopFifty = () => {
     isLoading: !error && !data,
     isError: error
   }
+}
 
+export const useBrowsableIndexes = () => {
+	const { data, error } = useSWR(baseUrl('/get-browsable-indexes'), fetcher)
+
+	return {
+		data: data ? data.data : [],
+		isLoading: !error && !data,
+		isError: error
+	}
+}
+
+export const useCryptoById = (id) => {
+	const { data, error } = useSWR(baseUrl(`/get-index?id=${id}`), fetcher)
+
+	return {
+		data: data,
+		isLoading: !error && !data,
+		isError: error
+	}
 }
 
 export const login = async (email, password) => {
