@@ -8,18 +8,13 @@ import BFInfoTags from '../components/small/BFInfoTags'
 import BFHoldingsTable from '../components/small/BFHoldingsTable'
 import BFUpDownTag from '../components/small/BFUpDownTag'
 import { useCryptoById } from '../endpoints/index'
+import { calculateReturn, formatMoney } from '../helpers/index'
 
 export default function CryptoPage() {
 	const params = useParams()
 	const { data, isLoading, isError } = useCryptoById(params.id)
 
 	console.log(data)
-
-	const formatter = new Intl.NumberFormat('en-US', {
-	  style: 'currency',
-	  currency: 'USD',
-	});
-
 
 	const PanelOne = ({ id, name, description }) => (
 		<div className="col-span-3 p-6 space-y-4 border h-[94vh] bg-white">
@@ -63,6 +58,16 @@ export default function CryptoPage() {
 		</div>
 	)
 
+	const totalReturn = calculateReturn(data.index.value, data.index.initial_value)
+
+	const returnGraphData = () => {
+		return {
+			data: data || {},
+			isLoading: false,
+			isError: false
+		}
+	}
+
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-10 bg-gray-50">
 			<PanelOne {...data.index} />
@@ -74,7 +79,7 @@ export default function CryptoPage() {
 					<div className="flex flex-row justify-between text-sm">
 						<div className="space-y-2">
 							<label className="text-gray-500">Price</label>
-							<p className="font-bold">{formatter.format(data.index.value)}</p>
+							<p className="font-bold">{formatMoney(data.index.value)}</p>
 						</div>
 						<div className="space-y-2">
 							<label className="text-gray-500">24h %</label>
@@ -87,14 +92,14 @@ export default function CryptoPage() {
 						</div>
 						<div className="space-y-2">
 							<label className="text-gray-500">Market Cap</label>
-							<p className="font-bold">{formatter.format(data.index.marketcap)}</p>
+							<p className="font-bold">{formatMoney(data.index.marketcap)}</p>
 						</div>
 						<BFInfoTags timestamp={data.index.updated.$date} weightingMethod={data.index.weighting_method} 	rebalancingInterval={data.index.rebalancing_interval} />
 					</div>
 				</div>
 
 				<div className="bg-white rounded-md border">
-					<GraphCard title="Currency Indexes" subtractWidth={380} />
+					<GraphCard title="Currency Indexes" subtractWidth={380} hook={returnGraphData} />
 				</div>
 
 				<div className="bg-white rounded-md border p-4 flex flex-row justify-between items-center">
@@ -105,7 +110,7 @@ export default function CryptoPage() {
 							<span className="ml-2 mt-0.5 text-sm">Maximum Drawdown</span>
 						</p>
 						<p className="flex flex-row items-center">
-							{/* add total return */}
+							{totalReturn > 0 ? <UpTag value={totalReturn} /> : <DownTag value={totalReturn} /> }
 							<span className="ml-2 mt-0.5 text-sm">Total Return</span>
 						</p>
 					</div>
