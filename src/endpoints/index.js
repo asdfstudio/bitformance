@@ -28,11 +28,25 @@ const POST_DATA_OPTIONS = (data) => {
 	return {
 		method: 'POST',
 		headers: {
+			'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify(data)
 	}
 }
+
+const POST_DATA_OPTIONS_FORM = (formData) => {
+	return {
+		method: 'POST',
+		headers: {
+			'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+			'Content-Type': 'application/json'
+		},
+		body: formData
+	}
+}
+
+//GET ********
 
 export const useTopFifty = () => {
 	const { data, error } = useSWR(baseUrl('/get-top50-index'), fetcher)
@@ -64,8 +78,24 @@ export const useCryptoById = (id) => {
 	}
 }
 
+//POST **********
+
 export const login = async (email, password) => {
 	const response = await fetch(baseUrl('/login'), POST_DATA_OPTIONS({ email, password }))
 	const data = await response.json()
 	return data
+}
+
+//TODO: test method
+export const uploadImage = async (imageFile, type = 'logo', indexId) => {
+	 const formData = new FormData();
+	  formData.append("file_obj", imageFile);
+	  formData.append("type", type);
+	  formData.append('id', indexId);
+	  const response = await fetch(baseUrl('/mime-files'), POST_DATA_OPTIONS_FORM(formData))
+	  const data = await response.json()
+	  console.log(data)
+	  return data
+	},
+
 }
