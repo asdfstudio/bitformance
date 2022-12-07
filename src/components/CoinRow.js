@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { formatMoney } from '../helpers/index'
 
 export default function CoinRow({
 	id,
@@ -42,7 +43,7 @@ export default function CoinRow({
 			</td>
 
 			<td className="text-gray-400">{ticker}</td>
-			<td>${price}</td>
+			<td>{formatMoney(price)}</td>
 			<td>
 				{hourlyPercentageChange > 0 
 					? <UpTag change={hourlyPercentageChange} />

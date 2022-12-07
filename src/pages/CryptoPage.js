@@ -68,6 +68,17 @@ export default function CryptoPage() {
 		}
 	}
 
+	console.log(data)
+
+	const formattedHoldings = data.rawStocks.map(stock => {
+		return {
+			...stock,
+			holdingQuantity: data.index.holdings[stock.symbol],
+			indexPrice: data.index.value
+		}
+	})
+
+
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-10 bg-gray-50">
 			<PanelOne {...data.index} />
@@ -118,7 +129,7 @@ export default function CryptoPage() {
 
 				<div className="bg-white rounded-md border p-4 min-w-full overflow-y-auto space-y-4">
 					<h2 className="text-xl font-bold">Holdings <span className="bg-gray-100 rounded py-1 px-2 text-sm font-normal">5</span></h2>
-					<BFHoldingsTable holdings={data.rawStocks} />
+					<BFHoldingsTable holdings={formattedHoldings} />
 				</div>
 
 

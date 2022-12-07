@@ -4,6 +4,16 @@ const GET_FETCH_OPTIONS = () => {
 	return {
 		method: 'get',
 		headers: { 
+			'Content-Type': 'application/json',
+		},
+		mode: 'cors',
+	}
+}
+
+const GET_FETCH_OPTIONS_AUTH = () => {
+	return {
+		method: 'get',
+		headers: { 
 			'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
 			'Content-Type': 'application/json',
 		},
@@ -15,6 +25,15 @@ const GET_FETCH_OPTIONS = () => {
 const fetcher = ( url, query = '' ) => fetch(
 	`${url}${query}`, 
 	GET_FETCH_OPTIONS()
+).then(res => { 
+	// if (res.status === 401) {
+	// 	window.location.href = '/?sessionExpired=true'
+	// }
+	return res.json()
+}) 
+const fetcherAuth = ( url, query = '' ) => fetch(
+	`${url}${query}`, 
+	GET_FETCH_OPTIONS_AUTH()
 ).then(res => { 
 	// if (res.status === 401) {
 	// 	window.location.href = '/?sessionExpired=true'
@@ -96,6 +115,4 @@ export const uploadImage = async (imageFile, type = 'logo', indexId) => {
 	  const data = await response.json()
 	  console.log(data)
 	  return data
-	},
-
 }

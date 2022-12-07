@@ -12,9 +12,9 @@ export default function BrowseCoinRow({
 	changepct_24hour,
 	changepct_7d,
 	marketcap,
-	cryptos,
-	favorites,
-	updated,
+	cryptos = [],
+	favorites = [],
+	updated = { $date: null },
 	weighting_method,
 	rebalancing_interval,
 	showHoldings
