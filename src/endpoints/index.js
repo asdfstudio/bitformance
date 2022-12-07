@@ -35,9 +35,13 @@ const fetcherAuth = ( url, query = '' ) => fetch(
 	`${url}${query}`, 
 	GET_FETCH_OPTIONS_AUTH()
 ).then(res => { 
-	// if (res.status === 401) {
-	// 	window.location.href = '/?sessionExpired=true'
-	// }
+	if (res.status === 401) {
+		localStorage.setItem('username', '')
+		localStorage.setItem('firstName', '')
+		localStorage.setItem('lastName', '')
+		localStorage.setItem('picture', '')
+		window.location.href = '/?sessionExpired=true'
+	}
 	return res.json()
 }) 
 
@@ -87,8 +91,11 @@ export const useBrowsableIndexes = () => {
 	}
 }
 
-export const useCryptoById = (id) => {
-	const { data, error } = useSWR(baseUrl(`/get-index?id=${id}`), fetcher)
+export const useCryptoById = (id, isAuth) => {
+	const { data, error } = useSWR(
+		baseUrl(`/get-index?id=${id}`), 
+		isAuth ? fetcherAuth : fetcher
+	)
 
 	return {
 		data: data,
@@ -96,6 +103,28 @@ export const useCryptoById = (id) => {
 		isError: error
 	}
 }
+
+//GET AUTH **********
+export const useMyIndexes = () => {
+	const { data, error } = useSWR(baseUrl('/get-user-indexes'), fetcherAuth)
+
+	return {
+		data: data ? data.data : [],
+		isLoading: !error && !data,
+		isError: error
+	}
+}
+
+export const useFavoriteIndexes = () => {
+	const { data, error } = useSWR(baseUrl('/get-favorited-indexes'), fetcherAuth)
+
+	return {
+		data: data ? data.data : [],
+		isLoading: !error && !data,
+		isError: error
+	}
+}
+
 
 //POST **********
 

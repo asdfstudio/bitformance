@@ -19,35 +19,38 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, hook = f
 	const [hourlyData, setHourlyData] = useState([])
 
 	useEffect(() => {
-		console.log('loading')
 		if (data && data.index && fullGraphData.length === 0) {
-			console.log(data.index)
-			const { dates, prices } = data.index.daily_graph_data
-			// switch (graphInterval)
-			const array = []
-			for (let i = 0; i < dates.length; i++) {
-				array.push({
-					name: dates[i],
-					amt: prices[i]
-				})
-			}
-			setFullGraphData(array)
-			setShownGraphData(array.slice(-1095))
-			const hourly = []
-			const { dates: hourlyDates, prices: hourlyPrices} = data.index.fivemin_graph_data
-			for (let z = 0; z < hourlyDates.length; z++) {
-				hourly.push({
-					name: hourlyDates[z],
-					amt: hourlyPrices[z]
-				})
-			}
-			setHourlyData(hourly)
+			loadData()
 		}
 
 	}, [data])
 
+	const loadData = () => {
+		const { dates, prices } = data.index.daily_graph_data
+		const array = []
+		for (let i = 0; i < dates.length; i++) {
+			array.push({
+				name: dates[i],
+				amt: prices[i]
+			})
+		}
+		setFullGraphData(array)
+		setShownGraphData(array.slice(-1095))
+		const hourly = []
+		const { dates: hourlyDates, prices: hourlyPrices} = data.index.fivemin_graph_data
+		for (let z = 0; z < hourlyDates.length; z++) {
+			hourly.push({
+				name: hourlyDates[z],
+				amt: hourlyPrices[z]
+			})
+		}
+		setHourlyData(hourly)
+	}
+
 	useEffect(() => {
-		displayGraphData(graphInterval)
+		if (fullGraphData.length) {
+			displayGraphData(graphInterval)
+		}
 	}, [graphInterval])
 
 	function displayGraphData(plotPeriod) {

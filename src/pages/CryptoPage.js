@@ -10,11 +10,9 @@ import BFUpDownTag from '../components/small/BFUpDownTag'
 import { useCryptoById } from '../endpoints/index'
 import { calculateReturn, formatMoney } from '../helpers/index'
 
-export default function CryptoPage() {
+export default function CryptoPage({ isAuth }) {
 	const params = useParams()
-	const { data, isLoading, isError } = useCryptoById(params.id)
-
-	console.log(data)
+	const { data, isLoading, isError } = useCryptoById(params.id, isAuth)
 
 	const PanelOne = ({ id, name, description }) => (
 		<div className="col-span-3 p-6 space-y-4 border h-[94vh] bg-white">
@@ -67,8 +65,6 @@ export default function CryptoPage() {
 			isError: false
 		}
 	}
-
-	console.log(data)
 
 	const formattedHoldings = data.rawStocks.map(stock => {
 		return {
@@ -128,7 +124,7 @@ export default function CryptoPage() {
 				</div>
 
 				<div className="bg-white rounded-md border p-4 min-w-full overflow-y-auto space-y-4">
-					<h2 className="text-xl font-bold">Holdings <span className="bg-gray-100 rounded py-1 px-2 text-sm font-normal">5</span></h2>
+					<h2 className="text-xl font-bold">Holdings <span className="bg-gray-100 rounded py-1 px-2 text-sm font-normal">{data.rawStocks.length}</span></h2>
 					<BFHoldingsTable holdings={formattedHoldings} />
 				</div>
 

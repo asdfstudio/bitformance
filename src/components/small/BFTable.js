@@ -3,9 +3,19 @@ import BrowseCoinRow from '../BrowseCoinRow'
 import BFHoldingsTable from './BFHoldingsTable'
 import { useState } from 'react'
 
-export default function BFTable({ headers, rows, type, tableStyle = '', onRowClicked = function () {} }) {
+export default function BFTable({ rows, type, tableStyle = '', onRowClicked = function () {} }) {
 
 	const [showHoldingRow, setShowHoldingRow] = useState(null)
+
+	const headers = [
+		'Cryptocurrency',
+		'Price',
+		'24 %',
+		'7d %',
+		'Market Cap',
+		'Last Updated',
+		'Action'
+	]
 
 	const HeaderColumn = ({ label, sortable }) => (
 		<th key={label} scope="col" className="py-3 px-6">

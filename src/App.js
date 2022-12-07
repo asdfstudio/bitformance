@@ -51,9 +51,19 @@ function App() {
               <BrowsePage />
             </MainLayout>
           }/>
+          <Route exact path="/indexes/browse/:id" element={
+            <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
+              <CryptoPage isAuth={false} />
+            </MainLayout>
+          }/>
           <Route exact path="/indexes/my-indexes" element={
             <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
               <MyIndexesPage />
+            </MainLayout>
+          }/>
+          <Route exact path="/indexes/my-indexes/:id" element={
+            <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
+              <CryptoPage isAuth={true} />
             </MainLayout>
           }/>
           <Route exact path="/compare" element={
@@ -61,11 +71,7 @@ function App() {
               <ComparePage />
             </MainLayout>
           }/>
-          <Route exact path="/indexes/browse/:id" element={
-            <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
-              <CryptoPage />
-            </MainLayout>
-          }/>
+  
           <Route exact path="/indexes/create-index" element={
             <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
               <CreateIndexPage />
