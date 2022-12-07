@@ -1,6 +1,7 @@
 import BFIcon from './BFIcon'
 import BFInfoTags from './small/BFInfoTags'
 import BFCryptoImage from './small/BFCryptoImage'
+import BFUpDownTag from './small/BFUpDownTag'
 
 export default function BrowseCoinRow({
 	id,
@@ -19,22 +20,6 @@ export default function BrowseCoinRow({
 	showHoldings
 }) {
 
-	const DownTag = ({ change }) => (<div className="w-20 mx-auto">
-			<div className="flex flex-row px-2 py-1 rounded-lg justify-center items-center gap-1 rounded">
-				<BFIcon iconName="down-left-arrow" size="xs" color="red" />
-				<p className="text-sm">{Math.abs(change).toFixed(2)}%</p>
-			</div>
-		</div>
-	)
-
-	const UpTag = ({ change }) => (<div className="w-20 mx-auto">
-			<div className="flex flex-row px-2 py-1 rounded-lg justify-center items-center gap-1 rounded">
-				<BFIcon iconName="up-right-arrow" size="xs" color="green" />
-				<p className="text-sm">{Math.abs(change).toFixed(2)}%</p>
-			</div>
-		</div>
-	)
-
 	const compareRow = (id) => {
 		//TODO: nav compare add graph
 	}
@@ -46,9 +31,6 @@ export default function BrowseCoinRow({
 	const formatter = new Intl.NumberFormat('en-US', {
 	  style: 'currency',
 	  currency: 'USD',
-	  // These options are needed to round to whole numbers if that's what you want.
-	  //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-	  //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
 	});
 
 	return(<>
@@ -80,16 +62,10 @@ export default function BrowseCoinRow({
 		</td>
 		<td className="text-sm align-top pt-8">{formatter.format(value)}</td>
 		<td className="align-top pt-7">
-			{changepct_24hour > 0 
-				? <UpTag change={changepct_24hour} />
-				: <DownTag change={changepct_24hour} />
-			}
+			<BFUpDownTag change={changepct_24hour} />
 		</td>
 		<td className="align-top pt-7">	
-			{changepct_7d > 0 
-				? <UpTag change={changepct_7d} />
-				: <DownTag change={changepct_7d} />
-			}
+			<BFUpDownTag change={changepct_7d} />
 		</td>
 		<td className="text-sm pl-5 align-top pt-8">{formatter.format(marketcap)}</td>
 		<td className="align-top pt-8">

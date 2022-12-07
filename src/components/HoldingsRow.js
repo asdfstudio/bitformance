@@ -2,24 +2,24 @@ import CoinRow from './CoinRow'
 
 export default function HoldingsRow({
 	id,
-	image,
+	logo,
 	name,
-	ticker,
+	symbol,
 	price,
-	hourlyPercentageChange,
-	weeklyPercentageChange,
-	marketCap,
+	changepct_24hour,
+	changepct_7day,
+	market_cap,
 }) {
 	return(<>
 		<CoinRow 
 			id={id} 
-			image={image} 
+			image={logo} 
 			name={name} 
-			ticker={ticker} 
+			ticker={symbol} 
 			price={price} 
-			hourlyPercentageChange={hourlyPercentageChange}
-			weeklyPercentageChange={weeklyPercentageChange}
-			marketCap={marketCap}
+			hourlyPercentageChange={changepct_24hour}
+			weeklyPercentageChange={changepct_7day}
+			marketCap={market_cap}
 		/>
 		<td>% of index</td>
 		<td>quantity held</td>

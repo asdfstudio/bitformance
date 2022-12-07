@@ -28,6 +28,12 @@ export default function CoinRow({
 		</div>
 	)
 
+	const formatter = new Intl.NumberFormat('en-US', {
+	  style: 'currency',
+	  currency: 'USD',
+	});
+
+
 	return (
 		<>
 			<td className="flex flex-row items-center ml-4 gap-2">
@@ -49,7 +55,7 @@ export default function CoinRow({
 					: <DownTag change={weeklyPercentageChange} />
 				}
 			</td>
-			<td className="pl-5">{marketCap}</td>
+			<td className="pl-5">{formatter.format(marketCap)}</td>
 		</>
 	)
 }
