@@ -1,6 +1,27 @@
 import useSWR from 'swr'
 
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+const GET_FETCH_OPTIONS = () => {
+	return {
+		method: 'get',
+		headers: { 
+			'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+			'Content-Type': 'application/json',
+		},
+		mode: 'cors',
+	}
+}
+
+// const fetcher = (...args) => fetch(...args).then(res => res.json())
+const fetcher = ( url, query = '' ) => fetch(
+	`${url}${query}`, 
+	GET_FETCH_OPTIONS()
+).then(res => { 
+	// if (res.status === 401) {
+	// 	window.location.href = '/?sessionExpired=true'
+	// }
+	return res.json()
+}) 
+
 const baseUrl = (slug) => `${process.env.REACT_APP_API_URL}${slug}`
 
 const POST_DATA_OPTIONS = (data) => {
