@@ -1,13 +1,18 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import BFIcon from '../BFIcon'
+import { useMyIndexes, useFavoriteIndexes } from '../../endpoints/index'
 
 const secondaryColor = '#40C8B8'
 
 export default function SiteLinks({ setShowModalType, setShowMobileMenu = function(){} , colorStyle = '' }) {
 
-	const [indexesExpanded, setIndexesExpanded] = useState(false)
+	const { data, isLoading } = useMyIndexes()
+	const { data: favorites, isLoading: favoritesLoading } = useMyIndexes()
 
+
+	const [indexesExpanded, setIndexesExpanded] = useState(false)
+	console.log(data)
 	return(<>
 		<Link to="/" onClick={() => setShowMobileMenu(false)} className={`flex flex-row items-center gap-2 cursor-pointer`}>
 			<BFIcon iconName="home" color={secondaryColor} />
@@ -27,13 +32,13 @@ export default function SiteLinks({ setShowModalType, setShowMobileMenu = functi
 			<Link to="/indexes/my-indexes" onClick={() => setShowMobileMenu(false)} className="ml-2 flex flex-row gap-2 items-center cursor-pointer">
 				<BFIcon iconName="my-indexes" color="white" />
 				<span className={colorStyle}>My Indexes</span>
-				<span className="ml-auto w-6 h-6 rounded-full bg-blue-900 text-sm flex items-center justify-center">18</span>
+				<span className="ml-auto w-6 h-6 rounded-full bg-blue-900 text-sm flex items-center justify-center">{data ? data.length : ''}</span>
 			</Link>
-			<div className="ml-2 flex flex-row items-center gap-2 cursor-pointer">
+			<Link to="/indexes/my-favorites" onClick={() => setShowMobileMenu(false)} className="ml-2 flex flex-row items-center gap-2 cursor-pointer">
 				<BFIcon iconName="favorite" color="white" />
 				<span className={colorStyle}>My Favorites</span>
-				<span className="ml-auto w-6 h-6 rounded-full bg-blue-900 text-sm flex items-center justify-center">2</span>
-			</div>
+				<span className="ml-auto w-6 h-6 rounded-full bg-blue-900 text-sm flex items-center justify-center">{favorites ? favorites.length: ''}</span>
+			</Link>
 		</>}
 		<Link onClick={() => setShowMobileMenu(false)}  to="/compare" className="flex flex-row items-center gap-2 cursor-pointer">
 			<BFIcon iconName="compare" color={secondaryColor} />

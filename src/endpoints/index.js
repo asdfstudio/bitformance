@@ -40,7 +40,9 @@ const fetcherAuth = ( url, query = '' ) => fetch(
 		localStorage.setItem('firstName', '')
 		localStorage.setItem('lastName', '')
 		localStorage.setItem('picture', '')
-		window.location.href = '/?sessionExpired=true'
+		if (!window.location.href.includes('/?sessionExpired=true')) {
+			window.location.href = '/?sessionExpired=true'
+		}
 	}
 	return res.json()
 }) 

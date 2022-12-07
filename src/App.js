@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import HomePage from './pages/HomePage'
 import BrowsePage from './pages/BrowsePage'
 import MyIndexesPage from './pages/MyIndexesPage'
+import MyFavoritesPage from './pages/MyFavoritesPage'
 import ComparePage from './pages/ComparePage'
 import CryptoPage from './pages/CryptoPage'
 import CreateIndexPage from './pages/CreateIndexPage'
@@ -64,6 +65,11 @@ function App() {
           <Route exact path="/indexes/my-indexes/:id" element={
             <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
               <CryptoPage isAuth={true} />
+            </MainLayout>
+          }/>
+          <Route exact path="/indexes/my-favorites" element={
+            <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
+              <MyFavoritesPage />
             </MainLayout>
           }/>
           <Route exact path="/compare" element={

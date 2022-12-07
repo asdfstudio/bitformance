@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BFTable from '../components/small/BFTable'
-import { useBrowsableIndexes } from '../endpoints/index'
-import BFLoading from '../components/small/BFLoading'
+import { useFavoriteIndexes } from '../endpoints/index'
 
-export default function BrowsePage() {
+export default function MyFavoritesPage() {
 	const navigate = useNavigate()
-	const { data, isLoading } = useBrowsableIndexes()
+	const { data, isLoading } = useFavoriteIndexes()
 
 
 	const sortBy = () => {
@@ -17,11 +16,8 @@ export default function BrowsePage() {
 
 
 	const rowClicked = (coin) => {
-		console.log(coin)
-		navigate(`/indexes/browse/${coin._id.$oid}`)
+		navigate(`/indexes/my-indexes/${coin._id.$oid}`)
 	}
-
-	if (isLoading) return <BFLoading />
 
 	return (
 		<div className="p-4 bg-gray-50">

@@ -4,12 +4,14 @@ import { useState } from 'react'
 import CloseModal from '../small/CloseModal'
 import { login } from '../../endpoints/index'
 import { validateUsername, validatePassword } from '../small/validation'
+import { useSWRConfig } from 'swr'
 
 export default function SignInForm({ setShowModalType, viewShown, setViewShown }) {
 
 	const [errorMessage, setErrorMessage] = useState('')
 	const [completedRecaptcha, setCompletedRecaptcha] = useState(false)
 	const [isRemember, setIsRemember] = useState(false);
+	const { mutate } = useSWRConfig()
 
 	const signIn = async (e) => {
 		e.preventDefault()
@@ -49,7 +51,10 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 		localStorage.setItem('lastName', result.user.last_name)
 		localStorage.setItem('username', result.user.username)
 		localStorage.setItem('picture', result.user.profile_pic || '')
-		setShowModalType('')
+		setShowModalType('')	
+		mutate(`${process.env.REACT_APP_API_URL}/get-user-indexes`)
+		mutate(`${process.env.REACT_APP_API_URL}/get-favorited-indexes`)
+
 	}
 
 	const backToSignIn = () => {
