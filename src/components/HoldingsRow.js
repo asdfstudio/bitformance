@@ -18,7 +18,7 @@ export default function HoldingsRow({
 			image={logo} 
 			name={name} 
 			ticker={symbol} 
-			price={price * supply} 
+			price={price} //TODO 
 			hourlyPercentageChange={changepct_24hour}
 			weeklyPercentageChange={changepct_7day}
 			marketCap={market_cap}

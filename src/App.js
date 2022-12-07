@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 //Pages
 import HomePage from './pages/HomePage'
 import BrowsePage from './pages/BrowsePage'
+import MyIndexesPage from './pages/MyIndexesPage'
 import ComparePage from './pages/ComparePage'
 import CryptoPage from './pages/CryptoPage'
 import CreateIndexPage from './pages/CreateIndexPage'
@@ -35,6 +36,7 @@ function App() {
 
   const [showModalType, setShowModalType] = useState('')
 
+  //TODO: add auth guard to my indexes, my favorites
   return (
     <div className="App">
       <Router>
@@ -47,6 +49,11 @@ function App() {
           <Route exact path="/indexes/browse" element={
             <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
               <BrowsePage />
+            </MainLayout>
+          }/>
+          <Route exact path="/indexes/my-indexes" element={
+            <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
+              <MyIndexesPage />
             </MainLayout>
           }/>
           <Route exact path="/compare" element={

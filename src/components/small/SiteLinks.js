@@ -24,11 +24,11 @@ export default function SiteLinks({ setShowModalType, setShowMobileMenu = functi
 					<span className={`ml-2 ${colorStyle}`}>Browse</span>
 				</Link>
 			</div>
-			<div className="ml-2 flex flex-row gap-2 items-center cursor-pointer">
+			<Link to="/indexes/my-indexes" onClick={() => setShowMobileMenu(false)} className="ml-2 flex flex-row gap-2 items-center cursor-pointer">
 				<BFIcon iconName="my-indexes" color="white" />
 				<span className={colorStyle}>My Indexes</span>
 				<span className="ml-auto w-6 h-6 rounded-full bg-blue-900 text-sm flex items-center justify-center">18</span>
-			</div>
+			</Link>
 			<div className="ml-2 flex flex-row items-center gap-2 cursor-pointer">
 				<BFIcon iconName="favorite" color="white" />
 				<span className={colorStyle}>My Favorites</span>
