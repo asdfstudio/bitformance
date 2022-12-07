@@ -46,11 +46,11 @@ export default function CryptoPage() {
 
 
 	const UpTag = ({ value }) => (
-		<span className="text-xl text-green-500"><BFIcon iconName="up-right-arrow" /> {value}%</span> 
+		<span className="text-xl text-green-500"><BFIcon iconName="up-right-arrow" /> {Math.abs(value).toFixed(2)}%</span> 
 	)
 
 	const DownTag = ({ value }) => (
-		<span className="text-xl text-red-500"><BFIcon iconName="down-left-arrow" /> {value}%</span> 
+		<span className="text-xl text-red-500"><BFIcon iconName="down-left-arrow" /> {Math.abs(value).toFixed(2)}%</span> 
 	)
 
 	if (isLoading) return (
