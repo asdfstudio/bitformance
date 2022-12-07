@@ -5,6 +5,7 @@ import BFUpDownTag from './small/BFUpDownTag'
 
 export default function BrowseCoinRow({
 	id,
+	rowIndex,
 	logo,
 	name,
 	ticker,
@@ -41,20 +42,20 @@ export default function BrowseCoinRow({
 			</div>
 			<div onClick={(e) => {
 				e.stopPropagation()
-				showHoldings(id)
+				showHoldings(rowIndex)
 			}} className="hidden md:flex">
 				<div className="flex flex-row items-center rounded-full px-2 py-1 border shadow">
-				{cryptos.slice(0, 4).map((crypto, index) => <BFCryptoImage symbol={crypto} index={index} />)}
+				{cryptos.slice(0, 4).map((crypto, index) => <BFCryptoImage key={index} symbol={crypto} index={index} />)}
 				{cryptos.length > 4 && <BFCryptoImage symbol={cryptos.length - 4} index={4} showNumber={true} /> }
 				<button className="ml-2 mr-1 px-4 h-6 text-sm rounded-xl shadow bg-blue-200 text-blue-400"> View</button>
 				</div>
 			</div>
 			<div onClick={(e) => {
 				e.stopPropagation()
-				showHoldings(id)
+				showHoldings(rowIndex)
 			}} className="flex md:hidden">
 				<div className="flex flex-row items-center rounded-full px-2 py-1 border shadow">
-				{cryptos.slice(0, 2).map((crypto, index) => <BFCryptoImage symbol={crypto} index={index} />)}
+				{cryptos.slice(0, 2).map((crypto, index) => <BFCryptoImage key={index} symbol={crypto} index={index} />)}
 				{cryptos.length > 2 && <BFCryptoImage symbol={cryptos.length - 2} index={3} showNumber={true} /> }
 				<button className="ml-2 mr-1 px-4 h-6 text-sm rounded-xl shadow bg-blue-200 text-blue-400"> View</button>
 				</div>

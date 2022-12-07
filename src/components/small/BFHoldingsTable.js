@@ -14,7 +14,7 @@ export default function BFHoldingsTable({ holdings }) {
 	)
 
 	console.log(holdings)
-
+	
 	return(
     <table className={`w-full text-sm text-left`}>
         <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -26,7 +26,7 @@ export default function BFHoldingsTable({ holdings }) {
         </thead>
         <tbody>
         	{holdings.map(coin => (
-        		<tr key={coin._id.$oid + '-holdings-table'} className="shadow bg-white dark:bg-gray-800 dark:border-gray-700">
+        		<tr key={coin.index._id + '-holdings-table'} className="shadow bg-white dark:bg-gray-800 dark:border-gray-700">
         			<HoldingsRow key={coin.id + '-holdings-table'} {...coin} />
         		</tr>
         	))}

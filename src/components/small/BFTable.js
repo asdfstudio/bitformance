@@ -16,11 +16,11 @@ export default function BFTable({ headers, rows, type, tableStyle = '', onRowCli
 		</th>
 	)
 
-	const showHoldings = (id) => {
-		if (id === showHoldingRow) {
+	const showHoldings = (index) => {
+		if (index === showHoldingRow) {
 			setShowHoldingRow(null)
 		} else {
-			setShowHoldingRow(id)
+			setShowHoldingRow(index)
 		}
 	}
 
@@ -36,13 +36,13 @@ export default function BFTable({ headers, rows, type, tableStyle = '', onRowCli
 	            </tr>
 		        </thead>
 		        <tbody>
-		        		{rows.map(coin => {
+		        		{rows.map((coin, index) => {
 		        			return type === 'top-cryptos' ? (<tr key={coin.id} className="p-4 bg-white dark:bg-gray-800 dark:border-gray-700"><CoinRow key={coin.id} {...coin} /></tr>)
 		        				: type === 'browse-cryptos' ? (<>
 		        					<tr key={coin.id} onClick={() => onRowClicked(coin.index)} className="shadow bg-white dark:bg-gray-800 dark:border-gray-700">
-		        						<BrowseCoinRow key={coin.id} {...coin.index} showHoldings={showHoldings} />
+		        						<BrowseCoinRow key={coin.id} rowIndex={index} {...coin.index} showHoldings={showHoldings} />
 		        					</tr>
-		        					{showHoldingRow === coin.id && <tr key={coin.id + '-holdings'}>
+		        					{showHoldingRow === index && <tr key={coin.id + '-holdings'}>
 		        						<td className="bg-white" colspan="8">
 		        							<BFHoldingsTable holdings={rows} />
 		        						</td>
