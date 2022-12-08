@@ -1,13 +1,17 @@
 import { useState } from 'react'
 import BFIcon from '../BFIcon'
 import BFCryptoImage from './BFCryptoImage'
+import { coinImageMappings } from '../../data/coinImages'
 
 export default function BFSelectCryptos() {
 
 	const [showMenu, setShowMenu] = useState(false)
+	const [shownCryptos, setShownCryptos] = useState(coinImageMappings)
 
 	const searchCrypto = (text) => {
 		setShowMenu(true)
+		const matchingCryptos = coinImageMappings.filter(crypto => crypto.name.includes(text))
+		setShownCryptos(matchingCryptos)
 	}
 
 	return(
@@ -29,27 +33,15 @@ export default function BFSelectCryptos() {
 		                {showMenu &&
 		                <div class="absolute shadow bg-white top-[100%] z-40 w-full left-0 rounded max-h-[300px] overflow-y-auto svelte-5uyqqj">
 	                    <div class="flex flex-col w-full">
-	                        <div class="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-blue-200">
+	                    	{shownCryptos.map(crypto => (
+	                        <div key={crypto.symbol} class="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-blue-200">
 	                            <div class="flex flex-row items-center gap-2 p-2">
-	                            	<BFCryptoImage symbol="BTC" index={0} isLarge={true} />
-                                <p>Bitcoin</p>
-                                <p className="text-xs text-gray-500">BTC</p>
+	                            	<BFCryptoImage symbol={crypto.symbol} index={0} isLarge={true} />
+                                <p>{crypto.name.slice(0, crypto.name.length - 6)}</p>
+                                <p className="text-xs mt-0.5 text-gray-500">{crypto.symbol}</p>
 	                            </div>
 	                        </div>
-	                        <div class="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-blue-200">
-	                            <div class="flex flex-row items-center gap-2 p-2">
-	                            	<BFCryptoImage symbol="BTC" index={0} isLarge={true} />
-                                <p>Bitcoin</p>
-                                <p className="text-xs text-gray-500">BTC</p>
-	                            </div>
-	                        </div>
-	                        <div class="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-blue-200">
-	                            <div class="flex flex-row items-center gap-2 p-2">
-	                            	<BFCryptoImage symbol="BTC" index={0} isLarge={true} />
-                                <p>Bitcoin</p>
-                                <p className="text-xs text-gray-500">BTC</p>
-	                            </div>
-	                        </div>
+	                    	))}
 	                    </div>
 		                </div>
 		              	}
