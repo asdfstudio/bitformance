@@ -2,7 +2,7 @@ import BFIcon from './BFIcon'
 import BFInfoTags from './small/BFInfoTags'
 import BFCryptoImage from './small/BFCryptoImage'
 import BFUpDownTag from './small/BFUpDownTag'
-import placeholder from '../circle-logo.png'
+import BFImage from './small/BFImage'
 
 export default function BrowseCoinRow({
 	id,
@@ -38,7 +38,7 @@ export default function BrowseCoinRow({
 	return(<>
 		<td>
 			<div className="flex flex-row items-center gap-2 mb-2">
-				<img className="shadow border rounded-full p-1 bg-white w-16 h-16 object-cover" src={logo || placeholder} alt={name} />
+				<BFImage src={logo} alt={name} style="shadow border rounded-full p-1 bg-white w-16 h-16 object-cover" />
 				<p className="font-bold text-lg">{name}</p>
 			</div>
 			<div onClick={(e) => {

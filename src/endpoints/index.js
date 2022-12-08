@@ -83,6 +83,16 @@ export const useTopFifty = () => {
   }
 }
 
+export const useRecentIndexes = () => {
+	const { data, error } = useSWR(baseUrl('/get-most-recent-indexes'), fetcher)
+
+	return {
+		data: data ? data.data : [],
+		isLoading: !error && !data,
+		isError: error
+	}
+}
+
 export const useBrowsableIndexes = () => {
 	const { data, error } = useSWR(baseUrl('/get-browsable-indexes'), fetcher)
 
