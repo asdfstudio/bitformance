@@ -90,7 +90,7 @@ export default function BFGraph({ subtractWidth = 0, data = [] }) {
 	}
  
 	return(
-			<AreaChart width={finalWidth} height={400} data={data} margin={{ top: 0, right: 0, bottom: 0, left: 14 }}>
+			<AreaChart width={finalWidth} height={400} data={data} margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
 		 	<defs>
         <linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
           <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>

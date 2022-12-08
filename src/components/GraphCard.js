@@ -81,11 +81,11 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, hook = f
 	  }
 	}
 
-	if (isLoading) return 'Loading...'
-	if (isError) {
-		console.log(isError)
-		return 'Error...'
-	}
+	// if (isLoading) return 'Loading...'
+	// if (isError) {
+	// 	console.log(isError)
+	// 	return 'Error...'
+	// }
 
 	return(
 		<div className="bg-white p-4">

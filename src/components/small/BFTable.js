@@ -35,6 +35,7 @@ export default function BFTable({ rows, type, tableStyle = '', onRowClicked = fu
 	}
 
 	console.log(rows)
+
 	return(
 		<div className="overflow-x-auto relative sm:rounded-lg">
 		    <table className={`w-full text-sm text-left ${tableStyle}`}>
@@ -54,7 +55,13 @@ export default function BFTable({ rows, type, tableStyle = '', onRowClicked = fu
 		        					</tr>
 		        					{showHoldingRow === index && <tr key={coin.id + '-holdings'}>
 		        						<td className="bg-white" colspan="8">
-		        							<BFHoldingsTable holdings={rows} />
+		        							<BFHoldingsTable holdings={coin.rawStocks.map(stock => {
+														return {
+															...stock,
+															holdingQuantity: coin.index.holdings[stock.symbol],
+															indexPrice: coin.index.value
+														}
+													})} />
 		        						</td>
 		        					</tr>}
 

@@ -136,6 +136,23 @@ export const login = async (email, password) => {
 	return data
 }
 
+export const generateChartPreview = async (weighting_method, initial_value, cryptos, custom_weights = {}) => {
+	const response = await fetch(
+		baseUrl('/create-chart-preview'), 
+		POST_DATA_OPTIONS({ 
+			name: 'Example', 
+			weighting_method, 
+			description: '', 
+			initial_value, 
+			cryptos, 
+			custom_weights,
+			logo: '' 
+		})
+	)
+	const data = await response.json()
+	return data
+}
+
 //TODO: test method
 export const uploadImage = async (imageFile, type = 'logo', indexId) => {
 	 const formData = new FormData();

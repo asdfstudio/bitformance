@@ -5,12 +5,16 @@ import GraphCard from '../components/GraphCard'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import BFUploadImage from '../components/small/BFUploadImage'
+import { generateChartPreview } from '../endpoints/index'
+import BFSelectCryptos from '../components/small/BFSelectCryptos'
 
 export default function CreateIndexPage() {
 
 	const navigate = useNavigate()
 
-	const [weightingMethod, setWeightingMethod] = useState('equal-weight')
+	const [previewShown, setPreviewShown] = useState(false)
+
+	const [weightingMethod, setWeightingMethod] = useState('equal_weight')
 	const [rebalancePeriod, setRebalancePeriod] = useState('never')
 	const addCrypto = (text) => {
 		//TODO:
@@ -18,6 +22,10 @@ export default function CreateIndexPage() {
 
 	const createIndex = () => {
 
+	}
+
+	const loadPreview = async () => {
+		const data = await generateChartPreview(weightingMethod)
 	}
 
 	return (
@@ -33,9 +41,11 @@ export default function CreateIndexPage() {
 						<input className="w-full px-2 py-1 border rounded" type="text" placeholder="e.g. Windmaker" />
 					</div>
 
-					<div>
+					<div className="relative">
+
 						<label className="font-bold text-sm">Choose Cryptocurrency</label>
-						<BFSearchBar onChange={addCrypto} />
+						<BFSelectCryptos />
+						
 					</div>
 
 					<div className="grid grid-cols-2 items-center gap-2">
@@ -76,21 +86,21 @@ export default function CreateIndexPage() {
 					<div className="space-x-2 flex flex-row">
 						<BFChooseOption onSelect={setWeightingMethod} selected={weightingMethod} options={[
 							{
-								id: 'equal-weight',
+								id: 'equal_weight',
 								label: 'Equal Weight'
 							},
 							{
-								id: 'market-cap',
+								id: 'market_cap',
 								label: 'Weighted by Market Cap'
 							},
 							{
-								id: 'custom-weights',
+								id: 'custom_weights',
 								label: 'Custom Weights'
 							}
 						]} />
 					</div>
-					{weightingMethod === 'custom-weights' && <hr />}
-					{weightingMethod === 'custom-weights' && 
+					{weightingMethod === 'custom_weights' && <hr />}
+					{weightingMethod === 'custom_weights' && 
 						<div>
 							for selected coins allow weight entry
 						</div>
@@ -105,7 +115,8 @@ export default function CreateIndexPage() {
 			<div className="bg-white fixed bottom-3 w-72 right-4">
 				<div className="flex flex-row gap-2">
 					<button className="w-full text-sm rounded bg-blue-50 hover:bg-blue-200 font-bold text-blue-500 py-2" onClick={() => navigate(-1)}>Cancel</button>
-					<button className="shadow font-bold w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2" onClick={() => createIndex()}>Create</button>
+					{!previewShown && <button className="shadow font-bold w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2" onClick={() => loadPreview()}>Preview</button>}
+					{previewShown && <button className="shadow font-bold w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2" onClick={() => createIndex()}>Create</button>}
 				</div>
 			</div>
 
