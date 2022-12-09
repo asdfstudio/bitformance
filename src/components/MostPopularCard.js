@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { usePopularIndexes } from '../endpoints/index'
 import { formatMoney } from '../helpers/index'
 import BFImage from './small/BFImage'
+import BFLoading from './small/BFLoading'
 
 export default function MostPopularCard() {
 	const { data, isLoading } = usePopularIndexes()
@@ -12,7 +13,7 @@ export default function MostPopularCard() {
 	if (isLoading) return (
 		<div className="pt-4 pl-4 pb-4  bg-white shadow rounded">
 			<h1 className="text-xl tracking-wider mb-6">Most Popular</h1>
-			<div className="h-40"></div>
+			<div className="h-40"><BFLoading heightAdjust="h-2/3" /></div>
 			<div className="text-right mt-4 mr-4">
 				<Link className="text-sm w-60 rounded bg-blue-500 text-white px-12 py-2">See all indexes</Link>
 			</div>

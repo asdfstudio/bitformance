@@ -1,25 +1,32 @@
 import { useState } from 'react'
 import BFTable from './small/BFTable'
-import exampleIcon from '../exampleIcon.png'
 import { COINS } from '../data/fakeData'
+import { useCryptosByMarketCap } from '../endpoints/index'
+import BFLoading from './small/BFLoading'
 
 export default function TopMarketCapCryptos() {
 
+	const { data, isLoading } = useCryptosByMarketCap()
+
+
 	const [sortOrder, setSortOrder] = useState('ASC') //'DESC'
 
-	const sortables = ['Cryptocurrency', 'Tickers', 'Price    ', '     24h %', '      7d %   ', 'Market Cap']
 
 	const sortBy = (label) => {
 		//TODO: backend query
 	}
 
-	//TODO: fetch data
-	const data = COINS
 
+	console.log(data)
 	return(
 		<div className="bg-white min-w-full overflow-y-auto p-4 space-y-4 rounded shadow">
 			<h1>Top Cryptocurrencies by Market Cap</h1>
-			<BFTable headers={sortables} rows={data} type="top-cryptos" />
+			<BFTable condensedHeaders={true} rows={data['largest coins'] || []} type="top-cryptos" />
+			{isLoading &&
+				<div className="h-96 bg-white">
+					<BFLoading heightAdjust="h-[45vh]" />
+				</div>
+			}
 		</div>
 	)
 }

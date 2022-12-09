@@ -4,13 +4,13 @@ import { formatMoney } from '../helpers/index'
 
 export default function CoinRow({
 	id,
-	image,
+	logo,
 	name,
-	ticker,
+	symbol,
 	price,
-	hourlyPercentageChange,
-	weeklyPercentageChange,
-	marketCap,
+	changepct_24hour,
+	changepct_7day,
+	market_cap,
 }) {
 
 	const DownTag = ({ change }) => (<div className="w-20 mx-auto">
@@ -29,34 +29,28 @@ export default function CoinRow({
 		</div>
 	)
 
-	const formatter = new Intl.NumberFormat('en-US', {
-	  style: 'currency',
-	  currency: 'USD',
-	});
-
-
 	return (
 		<>
-			<td className="flex flex-row items-center ml-4 gap-2">
-				<img className="w-6 h-6" src={image} alt={name} />
-				<p>{name}</p>
+			<td className="flex flex-row items-center ml-2 gap-2">
+				<img className="w-10 h-10 rounded-full" src={logo} alt={name} />
+				<p className="font-bold">{name}</p>
 			</td>
 
-			<td className="text-gray-400">{ticker}</td>
+			<td className="text-gray-400">{symbol}</td>
 			<td>{formatMoney(price)}</td>
 			<td>
-				{hourlyPercentageChange > 0 
-					? <UpTag change={hourlyPercentageChange} />
-					: <DownTag change={hourlyPercentageChange} />
+				{changepct_24hour > 0 
+					? <UpTag change={changepct_24hour} />
+					: <DownTag change={changepct_24hour} />
 				}
 			</td>
 			<td>	
-				{weeklyPercentageChange > 0 
-					? <UpTag change={weeklyPercentageChange} />
-					: <DownTag change={weeklyPercentageChange} />
+				{changepct_7day > 0 
+					? <UpTag change={changepct_7day} />
+					: <DownTag change={changepct_7day} />
 				}
 			</td>
-			<td className="pl-5">{formatter.format(marketCap)}</td>
+			<td className="pl-5">{formatMoney(market_cap)}</td>
 		</>
 	)
 }

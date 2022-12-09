@@ -125,6 +125,16 @@ export const useBrowsableIndexes = () => {
 	}
 }
 
+export const useCryptosByMarketCap = () => {
+	const { data, error } = useSWR(baseUrl('/get-coins-by-marketcap?limit=13'), fetcher)
+
+	return {
+		data: data ? data.data : [],
+		isLoading: !error && !data,
+		isError: error
+	}
+}
+
 export const useCryptoById = (id, isAuth) => {
 	const { data, error } = useSWR(
 		baseUrl(`/get-index?id=${id}`), 
