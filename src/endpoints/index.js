@@ -93,6 +93,28 @@ export const useRecentIndexes = () => {
 	}
 }
 
+export const usePopularIndexes = () => {
+	const { data, error } = useSWR(baseUrl('/get-most-popular-indexes'), fetcher)
+
+	return {
+		data: data ? data.data : [],
+		isLoading: !error && !data,
+		isError: error
+	}
+}
+
+export const usePerformers = () => {
+	const { data, error } = useSWR(baseUrl('/performers'), fetcher)
+
+	return {
+		data: data ? data.data : [],
+		isLoading: !error && !data,
+		isError: error
+	}
+}
+
+
+
 export const useBrowsableIndexes = () => {
 	const { data, error } = useSWR(baseUrl('/get-browsable-indexes'), fetcher)
 
