@@ -41,6 +41,7 @@ const fetcherAuth = ( url, query = '' ) => fetch(
 			localStorage.setItem('firstName', '')
 			localStorage.setItem('lastName', '')
 			localStorage.setItem('picture', '')
+			localStorage.setItem('accessToken', '')
 			window.location.href = '/?sessionExpired=true'
 		}
 	}
@@ -184,7 +185,7 @@ export const generateChartPreview = async (weighting_method, initial_value, cryp
 		POST_DATA_OPTIONS({ 
 			name: 'Example', 
 			weighting_method, 
-			description: '', 
+			description: 'Test', 
 			initial_value, 
 			cryptos, 
 			custom_weights,

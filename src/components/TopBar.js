@@ -6,10 +6,12 @@ import BFSearchBar from './small/BFSearchBar'
 import BFIcon from './BFIcon'
 import bitLogoWhite from '../bitLogoWhite.png'
 import SiteLinks from './small/SiteLinks'
+import { useSWRConfig } from 'swr'
 
 export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) {
 
 	let location = useLocation()
+	const { mutate } = useSWRConfig()
 	const [pathArray, setPathArray] = useState([])
 	const [searchText, setSearchText] = useState('')
 
@@ -55,11 +57,15 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 		localStorage.setItem('firstName', '')
 		localStorage.setItem('lastName', '')
 		localStorage.setItem('picture', '')
+		localStorage.setItem('accessToken', '')
+		localStorage.setItem('userId', '')
 		setUsername('')
 		setFirstName('')
 		setLastName('')
 		setPicture('')
 		setShowMenu(false)
+		mutate(`${process.env.REACT_APP_API_URL}/get-user-indexes`)
+		mutate(`${process.env.REACT_APP_API_URL}/get-favorited-indexes`)
 	}
 
 	return(<>

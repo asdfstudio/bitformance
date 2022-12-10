@@ -12,7 +12,7 @@ export default function SiteLinks({ setShowModalType, setShowMobileMenu = functi
 
 
 	const [indexesExpanded, setIndexesExpanded] = useState(false)
-	console.log(data)
+	
 	return(<>
 		<Link to="/" onClick={() => setShowMobileMenu(false)} className={`flex flex-row items-center gap-2 cursor-pointer`}>
 			<BFIcon iconName="home" color={secondaryColor} />

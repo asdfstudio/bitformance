@@ -3,7 +3,7 @@ import BFSearchBar from '../components/small/BFSearchBar'
 import BFChooseOption from '../components/small/BFChooseOption'
 import GraphCard from '../components/GraphCard'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import BFUploadImage from '../components/small/BFUploadImage'
 import { generateChartPreview } from '../endpoints/index'
 import BFSelectCryptos from '../components/small/BFSelectCryptos'
@@ -15,7 +15,11 @@ export default function CreateIndexPage() {
 	const [previewShown, setPreviewShown] = useState(false)
 
 	const [weightingMethod, setWeightingMethod] = useState('equal_weight')
+	const [initialValue, setInitialValue] = useState('')
 	const [rebalancePeriod, setRebalancePeriod] = useState('never')
+	const [selectedCryptos, setSelectedCryptos] = useState([])
+
+
 	const addCrypto = (text) => {
 		//TODO:
 	}
@@ -25,8 +29,18 @@ export default function CreateIndexPage() {
 	}
 
 	const loadPreview = async () => {
-		const data = await generateChartPreview(weightingMethod)
+		if (initialValue && selectedCryptos.length) {
+			//TODO: handle custom weights
+			const data = await generateChartPreview(weightingMethod, initialValue, selectedCryptos)
+			console.log(data)
+		}
 	}
+
+	useEffect(() => {
+		if (!localStorage.getItem('username')) {
+			navigate('/?sessionExpired=true')
+		}
+	}, [])
 
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-5 bg-gray-50">
@@ -44,14 +58,20 @@ export default function CreateIndexPage() {
 					<div className="relative">
 
 						<label className="font-bold text-sm">Choose Cryptocurrency</label>
-						<BFSelectCryptos />
+						<BFSelectCryptos selectedCryptos={selectedCryptos} setSelectedCryptos={setSelectedCryptos} />
 						
 					</div>
 
 					<div className="grid grid-cols-2 items-center gap-2">
 						<div>
 							<label className="font-bold text-sm">Initial Balance</label>
-							<input className="w-full px-2 py-1 border rounded" type="text" placeholder="e.g. 123" />
+							<input 
+								onChange={(e) => setInitialValue(e.target?.value)} 
+								value={initialValue} 
+								className="w-full px-2 py-1 border rounded" 
+								type="text" 
+								placeholder="e.g. 123" 
+							/>
 						</div>
 
 						<div className="flex flex-col mt-1">
