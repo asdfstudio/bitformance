@@ -7,13 +7,17 @@ import BFIcon from './BFIcon'
 import bitLogoWhite from '../bitLogoWhite.png'
 import SiteLinks from './small/SiteLinks'
 import { useSWRConfig } from 'swr'
+import { searchForIndex } from '../endpoints/index'
 
 export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) {
 
 	let location = useLocation()
 	const { mutate } = useSWRConfig()
 	const [pathArray, setPathArray] = useState([])
+
 	const [searchText, setSearchText] = useState('')
+	const [timer, setTimer] = useState(null)
+	const [foundIndexes, setFoundIndexes]= useState(null)
 
 	const [showMenu, setShowMenu] = useState(false)
 	const [username, setUsername] = useState('')
@@ -67,6 +71,17 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 		mutate(`${process.env.REACT_APP_API_URL}/get-user-indexes`)
 		mutate(`${process.env.REACT_APP_API_URL}/get-favorited-indexes`)
 	}
+
+	useEffect(() => {
+		if (timer) {
+			clearTimeout(timer)
+		}
+		const newTimer = setTimeout(async () => {
+			const data = await searchForIndex(searchText)
+			setFoundIndexes(data.data)
+		}, 750)
+		setTimer(newTimer)
+	}, [searchText])
 
 	return(<>
 		<div className="flex flex-row items-center w-full bg-blue-800 md:bg-white shadow p-2">

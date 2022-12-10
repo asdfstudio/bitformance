@@ -36,12 +36,13 @@ const fetcherAuth = ( url, query = '' ) => fetch(
 	GET_FETCH_OPTIONS_AUTH()
 ).then(res => { 
 	if (res.status === 401) {
-		if (!window.location.href.includes('/?sessionExpired=true') && !localStorage.getItem('username')) {
+		if (!window.location.href.includes('/?sessionExpired=true') && localStorage.getItem('username')) {
 			localStorage.setItem('username', '')
 			localStorage.setItem('firstName', '')
 			localStorage.setItem('lastName', '')
 			localStorage.setItem('picture', '')
 			localStorage.setItem('accessToken', '')
+			localStorage.setItem('userId', '')
 			window.location.href = '/?sessionExpired=true'
 		}
 	}
@@ -147,6 +148,11 @@ export const useCryptoById = (id, isAuth) => {
 		isLoading: !error && !data,
 		isError: error
 	}
+}
+
+export const searchForIndex = async (searchText) => {
+	const data = await fetcher(baseUrl(`/search-index?search=${searchText}`))
+	return data
 }
 
 //GET AUTH **********
