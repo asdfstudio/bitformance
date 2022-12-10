@@ -50,7 +50,7 @@ export default function RecentlyAdded() {
 				))}
 			</div>
 			<div className="text-right mt-4 mr-4">
-				<Link className="text-sm w-60 rounded bg-blue-500 text-white px-12 py-2">See all indexes</Link>
+				<Link to="/indexes/browse" className="text-sm w-60 rounded bg-blue-500 text-white px-12 py-2">See all indexes</Link>
 			</div>
 		</div>
 	)

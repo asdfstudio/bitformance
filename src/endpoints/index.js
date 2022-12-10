@@ -36,11 +36,11 @@ const fetcherAuth = ( url, query = '' ) => fetch(
 	GET_FETCH_OPTIONS_AUTH()
 ).then(res => { 
 	if (res.status === 401) {
-		localStorage.setItem('username', '')
-		localStorage.setItem('firstName', '')
-		localStorage.setItem('lastName', '')
-		localStorage.setItem('picture', '')
-		if (!window.location.href.includes('/?sessionExpired=true')) {
+		if (!window.location.href.includes('/?sessionExpired=true') && !localStorage.getItem('username')) {
+			localStorage.setItem('username', '')
+			localStorage.setItem('firstName', '')
+			localStorage.setItem('lastName', '')
+			localStorage.setItem('picture', '')
 			window.location.href = '/?sessionExpired=true'
 		}
 	}

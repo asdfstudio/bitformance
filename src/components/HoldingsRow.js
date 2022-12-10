@@ -18,13 +18,13 @@ export default function HoldingsRow({
 	return(<>
 		<CoinRow 
 			id={id} 
-			image={logo} 
+			logo={logo} 
 			name={name} 
-			ticker={symbol} 
+			symbol={symbol} 
 			price={price * holdingQuantity} //TODO 
-			hourlyPercentageChange={changepct_24hour}
-			weeklyPercentageChange={changepct_7day}
-			marketCap={market_cap}
+			changepct_24hour={changepct_24hour}
+			changepct_7day={changepct_7day}
+			market_cap={market_cap}
 		/>
 		<td>{Math.abs((price * holdingQuantity) / indexPrice * 100).toFixed(2)}%</td>
 		<td>{Math.abs(holdingQuantity).toFixed(3)}</td>

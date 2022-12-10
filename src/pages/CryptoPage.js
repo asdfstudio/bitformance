@@ -48,7 +48,7 @@ export default function CryptoPage({ isAuth }) {
 	)
 
 	if (isLoading) return <BFLoading />
-		
+
 	const totalReturn = calculateReturn(data.index.value, data.index.initial_value)
 
 	const returnGraphData = () => {
@@ -59,6 +59,7 @@ export default function CryptoPage({ isAuth }) {
 		}
 	}
 
+	console.log(data)
 	const formattedHoldings = data.rawStocks.map(stock => {
 		return {
 			...stock,
