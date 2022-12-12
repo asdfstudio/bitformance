@@ -185,6 +185,12 @@ export const login = async (email, password) => {
 	return data
 }
 
+export const favoriteIndex = async (index_id) => {
+	const response = await fetch(baseUrl('/favorites'), POST_DATA_OPTIONS({ index_id }))
+	const data = await response.json()
+	return data
+}
+
 export const generateChartPreview = async (weighting_method, initial_value, cryptos, custom_weights = {}) => {
 	const response = await fetch(
 		baseUrl('/create-chart-preview'), 

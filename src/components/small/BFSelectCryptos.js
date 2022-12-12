@@ -1,18 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import BFIcon from '../BFIcon'
 import BFCryptoImage from './BFCryptoImage'
 import { coinImageMappings } from '../../data/coinImages'
+import BFImage from './BFImage'
 
-export default function BFSelectCryptos({ selectedCryptos = [], setSelectedCryptos = function() {} }) {
+export default function BFSelectCryptos({ 
+	isSingleSelectMode = false, 
+	selectedCryptos = [], 
+	setSelectedCryptos = function() {},
+	selectCrypto = function() {},
+	selectIndex = function() {},
+	hook = function() { return { data: [], isLoading: false }}
+}) {
+	const { data, isLoading } = hook()
 
 	const [showMenu, setShowMenu] = useState(false)
 	const [shownCryptos, setShownCryptos] = useState(coinImageMappings)
+	const [shownIndexes, setShownIndexes] = useState(data || [])
 	const [hover, setHover] = useState('')
 
 	const searchCrypto = (text) => {
 		setShowMenu(true)
 		const matchingCryptos = coinImageMappings.filter(crypto => crypto.name.includes(text))
 		setShownCryptos(matchingCryptos)
+		const matchingIndexes = data.filter(obj => obj.index.name.includes(text) || obj.rawStocks.some(stock => stock.name.includes(text)))
+		setShownIndexes(matchingIndexes)
 	}
 
 	const handleSelectCrypto = (symbol) => {
@@ -24,6 +36,15 @@ export default function BFSelectCryptos({ selectedCryptos = [], setSelectedCrypt
 			newArray.push(symbol)
 		}
 		setSelectedCryptos(newArray)
+		if (isSingleSelectMode) {
+			setShowMenu(false)
+			selectCrypto(symbol)
+		}
+	}
+
+	const handleSelectIndex = (obj) => {
+		selectIndex(obj)
+		setShowMenu(false)
 	}
 
 	return(
@@ -45,6 +66,22 @@ export default function BFSelectCryptos({ selectedCryptos = [], setSelectedCrypt
 	                {showMenu &&
 	                <div className="absolute shadow bg-white top-[100%] z-40 w-full left-0 rounded max-h-[300px] overflow-y-auto svelte-5uyqqj">
                     <div className="flex flex-col w-full">
+                    	{shownIndexes.map(obj => (
+                    	    <div onClick={() => handleSelectIndex(obj)} key={obj.index._id} className="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-blue-200">
+                    	        <div className="flex flex-row items-center gap-2 p-2">
+                    	        	<BFImage src={obj.index.logo} alt={obj.index.name} style="shadow border rounded-full p-1 bg-white w-16 h-16 object-cover" />
+                    	        	<p className="font-bold text-lg">{obj.index.name}</p>
+                    	          <div className="flex flex-row items-center rounded-full px-2 py-1 border shadow">
+                    	          	{obj.rawStocks.slice(0, 4).map((crypto, index) => <BFCryptoImage key={index} symbol={crypto.symbol} index={index} />)}
+                    	          	{obj.rawStocks.length > 4 && <BFCryptoImage symbol={obj.rawStocks.length - 4} index={4} showNumber={true} /> }
+                    	          </div>
+                    	          {selectedCryptos.includes(crypto.symbol) && <div className="ml-auto"><BFIcon iconName="checked-circle" color="blue" /></div>}
+                    	        </div>
+                    	    </div>
+                    	))}
+                    	{shownIndexes && <hr />}
+                    	{shownIndexes && <hr />}
+
                     	{shownCryptos.map(crypto => (
                         <div onClick={() => handleSelectCrypto(crypto.symbol)} key={crypto.symbol} className="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-blue-200">
                             <div className="flex flex-row items-center gap-2 p-2">
@@ -62,6 +99,7 @@ export default function BFSelectCryptos({ selectedCryptos = [], setSelectedCrypt
 	        </div>
 	    </div>
 
+	    {!isSingleSelectMode &&
 	    <div className="mt-2 flex flex-row flex-wrap gap-1">
 	    	{selectedCryptos.map(symbol => 
 	    		<div onClick={() => handleSelectCrypto(symbol)} key={symbol} className="relative flex flex-row justify-center" onMouseEnter={() => setHover(symbol)} onMouseLeave={() => setHover('')}>
@@ -70,6 +108,7 @@ export default function BFSelectCryptos({ selectedCryptos = [], setSelectedCrypt
 	    		</div>
 	    	)}
 	    </div>
+	  	}
 
 
 		</div>

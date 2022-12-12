@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BFTable from '../components/small/BFTable'
 import { useMyIndexes } from '../endpoints/index'
@@ -19,6 +19,12 @@ export default function MyIndexesPages() {
 	const rowClicked = (coin) => {
 		navigate(`/indexes/my-indexes/${coin._id.$oid}`)
 	}
+
+	useEffect(() => {
+		if (!localStorage.getItem('username')) {
+			navigate('/?sessionExpired=true')
+		}
+	}, [])
 
 	return (
 		<div className="p-4 bg-gray-50">

@@ -10,21 +10,12 @@ export default function ComparePage() {
 	const [selectedCryptoOne, setSelectedCryptoOne] = useState(null)
 	const [selectedCryptoTwo, setSelectedCryptoTwo] = useState(null)
 
-	const selectCrypto = (text, id) => {
-		//TODO: select crypto from text and 
-		console.log(text)
+	const selectCrypto = (objectId, panelId) => {
+		console.log(objectId)
+		//TODO: load object data with fetch
 
-		const setCall = id == 1 ? setSelectedCryptoOne : setSelectedCryptoTwo
-		setCall({
-			id: 109,
-			image: exampleIcon,
-			name: 'Bitcoin',
-			ticker: 'BTC',
-			price: 20928.35,
-			hourlyPercentageChange: -0.91,
-			weeklyPercentageChange: -2.11,
-			marketCap: '$380.44B'
-		})
+		const setCall = panelId == 1 ? setSelectedCryptoOne : setSelectedCryptoTwo
+		setCall(objectId)
 	}
 
 	return(
@@ -44,8 +35,8 @@ export default function ComparePage() {
 			</div>
 
 			<div className="grid grid-cols-2 gap-2 p-1 h-4/5 overflow-y-auto">
-				<BFCryptoSelectorCard selectedCrypto={selectedCryptoOne} selectCrypto={selectCrypto} id="1" />
-				<BFCryptoSelectorCard selectedCrypto={selectedCryptoTwo} selectCrypto={selectCrypto} id="2" />
+				<BFCryptoSelectorCard selectedCrypto={selectedCryptoOne} selectCrypto={selectCrypto} panelId="1" />
+				<BFCryptoSelectorCard selectedCrypto={selectedCryptoTwo} selectCrypto={selectCrypto} panelId="2" />
 			</div>
 		</div>
 	)
