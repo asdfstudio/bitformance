@@ -96,7 +96,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, hook = f
 				<div className="border rounded-xl">
 					{colorOptions.map(option => (
 						<button 
-							className={`px-4 py-2 bg-gray-200 hover:bg-gray-300 ${option === graphColor && 'bg-transparent hover:bg-transparent'}`} 
+							className={`text-sm px-2 py-2 bg-gray-200 hover:bg-gray-300 ${option === graphColor && 'bg-transparent hover:bg-transparent'}`} 
 							key={option} onClick={() => setGraphColor(option)}
 						>
 							{option}
@@ -105,7 +105,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, hook = f
 				</div>
 				<div className="ml-0 md:ml-auto mt-2 md:mt-0 border rounded-xl">
 					{dateOptions.map(option => (
-						<button className={`px-4 py-2 bg-gray-200 hover:bg-gray-300 ${option === graphInterval && 'bg-transparent hover:bg-transparent'}`} key={option} onClick={() => setGraphInterval(option)}>{option}</button>
+						<button className={`text-sm px-3 md:px-2 py-2 bg-gray-200 hover:bg-gray-300 ${option === graphInterval && 'bg-transparent hover:bg-transparent'}`} key={option} onClick={() => setGraphInterval(option)}>{option}</button>
 					))}
 				</div>
 			</div>
