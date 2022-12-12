@@ -26,25 +26,27 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, hook = f
 	}, [data])
 
 	const loadData = () => {
-		const { dates, prices } = data.index.daily_graph_data
-		const array = []
-		for (let i = 0; i < dates.length; i++) {
-			array.push({
-				name: dates[i],
-				amt: prices[i]
-			})
+		if (data.index.daily_graph_data) {
+			const { dates, prices } = data.index.daily_graph_data
+			const array = []
+			for (let i = 0; i < dates.length; i++) {
+				array.push({
+					name: dates[i],
+					amt: prices[i]
+				})
+			}
+			setFullGraphData(array)
+			setShownGraphData(array.slice(-1095))
+			const hourly = []
+			const { dates: hourlyDates, prices: hourlyPrices} = data.index.fivemin_graph_data
+			for (let z = 0; z < hourlyDates.length; z++) {
+				hourly.push({
+					name: hourlyDates[z],
+					amt: hourlyPrices[z]
+				})
+			}
+			setHourlyData(hourly)
 		}
-		setFullGraphData(array)
-		setShownGraphData(array.slice(-1095))
-		const hourly = []
-		const { dates: hourlyDates, prices: hourlyPrices} = data.index.fivemin_graph_data
-		for (let z = 0; z < hourlyDates.length; z++) {
-			hourly.push({
-				name: hourlyDates[z],
-				amt: hourlyPrices[z]
-			})
-		}
-		setHourlyData(hourly)
 	}
 
 	useEffect(() => {

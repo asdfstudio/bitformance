@@ -150,6 +150,20 @@ export const useCryptoById = (id, isAuth) => {
 	}
 }
 
+export const useCoinBySymbol = (symbol) => {
+	const { data, error } = useSWR(
+		baseUrl(`/get-coin-data?symbol=${symbol}`), 
+		fetcher
+	)
+
+	return {
+		data: data ? data.data: {},
+		isLoading: !error && !data,
+		isError: error
+	}
+
+}
+
 export const searchForIndex = async (searchText) => {
 	const data = await fetcher(baseUrl(`/search-index?search=${searchText}`))
 	return data

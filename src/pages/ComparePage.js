@@ -7,13 +7,10 @@ export default function ComparePage() {
 
 	const [typeSelected, setTypeSelected] = useState('side-by-side')
 
-	const [selectedCryptoOne, setSelectedCryptoOne] = useState(null)
-	const [selectedCryptoTwo, setSelectedCryptoTwo] = useState(null)
+	const [selectedCryptoOne, setSelectedCryptoOne] = useState('')
+	const [selectedCryptoTwo, setSelectedCryptoTwo] = useState('')
 
 	const selectCrypto = (objectId, panelId) => {
-		console.log(objectId)
-		//TODO: load object data with fetch
-
 		const setCall = panelId == 1 ? setSelectedCryptoOne : setSelectedCryptoTwo
 		setCall(objectId)
 	}
@@ -34,7 +31,7 @@ export default function ComparePage() {
 				]} />
 			</div>
 
-			<div className="grid grid-cols-2 gap-2 p-1 h-4/5 overflow-y-auto">
+			<div className="grid grid-cols-2 gap-2 p-1 items-start overflow-y-auto">
 				<BFCryptoSelectorCard selectedCrypto={selectedCryptoOne} selectCrypto={selectCrypto} panelId="1" />
 				<BFCryptoSelectorCard selectedCrypto={selectedCryptoTwo} selectCrypto={selectCrypto} panelId="2" />
 			</div>

@@ -7,17 +7,22 @@ import BFHoldingsTable from './small/BFHoldingsTable'
 
 export default function BFCryptoInfo({
 	data,
+	isHalfGraph = false
 }) {	
 
 	const totalReturn = calculateReturn(data.index.value, data.index.initial_value)
 
-	const formattedHoldings = data.rawStocks.map(stock => {
-		return {
-			...stock,
-			holdingQuantity: data.index.holdings[stock.symbol],
-			indexPrice: data.index.value
-		}
-	})
+	let formattedHoldings =[]
+	if (data.rawStocks) {
+		formattedHoldings  = data.rawStocks.map(stock => {
+			return {
+				...stock,
+				holdingQuantity: data.index.holdings[stock.symbol],
+				indexPrice: data.index.value
+			}
+		})
+	}
+
 
 	const returnGraphData = () => {
 		return {
@@ -34,6 +39,11 @@ export default function BFCryptoInfo({
 	const DownTag = ({ value }) => (
 		<span className="text-xl text-red-500"><BFIcon iconName="down-left-arrow" /> {Math.abs(value).toFixed(2)}%</span> 
 	)
+
+	let adjustGraphWidth = 380
+	if (isHalfGraph) {
+		adjustGraphWidth += 250
+	}
 
 	return (<>
 
@@ -57,12 +67,12 @@ export default function BFCryptoInfo({
 					<label className="text-gray-500">Market Cap</label>
 					<p className="font-bold">{formatMoney(data.index.marketcap)}</p>
 				</div>
-				<BFInfoTags timestamp={data.index.updated.$date} weightingMethod={data.index.weighting_method} 	rebalancingInterval={data.index.rebalancing_interval} />
+				{data.index.updated && <BFInfoTags timestamp={data.index.updated.$date} weightingMethod={data.index.weighting_method} 	rebalancingInterval={data.index.rebalancing_interval} />}
 			</div>
 		</div>
 
 		<div className="bg-white rounded-md border">
-			<GraphCard title="Currency Indexes" subtractWidth={380} hook={returnGraphData} />
+			<GraphCard title="Currency Indexes" subtractWidth={adjustGraphWidth} hook={returnGraphData} />
 		</div>
 
 		<div className="bg-white rounded-md border p-4 flex flex-row justify-between items-center">
@@ -78,10 +88,11 @@ export default function BFCryptoInfo({
 				</p>
 			</div>
 		</div>
-
-		<div className="bg-white rounded-md border p-4 min-w-full overflow-y-auto space-y-4">
-			<h2 className="text-xl font-bold">Holdings <span className="bg-gray-100 rounded py-1 px-2 text-sm font-normal">{data.rawStocks.length}</span></h2>
-			<BFHoldingsTable holdings={formattedHoldings} />
-		</div>
+		{formattedHoldings.length &&
+			<div className="bg-white rounded-md border p-4 min-w-full overflow-y-auto space-y-4">
+				<h2 className="text-xl font-bold">Holdings <span className="bg-gray-100 rounded py-1 px-2 text-sm font-normal">{data.rawStocks.length}</span></h2>
+				<BFHoldingsTable holdings={formattedHoldings} />
+			</div>
+		}
 	</>)
 }
