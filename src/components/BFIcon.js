@@ -20,6 +20,7 @@ import {
 	faShieldHalved,
 	faBars,
 	faX,
+	faCircleInfo,
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -67,6 +68,7 @@ export default function BFIcon({ iconName, color, size }) {
 		{ name: 'logout', icon: faRightFromBracket },
 		{ name: 'menu', icon: faBars },
 		{ name: 'close', icon: faX },
+		{ name: 'info', icon: faCircleInfo },
 
 	]
 

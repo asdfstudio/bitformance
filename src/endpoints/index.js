@@ -159,7 +159,7 @@ export const useCoinBySymbol = (symbol) => {
 	)
 
 	return {
-		data: data ? data.data: {},
+		data: data ? data.data: null,
 		isLoading: !error && !data,
 		isError: error
 	}

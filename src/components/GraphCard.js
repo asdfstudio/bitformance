@@ -1,7 +1,7 @@
 import BFGraph from './BFGraph'
 import { useState, useEffect } from 'react'
 
-export default function GraphCard({ title, subtractWidth = 0, holdings, hook = function () { return { data: {}, isLoading: false, isError: false }} }) {
+export default function GraphCard({ title, subtractWidth = 0, holdings, isOverlay = false, hook = function () { return { data: {}, isLoading: false, isError: false }} }) {
 
 	const { data, isLoading, isError } = hook()
 
@@ -19,14 +19,106 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, hook = f
 	const [hourlyData, setHourlyData] = useState([])
 
 	useEffect(() => {
+		if (isOverlay && fullGraphData.length === 0) {
+			loadOverlayData()
+		}
 		if (data && data.index && fullGraphData.length === 0) {
 			loadData()
 		}
 
 	}, [data])
 
+	const loadOverlayData = () => {
+		const dataOne = data[0]
+		const dataTwo = data[1]
+
+		let daily_graph_data_one = dataOne.data.daily_graph_data
+		let daily_graph_data_two = dataTwo.data.daily_graph_data
+		let fivemin_graph_data_one = dataOne.data.fivemin_graph_data
+		let fivemin_graph_data_two = dataTwo.data.fivemin_graph_data
+
+		if (dataOne.isCrypto) {
+			daily_graph_data_one = dataOne.data.index.daily_graph_data
+			fivemin_graph_data_one = dataOne.data.index.fivemin_graph_data
+		}
+		if (dataTwo.isCrypto) {
+			daily_graph_data_two = dataTwo.data.index.daily_graph_data
+			fivemin_graph_data_two = dataTwo.data.index.fivemin_graph_data
+		}
+
+
+		const { dates, prices, price } = daily_graph_data_one
+		const { dates: datesTwo, prices: pricesTwo, price: priceTwo } = daily_graph_data_two
+		const array = []
+
+		//Make date array lengths match
+		let useLessDates = []
+		let formatPrice = []
+		let formatPriceTwo = []
+		if (dates.length > datesTwo.length) {
+			useLessDates = datesTwo
+			if (pricesTwo) {
+				formatPriceTwo = pricesTwo.slice(-1 * datesTwo.length)
+			} else {
+				formatPriceTwo = priceTwo.slice(-1 * datesTwo.length)
+			}
+			if (prices) {
+				formatPrice = prices
+			} else {
+				formatPrice = price
+			}
+		} else if (datesTwo.length > dates.length) {
+			useLessDates = dates
+			if (prices) {
+				formatPrice = prices.slice(-1 * dates.length)
+				console.log(formatPrice.length)
+			} else {
+				formatPrice = price.slice(-1 * dates.length)
+			}
+			if (pricesTwo) {
+				formatPriceTwo = pricesTwo
+			} else {
+				formatPriceTwo = priceTwo
+			}
+		} else {
+			//do nothing, same length, maybe check similar timestamps
+			useLessDates = dates
+			formatPrice = prices ? prices : price
+			formatPriceTwo = pricesTwo ? pricesTwo : priceTwo
+		}
+
+
+		console.log(formatPrice.length)
+		console.log(formatPriceTwo.length)
+
+
+		for (let i = 0; i < useLessDates.length; i++) {
+			array.push({
+				name: useLessDates[i],
+				amt:  formatPrice[i],
+				amt2: formatPriceTwo[i]
+			})
+		}
+		setFullGraphData(array)
+		setShownGraphData(array.slice(-1095))
+		const hourly = []
+		const { dates: hourlyDates, prices: hourlyPrices, price: hourlyPrice } = fivemin_graph_data_one
+		const { dates: hourlyDatesTwo, prices: hourlyPricesTwo, price: hourlyPriceTwo } = fivemin_graph_data_two
+
+		for (let z = 0; z < hourlyDates.length; z++) {
+			hourly.push({
+				name: hourlyDates[z],
+				amt: hourlyPrices ? hourlyPrices[z] : hourlyPrice[z],
+				amt2: hourlyPricesTwo ? hourlyPricesTwo[z] : hourlyPriceTwo[z]
+			})
+		}
+		setHourlyData(hourly)
+		
+	}
+
+
+
 	const loadData = () => {
-		console.log(data)
 		if (data.index.daily_graph_data) {
 			const { dates, prices, price } = data.index.daily_graph_data
 			const array = []
@@ -111,7 +203,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, hook = f
 				</div>
 			</div>
 
-			<BFGraph subtractWidth={subtractWidth} data={shownGraphData} />
+			<BFGraph subtractWidth={subtractWidth} data={shownGraphData} showOverlay={isOverlay} />
 	
 		</div>
 	)

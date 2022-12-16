@@ -10,7 +10,8 @@ import BFImage from './small/BFImage'
 export default function BFCryptoInfo({
 	data,
 	isHalfGraph = false,
-	showIcon = false
+	showIcon = false,
+	hideGraph = false
 }) {	
 	console.log(data)
 	const totalReturn = calculateReturn(data.index.value || data.index.price, data.index.initial_value)
@@ -77,11 +78,13 @@ export default function BFCryptoInfo({
 			</div>
 		</div>
 
+		{!hideGraph &&
 		<div className="bg-white rounded-md border">
 			<GraphCard title="Currency Indexes" subtractWidth={adjustGraphWidth} hook={returnGraphData} />
 		</div>
+		}
 
-		{totalReturn > 0 &&
+		{(totalReturn > 0 && !hideGraph) &&
 		<div className="bg-white rounded-md border p-4 flex flex-row justify-between items-center">
 			<h2 className="text-xl font-bold">Performance Metrics</h2>
 			<div className="flex flex-row space-x-6">
@@ -96,7 +99,7 @@ export default function BFCryptoInfo({
 			</div>
 		</div>
 		}
-		{formattedHoldings.length > 0 &&
+		{(formattedHoldings.length > 0 && !hideGraph) &&
 			<div className="bg-white rounded-md border p-4 min-w-full overflow-y-auto space-y-4">
 				<h2 className="text-xl font-bold">Holdings <span className="bg-gray-100 rounded py-1 px-2 text-sm font-normal">{data.rawStocks.length}</span></h2>
 				<BFHoldingsTable holdings={formattedHoldings} />

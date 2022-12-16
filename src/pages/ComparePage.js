@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react'
 import BFCryptoSelectorCard from '../components/BFCryptoSelectorCard'
-import exampleIcon from '../exampleIcon.png'
 import BFChooseOption from '../components/small/BFChooseOption'
+import { useSearchParams } from 'react-router-dom'
+import { useCoinBySymbol, useCryptoById } from '../endpoints/index'
+import GraphCard from '../components/GraphCard'
+import BFLoading from '../components/small/BFLoading'
 
 export default function ComparePage() {
+
+	const [searchParams, setSearchParams] = useSearchParams()
 
 	const [typeSelected, setTypeSelected] = useState('side-by-side')
 
@@ -13,6 +18,38 @@ export default function ComparePage() {
 	const selectCrypto = (objectId, panelId) => {
 		const setCall = panelId == 1 ? setSelectedCryptoOne : setSelectedCryptoTwo
 		setCall(objectId)
+	}
+
+	useEffect(() => {
+		const id = searchParams.get('id')
+		if (id) {
+			setSelectedCryptoOne(id)
+		}
+	}, [])
+
+
+
+	const OverlayGraph = ({ selectedCryptoOne, selectedCryptoTwo }) => {
+		const isOneCrypto = selectedCryptoOne.length > 7
+		const isTwoCrypto = selectedCryptoTwo.length > 7
+		const hookChoiceOne = isOneCrypto ? useCryptoById : useCoinBySymbol
+		const hookChoiceTwo = isTwoCrypto ? useCryptoById : useCoinBySymbol
+		const { data, isLoading } = hookChoiceOne(selectedCryptoOne)
+		const { data: dataTwo, isLoading: isLoadingTwo } = hookChoiceTwo(selectedCryptoTwo)
+		
+		if (isLoading || isLoadingTwo) {
+			return <BFLoading />
+		}
+		return <GraphCard isOverlay={true} hook={() => {
+			return { 
+				data: [
+					{ data, isCrypto: isOneCrypto }, 
+					{ data: dataTwo, isCrypto: isTwoCrypto }
+				], 
+				isLoading: false, 
+				isError: false 
+			}}
+		} />
 	}
 
 	return(
@@ -32,9 +69,10 @@ export default function ComparePage() {
 			</div>
 
 			<div className="grid grid-cols-2 gap-2 p-1 items-start overflow-y-auto">
-				<BFCryptoSelectorCard selectedCrypto={selectedCryptoOne} selectCrypto={selectCrypto} panelId="1" />
-				<BFCryptoSelectorCard selectedCrypto={selectedCryptoTwo} selectCrypto={selectCrypto} panelId="2" />
+				<BFCryptoSelectorCard mode={typeSelected} selectedCrypto={selectedCryptoOne} selectCrypto={selectCrypto} panelId="1" />
+				<BFCryptoSelectorCard mode={typeSelected} selectedCrypto={selectedCryptoTwo} selectCrypto={selectCrypto} panelId="2" />
 			</div>
+			{(typeSelected === 'overlay' && selectedCryptoOne && selectedCryptoTwo) && <OverlayGraph selectedCryptoOne={selectedCryptoOne} selectedCryptoTwo={selectedCryptoTwo} />}
 		</div>
 	)
 }

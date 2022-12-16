@@ -7,6 +7,7 @@ import BFLoading from './small/BFLoading'
 import { baseUrl, favoriteIndex, useFavoriteIndexes } from '../endpoints/index'
 import { useSWRConfig } from 'swr'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function BrowseCoinRow({
 	_id,
@@ -25,6 +26,7 @@ export default function BrowseCoinRow({
 	rebalancing_interval,
 	showHoldings
 }) {
+	const navigate = useNavigate()
 	const { mutate } = useSWRConfig()
 	const { data, isLoading } = useFavoriteIndexes()
 
@@ -33,8 +35,7 @@ export default function BrowseCoinRow({
 
 	const compareRow = (e, { $oid }) => {
 		e.stopPropagation()
-
-		//TODO: nav compare add graph
+		navigate(`/compare?id=${$oid}`)
 	}
 
 	const favoriteRow = async(e, { $oid }) => {

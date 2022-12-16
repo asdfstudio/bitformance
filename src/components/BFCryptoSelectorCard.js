@@ -6,9 +6,7 @@ import { useMyIndexes, useCoinBySymbol, useCryptoById } from '../endpoints/index
 import BFCryptoInfo from './BFCryptoInfo'
 import BFLoading from './small/BFLoading'
 
-export default function BFCryptoSelectorCard({ selectedCrypto, selectCrypto, panelId }) {
-	
-
+export default function BFCryptoSelectorCard({ mode, selectedCrypto, selectCrypto, panelId }) {
 	const [selectedCryptos, setSelectedCryptos] = useState([])
 
 	const selectC = (symbol) => {
@@ -27,26 +25,22 @@ export default function BFCryptoSelectorCard({ selectedCrypto, selectCrypto, pan
 
 	const CoinView = () => {
 		const { data, isLoading } = useCoinBySymbol(selectedCrypto)
-		console.log(selectedCrypto)
-		console.log(data)
 		return (
 			<div>
-				 <BFCryptoInfo showIcon={true} isHalfGraph={true} data={{ index: data }} />
+				{data && <BFCryptoInfo showIcon={true} hideGraph={mode === 'overlay'} isHalfGraph={true} data={{ index: data }} />}
+				{isLoading && <BFLoading />}
 			</div>
 		)
 	}
 
 	const IndexView = () => {
 		const { data, isLoading } = useCryptoById(selectedCrypto, true)
-		console.log(selectedCrypto)
-		console.log(data)
 		return (
 			<div className="space-y-4 h-full">
-				 {data && <BFCryptoInfo showIcon={true} data={data} isHalfGraph={true} />}
+				 {data && <BFCryptoInfo showIcon={true} hideGraph={mode === 'overlay'} data={data} isHalfGraph={true} />}
 				 {isLoading && <BFLoading />}
 			</div>
 		)
-
 	}
 
 	return(

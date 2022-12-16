@@ -34,7 +34,7 @@ export default function PerfomersCards() {
 				{sorted.slice(0,3).map(coin => (
 					<div key={coin.name + '-recently-added'} className="grid grid-cols-4 gap-4 py-1">
 						<div className="flex flex-row items-center gap-2">
-							<BFImage src={coin.logo} alt={coin.name} style="w-6 h-6 object-cover" />
+							<BFImage src={coin.logo} alt={coin.name} style="w-6 h-6 object-cover rounded-full" />
 							<p>{coin.name}</p>
 						</div>
 						<div className="ml-4">

@@ -44,8 +44,9 @@ export default function ContactUsModal({ setShowModalType }) {
 		    		<label className="font-bold text-sm">Email Address</label>
 		    		<input className="w-full p-2 border rounded" type="text" placeholder="e. g. yourname@gmail.com" />
 		    	</div>
-		    	<div>
-		    		icon: Please enter a valid email address. We will reply to your inquiries to this email.
+		    	<div className="flex flex-row gap-2 items-center">
+		    		<span><BFIcon iconName="info" color="gray" /></span>
+		    		<p className="text-sm">We'll only use your email for important updates / inquiries.</p>
 		    	</div>
 		    	<div>
 		    		<label className="font-bold text-sm">Description</label>

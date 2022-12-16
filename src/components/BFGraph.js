@@ -11,7 +11,7 @@ import moment from 'moment'
 import { useState, useEffect } from 'react'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-export default function BFGraph({ subtractWidth = 0, data = [] }) {
+export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = false }) {
 
 	const { width } = useWindowDimensions();
 
@@ -105,6 +105,7 @@ export default function BFGraph({ subtractWidth = 0, data = [] }) {
 		  <Tooltip />
 		  {data.length > 0 && <>
 			  <Area type="monotone" dataKey="amt" strokeWidth={1} stroke="#8884d8" fillOpacity={1} fill="url(#colorBlue)" />
+			 	{showOverlay && <Area type="monotone" dataKey="amt2" strokeWidth={1} stroke="#82ca9d" fillOpacity={1} fill="url(#colorGreen)" />}
 			  <XAxis dataKey="name" tickFormatter={formatXAxis} />
 			  <YAxis tickFormatter={formatYAxis} domain={['dataMin', 'auto']} />
 			</>}
