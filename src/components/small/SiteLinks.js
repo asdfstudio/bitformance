@@ -8,11 +8,11 @@ const secondaryColor = '#40C8B8'
 export default function SiteLinks({ setShowModalType, setShowMobileMenu = function(){} , colorStyle = '' }) {
 
 	const { data, isLoading } = useMyIndexes()
-	const { data: favorites, isLoading: favoritesLoading } = useMyIndexes()
+	const { data: favorites, isLoading: favoritesLoading } = useFavoriteIndexes()
 
 
 	const [indexesExpanded, setIndexesExpanded] = useState(false)
-	
+
 	return(<>
 		<Link to="/" onClick={() => setShowMobileMenu(false)} className={`flex flex-row items-center gap-2 cursor-pointer`}>
 			<BFIcon iconName="home" color={secondaryColor} />

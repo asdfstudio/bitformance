@@ -3,9 +3,13 @@ import BFInfoTags from './small/BFInfoTags'
 import BFCryptoImage from './small/BFCryptoImage'
 import BFUpDownTag from './small/BFUpDownTag'
 import BFImage from './small/BFImage'
+import BFLoading from './small/BFLoading'
+import { baseUrl, favoriteIndex, useFavoriteIndexes } from '../endpoints/index'
+import { useSWRConfig } from 'swr'
+import { useState } from 'react'
 
 export default function BrowseCoinRow({
-	id,
+	_id,
 	rowIndex,
 	logo,
 	name,
@@ -21,20 +25,43 @@ export default function BrowseCoinRow({
 	rebalancing_interval,
 	showHoldings
 }) {
+	const { mutate } = useSWRConfig()
+	const { data, isLoading } = useFavoriteIndexes()
 
-	const compareRow = (id) => {
+	const [loadingFavorites, setLoadingFavorites] = useState(false)
+	const [favoriteValue, setFavoriteValue] = useState(0)
+
+	const compareRow = (e, { $oid }) => {
+		e.stopPropagation()
+
 		//TODO: nav compare add graph
 	}
 
-	const favoriteRow = (id) => {
-		//TODO: favorite
+	const favoriteRow = async(e, { $oid }) => {
+		e.stopPropagation()
+		if (localStorage.getItem('userId')) {
+			setLoadingFavorites(true)
+			const result = await favoriteIndex($oid)
+			if (result.message === 'Index added to favourites') {
+				setFavoriteValue(1)
+			}
+			if (result.message === 'Index removed from favourites') {
+				setFavoriteValue(-1)
+			}
+
+			await mutate(baseUrl('/get-favorited-indexes'))
+			setLoadingFavorites(false)
+			return
+		}
+
+
 	}
 
 	const formatter = new Intl.NumberFormat('en-US', {
 	  style: 'currency',
 	  currency: 'USD',
 	});
-	console.log(logo)
+
 	return(<>
 		<td>
 			<div className="flex flex-row items-center gap-2 mb-2">
@@ -73,9 +100,15 @@ export default function BrowseCoinRow({
 		<td className="align-top pt-8">
 			<BFInfoTags timestamp={updated.$date} weightingMethod={weighting_method} rebalancingInterval={rebalancing_interval} />
 		</td>
-		<td className="text-right pr-4">
-			<span onClick={() => favoriteRow(id)} >{favorites.length} <BFIcon iconName="favorite" size="sm" color="gray" />&nbsp;&nbsp;</span>
-			<span onClick={() => compareRow(id)}> <BFIcon iconName="compare" size="sm" color="gray" /> </span>
+		<td className="text-right pr-4 cursor-pointer">
+			{loadingFavorites ? <BFLoading isSmall="true" />
+			: (<>
+				<span onClick={(e) => favoriteRow(e, _id)} >
+					{favorites.length + favoriteValue} <BFIcon iconName="favorite" size="sm" color={data.some(obj => obj.index._id.$oid === _id.$oid) ? 'blue' : 'gray'}  />&nbsp;&nbsp;
+				</span>
+				<span onClick={(e) => compareRow(e, _id)}> <BFIcon iconName="compare" size="sm" color="gray" /> </span>
+			</>)
+			}
 		</td>
 
 	</>)

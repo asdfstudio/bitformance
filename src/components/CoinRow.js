@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { formatMoney } from '../helpers/index'
+import { coinImageMappings } from '../data/coinImages'
 
 export default function CoinRow({
 	id,
@@ -29,11 +30,17 @@ export default function CoinRow({
 		</div>
 	)
 
+	const findName = (symbol) => {
+		const obj = coinImageMappings.find(obj => obj.symbol === symbol)
+		const parts = obj.name.split(' (')
+		return parts[0]
+	} 
+
 	return (
 		<>
 			<td className="flex flex-row items-center ml-2 gap-2">
 				<img className="w-10 h-10 rounded-full" src={logo} alt={name} />
-				<p className="font-bold">{name}</p>
+				<p className="font-bold">{name || findName(symbol)}</p>
 			</td>
 
 			<td className="text-gray-400">{symbol}</td>

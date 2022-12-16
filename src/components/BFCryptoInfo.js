@@ -4,13 +4,16 @@ import BFUpDownTag from './small/BFUpDownTag'
 import BFIcon from './BFIcon'
 import GraphCard from './GraphCard'
 import BFHoldingsTable from './small/BFHoldingsTable'
+import BFCryptoImage from './small/BFCryptoImage'
+import BFImage from './small/BFImage'
 
 export default function BFCryptoInfo({
 	data,
-	isHalfGraph = false
+	isHalfGraph = false,
+	showIcon = false
 }) {	
-
-	const totalReturn = calculateReturn(data.index.value, data.index.initial_value)
+	console.log(data)
+	const totalReturn = calculateReturn(data.index.value || data.index.price, data.index.initial_value)
 
 	let formattedHoldings =[]
 	if (data.rawStocks) {
@@ -22,7 +25,6 @@ export default function BFCryptoInfo({
 			}
 		})
 	}
-
 
 	const returnGraphData = () => {
 		return {
@@ -48,11 +50,15 @@ export default function BFCryptoInfo({
 	return (<>
 
 		<div className="p-4 bg-white rounded-md border space-y-4">
-			<h2 className="font-bold text-xl">Overview</h2>
+			<div className="flex flex-row gap-2 items-center"> 
+				<h2 className="font-bold text-xl">{showIcon ? data.index.name : 'Overview'}</h2>
+				{(showIcon && data.index.symbol) && <BFCryptoImage symbol={data.index.symbol} />}
+				{(showIcon && data.index.logo !== undefined) && <BFImage style="w-8 h-8 object-cover rounded-full" src={data.index.logo} alt={data.index.name} /> }
+			</div>
 			<div className="flex flex-row justify-between text-sm">
 				<div className="space-y-2">
 					<label className="text-gray-500">Price</label>
-					<p className="font-bold">{formatMoney(data.index.value)}</p>
+					<p className="font-bold">{formatMoney(data.index.value || data.index.price)}</p>
 				</div>
 				<div className="space-y-2">
 					<label className="text-gray-500">24h %</label>
@@ -60,7 +66,7 @@ export default function BFCryptoInfo({
 				</div>
 				<div className="space-y-2">
 					<label className="text-gray-500">7d %</label>
-					<BFUpDownTag style="font-bold" change={data.index.changepct_7d} />
+					<BFUpDownTag style="font-bold" change={data.index.changepct_7d || data.index.changepct_7day} />
 
 				</div>
 				<div className="space-y-2">
@@ -75,6 +81,7 @@ export default function BFCryptoInfo({
 			<GraphCard title="Currency Indexes" subtractWidth={adjustGraphWidth} hook={returnGraphData} />
 		</div>
 
+		{totalReturn > 0 &&
 		<div className="bg-white rounded-md border p-4 flex flex-row justify-between items-center">
 			<h2 className="text-xl font-bold">Performance Metrics</h2>
 			<div className="flex flex-row space-x-6">
@@ -88,7 +95,8 @@ export default function BFCryptoInfo({
 				</p>
 			</div>
 		</div>
-		{formattedHoldings.length &&
+		}
+		{formattedHoldings.length > 0 &&
 			<div className="bg-white rounded-md border p-4 min-w-full overflow-y-auto space-y-4">
 				<h2 className="text-xl font-bold">Holdings <span className="bg-gray-100 rounded py-1 px-2 text-sm font-normal">{data.rawStocks.length}</span></h2>
 				<BFHoldingsTable holdings={formattedHoldings} />

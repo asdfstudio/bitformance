@@ -20,13 +20,11 @@ export default function MostPopularCard() {
 		</div>
 	)
 
-	console.log(data)
-
 	return(
 		<div className="pt-4 pl-4 pb-4  bg-white shadow rounded">
 			<h1 className="text-xl tracking-wider mb-6">Most Popular</h1>
 			<div>
-				{data.popular_indexes.map(coin => (
+				{data.map(coin => (
 					<div key={coin.name + '-recently-added'} className="grid grid-cols-4 gap-4 py-1">
 						<div className="flex flex-row items-center gap-2">
 							<BFImage src={coin.logo} alt={coin.name} style="w-6 h-6 object-cover" />

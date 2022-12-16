@@ -27,20 +27,22 @@ export default function BFCryptoSelectorCard({ selectedCrypto, selectCrypto, pan
 
 	const CoinView = () => {
 		const { data, isLoading } = useCoinBySymbol(selectedCrypto)
+		console.log(selectedCrypto)
 		console.log(data)
 		return (
 			<div>
-				 <BFCryptoInfo data={{ index: data}} />
+				 <BFCryptoInfo showIcon={true} isHalfGraph={true} data={{ index: data }} />
 			</div>
 		)
 	}
 
 	const IndexView = () => {
 		const { data, isLoading } = useCryptoById(selectedCrypto, true)
+		console.log(selectedCrypto)
 		console.log(data)
 		return (
 			<div className="space-y-4 h-full">
-				 {data && <BFCryptoInfo data={data} isHalfGraph={true} />}
+				 {data && <BFCryptoInfo showIcon={true} data={data} isHalfGraph={true} />}
 				 {isLoading && <BFLoading />}
 			</div>
 		)
@@ -58,7 +60,7 @@ export default function BFCryptoSelectorCard({ selectedCrypto, selectCrypto, pan
 				hook={useMyIndexes} 
 			/>
 
-			{selectedCrypto.length > 3 ? <IndexView />
+			{selectedCrypto.length > 7 ? <IndexView />
 			 : selectedCrypto.length > 0 ? <CoinView /> 
 			 : <DefaultView />
 			}

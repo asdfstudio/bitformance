@@ -21,7 +21,7 @@ export default function TopMarketCapCryptos() {
 	return(
 		<div className="bg-white min-w-full overflow-y-auto p-4 space-y-4 rounded shadow">
 			<h1>Top Cryptocurrencies by Market Cap</h1>
-			<BFTable condensedHeaders={true} rows={data['largest coins'] || []} type="top-cryptos" />
+			<BFTable condensedHeaders={true} rows={data || []} type="top-cryptos" />
 			{isLoading &&
 				<div className="h-96 bg-white">
 					<BFLoading heightAdjust="h-[45vh]" />

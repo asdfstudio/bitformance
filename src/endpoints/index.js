@@ -26,6 +26,7 @@ const fetcher = ( url, query = '' ) => fetch(
 	`${url}${query}`, 
 	GET_FETCH_OPTIONS()
 ).then(res => { 
+	console.log(res)
 	// if (res.status === 401) {
 	// 	window.location.href = '/?sessionExpired=true'
 	// }
@@ -36,6 +37,7 @@ const fetcherAuth = ( url, query = '' ) => fetch(
 	GET_FETCH_OPTIONS_AUTH()
 ).then(res => { 
 	if (res.status === 401) {
+		console.log(res)
 		if (!window.location.href.includes('/?sessionExpired=true') && localStorage.getItem('username')) {
 			localStorage.setItem('username', '')
 			localStorage.setItem('firstName', '')
@@ -49,7 +51,7 @@ const fetcherAuth = ( url, query = '' ) => fetch(
 	return res.json()
 }) 
 
-const baseUrl = (slug) => `${process.env.REACT_APP_API_URL}${slug}`
+export const baseUrl = (slug) => `${process.env.REACT_APP_API_URL}${slug}`
 
 const POST_DATA_OPTIONS = (data) => {
 	return {
@@ -172,7 +174,6 @@ export const searchForIndex = async (searchText) => {
 //GET AUTH **********
 export const useMyIndexes = () => {
 	const { data, error } = useSWR(baseUrl('/get-user-indexes'), fetcherAuth)
-
 	return {
 		data: data ? data.data : [],
 		isLoading: !error && !data,
