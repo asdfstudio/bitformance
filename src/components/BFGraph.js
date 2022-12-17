@@ -33,7 +33,6 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 		return array
 	}
 
-	const [plotInterval, setPlotInterval] = useState('7D')
 	const intervals = {
 	  '24H': [60, 120, 180, 240, 295],
 	  '7D' : [60, 116, 172, 228, 284],
@@ -88,6 +87,19 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	} else {
 		finalWidth = width - 286 - subtractWidth
 	}
+
+	const CustomTooltip = ({ active, payload, label }) => {
+	  if (active && payload && payload.length) {
+	    return (
+	      <div className="border bg-white p-4">
+	      	<p>{formatDate(label, '3Y')}</p>
+	        <p>{formatter.format(payload[0].value)}</p>
+	      </div>
+	    );
+	  }
+
+	  return null;
+	};
  
 	return(
 			<AreaChart width={finalWidth} height={400} data={data} margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
@@ -102,12 +114,12 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
         </linearGradient>
       </defs>
 		  <CartesianGrid stroke="#ccc" />
-		  <Tooltip />
 		  {data.length > 0 && <>
 			  <Area type="monotone" dataKey="amt" strokeWidth={1} stroke="#8884d8" fillOpacity={1} fill="url(#colorBlue)" />
 			 	{showOverlay && <Area type="monotone" dataKey="amt2" strokeWidth={1} stroke="#82ca9d" fillOpacity={1} fill="url(#colorGreen)" />}
 			  <XAxis dataKey="name" tickFormatter={formatXAxis} />
 			  <YAxis tickFormatter={formatYAxis} domain={['dataMin', 'auto']} />
+			  <Tooltip content={<CustomTooltip />} />
 			</>}
 		</AreaChart>
 		

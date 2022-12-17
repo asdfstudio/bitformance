@@ -54,8 +54,6 @@ export default function BrowseCoinRow({
 			setLoadingFavorites(false)
 			return
 		}
-
-
 	}
 
 	const formatter = new Intl.NumberFormat('en-US', {
@@ -105,7 +103,7 @@ export default function BrowseCoinRow({
 			{loadingFavorites ? <BFLoading isSmall="true" />
 			: (<>
 				<span onClick={(e) => favoriteRow(e, _id)} >
-					{favorites.length + favoriteValue} <BFIcon iconName="favorite" size="sm" color={data.some(obj => obj.index._id.$oid === _id.$oid) ? 'blue' : 'gray'}  />&nbsp;&nbsp;
+					{favorites.length + favoriteValue} <BFIcon iconName="favorite" size="sm" color={data?.some(obj => obj.index._id.$oid === _id.$oid) ? 'blue' : 'gray'}  />&nbsp;&nbsp;
 				</span>
 				<span onClick={(e) => compareRow(e, _id)}> <BFIcon iconName="compare" size="sm" color="gray" /> </span>
 			</>)
