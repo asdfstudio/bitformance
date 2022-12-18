@@ -7,18 +7,20 @@ import { useState, useEffect } from 'react'
 import BFUploadImage from '../components/small/BFUploadImage'
 import { generateChartPreview } from '../endpoints/index'
 import BFSelectCryptos from '../components/small/BFSelectCryptos'
+import BFLoading from '../components/small/BFLoading'
 
 export default function CreateIndexPage() {
 
 	const navigate = useNavigate()
 
+	const [loadingPreview, setLoadingPreview] = useState(false)
 	const [previewShown, setPreviewShown] = useState(false)
 
 	const [weightingMethod, setWeightingMethod] = useState('equal_weight')
 	const [initialValue, setInitialValue] = useState('')
 	const [rebalancePeriod, setRebalancePeriod] = useState('never')
 	const [selectedCryptos, setSelectedCryptos] = useState([])
-
+	const [returnData, setReturnData] = useState(function(){})
 
 	const addCrypto = (text) => {
 		//TODO:
@@ -28,11 +30,22 @@ export default function CreateIndexPage() {
 
 	}
 
+	const loadData = () => {
+		return {
+			data: { index: returnData },
+			isLoading: false,
+			isError: false	
+		}
+	}
+
 	const loadPreview = async () => {
 		if (initialValue && selectedCryptos.length) {
 			//TODO: handle custom weights
+			setLoadingPreview(true)
 			const data = await generateChartPreview(weightingMethod, initialValue, selectedCryptos)
-			console.log(data)
+			setReturnData(data.data)
+			setLoadingPreview(false)
+			setPreviewShown(true)
 		}
 	}
 
@@ -128,14 +141,14 @@ export default function CreateIndexPage() {
 				</div>
 
 				<div className="bg-white mt-4 rounded-md border space-y-4">
-					<GraphCard title="Chart Preview" subtractWidth={500} />
+					<GraphCard title="Chart Preview" subtractWidth={500} hook={loadData} />
 				</div>
 			</div>
 
 			<div className="bg-white fixed bottom-3 w-72 right-4">
 				<div className="flex flex-row gap-2">
 					<button className="w-full text-sm rounded bg-blue-50 hover:bg-blue-200 font-bold text-blue-500 py-2" onClick={() => navigate(-1)}>Cancel</button>
-					{!previewShown && <button className="shadow font-bold w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2" onClick={() => loadPreview()}>Preview</button>}
+					{!previewShown && <button className="shadow font-bold w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2" onClick={() => loadPreview()}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Preview'}</button>}
 					{previewShown && <button className="shadow font-bold w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2" onClick={() => createIndex()}>Create</button>}
 				</div>
 			</div>

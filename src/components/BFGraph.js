@@ -93,7 +93,8 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	    return (
 	      <div className="border bg-white p-4">
 	      	<p>{formatDate(label, '3Y')}</p>
-	        <p>{formatter.format(payload[0].value)}</p>
+	        <p className={showOverlay ? 'text-blue-400' : ''} >{formatter.format(payload[0].value)}</p>
+	        {showOverlay && <p className="text-green-400">{formatter.format(payload[1].value)}</p>}
 	      </div>
 	    );
 	  }
