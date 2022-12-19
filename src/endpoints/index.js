@@ -129,8 +129,8 @@ export const useBrowsableIndexes = () => {
 	}
 }
 
-export const useCryptosByMarketCap = () => {
-	const { data, error } = useSWR(baseUrl('/get-coins-by-marketcap?limit=13'), fetcher)
+export const useCryptosByMarketCap = (sortField, sortOrder) => {
+	const { data, error } = useSWR(baseUrl(`/get-coins-by-marketcap?limit=13&sortOrder=${sortOrder}&sortField=${sortField}`), fetcher)
 
 	return {
 		data: data ? data.data : [],
@@ -223,14 +223,42 @@ export const generateChartPreview = async (weighting_method, initial_value, cryp
 	return data
 }
 
+export const createIndex = async (name, weighting_method, description = '', initial_value, cryptos, rebalancing_interval, custom_weights = {}, logo = '') => {
+	const response = await fetch(
+		baseUrl('/create-new-index'), 
+		POST_DATA_OPTIONS({ 
+			name,
+			weighting_method, 
+			description,
+			initial_value, 
+			cryptos, 
+			custom_weights,
+			logo
+		})
+	)
+	const data = await response.json()
+	return data
+}
+
+//TODO: not working
+export const deleteIndex = async (id) => {
+	const response = await fetch(
+		baseUrl('/remove-index'), 
+		POST_DATA_OPTIONS({ 
+			id
+		})
+	)
+	const data = await response.json()
+	return data
+}
+
 //TODO: test method
 export const uploadImage = async (imageFile, type = 'logo', indexId) => {
 	 const formData = new FormData();
 	  formData.append("file_obj", imageFile);
 	  formData.append("type", type);
 	  formData.append('id', indexId);
-	  const response = await fetch(baseUrl('/mime-files'), POST_DATA_OPTIONS_FORM(formData))
+	  const response = await fetch(baseUrl('/mime-files'), POST_DATA_OPTIONS_FORM({ data: formData }))
 	  const data = await response.json()
-	  console.log(data)
 	  return data
 }

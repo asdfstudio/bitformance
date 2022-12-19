@@ -30,7 +30,7 @@ export default function MyIndexesPages() {
 		<div className="p-4 bg-gray-50">
 			<BFTable 
 				rows={data || []} 
-				type="browse-cryptos" 
+				type="my-indexes" 
 				tableStyle="border-separate border-spacing-y-5" 
 				onRowClicked={rowClicked}
 			/>

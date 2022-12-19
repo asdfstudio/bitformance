@@ -6,27 +6,42 @@ import BFLoading from './small/BFLoading'
 
 export default function TopMarketCapCryptos() {
 
-	const { data, isLoading } = useCryptosByMarketCap()
 
-
-	const [sortOrder, setSortOrder] = useState('ASC') //'DESC'
+	const [sortField, setSortField] = useState('market_cap')
+	const [sortOrder, setSortOrder] = useState('desc') //'asc'
 
 
 	const sortBy = (label) => {
-		//TODO: backend query
+		console.log(label)
+		if (label === sortField) {
+			setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')
+			return
+		}
+		setSortField(label)
+		setSortOrder('desc')
 	}
 
-
-	console.log(data)
-	return(
-		<div className="bg-white min-w-full overflow-y-auto p-4 space-y-4 rounded shadow">
-			<h1>Top Cryptocurrencies by Market Cap</h1>
-			<BFTable condensedHeaders={true} rows={data || []} type="top-cryptos" />
+	const SortedTable = ({ sortField, sortOrder }) => {
+		const { data, isLoading } = useCryptosByMarketCap(sortField, sortOrder)
+		return (<>
+			<BFTable 
+				condensedHeaders={true} 
+				rows={data || []} 
+				type="top-cryptos" 
+				handleHeaderClick={sortBy}
+			/>
 			{isLoading &&
 				<div className="h-96 bg-white">
 					<BFLoading heightAdjust="h-[45vh]" />
 				</div>
 			}
+		</>)
+	}
+
+	return(
+		<div className="bg-white min-w-full overflow-y-auto p-4 space-y-4 rounded shadow">
+			<h1>Top Cryptocurrencies by Market Cap</h1>
+			<SortedTable sortField={sortField} sortOrder={sortOrder} />
 		</div>
 	)
 }

@@ -2,7 +2,7 @@ import BFGraph from './BFGraph'
 import { useState, useEffect } from 'react'
 
 export default function GraphCard({ title, subtractWidth = 0, holdings, isOverlay = false, hook = function () { return { data: {}, isLoading: false, isError: false }} }) {
-	console.log(hook)
+
 	const { data, isLoading, isError } = hook()
 
 	const [graphColor, setGraphColor] = useState('Solid Colored')
@@ -115,7 +115,6 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 		setHourlyData(hourly)
 		
 	}
-
 
 
 	const loadData = () => {

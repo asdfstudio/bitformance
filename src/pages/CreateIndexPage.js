@@ -5,9 +5,10 @@ import GraphCard from '../components/GraphCard'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import BFUploadImage from '../components/small/BFUploadImage'
-import { generateChartPreview } from '../endpoints/index'
+import { generateChartPreview, uploadImage, createIndex } from '../endpoints/index'
 import BFSelectCryptos from '../components/small/BFSelectCryptos'
 import BFLoading from '../components/small/BFLoading'
+import { toast } from 'react-toastify';
 
 export default function CreateIndexPage() {
 
@@ -16,18 +17,30 @@ export default function CreateIndexPage() {
 	const [loadingPreview, setLoadingPreview] = useState(false)
 	const [previewShown, setPreviewShown] = useState(false)
 
+	const [name, setName] = useState('')
+	const [description, setDescription] = useState('')
 	const [weightingMethod, setWeightingMethod] = useState('equal_weight')
 	const [initialValue, setInitialValue] = useState('')
 	const [rebalancePeriod, setRebalancePeriod] = useState('never')
 	const [selectedCryptos, setSelectedCryptos] = useState([])
 	const [returnData, setReturnData] = useState(function(){})
 
-	const addCrypto = (text) => {
-		//TODO:
-	}
+	const [fileSelected, setFileSelected] = useState(null)
 
-	const createIndex = () => {
-
+	const handleCreateIndex = async () => {
+		setLoadingPreview(true)
+		const newIndex = await createIndex(name, weightingMethod, description, initialValue, selectedCryptos, rebalancePeriod)
+		console.log(newIndex)
+		if (newIndex.result) {
+			if (fileSelected) {
+				const addLogo = await uploadImage(fileSelected, 'logo', newIndex.data._id.$oid)
+				console.log(addLogo)
+			}
+			navigate(`/indexes/my-indexes/${newIndex._id.$oid}`)
+			return
+		}
+		setLoadingPreview(false)
+		toast.error(newIndex.message)
 	}
 
 	const loadData = () => {
@@ -49,6 +62,11 @@ export default function CreateIndexPage() {
 		}
 	}
 
+	const handleFileSelect = async (e) => {
+		const file = e.target?.files[0]
+		setFileSelected(file)
+	}
+
 	useEffect(() => {
 		if (!localStorage.getItem('username')) {
 			navigate('/?sessionExpired=true')
@@ -60,19 +78,18 @@ export default function CreateIndexPage() {
 			<div className="col-span-2 space-y-4 bg-white rounded border p-4 m-4">
 				<h1 className="text-xl font-bold mb-4">Basic</h1>
 				<label>Index Logo</label>
-				<BFUploadImage />
+				<BFUploadImage handleFileSelect={handleFileSelect} fileSelected={fileSelected} />
 
 				<div className="space-y-4">
 					<div>
 						<label className="font-bold text-sm">Index Name</label>
-						<input className="w-full px-2 py-1 border rounded" type="text" placeholder="e.g. Windmaker" />
+						<input onChange={(e) => setName(e.target?.value)} value={name} className="w-full px-2 py-1 border rounded" type="text" placeholder="e.g. Windmaker" />
 					</div>
 
 					<div className="relative">
 
 						<label className="font-bold text-sm">Choose Cryptocurrency</label>
 						<BFSelectCryptos selectedCryptos={selectedCryptos} setSelectedCryptos={setSelectedCryptos} />
-						
 					</div>
 
 					<div className="grid grid-cols-2 items-center gap-2">
@@ -103,7 +120,7 @@ export default function CreateIndexPage() {
 
 					<div>
 						<label className="font-bold text-sm">Description</label>
-						<textarea className='w-full border h-32'></textarea>
+						<textarea onChange={(e) => setDescription(e.target?.value)} value={description} className='w-full border h-32'></textarea>
 					</div>
 
 				</div>
@@ -149,7 +166,7 @@ export default function CreateIndexPage() {
 				<div className="flex flex-row gap-2">
 					<button className="w-full text-sm rounded bg-blue-50 hover:bg-blue-200 font-bold text-blue-500 py-2" onClick={() => navigate(-1)}>Cancel</button>
 					{!previewShown && <button className="shadow font-bold w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2" onClick={() => loadPreview()}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Preview'}</button>}
-					{previewShown && <button className="shadow font-bold w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2" onClick={() => createIndex()}>Create</button>}
+					{previewShown && <button className="shadow font-bold w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2" onClick={() => handleCreateIndex()}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Create'}</button>}
 				</div>
 			</div>
 

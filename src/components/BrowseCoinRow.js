@@ -4,7 +4,7 @@ import BFCryptoImage from './small/BFCryptoImage'
 import BFUpDownTag from './small/BFUpDownTag'
 import BFImage from './small/BFImage'
 import BFLoading from './small/BFLoading'
-import { baseUrl, favoriteIndex, useFavoriteIndexes } from '../endpoints/index'
+import { baseUrl, favoriteIndex, useFavoriteIndexes, deleteIndex } from '../endpoints/index'
 import { useSWRConfig } from 'swr'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -24,7 +24,8 @@ export default function BrowseCoinRow({
 	updated = { $date: null },
 	weighting_method,
 	rebalancing_interval,
-	showHoldings
+	showHoldings,
+	showDelete = false
 }) {
 	const navigate = useNavigate()
 	const { mutate } = useSWRConfig()
@@ -54,6 +55,12 @@ export default function BrowseCoinRow({
 			setLoadingFavorites(false)
 			return
 		}
+	}
+
+	const handleDeleteIndex = async(e, { $oid }) => {
+		e.stopPropagation()
+		const result = await deleteIndex($oid)
+		console.log(result)
 	}
 
 	const formatter = new Intl.NumberFormat('en-US', {
@@ -106,6 +113,7 @@ export default function BrowseCoinRow({
 					{favorites.length + favoriteValue} <BFIcon iconName="favorite" size="sm" color={data?.some(obj => obj.index._id.$oid === _id.$oid) ? 'blue' : 'gray'}  />&nbsp;&nbsp;
 				</span>
 				<span onClick={(e) => compareRow(e, _id)}> <BFIcon iconName="compare" size="sm" color="gray" /> </span>
+				{showDelete && <span className="mx-2" onClick={(e) => handleDeleteIndex(e, _id)}> <BFIcon iconName="delete" size="sm" color="gray" /> </span> }
 			</>)
 			}
 		</td>

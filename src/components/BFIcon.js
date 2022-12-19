@@ -21,6 +21,7 @@ import {
 	faBars,
 	faX,
 	faCircleInfo,
+	faTrashCan,
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -69,6 +70,7 @@ export default function BFIcon({ iconName, color, size }) {
 		{ name: 'menu', icon: faBars },
 		{ name: 'close', icon: faX },
 		{ name: 'info', icon: faCircleInfo },
+		{ name: 'delete', icon: faTrashCan },
 
 	]
 

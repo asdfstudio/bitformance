@@ -15,12 +15,13 @@ import TopBar from './components/TopBar'
 import BFModal from './components/BFModal'
 
 import { useState } from 'react'
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-//TODO: create mobile layout
 const MainLayout = ({ showModalType, setShowModalType, children }) => {
-
   return(
     <>
+      <ToastContainer />
       {showModalType && <BFModal showModalType={showModalType} setShowModalType={setShowModalType} />}
       <div className="flex flex-row">
         <SidePanel setShowModalType={setShowModalType} />
