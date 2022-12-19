@@ -8,6 +8,7 @@ import { baseUrl, favoriteIndex, useFavoriteIndexes, deleteIndex } from '../endp
 import { useSWRConfig } from 'swr'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { formatMoney } from '../helpers/index'
 
 export default function BrowseCoinRow({
 	_id,
@@ -63,11 +64,6 @@ export default function BrowseCoinRow({
 		console.log(result)
 	}
 
-	const formatter = new Intl.NumberFormat('en-US', {
-	  style: 'currency',
-	  currency: 'USD',
-	});
-
 	return(<>
 		<td>
 			<div className="flex flex-row items-center gap-2 mb-2">
@@ -95,14 +91,14 @@ export default function BrowseCoinRow({
 				</div>
 			</div>
 		</td>
-		<td className="text-sm align-top pt-8">{formatter.format(value)}</td>
+		<td className="text-sm align-top pt-8">{formatMoney(value)}</td>
 		<td className="align-top pt-7">
 			<BFUpDownTag change={changepct_24hour} />
 		</td>
 		<td className="align-top pt-7">	
 			<BFUpDownTag change={changepct_7d} />
 		</td>
-		<td className="text-sm pl-5 align-top pt-8">{formatter.format(marketcap)}</td>
+		<td className="text-sm pl-5 align-top pt-8">{formatMoney(marketcap)}</td>
 		<td className="align-top pt-8">
 			<BFInfoTags timestamp={updated.$date} weightingMethod={weighting_method} rebalancingInterval={rebalancing_interval} />
 		</td>
