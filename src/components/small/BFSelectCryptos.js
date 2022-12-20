@@ -3,6 +3,7 @@ import BFIcon from '../BFIcon'
 import BFCryptoImage from './BFCryptoImage'
 import { coinImageMappings } from '../../data/coinImages'
 import BFImage from './BFImage'
+import BFLoading from './BFLoading'
 
 export default function BFSelectCryptos({ 
 	isSingleSelectMode = false, 
@@ -19,11 +20,17 @@ export default function BFSelectCryptos({
 	const [shownIndexes, setShownIndexes] = useState(data || [])
 	const [hover, setHover] = useState('')
 
+	useEffect(() => {
+		if (data) {
+			setShownIndexes(data)
+		}
+	}, [data])
+
 	const searchCrypto = (text) => {
 		setShowMenu(true)
-		const matchingCryptos = coinImageMappings.filter(crypto => crypto.name.includes(text))
+		const matchingCryptos = coinImageMappings.filter(crypto => crypto.name.toLowerCase().includes(text.toLowerCase()))
 		setShownCryptos(matchingCryptos)
-		const matchingIndexes = data.filter(obj => obj.index.name.includes(text) || obj.rawStocks.some(stock => stock.name.includes(text)))
+		const matchingIndexes = data.filter(obj => obj.index.name.toLowerCase().includes(text) || obj.rawStocks.some(stock => stock.name.toLowerCase().includes(text.toLowerCase())))
 		setShownIndexes(matchingIndexes)
 	}
 
@@ -66,7 +73,7 @@ export default function BFSelectCryptos({
 	                {showMenu &&
 	                <div className="absolute shadow bg-white top-[100%] z-40 w-full left-0 rounded max-h-[300px] overflow-y-auto svelte-5uyqqj">
                     <div className="flex flex-col w-full">
-                    	{shownIndexes.map(obj => (
+                    	{isLoading ? <BFLoading isCenter={true} /> : shownIndexes.map(obj => (
                     	    <div onClick={() => handleSelectIndex(obj.index._id.$oid)} key={obj.index._id} className="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-blue-200">
                     	        <div className="flex flex-row items-center gap-2 p-2">
                     	        	<BFImage src={obj.index.logo} alt={obj.index.name} style="shadow border rounded-full p-1 bg-white w-16 h-16 object-cover" />

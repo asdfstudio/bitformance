@@ -26,6 +26,23 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 	const [picture, setPicture] = useState('')
 	const [showMobileMenu, setShowMobileMenu] = useState(false)
 
+	const load = () => {
+		const username = localStorage.getItem('username')
+		const firstName = localStorage.getItem('firstName')
+		const lastName = localStorage.getItem('lastName')
+		const picture = localStorage.getItem('picture')
+		if (username) {
+			setUsername(username)
+			setFirstName(firstName)
+			setLastName(lastName)
+			setPicture(picture)
+		}
+	}
+
+	useEffect(() => {
+		load()
+	}, [])
+
 	useEffect(() => {
 		if (location && location.pathname) {
 			if (location.pathname === '/') {
@@ -39,16 +56,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 	}, [location])
 
 	useEffect(() => {
-		const username = localStorage.getItem('username')
-		const firstName = localStorage.getItem('firstName')
-		const lastName = localStorage.getItem('lastName')
-		const picture = localStorage.getItem('picture')
-		if (username) {
-			setUsername(username)
-			setFirstName(firstName)
-			setLastName(lastName)
-			setPicture(picture)
-		}
+		load()
 	}, [showModalType])
 
 	function capitalizeFirstLetter(string) {
