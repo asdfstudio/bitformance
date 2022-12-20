@@ -5,14 +5,16 @@ import GraphCard from '../components/GraphCard'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import BFUploadImage from '../components/small/BFUploadImage'
-import { generateChartPreview, uploadImage, createIndex } from '../endpoints/index'
+import { generateChartPreview, uploadImage, createIndex, baseUrl } from '../endpoints/index'
 import BFSelectCryptos from '../components/small/BFSelectCryptos'
 import BFLoading from '../components/small/BFLoading'
 import { toast } from 'react-toastify';
+import { useSWRConfig } from 'swr'
 
 export default function CreateIndexPage() {
 
 	const navigate = useNavigate()
+	const { mutate } = useSWRConfig()
 
 	const [loadingPreview, setLoadingPreview] = useState(false)
 	const [previewShown, setPreviewShown] = useState(false)
@@ -36,6 +38,7 @@ export default function CreateIndexPage() {
 				const addLogo = await uploadImage(fileSelected, 'logo', newIndex.data._id.$oid)
 				console.log(addLogo)
 			}
+			mutate(baseUrl('/get-user-indexes'))
 			navigate(`/indexes/my-indexes/${newIndex.data._id.$oid}`)
 			return
 		}

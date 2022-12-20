@@ -1,4 +1,4 @@
-import { formatMoney, calculateReturn } from '../helpers/index'
+import { formatMoney, calculateReturn, calculateDrawdown } from '../helpers/index'
 import BFInfoTags from './small/BFInfoTags'
 import BFUpDownTag from './small/BFUpDownTag'
 import BFIcon from './BFIcon'
@@ -15,8 +15,10 @@ export default function BFCryptoInfo({
 }) {	
 	console.log(data)
 	const totalReturn = calculateReturn(data.index.value || data.index.price, data.index.initial_value)
+	const drawdown = calculateDrawdown(data.index.daily_graph_data.prices)
 
-	let formattedHoldings =[]
+	let formattedHoldings = []
+	let marketCap = 0
 	if (data.rawStocks) {
 		formattedHoldings  = data.rawStocks.map(stock => {
 			return {
@@ -25,6 +27,7 @@ export default function BFCryptoInfo({
 				indexPrice: data.index.value
 			}
 		})
+		marketCap = data.rawStocks.reduce((sum, a) => a.market_cap + sum, 0)
 	}
 
 	const returnGraphData = () => {
@@ -72,7 +75,7 @@ export default function BFCryptoInfo({
 				</div>
 				<div className="space-y-2">
 					<label className="text-gray-500">Market Cap</label>
-					<p className="font-bold">{formatMoney(data.index.marketcap)}</p>
+					<p className="font-bold">{formatMoney(data.index.marketcap || marketCap)}</p>
 				</div>
 				{data.index.updated && <BFInfoTags timestamp={data.index.updated.$date} weightingMethod={data.index.weighting_method} 	rebalancingInterval={data.index.rebalancing_interval} />}
 			</div>
@@ -84,12 +87,12 @@ export default function BFCryptoInfo({
 		</div>
 		}
 
-		{(totalReturn > 0 && !hideGraph) &&
+		{(totalReturn && !hideGraph) &&
 		<div className="bg-white rounded-md border p-4 flex flex-row justify-between items-center">
 			<h2 className="text-xl font-bold">Performance Metrics</h2>
 			<div className="flex flex-row space-x-6">
 				<p className="flex flex-row items-center">
-					{data.index.drawdown > 0 ? <UpTag value={data.index.drawdown} /> : <DownTag value={data.index.drawdown} /> }
+					{data.index.drawdown > 0 ? <UpTag value={data.index.drawdown || drawdown} /> : <DownTag value={data.index.drawdown || drawdown} /> }
 					<span className="ml-2 mt-0.5 text-sm">Maximum Drawdown</span>
 				</p>
 				<p className="flex flex-row items-center">
