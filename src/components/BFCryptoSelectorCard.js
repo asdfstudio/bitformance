@@ -27,7 +27,15 @@ export default function BFCryptoSelectorCard({ mode, selectedCrypto, selectCrypt
 		const { data, isLoading } = useCoinBySymbol(selectedCrypto)
 		return (
 			<div>
-				{data && <BFCryptoInfo showIcon={true} hideGraph={mode === 'overlay'} isHalfGraph={true} data={{ index: data }} />}
+				{data && 
+					<BFCryptoInfo 
+						showIcon={true} 
+						hideGraph={mode === 'overlay'} 
+						isHalfGraph={true} 
+						data={{ index: data }} 
+						panelId={panelId}
+					/>
+				}
 				{isLoading && <BFLoading />}
 			</div>
 		)
@@ -37,7 +45,15 @@ export default function BFCryptoSelectorCard({ mode, selectedCrypto, selectCrypt
 		const { data, isLoading } = useCryptoById(selectedCrypto, true)
 		return (
 			<div className="space-y-4 h-full">
-				 {data && <BFCryptoInfo showIcon={true} hideGraph={mode === 'overlay'} data={data} isHalfGraph={true} />}
+				 {data && 
+				 		<BFCryptoInfo 
+				 			showIcon={true} 
+				 			hideGraph={mode === 'overlay'} 
+				 			data={data} 
+				 			isHalfGraph={true} 
+				 			panelId={panelId}
+				 		/>
+				 	}
 				 {isLoading && <BFLoading />}
 			</div>
 		)

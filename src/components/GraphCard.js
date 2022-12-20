@@ -40,10 +40,14 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 		if (dataOne.isCrypto) {
 			daily_graph_data_one = dataOne.data.index.daily_graph_data
 			fivemin_graph_data_one = dataOne.data.index.fivemin_graph_data
+		} else {
+			dataOne.data.index = { initial_value: dataOne.data.initial_value }
 		}
 		if (dataTwo.isCrypto) {
 			daily_graph_data_two = dataTwo.data.index.daily_graph_data
 			fivemin_graph_data_two = dataTwo.data.index.fivemin_graph_data
+		} else {
+			dataTwo.data.index = { initial_value: dataTwo.data.initial_value }
 		}
 
 
@@ -71,7 +75,6 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 			useLessDates = dates
 			if (prices) {
 				formatPrice = prices.slice(-1 * dates.length)
-				console.log(formatPrice.length)
 			} else {
 				formatPrice = price.slice(-1 * dates.length)
 			}
@@ -88,15 +91,11 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 		}
 
 
-		console.log(formatPrice.length)
-		console.log(formatPriceTwo.length)
-
-
 		for (let i = 0; i < useLessDates.length; i++) {
 			array.push({
 				name: useLessDates[i],
-				amt:  formatPrice[i],
-				amt2: formatPriceTwo[i]
+				amt:  (formatPrice[i] - dataOne.data.index.initial_value) / (dataOne.data.index.initial_value * 100),
+				amt2: (formatPriceTwo[i] - dataTwo.data.index.initial_value) / (dataTwo.data.index.initial_value * 100)
 			})
 		}
 		setFullGraphData(array)
@@ -106,10 +105,12 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 		const { dates: hourlyDatesTwo, prices: hourlyPricesTwo, price: hourlyPriceTwo } = fivemin_graph_data_two
 
 		for (let z = 0; z < hourlyDates.length; z++) {
+			const hourlyT = hourlyPrices ? hourlyPrices[z] : hourlyPrice[z] 
+			const hourlyTwo = hourlyPricesTwo ? hourlyPricesTwo[z] : hourlyPriceTwo[z]
 			hourly.push({
 				name: hourlyDates[z],
-				amt: hourlyPrices ? hourlyPrices[z] : hourlyPrice[z],
-				amt2: hourlyPricesTwo ? hourlyPricesTwo[z] : hourlyPriceTwo[z]
+				amt: (hourlyT - dataOne.data.index.initial_value) / (dataOne.data.index.initial_value * 100),
+				amt2:  (hourlyTwo - dataTwo.data.index.initial_value) / (dataTwo.data.index.initial_value * 100),
 			})
 		}
 		setHourlyData(hourly)

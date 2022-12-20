@@ -11,11 +11,12 @@ export default function BFCryptoInfo({
 	data,
 	isHalfGraph = false,
 	showIcon = false,
-	hideGraph = false
+	hideGraph = false,
+	panelId = '',
 }) {	
-	console.log(data)
+
 	const totalReturn = calculateReturn(data.index.value || data.index.price, data.index.initial_value)
-	const drawdown = calculateDrawdown(data.index.daily_graph_data.prices)
+	const drawdown = calculateDrawdown(data.index.daily_graph_data.prices || data.index.daily_graph_data.price || [])
 
 	let formattedHoldings = []
 	let marketCap = 0
@@ -53,12 +54,18 @@ export default function BFCryptoInfo({
 
 	return (<>
 
-		<div className="p-4 bg-white rounded-md border space-y-4">
+		<div className="relative p-4 bg-white rounded-md border space-y-4">
 			<div className="flex flex-row gap-2 items-center"> 
 				<h2 className="font-bold text-xl">{showIcon ? data.index.name : 'Overview'}</h2>
 				{(showIcon && data.index.symbol) && <BFCryptoImage symbol={data.index.symbol} />}
 				{(showIcon && data.index.logo !== undefined) && <BFImage style="w-8 h-8 object-cover rounded-full" src={data.index.logo} alt={data.index.name} /> }
 			</div>
+
+			<div className="absolute -top-1 right-3">
+				{(showIcon && hideGraph && panelId == '1') && <div className="bg-blue-500 rounded-full w-2 h-2" />}
+				{(showIcon && hideGraph && panelId == '2') && <div className="bg-green-500 rounded-full w-2 h-2" />}
+			</div>
+
 			<div className="flex flex-row justify-between text-sm">
 				<div className="space-y-2">
 					<label className="text-gray-500">Price</label>

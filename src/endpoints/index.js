@@ -26,7 +26,7 @@ const fetcher = ( url, query = '' ) => fetch(
 	`${url}${query}`, 
 	GET_FETCH_OPTIONS()
 ).then(res => { 
-	console.log(res)
+	// console.log(res)
 	// if (res.status === 401) {
 	// 	window.location.href = '/?sessionExpired=true'
 	// }
@@ -37,7 +37,7 @@ const fetcherAuth = ( url, query = '' ) => fetch(
 	GET_FETCH_OPTIONS_AUTH()
 ).then(res => { 
 	if (res.status === 401) {
-		console.log(res)
+		// console.log(res)
 		if (!window.location.href.includes('/?sessionExpired=true') && localStorage.getItem('username')) {
 			localStorage.setItem('username', '')
 			localStorage.setItem('firstName', '')

@@ -21,6 +21,7 @@ export const calculateReturn = (indexPrice, indexInitialPrice) => {
 }
 
 export const calculateDrawdown = (prices) => {
+  console.log(prices)
   const maxValue = Math.max(...prices)
   const indexOf = prices.indexOf(maxValue)
   const afterPeak = prices.slice(indexOf, prices.length)

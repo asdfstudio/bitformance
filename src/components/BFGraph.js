@@ -74,6 +74,9 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	});
 
 	const formatYAxis = (value) => {
+		if (showOverlay) {
+			return `${value}%`
+		}
 		return formatter.format(value)
 	}
 
@@ -93,8 +96,8 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	    return (
 	      <div className="border bg-white p-4">
 	      	<p>{formatDate(label, '3Y')}</p>
-	        <p className={showOverlay ? 'text-blue-400' : ''} >{formatter.format(payload[0].value)}</p>
-	        {showOverlay && <p className="text-green-400">{formatter.format(payload[1].value)}</p>}
+	        <p className={showOverlay ? 'text-blue-400' : ''}>{showOverlay ? `${Math.abs(payload[0].value).toFixed(2)}%` : formatter.format(payload[0].value)}</p>
+	        {showOverlay && <p className="text-green-400">{showOverlay ? `${Math.abs(payload[1].value).toFixed(2)}%` : formatter.format(payload[1].value)}</p>}
 	      </div>
 	    );
 	  }
