@@ -190,6 +190,16 @@ export const useFavoriteIndexes = () => {
 	}
 }
 
+export const useProfile = () => {
+	const { data, error } = useSWR(baseUrl('/profile'), fetcherAuth)
+
+	return {
+		data: data,
+		isLoading: !error && !data,
+		isError: error
+	}
+}
+
 
 //POST **********
 
@@ -239,7 +249,6 @@ export const createIndex = async (name, weighting_method, description = '', init
 	return data
 }
 
-//TODO: not working
 export const deleteIndex = async (index_id) => {
 	const response = await fetch(
 		baseUrl('/remove-index'), 
@@ -251,7 +260,6 @@ export const deleteIndex = async (index_id) => {
 	return data
 }
 
-//TODO: test method
 export const uploadImage = async (imageFile, type = 'logo', indexId) => {
 	 const formData = new FormData();
 	  formData.append("file_obj", imageFile);
@@ -260,4 +268,31 @@ export const uploadImage = async (imageFile, type = 'logo', indexId) => {
 	  const response = await fetch(baseUrl('/mime-files'), POST_DATA_OPTIONS_FORM(formData))
 	  const data = await response.json()
 	  return data
+}
+
+export const contactForm = async ({ username, subject, message, email }) => {
+	const response = await fetch(
+		baseUrl('/contact'), 
+		POST_DATA_OPTIONS({ 
+			username,
+			subject,
+			message,
+			email
+		})
+	)
+	const data = await response.json()
+	return data	
+}
+
+//TODO: fix
+export const updateProfile = async (profile) => {
+	const response = await fetch(baseUrl('/update-profile'), profile,
+	{
+		method: 'PATCH',
+		headers: { 
+			'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+		},
+	})
+	const data = await response.json()
+	return data
 }

@@ -1,10 +1,10 @@
 import BFIcon from '../BFIcon'
 
-export default function BFUploadImage({ handleFileSelect, fileSelected }) {
+export default function BFUploadImage({ handleFileSelect, fileSelected, src = '' }) {
 	return (
 		<div className="flex flex-row items-center gap-4">
-		{fileSelected ?
-			<img className="rounded-full w-24 h-24 object-cover" src={URL.createObjectURL(fileSelected)} />
+		{(fileSelected || src) ?
+			<img className="rounded-full w-24 h-24 object-cover" src={src || URL.createObjectURL(fileSelected)} />
 			:
 			<div className="bg-gray-100 rounded-full w-24 h-24 flex flex-row items-center justify-center">
 				<BFIcon iconName="placeholder-image" size="2xl" color="gray" />

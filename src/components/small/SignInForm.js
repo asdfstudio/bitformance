@@ -5,9 +5,11 @@ import CloseModal from '../small/CloseModal'
 import { login } from '../../endpoints/index'
 import { validateUsername, validatePassword } from '../small/validation'
 import { useSWRConfig } from 'swr'
+import BFLoading from '../small/BFLoading'
 
 export default function SignInForm({ setShowModalType, viewShown, setViewShown }) {
 
+	const [isLoading, setIsLoading] = useState(false)
 	const [errorMessage, setErrorMessage] = useState('')
 	const [completedRecaptcha, setCompletedRecaptcha] = useState(false)
 	const [isRemember, setIsRemember] = useState(false);
@@ -16,6 +18,7 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 	const signIn = async (e) => {
 		e.preventDefault()
 		setErrorMessage('')
+		setIsLoading(true)
 		const formData = new FormData(e.target);
 		const keys = [
 			'username',
@@ -42,6 +45,7 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 		console.log(result)
 		if (!result.result) {
 			setErrorMessage(result.error)
+			setIsLoading(false)
 			return
 		}
 
@@ -130,7 +134,7 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 					<input name="remember-me" id="remember-me" type="checkbox" />
 					<label className="text-sm">Remember</label>
 
-					<button onClick={() => setViewShown('forgot-password')} className="ml-auto underline text-blue-500 text-sm">Forgot Password?</button>
+					<button type="button" onClick={() => setViewShown('forgot-password')} className="ml-auto underline text-blue-500 text-sm">Forgot Password?</button>
 				</div>
 
 
@@ -142,7 +146,7 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 
 
 				<div className="mt-auto">
-					<input type="submit" className="w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2 mt-2" value="Sign In" />
+					{isLoading ? <div className="mt-2"><BFLoading isCenter={true} /></div> : <input type="submit" className="w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2 mt-2" value="Sign In" />}
 				</div>
 			</form>
 		</>}

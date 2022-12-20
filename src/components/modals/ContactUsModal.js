@@ -1,11 +1,34 @@
 import BFIcon from '../BFIcon'
 import ReCAPTCHA from "react-google-recaptcha"
 import CloseModal from '../small/CloseModal'
+import { contactForm } from '../../endpoints/index'
+import { useState } from 'react'
 
 export default function ContactUsModal({ setShowModalType }) {
 
-	const sendContactForm = () => {
-		//TODO: send form
+	const [formSendSuccess, setFormSendSuccess] = useState(false)
+
+	const sendContactForm = async (e) => {
+		e.preventDefault()
+		setFormSendSuccess(false)
+		const formData = new FormData(e.target);
+		const keys = [
+			'username',
+			'subject',
+			'email',
+			'message'
+		]
+
+		let data = {}
+		keys.forEach(key => data[key] = formData.get(key))
+
+		const result = await contactForm({ ...data })
+		if (result.result) {
+			setFormSendSuccess(true)
+			return
+		}
+
+		//TODO: error message
 		setShowModalType('')
 	}
 
@@ -31,41 +54,50 @@ export default function ContactUsModal({ setShowModalType }) {
 		      </div>
 		    </div>
 
-		    <div className="p-4 space-y-4">
-		    	<div>
-		    		<label className="font-bold text-sm">Username</label>
-		    		<input className="w-full p-2 border rounded" type="text" placeholder="e. g. johndoe" />
-		    	</div>
-		    	<div>
-		    		<label className="font-bold text-sm">Subject</label>
-		    		<input className="w-full p-2 border rounded" type="text" placeholder="e. g. Need Support" />
-		    	</div>
-		    	<div>
-		    		<label className="font-bold text-sm">Email Address</label>
-		    		<input className="w-full p-2 border rounded" type="text" placeholder="e. g. yourname@gmail.com" />
-		    	</div>
-		    	<div className="flex flex-row gap-2 items-center">
-		    		<span><BFIcon iconName="info" color="gray" /></span>
-		    		<p className="text-sm">We'll only use your email for important updates / inquiries.</p>
-		    	</div>
-		    	<div>
-		    		<label className="font-bold text-sm">Description</label>
-		    		<br />
-		    		<textarea className='w-full border h-32'></textarea>
-		    	</div>
+		    {formSendSuccess ? 
+		    	<div className="mx-auto p-8 space-y-4">
+		    		<p className="text-lg">Form received <BFIcon iconName="checked-circle" color="green" /></p>
+		    		<p><em>We&apos;ll generally reply within 1-2 business days.</em></p>
+		    	</div>	
+		    :
+			    <form onSubmit={(e) => sendContactForm(e)}>
+				    <div className="p-4 space-y-4">
+				    	<div>
+				    		<label className="font-bold text-sm">Username</label>
+				    		<input name="username" className="w-full p-2 border rounded" type="text" placeholder="e. g. johndoe" />
+				    	</div>
+				    	<div>
+				    		<label className="font-bold text-sm">Subject</label>
+				    		<input name="subject" className="w-full p-2 border rounded" type="text" placeholder="e. g. Need Support" />
+				    	</div>
+				    	<div>
+				    		<label className="font-bold text-sm">Email Address</label>
+				    		<input name="email" className="w-full p-2 border rounded" type="text" placeholder="e. g. yourname@gmail.com" />
+				    	</div>
+				    	<div className="flex flex-row gap-2 items-center">
+				    		<span><BFIcon iconName="info" color="gray" /></span>
+				    		<p className="text-sm">We'll only use your email for important updates / inquiries.</p>
+				    	</div>
+				    	<div>
+				    		<label className="font-bold text-sm">Description</label>
+				    		<br />
+				    		<textarea name="message" className='w-full border h-32'></textarea>
+				    	</div>
 
-		    	<ReCAPTCHA
-		    	  sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
-		    	  onChange={onRecaptchaChange}
-		    	/>
+				    	<ReCAPTCHA
+				    	  sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
+				    	  onChange={onRecaptchaChange}
+				    	/>
 
-		    	<hr />
-		    	<div className="mt-auto flex flex-row gap-2">
-		    		<button className="w-full text-sm rounded bg-blue-50 hover:bg-blue-200 font-bold text-blue-500 py-2" onClick={() => setShowModalType('')}>Cancel</button>
-		    		<button className="font-bold w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2" onClick={() => sendContactForm()}>Submit</button>
-		    	</div>
+				    	<hr />
+				    	<div className="mt-auto flex flex-row gap-2">
+				    		<button className="w-full text-sm rounded bg-blue-50 hover:bg-blue-200 font-bold text-blue-500 py-2" onClick={() => setShowModalType('')}>Cancel</button>
+				    		<button type="submit" className="font-bold w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2">Submit</button>
+				    	</div>
+			    	</div>
+			    </form>
+		    }
 
-		    </div>
 		  </div>
 		</div>
 	)
