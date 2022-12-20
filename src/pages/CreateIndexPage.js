@@ -3,18 +3,21 @@ import BFSearchBar from '../components/small/BFSearchBar'
 import BFChooseOption from '../components/small/BFChooseOption'
 import GraphCard from '../components/GraphCard'
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import BFUploadImage from '../components/small/BFUploadImage'
 import { generateChartPreview, uploadImage, createIndex, baseUrl } from '../endpoints/index'
 import BFSelectCryptos from '../components/small/BFSelectCryptos'
 import BFLoading from '../components/small/BFLoading'
 import { toast } from 'react-toastify';
 import { useSWRConfig } from 'swr'
+import { coinImageMappings } from '../data/coinImages'
+import BFCryptoImage from '../components/small/BFCryptoImage'
 
 export default function CreateIndexPage() {
 
 	const navigate = useNavigate()
 	const { mutate } = useSWRConfig()
+	const customWeightsForm = useRef(null);
 
 	const [loadingPreview, setLoadingPreview] = useState(false)
 	const [previewShown, setPreviewShown] = useState(false)
@@ -31,7 +34,8 @@ export default function CreateIndexPage() {
 
 	const handleCreateIndex = async () => {
 		setLoadingPreview(true)
-		const newIndex = await createIndex(name, weightingMethod, description, initialValue, selectedCryptos, rebalancePeriod)
+		const customWeights = getCustomWeights()
+		const newIndex = await createIndex(name, weightingMethod, description, initialValue, selectedCryptos, rebalancePeriod, customWeights)
 		console.log(newIndex)
 		if (newIndex.result) {
 			if (fileSelected) {
@@ -56,13 +60,24 @@ export default function CreateIndexPage() {
 
 	const loadPreview = async () => {
 		if (initialValue && selectedCryptos.length) {
-			//TODO: handle custom weights
+			const customWeights = getCustomWeights()
 			setLoadingPreview(true)
-			const data = await generateChartPreview(weightingMethod, initialValue, selectedCryptos)
+			const data = await generateChartPreview(weightingMethod, initialValue, selectedCryptos, customWeights)
 			setReturnData(data.data)
 			setLoadingPreview(false)
 			setPreviewShown(true)
 		}
+	}
+
+	const getCustomWeights = () => {
+		if (weightingMethod !== 'custom_weights') {
+			return {}
+		}
+		const formData = new FormData(customWeightsForm.current);
+		const keys = selectedCryptos
+		let data = {}
+		keys.forEach(key => data[key] = parseInt(formData.get(key)))
+		return data
 	}
 
 	const handleFileSelect = async (e) => {
@@ -154,9 +169,24 @@ export default function CreateIndexPage() {
 					</div>
 					{weightingMethod === 'custom_weights' && <hr />}
 					{weightingMethod === 'custom_weights' && 
-						<div>
-							for selected coins allow weight entry
-						</div>
+						<form ref={customWeightsForm}>
+							<div>
+								<p>{selectedCryptos.length > 0 ? 'Enter Custom Weights (Total Must Add To 100)' : 'Select coins to allow for weight entry'}</p>
+								{selectedCryptos.map(crypto => {
+									const coin = coinImageMappings.find(obj => obj.symbol === crypto)
+									return (
+										<div key={crypto + '-custom-weights'} className="flex flex-row gap-2 items-center bg-gray-100 my-2 rounded-lg p-2">
+											<BFCryptoImage symbol={crypto} index={0} isLarge={true} />
+											<p className="font-bold">{coin.name.slice(0, coin.name.length - 6)}</p>
+											<p className="text-gray-500">{crypto}</p>
+										
+											<p className="ml-auto font-bold">Custom Weight</p>
+											<input className="border rounded p-1 w-24 md:w-36" type="number" min="0" max="100" step="1" name={crypto} /> 
+										</div>
+									)
+								})}
+							</div>
+						</form>
 					}
 				</div>
 
