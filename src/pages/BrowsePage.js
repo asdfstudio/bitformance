@@ -21,6 +21,10 @@ export default function BrowsePage() {
 		setSortOrder('desc')
 	}
 
+	const rowClicked = (coin) => {
+		navigate(`/indexes/browse/${coin._id.$oid}`)
+	}
+
 	const SortedTable = ({ sortField, sortOrder }) => {
 		const { data, isLoading } = useBrowsableIndexes(sortField, sortOrder)
 		console.log(data)
@@ -30,6 +34,7 @@ export default function BrowsePage() {
 				type="browse-cryptos" 
 				tableStyle="border-separate border-spacing-y-5" 
 				handleHeaderClick={sortBy}
+				onRowClicked={rowClicked}
 			/>
 			{isLoading &&
 				<div className="h-96 bg-white">

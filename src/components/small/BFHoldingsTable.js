@@ -72,7 +72,7 @@ export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
         <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
           <tr>
         		{headers.map(header => (
-        			<HeaderColumn onClick={handleHeaderClick} key={header.id + '-holdings'} item={header} sortable={true} />
+        			<HeaderColumn onClick={handleHeaderClick} key={header.label + '-holdings'} item={header} sortable={true} />
         		))}
           </tr>
         </thead>

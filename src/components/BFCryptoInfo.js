@@ -77,8 +77,9 @@ export default function BFCryptoInfo({
 					<label className="text-gray-500">Market Cap</label>
 					<p className="font-bold">{formatMoney(data.index.marketcap || marketCap)}</p>
 				</div>
-				{data.index.updated && <BFInfoTags timestamp={data.index.updated.$date} weightingMethod={data.index.weighting_method} 	rebalancingInterval={data.index.rebalancing_interval} />}
+				{(data.index.updated && !isHalfGraph) && <BFInfoTags timestamp={data.index.updated.$date} weightingMethod={data.index.weighting_method} 	rebalancingInterval={data.index.rebalancing_interval} />}
 			</div>
+			{(data.index.updated && isHalfGraph) && <BFInfoTags style="normal" timestamp={data.index.updated.$date} weightingMethod={data.index.weighting_method} 	rebalancingInterval={data.index.rebalancing_interval} />}
 		</div>
 
 		{!hideGraph &&

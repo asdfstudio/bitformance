@@ -68,7 +68,7 @@ export default function ComparePage() {
 				]} />
 			</div>
 
-			<div className="grid grid-cols-2 gap-2 p-1 items-start overflow-y-auto">
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-1 items-start overflow-y-auto">
 				<BFCryptoSelectorCard mode={typeSelected} selectedCrypto={selectedCryptoOne} selectCrypto={selectCrypto} panelId="1" />
 				<BFCryptoSelectorCard mode={typeSelected} selectedCrypto={selectedCryptoTwo} selectCrypto={selectCrypto} panelId="2" />
 			</div>

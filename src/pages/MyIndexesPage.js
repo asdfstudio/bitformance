@@ -8,12 +8,46 @@ export default function MyIndexesPages() {
 	const navigate = useNavigate()
 	const { data, isLoading } = useMyIndexes()
 
+	const [order, setOrder] = useState(data)
+	const [sortField, setSortField] = useState('name')
+	const [previousSortOrder, setSortOrder] = useState('desc')
 
-	const sortBy = () => {
-		//TODO: 
-	}
+	const sortBy = (id, type) => {
+		let sortOrder = 'desc'
+		if (sortField === id) {
+			sortOrder = previousSortOrder === 'desc' ? 'asc': 'desc'
+		}
+		setSortOrder(sortOrder)
+		setSortField(id)
 
-	const [sortOrder, setSortOrder] = useState('ASC')
+		let newOrder = []
+		if (type === 'alphabet') {
+			newOrder = data.sort((a, b) => {
+				if (sortOrder === 'desc') {
+					return a.index[id] > b.index[id] ? 1 : -1
+				} else {
+					return a.index[id] < b.index[id] ? 1 : -1
+				}
+			})
+		} else if (type === 'computed') {
+			newOrder = data.sort((a, b) => {
+				if (sortOrder === 'desc') {
+					return a.rawStocks.reduce((sum, stock) => stock.market_cap + sum, 0) - b.rawStocks.reduce((sum, stock) => stock.market_cap + sum, 0)
+				} else {
+					return b.rawStocks.reduce((sum, stock) => stock.market_cap + sum, 0) - a.rawStocks.reduce((sum, stock) => stock.market_cap + sum, 0)
+				}
+			})
+		} else {
+			newOrder = data.sort((a, b) => {
+				if (sortOrder === 'desc') {
+					return a.index[id] - b.index[id]
+				} else {
+					return b.index[id] - a.index[id]
+				}
+			})
+		}
+		setOrder(newOrder)
+	}	
 
 
 	const rowClicked = (coin) => {
@@ -29,10 +63,11 @@ export default function MyIndexesPages() {
 	return (
 		<div className="p-4 bg-gray-50">
 			<BFTable 
-				rows={data || []} 
+				rows={order || []} 
 				type="my-indexes" 
 				tableStyle="border-separate border-spacing-y-5" 
 				onRowClicked={rowClicked}
+				handleHeaderClick={sortBy}
 			/>
 		</div>
 	)
