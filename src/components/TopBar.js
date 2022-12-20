@@ -49,8 +49,12 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 				setPathArray(['Home'])
 				return
 			}
-			const path = location.pathname.split('/').slice(1)
+			if (location.pathname === '/terms-of-services') {
+				setPathArray(['Terms of Services'])
+				return
+			}
 
+			const path = location.pathname.split('/').slice(1)
 			setPathArray(path)
 		}
 	}, [location])

@@ -8,6 +8,8 @@ import ComparePage from './pages/ComparePage'
 import CryptoPage from './pages/CryptoPage'
 import CreateIndexPage from './pages/CreateIndexPage'
 import SettingsPage from './pages/SettingsPage'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
+import TermsPage from './pages/TermsPage'
 
 //layout components
 import SidePanel from './components/SidePanel'
@@ -89,6 +91,18 @@ function App() {
               <SettingsPage />
             </MainLayout>
           }/>
+
+          <Route exact path="/privacy-policy" element={
+            <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
+              <PrivacyPolicyPage />
+            </MainLayout>
+          }/>
+
+          <Route exact path="/terms-of-services" element={
+            <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
+              <TermsPage/>
+            </MainLayout>
+          }/>          
 
         </Routes>
       </Router>

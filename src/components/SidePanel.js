@@ -27,9 +27,9 @@ export default function SidePanel({ setShowModalType }) {
 
 				<p className="text-gray-300 text-xs">© 2022 Bitformance Ltd. Trademarks and brands are the property of their respective owners</p>
 				<p className="text-sm">
-					<Link className="hover:text-gray-200">Privacy Policy</Link>
+					<Link to="/privacy-policy" className="hover:text-gray-200">Privacy Policy</Link>
 					<span>	•  </span>
-					<Link className="hover:text-gray-200">Terms of Services</Link>
+					<Link to="/terms-of-services" className="hover:text-gray-200">Terms of Services</Link>
 				</p>
 			</div>
 
