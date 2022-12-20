@@ -12,6 +12,12 @@ export default function MyIndexesPages() {
 	const [sortField, setSortField] = useState('name')
 	const [previousSortOrder, setSortOrder] = useState('desc')
 
+	useEffect(() => {
+		if (data) {
+			setOrder(data)
+		}
+	}, [data])
+
 	const sortBy = (id, type) => {
 		let sortOrder = 'desc'
 		if (sortField === id) {
