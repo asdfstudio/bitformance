@@ -8,29 +8,42 @@ export default function BrowsePage() {
 	const navigate = useNavigate()
 	const { data, isLoading } = useBrowsableIndexes()
 
+	const [sortField, setSortField] = useState('market_cap')
+	const [sortOrder, setSortOrder] = useState('desc') //'asc'
 
-	const sortBy = () => {
-		//TODO: 
+	const sortBy = (label) => {
+		console.log(label)
+		if (label === sortField) {
+			setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')
+			return
+		}
+		setSortField(label)
+		setSortOrder('desc')
 	}
 
-	const [sortOrder, setSortOrder] = useState('ASC')
-
-
-	const rowClicked = (coin) => {
-		console.log(coin)
-		navigate(`/indexes/browse/${coin._id.$oid}`)
+	const SortedTable = ({ sortField, sortOrder }) => {
+		const { data, isLoading } = useBrowsableIndexes(sortField, sortOrder)
+		console.log(data)
+		return (<>
+			<BFTable 
+				rows={data || []} 
+				type="browse-cryptos" 
+				tableStyle="border-separate border-spacing-y-5" 
+				handleHeaderClick={sortBy}
+			/>
+			{isLoading &&
+				<div className="h-96 bg-white">
+					<BFLoading heightAdjust="h-[45vh]" />
+				</div>
+			}
+		</>)
 	}
 
 	if (isLoading) return <BFLoading />
 
 	return (
 		<div className="p-4 bg-gray-50">
-			<BFTable 
-				rows={data || []} 
-				type="browse-cryptos" 
-				tableStyle="border-separate border-spacing-y-5" 
-				onRowClicked={rowClicked}
-			/>
+			<SortedTable sortField={sortField} sortOrder={sortOrder} />
 		</div>
 	)
 }

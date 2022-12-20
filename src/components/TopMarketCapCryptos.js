@@ -6,10 +6,8 @@ import BFLoading from './small/BFLoading'
 
 export default function TopMarketCapCryptos() {
 
-
 	const [sortField, setSortField] = useState('market_cap')
 	const [sortOrder, setSortOrder] = useState('desc') //'asc'
-
 
 	const sortBy = (label) => {
 		console.log(label)

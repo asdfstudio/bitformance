@@ -118,8 +118,8 @@ export const usePerformers = () => {
 
 
 
-export const useBrowsableIndexes = () => {
-	const { data, error } = useSWR(baseUrl('/get-browsable-indexes'), fetcher)
+export const useBrowsableIndexes = (sortField, sortOrder) => {
+	const { data, error } = useSWR(baseUrl(`/get-browsable-indexes?sortOrder=${sortOrder}&sortField=${sortField}`), fetcher)
 
 	return {
 		data: data ? data.data : [],

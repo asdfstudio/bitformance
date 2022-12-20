@@ -14,14 +14,13 @@ export default function HoldingsRow({
 	holdingQuantity,
 	indexPrice,
 }) {
-	//TODO: finish price, % of index, supply, value
 	return(<>
 		<CoinRow 
 			id={id} 
 			logo={logo} 
 			name={name} 
 			symbol={symbol} 
-			price={price * holdingQuantity} //TODO 
+			price={price * holdingQuantity}
 			changepct_24hour={changepct_24hour}
 			changepct_7day={changepct_7day}
 			market_cap={market_cap}
