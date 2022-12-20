@@ -69,7 +69,6 @@ const POST_DATA_OPTIONS_FORM = (formData) => {
 		method: 'POST',
 		headers: {
 			'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-			'Content-Type': 'application/json'
 		},
 		body: formData
 	}
@@ -241,11 +240,11 @@ export const createIndex = async (name, weighting_method, description = '', init
 }
 
 //TODO: not working
-export const deleteIndex = async (id) => {
+export const deleteIndex = async (index_id) => {
 	const response = await fetch(
 		baseUrl('/remove-index'), 
 		POST_DATA_OPTIONS({ 
-			id
+			index_id
 		})
 	)
 	const data = await response.json()
@@ -258,7 +257,7 @@ export const uploadImage = async (imageFile, type = 'logo', indexId) => {
 	  formData.append("file_obj", imageFile);
 	  formData.append("type", type);
 	  formData.append('id', indexId);
-	  const response = await fetch(baseUrl('/mime-files'), POST_DATA_OPTIONS_FORM({ data: formData }))
+	  const response = await fetch(baseUrl('/mime-files'), POST_DATA_OPTIONS_FORM(formData))
 	  const data = await response.json()
 	  return data
 }

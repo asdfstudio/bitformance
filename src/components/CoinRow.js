@@ -36,10 +36,17 @@ export default function CoinRow({
 		return parts[0]
 	} 
 
+	const fixUrl = (url) => {
+		if (url && !url.includes('https://')) {
+			return `https://www.cryptocompare.com${url}`
+		}
+		return url
+	}
+
 	return (
 		<>
 			<td className="flex flex-row items-center ml-2 gap-2">
-				<img className="w-10 h-10 rounded-full" src={logo} alt={name} />
+				<img className="w-10 h-10 rounded-full" src={fixUrl(logo)} alt={name} />
 				<p className="font-bold">{name || findName(symbol)}</p>
 			</td>
 

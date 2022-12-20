@@ -60,8 +60,10 @@ export default function BrowseCoinRow({
 
 	const handleDeleteIndex = async(e, { $oid }) => {
 		e.stopPropagation()
+		setLoadingFavorites(true)
 		const result = await deleteIndex($oid)
-		console.log(result)
+		await mutate(baseUrl('/get-user-indexes'))
+		setLoadingFavorites(false)
 	}
 
 	return(<>

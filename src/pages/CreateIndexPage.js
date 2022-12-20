@@ -36,7 +36,7 @@ export default function CreateIndexPage() {
 				const addLogo = await uploadImage(fileSelected, 'logo', newIndex.data._id.$oid)
 				console.log(addLogo)
 			}
-			navigate(`/indexes/my-indexes/${newIndex._id.$oid}`)
+			navigate(`/indexes/my-indexes/${newIndex.data._id.$oid}`)
 			return
 		}
 		setLoadingPreview(false)
