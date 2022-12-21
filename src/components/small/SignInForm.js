@@ -125,7 +125,7 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 		{viewShown === 'sign-in' && <>
 			<CloseModal setShowModalType={setShowModalType} />
 			{errorMessage && <span className="rounded-lg bg-gray-100 p-2 text-red-500 text-xs m-0">* {errorMessage}</span>}
-			<form onSubmit={(e) => signIn(e)}>
+			<form className="space-y-3" onSubmit={(e) => signIn(e)}>
 				<div>
 					<label className="font-bold text-sm">Username or Email Address</label>
 					<input value={username} onChange={(e) => setUsername(e.target?.value)} name="username" id="username" className="w-full py-1 border rounded" type="text" />
