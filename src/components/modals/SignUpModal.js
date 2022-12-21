@@ -15,7 +15,7 @@ export default function SignUpModal({ setShowModalType }) {
 
 		    	<div className="col-span-3 p-4 space-y-4">
 		    		<CloseModal setShowModalType={setShowModalType} />
-		    		<SignUpForm />
+		    		<SignUpForm setShowModalType={setShowModalType} />
 		    	</div>
 		    </div>
 		  </div>

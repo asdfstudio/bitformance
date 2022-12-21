@@ -209,6 +209,32 @@ export const login = async (email, password) => {
 	return data
 }
 
+export const registerAccount = async ({ email, password, username, first_name, last_name }) => {
+	const response = await fetch(
+		baseUrl('/register'), 
+		POST_DATA_OPTIONS({ 
+			first_name, 
+			last_name, 
+			email, 
+			password, 
+			username 
+		})
+	)
+	const data = await response.json()
+	return data
+}
+
+export const forgotPassword = async (email) => {
+	const response = await fetch(
+		baseUrl('/forgot-password'), 
+		POST_DATA_OPTIONS({ 
+			email, 
+		})
+	)
+	const data = await response.json()
+	return data
+}
+
 export const favoriteIndex = async (index_id) => {
 	const response = await fetch(baseUrl('/favorites'), POST_DATA_OPTIONS({ index_id }))
 	const data = await response.json()

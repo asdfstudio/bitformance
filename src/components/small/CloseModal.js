@@ -4,9 +4,9 @@ export default function CloseModal({ setShowModalType, topStyle = 'top-2' }) {
 	return (
 		<button 
 			onClick={() => setShowModalType('')} 
-			className={`absolute right-4 rounded-full px-1 bg-gray-100 ${topStyle}`}
+			className={`absolute right-4 rounded-full w-[20px] h-[20px] bg-gray-500 ${topStyle}`}
 		>
-			<BFIcon iconName="close" size="xs" />
+			<span className="absolute -top-[2px] left-[6px]"><BFIcon iconName="close" size="2xs" color="white" /></span>
 		</button>
 	)
 }

@@ -2,17 +2,21 @@ import ReCAPTCHA from "react-google-recaptcha"
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import CloseModal from '../small/CloseModal'
-import { login } from '../../endpoints/index'
+import { login, forgotPassword } from '../../endpoints/index'
 import { validateUsername, validatePassword } from '../small/validation'
 import { useSWRConfig } from 'swr'
 import BFLoading from '../small/BFLoading'
+import BFIcon from '../BFIcon'
 
 export default function SignInForm({ setShowModalType, viewShown, setViewShown }) {
 
 	const [isLoading, setIsLoading] = useState(false)
 	const [errorMessage, setErrorMessage] = useState('')
+	const [username, setUsername] = useState(localStorage.getItem('saved_username') || '')
 	const [completedRecaptcha, setCompletedRecaptcha] = useState(false)
 	const [isRemember, setIsRemember] = useState(false);
+	const [resetAccount, setResetAccount] = useState('')
+
 	const { mutate } = useSWRConfig()
 
 	const signIn = async (e) => {
@@ -33,11 +37,13 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 		const usernameError = validateUsername(data.username)
 		if (usernameError) {
 			setErrorMessage(usernameError)
+			setIsLoading(false)
 			return
 		}
 		const passwordError = validatePassword(data.password)
 		if (passwordError) {
 			setErrorMessage(passwordError)
+			setIsLoading(false)
 			return
 		}
 
@@ -65,8 +71,8 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 		setViewShown('sign-in')
 	}
 
-	const resetPasswordLink = () => {
-		//TODO:
+	const resetPasswordLink = async () => {
+		const result = await forgotPassword(resetAccount)
 		setViewShown('reset-link')
 	}
 
@@ -78,9 +84,9 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 	const ControlButtons = ({ backTo = 'sign-in' }) => (<>
 		<button 
 			onClick={() => setViewShown(backTo)} 
-			className="float-left rounded-full px-1 bg-gray-100"
+			className="float-left rounded-full px-1"
 		>
-			back
+			<BFIcon iconName="back" />
 		</button>
  		<CloseModal setShowModalType={setShowModalType} topStyle="top-0" />
 	</>)
@@ -107,7 +113,7 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 
    		<div>
    			<label className="font-bold">Username or Email Address</label>
-   			<input className="w-full py-1 border rounded" type="text" />
+   			<input value={resetAccount} onChange={(e) => setResetAccount(e.target?.value)} className="w-full py-1 border rounded" type="text" />
    		</div>
 
    		<div className="mt-auto pb-4">
@@ -122,7 +128,7 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 			<form onSubmit={(e) => signIn(e)}>
 				<div>
 					<label className="font-bold text-sm">Username or Email Address</label>
-					<input name="username" id="username" className="w-full py-1 border rounded" type="text" />
+					<input value={username} onChange={(e) => setUsername(e.target?.value)} name="username" id="username" className="w-full py-1 border rounded" type="text" />
 				</div>
 
 				<div>

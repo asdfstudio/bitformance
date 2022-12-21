@@ -71,6 +71,7 @@ export default function BFIcon({ iconName, color, size }) {
 		{ name: 'close', icon: faX },
 		{ name: 'info', icon: faCircleInfo },
 		{ name: 'delete', icon: faTrashCan },
+		{ name: 'back', icon: faArrowLeft },
 
 	]
 
