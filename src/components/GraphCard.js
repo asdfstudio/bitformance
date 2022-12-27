@@ -203,7 +203,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 				</div>
 			</div>
 
-			<BFGraph subtractWidth={subtractWidth} data={shownGraphData} showOverlay={isOverlay} />
+			<BFGraph subtractWidth={subtractWidth} data={shownGraphData} showOverlay={isOverlay} showPriceColored={graphColor === 'Price Colored'} />
 	
 		</div>
 	)

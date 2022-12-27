@@ -11,7 +11,7 @@ import moment from 'moment'
 import { useState, useEffect } from 'react'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = false }) {
+export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = false, showPriceColored = false }) {
 
 	const { width } = useWindowDimensions();
 
@@ -93,6 +93,14 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 
 	const CustomTooltip = ({ active, payload, label }) => {
 	  if (active && payload && payload.length) {
+	  	if (payload.length > 1) {
+	  		return (
+	  			<div className="border bg-white p-4">
+	  				<p>{formatDate(label, '3Y')}</p>
+	  			  <p>{formatter.format(payload[0].value || payload[1].value)}</p>
+	  			</div>
+	  		)
+	  	}
 	    return (
 	      <div className="border bg-white p-4">
 	      	<p>{formatDate(label, '3Y')}</p>
@@ -104,9 +112,19 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 
 	  return null;
 	};
+
+
+	const firstPrice = data[0]?.amt || 0
+	const priceData = data.map(obj => {
+		return {
+			...obj,
+			red: obj.amt > firstPrice ? 0: obj.amt,
+			green: obj.amt > firstPrice ? obj.amt : 0
+		}
+	})
  
 	return(
-			<AreaChart width={finalWidth} height={400} data={data} margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
+			<AreaChart width={finalWidth} height={400} data={priceData} margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
 		 	<defs>
         <linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
           <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
@@ -116,10 +134,19 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
           <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
           <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
         </linearGradient>
+        <linearGradient id="colorRed" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#FF0000" stopOpacity={0.8}/>
+          <stop offset="95%" stopColor="#FF0000" stopOpacity={0}/>
+        </linearGradient>
       </defs>
 		  <CartesianGrid stroke="#ccc" />
 		  {data.length > 0 && <>
-			  <Area type="monotone" dataKey="amt" strokeWidth={1} stroke="#8884d8" fillOpacity={1} fill="url(#colorBlue)" />
+			  {!showPriceColored && <Area type="monotone" stackId="1" dataKey="amt" strokeWidth={1} stroke="#8884d8" fillOpacity={1} fill="url(#colorBlue)" />}
+				{showPriceColored && <>
+				<Area type="monotone" stackId="1" dataKey="green" strokeWidth={1} stroke="#82ca9d" fillOpacity={1} fill="url(#colorGreen)" />
+			  <Area type="monotone" stackId="1" dataKey="red" strokeWidth={1} stroke="#FF00000" fillOpacity={1} fill="url(#colorRed)" />
+			  </>}
+
 			 	{showOverlay && <Area type="monotone" dataKey="amt2" strokeWidth={1} stroke="#82ca9d" fillOpacity={1} fill="url(#colorGreen)" />}
 			  <XAxis dataKey="name" tickFormatter={formatXAxis} />
 			  <YAxis tickFormatter={formatYAxis} domain={['dataMin', 'auto']} />
