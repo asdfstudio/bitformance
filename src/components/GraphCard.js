@@ -191,8 +191,9 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 						<button 
 							className={`text-sm px-2 py-2 bg-gray-200 hover:bg-gray-300 ${option === graphColor && 'bg-transparent hover:bg-transparent'}`} 
 							key={option} onClick={() => setGraphColor(option)}
+							disabled={(isOverlay && option === 'Price Colored')}
 						>
-							{option}
+							{(isOverlay && option === 'Price Colored') ? 'DISABLED' : option}
 						</button>
 					))}
 				</div>
