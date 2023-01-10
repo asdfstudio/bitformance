@@ -115,16 +115,38 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 
 
 	const firstPrice = data[0]?.amt || 0
-	const priceData = data.map(obj => {
+	const lowestPrice = data.reduce((prev, curr) => {
+		return prev.amt < curr.amt ? prev : curr
+	}, 0).amt
+	console.log(lowestPrice)
+	const priceData = data.map((obj, index) => {
+		let red = obj.amt > firstPrice ? null : obj.amt
+		let green = obj.amt > firstPrice ? obj.amt : null
+
+		if (data.length > index + 1) {
+			const nextObj = data[index + 1]
+			if (nextObj.amt > firstPrice && obj.amt <= firstPrice) {
+				green = obj.amt
+			}
+			if (nextObj.amt < firstPrice && obj.amt > firstPrice) {
+				red = obj.amt
+			}
+			return {
+				...obj,
+				red: red,
+				green: green
+			}
+		}
+
 		return {
 			...obj,
-			red: obj.amt > firstPrice ? 0: obj.amt,
-			green: obj.amt > firstPrice ? obj.amt : 0
+			red: red,
+			green: green
 		}
 	})
  
 	return(
-			<AreaChart width={finalWidth} height={400} data={showPriceColored ? priceData: data} margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
+			<AreaChart width={finalWidth} height={400} data={showPriceColored ? priceData: data}  margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
 		 	<defs>
         <linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
           <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
@@ -139,17 +161,17 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
           <stop offset="95%" stopColor="#FF0000" stopOpacity={0}/>
         </linearGradient>
       </defs>
-		  <CartesianGrid stroke="#ccc" />
+		  <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
 		  {data.length > 0 && <>
 			  {!showPriceColored && <Area type="monotone" stackId="1" dataKey="amt" strokeWidth={1} stroke="#8884d8" fillOpacity={1} fill="url(#colorBlue)" />}
 				{showPriceColored && <>
-				<Area type="monotone" stackId="1" dataKey="green" strokeWidth={1} stroke="#82ca9d" fillOpacity={1} fill="url(#colorGreen)" />
-			  <Area type="monotone" stackId="1" dataKey="red" strokeWidth={1} stroke="#FF00000" fillOpacity={1} fill="url(#colorRed)" />
+				<Area type="monotone" stackId="1" dataKey="green" strokeWidth={1} stroke="#82ca9d" fillOpacity={0.5} fill="url(#colorGreen)" />
+			  <Area type="monotone" stackId="2" dataKey="red" strokeWidth={1} stroke="#FF00000" fillOpacity={0.3} fill="url(#colorRed)" />
 			  </>}
 
 			 	{showOverlay && <Area type="monotone" dataKey="amt2" strokeWidth={1} stroke="#82ca9d" fillOpacity={1} fill="url(#colorGreen)" />}
 			  <XAxis dataKey="name" tickFormatter={formatXAxis} />
-			  <YAxis tickFormatter={formatYAxis} domain={['dataMin', 'auto']} />
+			  <YAxis type="number" allowDataOverflow tickFormatter={formatYAxis} domain={[lowestPrice, 'auto']} />
 			  <Tooltip content={<CustomTooltip />} />
 			</>}
 		</AreaChart>
