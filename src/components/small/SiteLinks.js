@@ -53,10 +53,10 @@ export default function SiteLinks({ setShowModalType, setShowMobileMenu = functi
 			<BFIcon iconName="contact-us" color={secondaryColor} />
 			<span className={colorStyle}>Contact Us</span>
 		</button>
-		<Link className="flex flex-row items-center gap-2 cursor-pointer">
+		<a href="http://13.57.66.34" target="_blank" className="flex flex-row items-center gap-2 cursor-pointer">
 			<BFIcon iconName="knowledge-base" color={secondaryColor} />
 			<span className={colorStyle}>Knowledge Base</span>
-		</Link>
+		</a>
 		<br />
 		<div onClick={() => setShowMobileMenu(false)}  className="rounded bg-blue-500 text-center px-4 py-2 w-full">
 			<Link to="/indexes/create-index" className={colorStyle}>+ Create Index</Link>

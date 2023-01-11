@@ -51,7 +51,7 @@ export default function SettingsPage() {
 							&nbsp;&nbsp;Account
 						</p>
 					</div>
-					{ tabSelected === 'profile' ? 
+					{ tabSelected === 'profile' && 
 							<div className="py-4 px-4 w-full space-y-4">
 								<div>
 									<h1 className="font-bold mb-2">Profile Picture</h1>
@@ -59,15 +59,17 @@ export default function SettingsPage() {
 								</div>
 								<div>
 									<label className="text-sm font-bold ">User Name</label>
-									<input className="mt-1 text-sm w-full px-2 py-1.5 border rounded" disabled value={data?.data?.username} />
+									<input name="username" className="mt-1 text-sm w-full px-2 py-1.5 border rounded" disabled value={data?.data?.username} />
 								</div>
 								<div>
 									<label className="text-sm font-bold">Your Name</label>
-									<input className="mt-1 text-sm w-full px-2 py-1.5 border rounded" disabled onChange={(e) => setName(e.target?.value)} value={name} />
+									<input name="full-name" className="mt-1 text-sm w-full px-2 py-1.5 border rounded" onChange={(e) => setName(e.target?.value)} value={name} />
 								</div>
 							</div>
+					}
 
-					 : 	<div className="w-full">
+					{ tabSelected !== 'profile' && 
+					  	<div className="w-full">
 								<h2 className="px-4 pt-4 text-sm text-gray-400">Password</h2>
 								<div className="px-4 py-2">
 									<label className="font-bold text-sm">Current Password</label>
@@ -75,7 +77,7 @@ export default function SettingsPage() {
 								</div>
 								<div className="px-4 py-2">
 									<label className="font-bold text-sm">New Password</label>
-									<input name="new-password"  className="w-full py-1 border rounded" type="password" />
+									<input name="new-password" className="w-full py-1 border rounded" type="password" />
 								</div>
 								<div className="px-4 py-2 pb-4">
 									<label className="font-bold text-sm">Confirm New Password</label>
@@ -88,7 +90,8 @@ export default function SettingsPage() {
 									<input name="login-email" className="w-full py-1 border rounded" type="text" />
 								</div>
 							</div>
-					}
+					} 
+				
 				</div>
 				<div className="p-2 border-t text-right">
 {/*					<button className="w-full text-sm rounded bg-blue-50 hover:bg-blue-200 font-bold text-blue-500 py-2" onClick={() => setShowModalType('SIGN_UP')}>Cancel</button>

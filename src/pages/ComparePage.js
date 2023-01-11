@@ -47,7 +47,7 @@ export default function ComparePage() {
 					{ data: dataTwo, isCrypto: isTwoCrypto }
 				], 
 				isLoading: false, 
-				isError: false 
+				isError: false
 			}}
 		} />
 	}

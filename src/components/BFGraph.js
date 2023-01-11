@@ -92,8 +92,9 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	}
 
 	const CustomTooltip = ({ active, payload, label }) => {
+		console.log(payload)
 	  if (active && payload && payload.length) {
-	  	if (payload.length > 1) {
+	  	if (payload.length > 1 && !showOverlay) {
 	  		return (
 	  			<div className="border bg-white p-4">
 	  				<p>{formatDate(label, '3Y')}</p>
@@ -118,7 +119,7 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	const lowestPrice = data.reduce((prev, curr) => {
 		return prev.amt < curr.amt ? prev : curr
 	}, 0).amt
-	console.log(lowestPrice)
+
 	const priceData = data.map((obj, index) => {
 		let red = obj.amt > firstPrice ? null : obj.amt
 		let green = obj.amt > firstPrice ? obj.amt : null

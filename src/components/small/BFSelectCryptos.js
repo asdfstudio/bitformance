@@ -30,8 +30,10 @@ export default function BFSelectCryptos({
 		setShowMenu(true)
 		const matchingCryptos = coinImageMappings.filter(crypto => crypto.name.toLowerCase().includes(text.toLowerCase()))
 		setShownCryptos(matchingCryptos)
-		const matchingIndexes = data.filter(obj => obj.index.name.toLowerCase().includes(text) || obj.rawStocks.some(stock => stock.name.toLowerCase().includes(text.toLowerCase())))
-		setShownIndexes(matchingIndexes)
+		if (data) {
+			const matchingIndexes = data.filter(obj => obj.index.name.toLowerCase().includes(text) || obj.rawStocks.some(stock => stock.name.toLowerCase().includes(text.toLowerCase())))
+			setShownIndexes(matchingIndexes)
+		}
 	}
 
 	const handleSelectCrypto = (symbol) => {
@@ -93,7 +95,7 @@ export default function BFSelectCryptos({
                         <div onClick={() => handleSelectCrypto(crypto.symbol)} key={crypto.symbol + '-shown-cryptos'} className="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-blue-200">
                             <div className="flex flex-row items-center gap-2 p-2">
                             	<BFCryptoImage symbol={crypto.symbol} index={0} isLarge={true} />
-                              <p>{crypto.name.slice(0, crypto.name.length - 6)}</p>
+                              <p>{crypto.name.replace(/\(\w+\)/, '')}</p>
                               <p className="text-xs mt-0.5 text-gray-500">{crypto.symbol}</p>
                               {selectedCryptos.includes(crypto.symbol) && <div className="ml-auto"><BFIcon iconName="checked-circle" color="blue" /></div>}
                             </div>

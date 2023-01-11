@@ -12,7 +12,9 @@ export default function BrowsePage() {
 	const [sortOrder, setSortOrder] = useState('desc') //'asc'
 
 	const sortBy = (label) => {
-		console.log(label)
+		if (!label) {
+			return
+		}
 		if (label === sortField) {
 			setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')
 			return

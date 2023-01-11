@@ -22,7 +22,11 @@ export default function ContactUsModal({ setShowModalType }) {
 		let data = {}
 		keys.forEach(key => data[key] = formData.get(key))
 
+
+		//error check
+
 		const result = await contactForm({ ...data })
+		console.log(result)
 		if (result.result) {
 			setFormSendSuccess(true)
 			return
