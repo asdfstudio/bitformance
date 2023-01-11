@@ -4,7 +4,7 @@ import { COINS } from '../data/fakeData'
 import { useCryptosByMarketCap } from '../endpoints/index'
 import BFLoading from './small/BFLoading'
 
-export default function TopMarketCapCryptos() {
+export default function TopMarketCapCryptos({ title = 'Top Cryptocurrencies by Market Cap' }) {
 
 	const [sortField, setSortField] = useState('market_cap')
 	const [sortOrder, setSortOrder] = useState('desc') //'asc'
@@ -38,7 +38,7 @@ export default function TopMarketCapCryptos() {
 
 	return(
 		<div className="bg-white min-w-full overflow-y-auto p-4 space-y-4 rounded shadow">
-			<h1>Top Cryptocurrencies by Market Cap</h1>
+			<h1>{title}</h1>
 			<SortedTable sortField={sortField} sortOrder={sortOrder} />
 		</div>
 	)

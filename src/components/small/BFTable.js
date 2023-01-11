@@ -2,9 +2,11 @@ import CoinRow from '../CoinRow'
 import BrowseCoinRow from '../BrowseCoinRow'
 import BFHoldingsTable from './BFHoldingsTable'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function BFTable({ handleHeaderClick = function() {}, condensedHeaders = false, rows, type, tableStyle = '', onRowClicked = function () {} }) {
 
+	const navigate = useNavigate()
 	const [showHoldingRow, setShowHoldingRow] = useState(null)
 	const [holdings, setHoldings] = useState()
 
@@ -48,6 +50,10 @@ export default function BFTable({ handleHeaderClick = function() {}, condensedHe
 		}
 	}
 
+	const onCoinRowClicked = (coin) => {
+		navigate(`/coins/${coin.symbol}`)
+	}
+
 	return(
 		<div className="overflow-x-auto relative sm:rounded-lg">
 		    <table className={`w-full text-sm text-left ${tableStyle}`}>
@@ -64,7 +70,7 @@ export default function BFTable({ handleHeaderClick = function() {}, condensedHe
 		        </thead>
 		        <tbody>
 		        		{rows.map((coin, index) => {
-		        			return type === 'top-cryptos' ? (<tr key={coin.id} className="p-4 bg-white dark:bg-gray-800 dark:border-gray-700"><CoinRow key={coin.id} {...coin} /></tr>)
+		        			return type === 'top-cryptos' ? (<tr onClick={() => onCoinRowClicked(coin)} key={coin.id} className="p-4 bg-white dark:bg-gray-800 dark:border-gray-700"><CoinRow key={coin.id} {...coin} /></tr>)
 		        				: (type === 'browse-cryptos' || type === 'my-indexes') ? (<React.Fragment key={coin.index._id.$oid}>
 		        					<tr onClick={() => onRowClicked(coin.index)} className="shadow bg-white dark:bg-gray-800 dark:border-gray-700">
 		        						<BrowseCoinRow 
@@ -75,7 +81,7 @@ export default function BFTable({ handleHeaderClick = function() {}, condensedHe
 		        							showDelete={type === 'my-indexes'}
 		        						/>
 		        					</tr>
-		        					{showHoldingRow === index && <tr>
+		        					{showHoldingRow === index && <tr onClick={() => onCoinRowClicked(coin)}>
 		        						<td className="bg-white" colspan="8">
 		        							<BFHoldingsTable holdings={coin.rawStocks.map(stock => {
 														return {

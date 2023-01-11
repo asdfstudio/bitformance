@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 //Pages
 import HomePage from './pages/HomePage'
 import BrowsePage from './pages/BrowsePage'
+import CoinsPage from './pages/CoinsPage'
+import SingleCoinPage from './pages/SingleCoinPage'
 import MyIndexesPage from './pages/MyIndexesPage'
 import MyFavoritesPage from './pages/MyFavoritesPage'
 import ComparePage from './pages/ComparePage'
@@ -50,6 +52,19 @@ function App() {
               <HomePage />
             </MainLayout>
           }/>
+
+          <Route exact path="/coins" element={
+            <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
+              <CoinsPage />
+            </MainLayout>
+          }/>
+
+          <Route exact path="/coins/:symbol" element={
+            <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
+              <SingleCoinPage />
+            </MainLayout>
+          }/>
+
           <Route exact path="/indexes/browse" element={
             <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
               <BrowsePage />

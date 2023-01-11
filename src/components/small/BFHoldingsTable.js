@@ -1,8 +1,10 @@
 import HoldingsRow from '../HoldingsRow'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
 	
+	const navigate = useNavigate()
 	const [orderHoldings, setHoldings] = useState(holdings)
 	const [sortField, setSortField] = useState('name')
 	const [previousSortOrder, setSortOrder] = useState('desc')
@@ -67,6 +69,10 @@ export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
 		setHoldings(newOrder)
 	}	
 
+	const onCoinRowClicked = (coin) => {
+		navigate(`/coins/${coin.symbol}`)
+	}
+
 	return(
     <table className={`w-full text-sm text-left`}>
         <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
@@ -78,7 +84,7 @@ export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
         </thead>
         <tbody>
         	{orderHoldings.map(coin => (
-        		<tr key={coin.symbol + '-holdings-table'} className="shadow bg-white dark:bg-gray-800 dark:border-gray-700">
+        		<tr onClick={() => onCoinRowClicked(coin)} key={coin.symbol + '-holdings-table'} className="shadow bg-white dark:bg-gray-800 dark:border-gray-700">
         			<HoldingsRow {...coin} />
         		</tr>
         	))}
