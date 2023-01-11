@@ -34,7 +34,7 @@ export default function BrowsePage() {
 			<BFTable 
 				rows={data || []} 
 				type="browse-cryptos" 
-				tableStyle="border-separate border-spacing-y-5" 
+				tableStyle="border-separate border-spacing-y-0" 
 				handleHeaderClick={sortBy}
 				onRowClicked={rowClicked}
 			/>

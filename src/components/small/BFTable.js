@@ -86,6 +86,7 @@ export default function BFTable({ handleHeaderClick = function() {}, condensedHe
 													})} />
 		        						</td>
 		        					</tr>}
+		        					<br />
 		        				</React.Fragment>)
 		        				: (<tr key={coin.id}>no valid type</tr>)
 		        		})}
