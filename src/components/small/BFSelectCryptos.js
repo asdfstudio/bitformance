@@ -4,6 +4,7 @@ import BFCryptoImage from './BFCryptoImage'
 import { coinImageMappings } from '../../data/coinImages'
 import BFImage from './BFImage'
 import BFLoading from './BFLoading'
+import { useBrowsableIndexes } from '../../endpoints/index'
 
 export default function BFSelectCryptos({ 
 	isSingleSelectMode = false, 
@@ -15,23 +16,31 @@ export default function BFSelectCryptos({
 }) {
 	const { data, isLoading } = hook()
 
+	const { data: browsable, isLoading: isLoadingBrowsable} = useBrowsableIndexes()
+
 	const [showMenu, setShowMenu] = useState(false)
 	const [shownCryptos, setShownCryptos] = useState(coinImageMappings)
+	const [cleanedData, setCleanedData] = useState([])
 	const [shownIndexes, setShownIndexes] = useState(data || [])
 	const [hover, setHover] = useState('')
 
 	useEffect(() => {
-		if (!isLoading) {
-			setShownIndexes(data)
+		if (!isLoading && !isLoadingBrowsable) {
+			let array = data || []
+			let unique1 = array.filter((o) => browsable.indexOf(o.index._id.$oid) === -1);
+			let unique2 = browsable.filter((o) => array.indexOf(o.index._id.$oid) === -1);
+			const unique = unique1.concat(unique2);
+			setCleanedData(unique)
+			setShownIndexes(unique)
 		}
-	}, [isLoading])
+	}, [isLoading, isLoadingBrowsable])
 
 	const searchCrypto = (text) => {
 		setShowMenu(true)
 		const matchingCryptos = coinImageMappings.filter(crypto => crypto.name.toLowerCase().includes(text.toLowerCase()))
 		setShownCryptos(matchingCryptos)
-		if (data) {
-			const matchingIndexes = data.filter(obj => obj.index.name.toLowerCase().includes(text) || obj.rawStocks.some(stock => stock.name.toLowerCase().includes(text.toLowerCase())))
+		if (cleanedData.length > 0) {
+			const matchingIndexes = cleanedData.filter(obj => obj.index.name.toLowerCase().includes(text.toLowerCase()) || obj.rawStocks.some(stock => stock.name.toLowerCase().includes(text.toLowerCase())))
 			setShownIndexes(matchingIndexes)
 		}
 	}
@@ -51,8 +60,8 @@ export default function BFSelectCryptos({
 		}
 	}
 
-	const handleSelectIndex = (id) => {
-		selectIndex(id)
+	const handleSelectIndex = (id, isBrowsable) => {
+		selectIndex(id, !isBrowsable)
 		setShowMenu(false)
 	}
 
@@ -75,8 +84,8 @@ export default function BFSelectCryptos({
 	                {showMenu &&
 	                <div className="absolute shadow bg-white top-[100%] z-40 w-full left-0 rounded max-h-[300px] overflow-y-auto svelte-5uyqqj">
                     <div className="flex flex-col w-full">
-                    	{isLoading ? <BFLoading isCenter={true} /> : shownIndexes?.map(obj => (
-                    	    <div onClick={() => handleSelectIndex(obj.index._id.$oid)} key={obj.index._id.$oid} className="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-blue-200">
+                    	{(isLoading || isLoadingBrowsable) ? <BFLoading isCenter={true} /> : shownIndexes?.map(obj => (
+                    	    <div onClick={() => handleSelectIndex(obj.index._id.$oid, obj.index.is_browsable)} key={obj.index._id.$oid} className="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-blue-200">
                     	        <div className="flex flex-row items-center gap-2 p-2">
                     	        	<BFImage src={obj.index.logo} alt={obj.index.name} style="shadow border rounded-full p-1 bg-white w-16 h-16 object-cover" />
                     	        	<p className="font-bold text-lg">{obj.index.name}</p>

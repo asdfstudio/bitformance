@@ -26,7 +26,8 @@ export default function BrowseCoinRow({
 	weighting_method,
 	rebalancing_interval,
 	showHoldings,
-	showDelete = false
+	showDelete = false,
+	isAuth = false
 }) {
 	const navigate = useNavigate()
 	const { mutate } = useSWRConfig()
@@ -37,7 +38,7 @@ export default function BrowseCoinRow({
 
 	const compareRow = (e, { $oid }) => {
 		e.stopPropagation()
-		navigate(`/compare?id=${$oid}`)
+		navigate(`/compare?id=${$oid}&isAuth=${isAuth}`)
 	}
 
 	const favoriteRow = async(e, { $oid }) => {

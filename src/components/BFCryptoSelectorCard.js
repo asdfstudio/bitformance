@@ -6,15 +6,15 @@ import { useMyIndexes, useCoinBySymbol, useCryptoById } from '../endpoints/index
 import BFCryptoInfo from './BFCryptoInfo'
 import BFLoading from './small/BFLoading'
 
-export default function BFCryptoSelectorCard({ mode, selectedCrypto, selectCrypto, panelId }) {
+export default function BFCryptoSelectorCard({ mode, selectedCrypto, isAuthRequired, selectCrypto, panelId }) {
 	const [selectedCryptos, setSelectedCryptos] = useState([])
 
 	const selectC = (symbol) => {
-		selectCrypto(symbol, panelId)
+		selectCrypto(symbol, panelId, false)
 	}
 
-	const selectIndex = (id) => {
-		selectCrypto(id, panelId)
+	const selectIndex = (id, isAuth) => {
+		selectCrypto(id, panelId, isAuth)
 	}
 
 	const DefaultView = () => (
@@ -42,7 +42,8 @@ export default function BFCryptoSelectorCard({ mode, selectedCrypto, selectCrypt
 	}
 
 	const IndexView = () => {
-		const { data, isLoading } = useCryptoById(selectedCrypto, true)
+		console.log(isAuthRequired)
+		const { data, isLoading } = useCryptoById(selectedCrypto, isAuthRequired)
 		return (
 			<div className="space-y-4 h-full">
 				 {data && 

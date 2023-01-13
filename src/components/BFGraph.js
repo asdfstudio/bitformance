@@ -92,7 +92,6 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	}
 
 	const CustomTooltip = ({ active, payload, label }) => {
-		console.log(payload)
 	  if (active && payload && payload.length) {
 	  	if (payload.length > 1 && !showOverlay) {
 	  		return (
@@ -132,6 +131,7 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 			if (nextObj.amt < firstPrice && obj.amt > firstPrice) {
 				red = obj.amt
 			}
+	
 			return {
 				...obj,
 				red: red,
@@ -172,7 +172,7 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 
 			 	{showOverlay && <Area type="monotone" dataKey="amt2" strokeWidth={1} stroke="#82ca9d" fillOpacity={1} fill="url(#colorGreen)" />}
 			  <XAxis dataKey="name" tickFormatter={formatXAxis} />
-			  <YAxis type="number" allowDataOverflow tickFormatter={formatYAxis} domain={[lowestPrice, 'auto']} />
+			  <YAxis type="number" allowDataOverflow tickFormatter={formatYAxis} domain={[showOverlay ? 0 : lowestPrice, 'auto']} />
 			  <Tooltip content={<CustomTooltip />} />
 			</>}
 		</AreaChart>

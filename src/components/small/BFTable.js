@@ -79,6 +79,7 @@ export default function BFTable({ handleHeaderClick = function() {}, condensedHe
 		        							marketcap={coin.index.marketcap || coin.rawStocks.reduce((sum, a) => a.market_cap + sum ,0)}
 		        							showHoldings={showHoldings} 
 		        							showDelete={type === 'my-indexes'}
+		        							isAuth={type === 'my-indexes'}
 		        						/>
 		        					</tr>
 		        					{showHoldingRow === index && <tr onClick={() => onCoinRowClicked(coin)}>

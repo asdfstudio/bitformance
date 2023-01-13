@@ -13,11 +13,17 @@ export default function ComparePage() {
 	const [typeSelected, setTypeSelected] = useState('side-by-side')
 
 	const [selectedCryptoOne, setSelectedCryptoOne] = useState('')
-	const [selectedCryptoTwo, setSelectedCryptoTwo] = useState('')
+	const [isAuthRequiredOne, setSelectedCryptoAuthOne] = useState(searchParams.get('isAuth') === 'true')
 
-	const selectCrypto = (objectId, panelId) => {
+	const [selectedCryptoTwo, setSelectedCryptoTwo] = useState('')
+	const [isAuthRequiredTwo, setSelectedCryptoAuthTwo] = useState(false)
+
+	const selectCrypto = (objectId, panelId, isAuthRequired) => {
 		const setCall = panelId == 1 ? setSelectedCryptoOne : setSelectedCryptoTwo
+		const setAuthCall = panelId == 1 ? setSelectedCryptoAuthOne : setSelectedCryptoAuthTwo
+
 		setCall(objectId)
+		setAuthCall(isAuthRequired)
 	}
 
 	useEffect(() => {
@@ -30,6 +36,7 @@ export default function ComparePage() {
 
 
 	const OverlayGraph = ({ selectedCryptoOne, selectedCryptoTwo }) => {
+		//TODO: fix for auth 
 		const isOneCrypto = selectedCryptoOne.length > 7
 		const isTwoCrypto = selectedCryptoTwo.length > 7
 		const hookChoiceOne = isOneCrypto ? useCryptoById : useCoinBySymbol
@@ -69,8 +76,8 @@ export default function ComparePage() {
 			</div>
 
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-1 items-start overflow-y-auto">
-				<BFCryptoSelectorCard mode={typeSelected} selectedCrypto={selectedCryptoOne} selectCrypto={selectCrypto} panelId="1" />
-				<BFCryptoSelectorCard mode={typeSelected} selectedCrypto={selectedCryptoTwo} selectCrypto={selectCrypto} panelId="2" />
+				<BFCryptoSelectorCard mode={typeSelected} selectedCrypto={selectedCryptoOne} isAuthRequired={isAuthRequiredOne} selectCrypto={selectCrypto} panelId="1" />
+				<BFCryptoSelectorCard mode={typeSelected} selectedCrypto={selectedCryptoTwo} isAuthRequired={isAuthRequiredTwo} selectCrypto={selectCrypto} panelId="2" />
 			</div>
 			{(typeSelected === 'overlay' && selectedCryptoOne && selectedCryptoTwo) && <OverlayGraph selectedCryptoOne={selectedCryptoOne} selectedCryptoTwo={selectedCryptoTwo} />}
 		</div>
