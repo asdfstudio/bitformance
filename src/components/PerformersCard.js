@@ -6,8 +6,12 @@ import { usePerformers } from '../endpoints/index'
 import { formatMoney } from '../helpers/index'
 import BFImage from './small/BFImage'
 import BFLoading from './small/BFLoading'
+import { useState } from 'react'
 
 export default function PerfomersCards() {
+
+	const [isBest, setIsBest] = useState(true)
+
 	const { data, isLoading } = usePerformers()
 
 	if (isLoading) return (
@@ -20,16 +24,26 @@ export default function PerfomersCards() {
 		</div>
 	)
 
-	const sorted = data.indexes.sort((a, b) => {
+	let sorted = data.indexes.sort((a, b) => {
 		if (a.changepct_24hour > b.changepct_24hour) {
 			return -1
 		}
 		return 1
 	})
 
+	if (!isBest) {
+		sorted = sorted.reverse()
+	}
+
 	return(
 		<div className="pt-4 pl-4 pb-4  bg-white shadow rounded">
-			<h1 className="text-xl tracking-wider mb-6">24h Performers</h1>
+			<div className="flex flex-row items-center mb-6">
+				<h1 className="text-xl tracking-wider">24h Performers</h1>
+				<div className="ml-auto mr-2 rounded-lg bg-gray-100 py-0.5 px-1">
+					<button className={`text-xs ${isBest ? ' py-2 px-5 bg-white rounded-lg shadow' : 'px-5'}`} onClick={() => setIsBest(true)}>Best</button>
+					<button className={`text-xs ${isBest ? 'px-5' : ' py-2 px-5 bg-white rounded-lg shadow'}`} onClick={() => setIsBest(false)}>Worst</button>
+				</div>
+			</div>
 			<div>
 				{sorted.slice(0,3).map(coin => (
 					<div key={coin.name + '-recently-added'} className="grid grid-cols-4 gap-4 py-1">
