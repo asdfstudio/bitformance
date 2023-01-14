@@ -51,6 +51,7 @@ export default function BFTable({ handleHeaderClick = function() {}, condensedHe
 	}
 
 	const onCoinRowClicked = (coin) => {
+		console.log(coin)
 		navigate(`/coins/${coin.symbol}`)
 	}
 
@@ -82,7 +83,7 @@ export default function BFTable({ handleHeaderClick = function() {}, condensedHe
 		        							isAuth={type === 'my-indexes'}
 		        						/>
 		        					</tr>
-		        					{showHoldingRow === index && <tr onClick={() => onCoinRowClicked(coin)}>
+		        					{showHoldingRow === index && <tr>
 		        						<td className="bg-white" colspan="8">
 		        							<BFHoldingsTable holdings={coin.rawStocks.map(stock => {
 														return {

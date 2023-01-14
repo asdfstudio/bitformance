@@ -70,6 +70,7 @@ export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
 	}	
 
 	const onCoinRowClicked = (coin) => {
+		console.log(coin)
 		navigate(`/coins/${coin.symbol}`)
 	}
 
