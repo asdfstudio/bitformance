@@ -21,8 +21,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 	useEffect(() => {
 		if (isOverlay && fullGraphData.length === 0) {
 			loadOverlayData()
-		}
-		if (data && data.index && fullGraphData.length === 0) {
+		} else if (data && data.index && fullGraphData.length === 0) {
 			loadData()
 		}
 
@@ -40,64 +39,57 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 		if (dataOne.isCrypto) {
 			daily_graph_data_one = dataOne.data.index.daily_graph_data
 			fivemin_graph_data_one = dataOne.data.index.fivemin_graph_data
-		} else {
-			dataOne.data.index = { initial_value: dataOne.data.initial_value }
 		}
 		if (dataTwo.isCrypto) {
 			daily_graph_data_two = dataTwo.data.index.daily_graph_data
 			fivemin_graph_data_two = dataTwo.data.index.fivemin_graph_data
-		} else {
-			dataTwo.data.index = { initial_value: dataTwo.data.initial_value }
 		}
-
 
 		const { dates, prices, price } = daily_graph_data_one
 		const { dates: datesTwo, prices: pricesTwo, price: priceTwo } = daily_graph_data_two
 		const array = []
 
+		if (!dataOne.isCrypto) {
+			if (prices) {
+				dataOne.data.index = { initial_value: prices.slice(-1095)[0] }
+			} else {
+				dataOne.data.index = { initial_value: price.slice(-1095)[0] }
+			}
+		}
+		if (!dataTwo.isCrypto) {
+			if (pricesTwo) {
+				dataTwo.data.index = { initial_value: pricesTwo.slice(-1095)[0] }
+			} else {
+				dataTwo.data.index = { initial_value: priceTwo.slice(-1095)[0] }
+			}
+
+		}
+
 		//Make date array lengths match
-		let useLessDates = []
-		let formatPrice = []
-		let formatPriceTwo = []
-		if (dates.length > datesTwo.length) {
-			useLessDates = datesTwo
-			if (pricesTwo) {
-				formatPriceTwo = pricesTwo.slice(-1 * datesTwo.length)
-			} else {
-				formatPriceTwo = priceTwo.slice(-1 * datesTwo.length)
-			}
-			if (prices) {
-				formatPrice = prices
-			} else {
-				formatPrice = price
-			}
-		} else if (datesTwo.length > dates.length) {
-			useLessDates = dates
-			if (prices) {
-				formatPrice = prices.slice(-1 * dates.length)
-			} else {
-				formatPrice = price.slice(-1 * dates.length)
-			}
-			if (pricesTwo) {
-				formatPriceTwo = pricesTwo
-			} else {
-				formatPriceTwo = priceTwo
-			}
-		} else {
-			//do nothing, same length, maybe check similar timestamps
-			useLessDates = dates
-			formatPrice = prices ? prices : price
-			formatPriceTwo = pricesTwo ? pricesTwo : priceTwo
-		}
+		let formatPrice = prices ? prices : price
+		let formatPriceTwo = pricesTwo ? pricesTwo : priceTwo
 
+		formatPrice = formatPrice.slice(-1095)
+		formatPriceTwo = formatPriceTwo.slice(-1095)
 
-		for (let i = 0; i < useLessDates.length; i++) {
+		for (let i = 0; i < formatPrice.length; i++) {
 			array.push({
-				name: useLessDates[i],
-				amt:  (formatPrice[i] - dataOne.data.index.initial_value) / (dataOne.data.index.initial_value * 100),
-				amt2: (formatPriceTwo[i] - dataTwo.data.index.initial_value) / (dataTwo.data.index.initial_value * 100)
+				name: dates[i],
+				amt:  ((formatPrice[i] - dataOne.data.index.initial_value) / dataOne.data.index.initial_value) * 100,
+				amt2: ((formatPriceTwo[i] - dataTwo.data.index.initial_value) / dataTwo.data.index.initial_value) * 100
 			})
+			// array.splice(0, 0, {
+			// 	name: useLessDates[i],
+			// 	amt:  ((formatPrice[i] - dataOne.data.index.initial_value) / dataOne.data.index.initial_value) * 100,
+			// 	amt2: ((formatPriceTwo[i] - dataTwo.data.index.initial_value) / dataTwo.data.index.initial_value) * 100
+			// })
 		}
+		// array.sort((a, b) => a.name - b.name)
+		// console.log('computed array')
+		// console.log(array)
+
+		console.log(array)
+
 		setFullGraphData(array)
 		setShownGraphData(array.slice(-1095))
 		const hourly = []
@@ -109,12 +101,11 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 			const hourlyTwo = hourlyPricesTwo ? hourlyPricesTwo[z] : hourlyPriceTwo[z]
 			hourly.push({
 				name: hourlyDates[z],
-				amt: (hourlyT - dataOne.data.index.initial_value) / (dataOne.data.index.initial_value * 100),
-				amt2:  (hourlyTwo - dataTwo.data.index.initial_value) / (dataTwo.data.index.initial_value * 100),
+				amt: ((hourlyT - dataOne.data.index.initial_value) / dataOne.data.index.initial_value) * 100,
+				amt2: ((hourlyTwo - dataTwo.data.index.initial_value) / dataTwo.data.index.initial_value) * 100,
 			})
 		}
 		setHourlyData(hourly)
-		
 	}
 
 
@@ -182,6 +173,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 	// 	return 'Error...'
 	// }
 
+// console.log(shownGraphData)
 	return(
 		<div className="bg-white p-4">
 			<h1 className="text-lg mb-4 font-bold">{title}</h1>

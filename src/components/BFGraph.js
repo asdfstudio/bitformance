@@ -104,8 +104,8 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	    return (
 	      <div className="border bg-white p-4">
 	      	<p>{formatDate(label, '3Y')}</p>
-	        <p className={showOverlay ? 'text-blue-400' : ''}>{showOverlay ? `${Math.abs(payload[0].value).toFixed(2)}%` : formatter.format(payload[0].value)}</p>
-	        {showOverlay && <p className="text-green-400">{showOverlay ? `${Math.abs(payload[1].value).toFixed(2)}%` : formatter.format(payload[1].value)}</p>}
+	        <p className={showOverlay ? 'text-blue-400' : ''}>{showOverlay ? `${Math.min(payload[0].value).toFixed(2)}%` : formatter.format(payload[0].value)}</p>
+	        {showOverlay && <p className="text-green-400">{showOverlay ? `${Math.min(payload[1].value).toFixed(2)}%` : formatter.format(payload[1].value)}</p>}
 	      </div>
 	    );
 	  }
@@ -118,6 +118,10 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	const lowestPrice = data.reduce((prev, curr) => {
 		return prev.amt < curr.amt ? prev : curr
 	}, 0).amt
+
+	const lowestPercentTwo = data.reduce((prev, curr) => {
+		return prev.amt2 < curr.amt2 ? prev : curr
+	}, 0).amt2
 
 	const priceData = data.map((obj, index) => {
 		let red = obj.amt > firstPrice ? null : obj.amt
@@ -145,7 +149,9 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 			green: green
 		}
 	})
- 
+
+	console.log(data)
+
 	return(
 			<AreaChart width={finalWidth} height={400} data={showPriceColored ? priceData: data}  margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
 		 	<defs>
@@ -170,9 +176,9 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 			  <Area type="monotone" stackId="2" dataKey="red" strokeWidth={1} stroke="#FF00000" fillOpacity={0.3} fill="url(#colorRed)" />
 			  </>}
 
-			 	{showOverlay && <Area type="monotone" dataKey="amt2" strokeWidth={1} stroke="#82ca9d" fillOpacity={1} fill="url(#colorGreen)" />}
+			 	{showOverlay && <Area type="monotone" stackId="2" dataKey="amt2" strokeWidth={1} stroke="#82ca9d" fillOpacity={1} fill="url(#colorGreen)" />}
 			  <XAxis dataKey="name" tickFormatter={formatXAxis} />
-			  <YAxis type="number" allowDataOverflow tickFormatter={formatYAxis} domain={[showOverlay ? 0 : lowestPrice, 'auto']} />
+			  <YAxis type="number" allowDataOverflow tickFormatter={formatYAxis} domain={[showOverlay ? Math.min(lowestPrice, lowestPercentTwo) : lowestPrice, 'auto']} />
 			  <Tooltip content={<CustomTooltip />} />
 			</>}
 		</AreaChart>
