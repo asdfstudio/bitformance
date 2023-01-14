@@ -71,10 +71,11 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 
 		formatPrice = formatPrice.slice(-1095)
 		formatPriceTwo = formatPriceTwo.slice(-1095)
+		const properDateRange = dates.slice(-1095)
 
 		for (let i = 0; i < formatPrice.length; i++) {
 			array.push({
-				name: dates[i],
+				name: properDateRange[i],
 				amt:  ((formatPrice[i] - dataOne.data.index.initial_value) / dataOne.data.index.initial_value) * 100,
 				amt2: ((formatPriceTwo[i] - dataTwo.data.index.initial_value) / dataTwo.data.index.initial_value) * 100
 			})
@@ -96,16 +97,20 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 		const { dates: hourlyDates, prices: hourlyPrices, price: hourlyPrice } = fivemin_graph_data_one
 		const { dates: hourlyDatesTwo, prices: hourlyPricesTwo, price: hourlyPriceTwo } = fivemin_graph_data_two
 
+		const initialValueOne = hourlyPrices ? hourlyPrices[0] : hourlyPrice[0]
+		const initialValueTwo = hourlyPricesTwo ? hourlyPricesTwo[0] : hourlyPriceTwo[0]
+
 		for (let z = 0; z < hourlyDates.length; z++) {
 			const hourlyT = hourlyPrices ? hourlyPrices[z] : hourlyPrice[z] 
 			const hourlyTwo = hourlyPricesTwo ? hourlyPricesTwo[z] : hourlyPriceTwo[z]
 			hourly.push({
 				name: hourlyDates[z],
-				amt: ((hourlyT - dataOne.data.index.initial_value) / dataOne.data.index.initial_value) * 100,
-				amt2: ((hourlyTwo - dataTwo.data.index.initial_value) / dataTwo.data.index.initial_value) * 100,
+				amt: ((hourlyT - initialValueOne) / initialValueOne) * 100,
+				amt2: ((hourlyTwo - initialValueTwo) / initialValueTwo) * 100,
 			})
 		}
 		setHourlyData(hourly)
+
 	}
 
 
