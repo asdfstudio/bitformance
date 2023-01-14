@@ -31,9 +31,9 @@ import {
 } from '@fortawesome/free-regular-svg-icons'
 
 import {
-	faFacebook,
+	faInstagram,
 	faTwitter,
-	faTelegram,
+	faLinkedin,
 	faDiscord,
 } from '@fortawesome/free-brands-svg-icons'
 
@@ -51,9 +51,9 @@ export default function BFIcon({ iconName, color, size }) {
 		{ name: 'my-indexes', icon: faListAlt },
 		{ name: 'favorite', icon: faHeart },
 		{ name: 'open-favorite', icon: faHeartOpen },
-		{ name: 'facebook', icon: faFacebook },
+		{ name: 'instagram', icon: faInstagram },
 		{ name: 'twitter', icon: faTwitter },
-		{ name: 'telegram', icon: faTelegram },
+		{ name: 'linkedin', icon: faLinkedin},
 		{ name: 'discord', icon: faDiscord },
 		{ name: 'up-right-arrow', icon: faArrowRight },
 		{ name: 'down-left-arrow', icon: faArrowLeft },

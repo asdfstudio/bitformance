@@ -6,10 +6,10 @@ export default function SocialIconsRows({ showCopyLink }) {
 	
 	return(
 		<>
-			<BFIcon iconName="facebook" size="lg" />
-			<BFIcon iconName="twitter" size="lg" />
-			<BFIcon iconName="telegram" size="lg" />
-			<BFIcon iconName="discord" size="lg" />
+			<a href="https://www.instagram.com/BitformanceTeam/" target="_blank"><BFIcon iconName="instagram" size="lg" /></a>
+			<a href="https://twitter.com/bitformanceteam" target="_blank"><BFIcon iconName="twitter" size="lg" /></a>
+			<a href="https://www.linkedin.com/company/bitformance" target="_blank"><BFIcon iconName="linkedin" size="lg" /></a>
+			<a href="https://discord.gg/wFYuvbyCSt" target="_blank"><BFIcon iconName="discord" size="lg" /></a>
 			{showCopyLink && 	<BFIcon iconName="share-link" size="lg" />}
 		</>
 	)
