@@ -23,6 +23,7 @@ import {
 	faCircleInfo,
 	faTrashCan,
 	faCoins,
+	faClock,
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -74,6 +75,7 @@ export default function BFIcon({ iconName, color, size }) {
 		{ name: 'delete', icon: faTrashCan },
 		{ name: 'back', icon: faArrowLeft },
 		{ name: 'coins', icon: faCoins },
+		{ name: 'time', icon: faClock },
 
 	]
 

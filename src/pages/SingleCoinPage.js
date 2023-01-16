@@ -22,8 +22,7 @@ export default function SingleCoinPage() {
 
 	const compareRow = (e) => {
 		e.stopPropagation()
-		//TODO: coin symbol
-		// navigate(`/compare?id=${params.id}`)
+		navigate(`/compare?id=${params.symbol}`)
 	}
 
 	const PanelOne = ({ id, name, description }) => (

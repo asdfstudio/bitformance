@@ -27,7 +27,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 
 	}, [data])
 
-	const loadOverlayData = () => {
+	const loadOverlayData = (timeInterval = -1095) => {
 		const dataOne = data[0]
 		const dataTwo = data[1]
 
@@ -51,16 +51,16 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 
 		if (!dataOne.isCrypto) {
 			if (prices) {
-				dataOne.data.index = { initial_value: prices.slice(-1095)[0] }
+				dataOne.data.index = { initial_value: prices.slice(timeInterval)[0] }
 			} else {
-				dataOne.data.index = { initial_value: price.slice(-1095)[0] }
+				dataOne.data.index = { initial_value: price.slice(timeInterval)[0] }
 			}
 		}
 		if (!dataTwo.isCrypto) {
 			if (pricesTwo) {
-				dataTwo.data.index = { initial_value: pricesTwo.slice(-1095)[0] }
+				dataTwo.data.index = { initial_value: pricesTwo.slice(timeInterval)[0] }
 			} else {
-				dataTwo.data.index = { initial_value: priceTwo.slice(-1095)[0] }
+				dataTwo.data.index = { initial_value: priceTwo.slice(timeInterval)[0] }
 			}
 
 		}
@@ -69,9 +69,9 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 		let formatPrice = prices ? prices : price
 		let formatPriceTwo = pricesTwo ? pricesTwo : priceTwo
 
-		formatPrice = formatPrice.slice(-1095)
-		formatPriceTwo = formatPriceTwo.slice(-1095)
-		const properDateRange = dates.slice(-1095)
+		formatPrice = formatPrice.slice(timeInterval)
+		formatPriceTwo = formatPriceTwo.slice(timeInterval)
+		const properDateRange = dates.slice(timeInterval)
 
 		for (let i = 0; i < formatPrice.length; i++) {
 			array.push({
@@ -92,7 +92,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 		console.log(array)
 
 		setFullGraphData(array)
-		setShownGraphData(array.slice(-1095))
+		setShownGraphData(array.slice(timeInterval))
 		const hourly = []
 		const { dates: hourlyDates, prices: hourlyPrices, price: hourlyPrice } = fivemin_graph_data_one
 		const { dates: hourlyDatesTwo, prices: hourlyPricesTwo, price: hourlyPriceTwo } = fivemin_graph_data_two
@@ -150,22 +150,22 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 				setShownGraphData(hourlyData)	      
 				break;
 	    case "7D":
-	      setShownGraphData(fullGraphData.slice(-7))
+	    	isOverlay ? loadOverlayData(-7) : setShownGraphData(fullGraphData.slice(-7))
 	      break;
 	    case "1M":
-	      setShownGraphData(fullGraphData.slice(-30))
+	    	isOverlay ? loadOverlayData(-30) : setShownGraphData(fullGraphData.slice(-30))
 	      break;
 	    case "3M":
-	      setShownGraphData(fullGraphData.slice(-90))
+	    	isOverlay ? loadOverlayData(-90) : setShownGraphData(fullGraphData.slice(-90))
 	      break;
 	    case "6M":
-	     setShownGraphData(fullGraphData.slice(-180))
+	    	isOverlay ? loadOverlayData(-180) : setShownGraphData(fullGraphData.slice(-180))
 	     break;
 	    case "1Y":
-	      setShownGraphData(fullGraphData.slice(-365))
+	    	isOverlay ? loadOverlayData(-365) : setShownGraphData(fullGraphData.slice(-365))
 	      break;
 	    case "3Y":
-	      setShownGraphData(fullGraphData.slice(-1095))
+	    	isOverlay ? loadOverlayData(-1095) :setShownGraphData(fullGraphData.slice(-1095))
 	      break;
 	    default:
 	      setShownGraphData([])

@@ -170,13 +170,13 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
       </defs>
 		  <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
 		  {data.length > 0 && <>
-			  {!showPriceColored && <Area type="monotone" stackId="1" dataKey="amt" strokeWidth={1} stroke="#8884d8" fillOpacity={1} fill="url(#colorBlue)" />}
+			  {!showPriceColored && <Area type="monotone" stackId="1" dataKey="amt" strokeWidth={1} stroke="#8884d8" fillOpacity={showOverlay ? 0 : 1} fill="url(#colorBlue)" />}
 				{showPriceColored && <>
 				<Area type="monotone" stackId="1" dataKey="green" strokeWidth={1} stroke="#82ca9d" fillOpacity={0.5} fill="url(#colorGreen)" />
 			  <Area type="monotone" stackId="2" dataKey="red" strokeWidth={1} stroke="#FF00000" fillOpacity={0.3} fill="url(#colorRed)" />
 			  </>}
 
-			 	{showOverlay && <Area type="monotone" stackId="2" dataKey="amt2" strokeWidth={1} stroke="#82ca9d" fillOpacity={1} fill="url(#colorGreen)" />}
+			 	{showOverlay && <Area type="monotone" stackId="2" dataKey="amt2" strokeWidth={1} stroke="#82ca9d" fillOpacity={0} fill="url(#colorGreen)" />}
 			  <XAxis dataKey="name" tickFormatter={formatXAxis} />
 			  <YAxis type="number" allowDataOverflow tickFormatter={formatYAxis} domain={[showOverlay ? Math.min(lowestPrice, lowestPercentTwo) : lowestPrice, 'auto']} />
 			  <Tooltip content={<CustomTooltip />} />

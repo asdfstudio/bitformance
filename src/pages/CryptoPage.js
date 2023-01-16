@@ -55,13 +55,13 @@ export default function CryptoPage({ isAuth }) {
 				</button>
 				<button onClick={(e) => compareRow(e)} className="w-full text-green-500 bg-green-100 rounded px-6 py-2 font-bold text-sm">Compare</button>
 			</div>
-
+			{/*
 			<div>
 				<p className="text-gray-400 text-sm mb-2">Share this index</p>
 				<div className="flex flex-row gap-8 cursor-pointer text-gray-500">
 					<SocialIconsRow showCopyLink={true} />
 				</div>
-			</div>
+			</div>*/}
 			<p>{description}</p>
 		</div>
 	)

@@ -16,7 +16,7 @@ export default function BFTable({ handleHeaderClick = function() {}, condensedHe
 		{ label: '24h %', id: 'changepct_24hour' },
 		{ label: '7d %', id: 'changepct_7d' },
 		{ label: 'Market Cap', id: 'marketcap', type: 'computed' },
-		{ label: 'Last Updated', id: '' }, //updated backend check?
+		{ label: 'Last Updated', id: 'updated' }, //updated backend check?
 		{ label: 'Action', id: '' }, //favorites backend check?
 	]
 

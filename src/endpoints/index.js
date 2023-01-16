@@ -310,7 +310,6 @@ export const contactForm = async ({ username, subject, message, email }) => {
 	return data	
 }
 
-//TODO: fix
 export const updateProfile = async (profile) => {
 	const response = await fetch(baseUrl('/update-profile'), profile,
 	{

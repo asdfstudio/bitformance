@@ -1,11 +1,20 @@
+import BFIcon from '../BFIcon'
+import moment from 'moment'
+
 export default function BFInfoTags({ style = '', timestamp, weightingMethod, rebalancingInterval }) {
 	
-	//TODO: icon, timestamp, map words
+	const WEIGHT_TITLE = {
+		'equal_weight': 'Equal Weighing',
+		'market_cap': 'Weighted by Market Cap',
+		'custom': 'Custom'
+	}
+
+
 	const Items = () => (<>
-		<p className="px-4 py-1 bg-gray-100 rounded">11/22/22 11:00:12AM</p>
+		<p className="px-4 py-1 bg-gray-100 rounded"><BFIcon iconName="time" color="gray" />&nbsp;&nbsp;{moment(timestamp).format('MM/DD/YY hh:mm:ss A')}</p>
 		<div className="my-1">
-			<span className="px-4 py-1 mx-1 bg-gray-100 rounded whitespace-nowrap	">{weightingMethod}</span>
-			<span className="px-4 py-1 bg-gray-100 rounded whitespace-nowrap">{rebalancingInterval}</span>
+			<span className="px-4 py-1 mx-1 bg-gray-100 rounded whitespace-nowrap	">{WEIGHT_TITLE[weightingMethod]}</span>
+			<span className="px-4 py-1 bg-gray-100 rounded whitespace-nowrap">Rebalanced {rebalancingInterval.toLowerCase()}</span>
 		</div>
 	</>)
 

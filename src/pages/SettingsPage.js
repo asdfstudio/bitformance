@@ -19,9 +19,11 @@ export default function SettingsPage() {
 	const saveProfile = async () => {
 		const result = await updateProfile({
 			...data.data,
+			email: 'test123@test.com',
 			first_name: 'Test',
 			last_name: 'New',
-			profile_pic: ''
+			password: 'testing123',
+			profile_pic: 'test'
 		})
 		console.log(result)
 	}
