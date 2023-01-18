@@ -6,13 +6,13 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 	const { data, isLoading, isError } = hook()
 
 	const [graphColor, setGraphColor] = useState('Solid Colored')
-	const [graphInterval, setGraphInterval] = useState('3Y')
+	const [graphInterval, setGraphInterval] = useState('All')
 
 	const [finalDates, setFinalDates] = useState([])
 	const [finalPrices, setFinalPrices] = useState([])
 
 	const colorOptions = ['Price Colored', 'Solid Colored']
-	const dateOptions = ['24H', '7D', '1M', '3M', '6M', '1Y', '3Y']
+	const dateOptions = ['24H', '7D', '1M', '3M', '6M', '1Y', 'All']
 
 	const [fullGraphData, setFullGraphData] = useState([])
 	const [shownGraphData, setShownGraphData] = useState([])
@@ -168,6 +168,9 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 	    case "3Y":
 	    	isOverlay ? loadOverlayData(-1095) :setShownGraphData(fullGraphData.slice(-1095))
 	      break;
+	    case "All":
+	    		isOverlay ? loadOverlayData(-9999) :setShownGraphData(fullGraphData)
+	    	  break;
 	    default:
 	      setShownGraphData([])
 	  }
