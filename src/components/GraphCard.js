@@ -19,7 +19,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 	const [hourlyData, setHourlyData] = useState([])
 
 	useEffect(() => {
-		if (isOverlay && fullGraphData.length === 0) {
+	 	if (isOverlay && fullGraphData.length === 0) {
 			loadOverlayData()
 		} else if (data && data.index && fullGraphData.length === 0) {
 			loadData()
@@ -73,7 +73,8 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 		formatPriceTwo = formatPriceTwo.slice(timeInterval)
 		const properDateRange = dates.slice(timeInterval)
 
-		for (let i = 0; i < formatPrice.length; i++) {
+		let smallerLength = formatPrice.length > formatPriceTwo.length ? formatPriceTwo.length: formatPrice.length
+		for (let i = 0; i < smallerLength; i++) {
 			array.push({
 				name: properDateRange[i],
 				amt:  ((formatPrice[i] - dataOne.data.index.initial_value) / dataOne.data.index.initial_value) * 100,

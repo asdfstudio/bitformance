@@ -36,7 +36,6 @@ export default function ComparePage() {
 
 
 	const OverlayGraph = ({ selectedCryptoOne, selectedCryptoTwo }) => {
-		//TODO: fix for auth 
 		const isOneCrypto = selectedCryptoOne.length > 7
 		const isTwoCrypto = selectedCryptoTwo.length > 7
 		const hookChoiceOne = isOneCrypto ? useCryptoById : useCoinBySymbol

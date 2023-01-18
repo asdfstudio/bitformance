@@ -121,7 +121,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 						<p className="text-xs text-gray-400 text-right">@{username}</p>
 					</div>
 					<div className="rounded-full bg-white shadow p-1">
-						{picture ? <img src={picture} /> : <div className="w-6 h-6 flex justify-center items-center rounded-full bg-gray-100 p-2"><BFIcon iconName="no-picture" size="xs" /></div>}
+						{picture ? <img className="w-6 h-6 rounded-full" src={picture} /> : <div className="w-6 h-6 flex justify-center items-center rounded-full bg-gray-100 p-2"><BFIcon iconName="no-picture" size="xs" /></div>}
 					</div>
 				</div>
 				{showMenu &&
@@ -161,7 +161,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 						<p className="text-xs text-gray-400 text-right">@{username}</p>
 					</div>
 					<div className="rounded-full bg-white shadow p-1">
-						{picture ? <img src={picture} /> : <div className="w-6 h-6 flex justify-center items-center rounded-full bg-gray-100 p-2"><BFIcon iconName="no-picture" size="xs" /></div>}
+						{picture ? <img className="w-6 h-6 rounded-full" src={picture} /> : <div className="w-6 h-6 flex justify-center items-center rounded-full bg-gray-100 p-2"><BFIcon iconName="no-picture" size="xs" /></div>}
 					</div>
 				</div>
 				{showMenu &&

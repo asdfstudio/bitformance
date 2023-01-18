@@ -1,40 +1,73 @@
 import { useState, useEffect } from 'react'
 import BFIcon from '../components/BFIcon'
 import BFUploadImage from '../components/small/BFUploadImage'
-import { useProfile, updateProfile } from '../endpoints/index'
+import { useProfile, updateProfile, uploadImage } from '../endpoints/index'
 
-export default function SettingsPage() {
+export default function SettingsPage({ setShowModalType }) {
 
 	const { data, isLoading } = useProfile()
 	
 	const [tabSelected, setTabSelected] = useState('profile')
 	const [name, setName] = useState('')
+	const [email, setEmail] = useState('')
+	const [newPassword, setNewPassword] = useState('')
+	const [confirmNewPassword, setConfirmNewPassword] = useState('')
 	const [profilePic, setProfilePic] = useState(data?.data?.profile_pic)
 	const [fileSelected, setFileSelected] = useState(null)
 
+	const [errorMessage, setErrorMessage] = useState('')
+
 	useEffect(() => {
+		setShowModalType('CONFIRM_PASSWORD')
+	}, [])
+
+	useEffect(() => {
+		setEmail(data?.data?.email || '')
 		setName(`${data?.data?.first_name || ''} ${data?.data?.last_name || ''}`)
 	}, [data])
 
+	useEffect(() => {
+		if (tabSelected === 'profile') {
+			setNewPassword('')
+			setConfirmNewPassword('')
+		}
+	}, [tabSelected])
+
 	const saveProfile = async () => {
-		const result = await updateProfile({
-			...data.data,
-			email: 'test123@test.com',
-			first_name: 'Test',
-			last_name: 'New',
-			password: 'testing123',
-			profile_pic: 'test'
-		})
-		console.log(result)
+		setErrorMessage('')
+		const names = name.split(' ')
+		const first_name = names[0]
+		const last_name = names.slice(-1)[0]
+		if (newPassword && confirmNewPassword) {
+			const result = await updateProfile({
+				new_password: newPassword,
+				confirm_password: confirmNewPassword,
+				password: sessionStorage.getItem('password')
+			})
+			if (!result.result) {
+				setErrorMessage(result.error)
+			}
+
+		} else {
+			const result = await updateProfile({
+				first_name,
+				last_name,
+				password: sessionStorage.getItem('password')
+			})
+			if (!result.result) {
+				setErrorMessage(result.error)
+			}
+		}
+
+		if (setFileSelected) {
+			const result = await uploadImage(fileSelected, 'image')
+		}
 	}
 
 	const handleFileSelect = async (e) => {
 		const file = e.target?.files[0]
 		setFileSelected(file)
 	}
-
-	console.log(data)
-
 
 	const selected = 'rounded-lg bg-blue-100 w-full py-2 pl-2 cursor-pointer'
 	const notSelected = 'rounded-lg hover:bg-blue-100 w-full py-2 pl-2 cursor-pointer'
@@ -55,6 +88,7 @@ export default function SettingsPage() {
 					</div>
 					{ tabSelected === 'profile' && 
 							<div className="py-4 px-4 w-full space-y-4">
+								{errorMessage && <p className="text-xs text-red-500">*{errorMessage}</p>}
 								<div>
 									<h1 className="font-bold mb-2">Profile Picture</h1>
 									<BFUploadImage handleFileSelect={handleFileSelect} fileSelected={fileSelected} src={profilePic} />
@@ -72,24 +106,21 @@ export default function SettingsPage() {
 
 					{ tabSelected !== 'profile' && 
 					  	<div className="w-full">
+					  		{errorMessage && <p className="px-4 pt-2 text-xs text-red-500">*{errorMessage}</p>}
 								<h2 className="px-4 pt-4 text-sm text-gray-400">Password</h2>
 								<div className="px-4 py-2">
-									<label className="font-bold text-sm">Current Password</label>
-									<input name="current-password" className="w-full py-1 border rounded" type="password" />
-								</div>
-								<div className="px-4 py-2">
 									<label className="font-bold text-sm">New Password</label>
-									<input name="new-password" className="w-full py-1 border rounded" type="password" />
+									<input onChange={(e) => setNewPassword(e.target?.value)} value={newPassword} name="new-password" className="w-full py-1 border rounded" type="password" />
 								</div>
 								<div className="px-4 py-2 pb-4">
 									<label className="font-bold text-sm">Confirm New Password</label>
-									<input name="confirm-new-password" className="w-full py-1 border rounded" type="password" />
+									<input onChange={(e) => setConfirmNewPassword(e.target?.value)} value={confirmNewPassword} name="confirm-new-password" className="w-full py-1 border rounded" type="password" />
 								</div>
 								<hr />
 								<h2 className="px-4 pt-4 text-sm text-gray-400">Email</h2>
 								<div className="px-4 py-2 pb-4">
 									<label className="font-bold text-sm">Login Email</label>
-									<input name="login-email" className="w-full py-1 border rounded" type="text" />
+									<input disabled onChange={(e) => setEmail(e.target?.value)} value={email} name="login-email" className="w-full py-1 border rounded" type="text" />
 								</div>
 							</div>
 					} 

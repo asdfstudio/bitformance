@@ -311,13 +311,9 @@ export const contactForm = async ({ username, subject, message, email }) => {
 }
 
 export const updateProfile = async (profile) => {
-	const response = await fetch(baseUrl('/update-profile'), profile,
-	{
-		method: 'PATCH',
-		headers: { 
-			'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-		},
-	})
+	const response = await fetch(baseUrl('/update-profile'), POST_DATA_OPTIONS({
+		...profile
+	}))
 	const data = await response.json()
 	return data
 }

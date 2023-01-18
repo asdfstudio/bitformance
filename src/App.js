@@ -103,7 +103,7 @@ function App() {
           }/>
           <Route exact path="/settings" element={
             <MainLayout showModalType={showModalType} setShowModalType={setShowModalType}>
-              <SettingsPage />
+              <SettingsPage setShowModalType={setShowModalType} />
             </MainLayout>
           }/>
 

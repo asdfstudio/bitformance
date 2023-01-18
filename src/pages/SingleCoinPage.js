@@ -1,22 +1,14 @@
 import { useParams } from 'react-router-dom'
-import BFIcon from '../components/BFIcon'
 import SocialIconsRow from '../components/small/SocialIconsRow'
-import GraphCard from '../components/GraphCard'
-import BFInfoTags from '../components/small/BFInfoTags'
-import BFHoldingsTable from '../components/small/BFHoldingsTable'
-import BFUpDownTag from '../components/small/BFUpDownTag'
-import { useCryptoById } from '../endpoints/index'
 import BFLoading from '../components/small/BFLoading'
 import BFCryptoInfo from '../components/BFCryptoInfo'
 import { baseUrl, useCoinBySymbol } from '../endpoints/index'
-import { useSWRConfig } from 'swr'
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BFCryptoImage from '../components/small/BFCryptoImage'
 
 export default function SingleCoinPage() {
 	const params = useParams()
-	const { data, isLoading, isError } = useCoinBySymbol(params.symbol)
+	const { data, isLoading } = useCoinBySymbol(params.symbol)
 
 	const navigate = useNavigate()
 

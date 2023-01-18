@@ -1,6 +1,7 @@
 import ContactUs from './modals/ContactUsModal'
 import SignIn from './modals/SignInModal'
 import SignUp from './modals/SignUpModal'
+import ConfirmPassword from './modals/ConfirmPasswordModal'
 
 export default function BFModal({ showModalType, setShowModalType }) {
 
@@ -9,6 +10,7 @@ export default function BFModal({ showModalType, setShowModalType }) {
 		{ type: 'CONTACT_US' , component: <ContactUs setShowModalType={setShowModalType} /> },
 		{ type: 'SIGN_UP', component: <SignUp setShowModalType={setShowModalType} /> },
 		{ type: 'SIGN_IN', component: <SignIn setShowModalType={setShowModalType} /> },
+		{ type: 'CONFIRM_PASSWORD', component: <ConfirmPassword setShowModalType={setShowModalType} />},
 	]
 
 	const modal = modals.find(obj => obj.type === showModalType)
