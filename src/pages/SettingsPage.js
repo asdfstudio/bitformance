@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import BFIcon from '../components/BFIcon'
 import BFUploadImage from '../components/small/BFUploadImage'
 import { useProfile, updateProfile, uploadImage } from '../endpoints/index'
+import BFLoading from '../components/small/BFLoading'
 
 export default function SettingsPage({ setShowModalType }) {
 
@@ -16,6 +17,7 @@ export default function SettingsPage({ setShowModalType }) {
 	const [fileSelected, setFileSelected] = useState(null)
 
 	const [errorMessage, setErrorMessage] = useState('')
+	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
 		setShowModalType('CONFIRM_PASSWORD')
@@ -35,6 +37,7 @@ export default function SettingsPage({ setShowModalType }) {
 
 	const saveProfile = async () => {
 		setErrorMessage('')
+		setLoading(true)
 		const names = name.split(' ')
 		const first_name = names[0]
 		const last_name = names.slice(-1)[0]
@@ -56,12 +59,19 @@ export default function SettingsPage({ setShowModalType }) {
 			})
 			if (!result.result) {
 				setErrorMessage(result.error)
+			} else {
+				localStorage.setItem('firstName', result.user.first_name)
+				localStorage.setItem('lastName', result.user.last_name)
+				window.location.reload()
 			}
 		}
 
-		if (setFileSelected) {
+		if (fileSelected) {
 			const result = await uploadImage(fileSelected, 'image')
+			localStorage.setItem('picture', result.url)
+			window.location.reload()
 		}
+		setLoading(false)
 	}
 
 	const handleFileSelect = async (e) => {
@@ -128,7 +138,7 @@ export default function SettingsPage({ setShowModalType }) {
 				</div>
 				<div className="p-2 border-t text-right">
 {/*					<button className="w-full text-sm rounded bg-blue-50 hover:bg-blue-200 font-bold text-blue-500 py-2" onClick={() => setShowModalType('SIGN_UP')}>Cancel</button>
-*/}					<button className="px-8 text-sm rounded bg-blue-50 hover:bg-blue-200 font-bold text-blue-500 py-2" onClick={() => saveProfile()}>Save</button>
+*/}					<button className="px-8 text-sm rounded bg-blue-50 hover:bg-blue-200 font-bold text-blue-500 py-2" onClick={() => saveProfile()}>{loading ? <BFLoading isCenter={true} /> : 'Save'}</button>
 
 				</div>
 			</div>

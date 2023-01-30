@@ -117,11 +117,11 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 			{!username && <div className="ml-auto md:hidden relative cursor-pointer">
 				<div id="dropdownDefault" data-dropdown-toggle="dropdown" onClick={() => setShowMenu(!showMenu)} className="flex flex-row items-center gap-2">
 					<div className="hidden md:block">
-						<p className="text-sm">{firstName} {lastName}</p>
+						<p className="text-sm">{localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</p>
 						<p className="text-xs text-gray-400 text-right">@{username}</p>
 					</div>
 					<div className="rounded-full bg-white shadow p-1">
-						{picture ? <img className="w-6 h-6 rounded-full" src={picture} /> : <div className="w-6 h-6 flex justify-center items-center rounded-full bg-gray-100 p-2"><BFIcon iconName="no-picture" size="xs" /></div>}
+						{picture ? <img className="w-6 h-6 rounded-full" src={localStorage.getItem('picture')} /> : <div className="w-6 h-6 flex justify-center items-center rounded-full bg-gray-100 p-2"><BFIcon iconName="no-picture" size="xs" /></div>}
 					</div>
 				</div>
 				{showMenu &&

@@ -12,6 +12,7 @@ export default function BFSelectCryptos({
 	setSelectedCryptos = function() {},
 	selectCrypto = function() {},
 	selectIndex = function() {},
+	showIndexes = true,
 	hook = function() { return { data: [], isLoading: false }}
 }) {
 	const { data, isLoading } = hook()
@@ -40,7 +41,7 @@ export default function BFSelectCryptos({
 		const matchingCryptos = coinImageMappings.filter(crypto => crypto.name.toLowerCase().includes(text.toLowerCase()))
 		setShownCryptos(matchingCryptos)
 		if (cleanedData.length > 0) {
-			const matchingIndexes = cleanedData.filter(obj => obj.index.name.toLowerCase().includes(text.toLowerCase()) || obj.rawStocks.some(stock => stock.name.toLowerCase().includes(text.toLowerCase())))
+			const matchingIndexes = cleanedData.filter(obj => obj.index.name.toLowerCase().includes(text.toLowerCase()))
 			setShownIndexes(matchingIndexes)
 		}
 	}
@@ -84,7 +85,7 @@ export default function BFSelectCryptos({
 	                {showMenu &&
 	                <div className="absolute shadow bg-white top-[100%] z-40 w-full left-0 rounded max-h-[300px] overflow-y-auto svelte-5uyqqj">
                     <div className="flex flex-col w-full">
-                    	{(isLoading || isLoadingBrowsable) ? <BFLoading isCenter={true} /> : shownIndexes?.map(obj => (
+                    	{(isLoading || isLoadingBrowsable) ? <BFLoading isCenter={true} /> : showIndexes && shownIndexes?.map(obj => (
                     	    <div onClick={() => handleSelectIndex(obj.index._id.$oid, obj.index.is_browsable)} key={obj.index._id.$oid} className="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-blue-200">
                     	        <div className="flex flex-row items-center gap-2 p-2">
                     	        	<BFImage src={obj.index.logo} alt={obj.index.name} style="shadow border rounded-full p-1 bg-white w-16 h-16 object-cover" />

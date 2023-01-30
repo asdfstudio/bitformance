@@ -91,6 +91,12 @@ export default function CreateIndexPage() {
 		}
 	}, [])
 
+	useEffect(() => {
+		setLoadingPreview(false)
+		setPreviewShown(false)
+		setReturnData(null)
+	}, [selectedCryptos, initialValue])
+
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-5 bg-gray-50">
 			<div className="col-span-2 space-y-4 bg-white rounded border p-4 m-4">
@@ -107,7 +113,7 @@ export default function CreateIndexPage() {
 					<div className="relative">
 
 						<label className="font-bold text-sm">Choose Cryptocurrency</label>
-						<BFSelectCryptos selectedCryptos={selectedCryptos} setSelectedCryptos={setSelectedCryptos} />
+						<BFSelectCryptos showIndexes={false} selectedCryptos={selectedCryptos} setSelectedCryptos={setSelectedCryptos} />
 					</div>
 
 					<div className="grid grid-cols-2 items-center gap-2">
@@ -191,7 +197,7 @@ export default function CreateIndexPage() {
 				</div>
 
 				<div className="bg-white mt-4 rounded-md border space-y-4">
-					<GraphCard title="Chart Preview" subtractWidth={500} hook={loadData} />
+					{returnData && <GraphCard title="Chart Preview" subtractWidth={500} hook={loadData} />}
 				</div>
 			</div>
 

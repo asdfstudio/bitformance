@@ -27,7 +27,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 
 	}, [data])
 
-	const loadOverlayData = (timeInterval = -1095) => {
+	const loadOverlayData = (timeInterval = -3000) => {
 		const dataOne = data[0]
 		const dataTwo = data[1]
 
@@ -169,7 +169,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 	    	isOverlay ? loadOverlayData(-1095) :setShownGraphData(fullGraphData.slice(-1095))
 	      break;
 	    case "All":
-	    		isOverlay ? loadOverlayData(-9999) :setShownGraphData(fullGraphData)
+	    		isOverlay ? loadOverlayData(-3000) :setShownGraphData(fullGraphData.slice(-3000))
 	    	  break;
 	    default:
 	      setShownGraphData([])
