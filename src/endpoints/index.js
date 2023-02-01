@@ -128,8 +128,8 @@ export const useBrowsableIndexes = (sortField, sortOrder) => {
 	}
 }
 
-export const useCryptosByMarketCap = (sortField, sortOrder) => {
-	const { data, error } = useSWR(baseUrl(`/get-coins-by-marketcap?limit=13&sortOrder=${sortOrder}&sortField=${sortField}`), fetcher)
+export const useCryptosByMarketCap = (sortField, sortOrder, page = 0) => {
+	const { data, error } = useSWR(baseUrl(`/get-coins-by-marketcap?limit=13&sortOrder=${sortOrder}&sortField=${sortField}&page=${page + 1}`), fetcher)
 
 	return {
 		data: data ? data.data : [],

@@ -18,13 +18,14 @@ export default function TopMarketCapCryptos({ title = 'Top Cryptocurrencies by M
 		}
 		setSortField(label)
 		setSortOrder('desc')
+		setPage(0)
 	}
 
-	const SortedTable = ({ sortField, sortOrder, page }) => {
-		//TODO: add page to endpoint
-		const { data, isLoading } = useCryptosByMarketCap(sortField, sortOrder)
+	const SortedTable = ({ showHeader, sortField, sortOrder, page }) => {
+		const { data, isLoading } = useCryptosByMarketCap(sortField, sortOrder, page)
 		return (<>
 			<BFTable 
+				showHeader={showHeader}
 				condensedHeaders={true} 
 				rows={data || []} 
 				type="top-cryptos" 
@@ -42,10 +43,16 @@ export default function TopMarketCapCryptos({ title = 'Top Cryptocurrencies by M
 		setPage(page + 1)
 	}
 
+	const pages = []
+
+	for (let i = 0; i < page + 1; i++) {
+		pages.push(<SortedTable showHeader={i === 0} sortField={sortField} sortOrder={sortOrder} index={i} page={i} />)
+	}
+
 	return(
 		<div className="bg-white min-w-full overflow-y-auto p-4 space-y-4 rounded shadow">
 			<h1>{title}</h1>
-			<SortedTable sortField={sortField} sortOrder={sortOrder} page={page} />
+			{pages}
 			{window.location.pathname === '/coins' 
 				?	<div className="text-center mt-2">
 						<button onClick={() => loadNextPage()} className="text-sm w-60 rounded bg-blue-500 text-white px-12 py-2">Load more</button>

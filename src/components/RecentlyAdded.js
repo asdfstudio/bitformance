@@ -26,7 +26,7 @@ export default function RecentlyAdded() {
 			<h1 className="text-xl tracking-wider mb-6">Recently Added</h1>
 			<div>
 				{data.map(coin => (
-					<div key={coin.name + '-recently-added'} className="grid grid-cols-4 gap-4 py-1">
+					<Link to={`/indexes/browse/${coin._id.$oid}`}  key={coin.name + '-recently-added'} className="grid grid-cols-4 gap-4 py-1">
 						<div className="flex flex-row items-center gap-2">
 							<BFImage src={coin.logo} alt={coin.name} style="w-6 h-6 object-cover rounded-full" />
 							<p>{coin.name}</p>
@@ -46,7 +46,7 @@ export default function RecentlyAdded() {
 							<label className="text-xs text-gray-400">Market cap</label>
 							<p className="text-sm">{formatMoney(coin.marketcap)}</p>
 						</div>
-					</div>
+					</Link>
 				))}
 			</div>
 			<div className="text-right mt-4 mr-4">

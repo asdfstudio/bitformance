@@ -8,7 +8,7 @@ import BFUpDownTag from '../components/small/BFUpDownTag'
 import { useCryptoById } from '../endpoints/index'
 import BFLoading from '../components/small/BFLoading'
 import BFCryptoInfo from '../components/BFCryptoInfo'
-import { baseUrl, favoriteIndex, useFavoriteIndexes } from '../endpoints/index'
+import { baseUrl, favoriteIndex, useFavoriteIndexes, deleteIndex } from '../endpoints/index'
 import { useSWRConfig } from 'swr'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -23,6 +23,7 @@ export default function CryptoPage({ isAuth }) {
 	const { data: favoriteData, isLoading: favoriteIsLoading } = useFavoriteIndexes()
 
 	const [loadingFavorites, setLoadingFavorites] = useState(false)
+	const [loadingDelete, setLoadingDelete] = useState(false)
 
 	const compareRow = (e) => {
 		e.stopPropagation()
@@ -40,7 +41,16 @@ export default function CryptoPage({ isAuth }) {
 		}
 	}
 
-	const PanelOne = ({ id, name, description }) => (
+
+	const deleteRow = async () => {
+		setLoadingDelete(true)
+		const result = await deleteIndex(params.id)
+		await mutate(baseUrl('/get-user-indexes'))
+		setLoadingDelete(false)
+		navigate('/indexes/my-indexes')
+	}
+
+	const PanelOne = ({ id, name, description, isAuth }) => (
 		<div className="col-span-3 p-6 space-y-4 border h-[94vh] bg-white">
 			<div className="flex flex-row items-center gap-2">
 				<BFImage style="shadow-md w-16 h-16 rounded-full bg-white p-1" alt="crypto" src={data.index.logo} />
@@ -63,14 +73,36 @@ export default function CryptoPage({ isAuth }) {
 				</div>
 			</div>*/}
 			<p>{description}</p>
+
+			{isAuth && <div className="absolute bottom-2 w-1/5 flex flex-row gap-2 justify-between">
+				<button onClick={() => editRow()} className="w-full text-gray-500 bg-gray-100 rounded px-6 py-2 font-bold text-sm">Edit</button>
+				<button onClick={() => deleteRow()} className="w-full text-red-500 bg-red-100 rounded px-6 py-2 font-bold text-sm">
+					{loadingDelete ? <BFLoading isCenter={true} /> : 'Delete'}
+				</button>
+			</div>}
 		</div>
 	)
 
 	if (isLoading) return <BFLoading />
 
+	const editRow = async () => {
+		navigate('/indexes/create-index', {
+			state: {
+				name: data.index.name,
+				description: data.index.description,
+				initialValue: data.index.initial_value,
+				rebalancePeriod: data.index.rebalancing_interval,
+				weightingMethod: data.index.weighting_method,
+				selectedCryptos: data.index.cryptos,
+				logo: data.index.logo,
+				previousId: data.index._id.$oid
+			}
+		})
+	}
+
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-10 bg-gray-50">
-			<PanelOne {...data.index} />
+			<PanelOne {...data.index} isAuth={isAuth} />
 
 			<div className="col-span-7 p-4 space-y-4">
 				<BFCryptoInfo data={data} />

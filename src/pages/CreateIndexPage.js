@@ -2,10 +2,10 @@ import BFIcon from '../components/BFIcon'
 import BFSearchBar from '../components/small/BFSearchBar'
 import BFChooseOption from '../components/small/BFChooseOption'
 import GraphCard from '../components/GraphCard'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import BFUploadImage from '../components/small/BFUploadImage'
-import { generateChartPreview, uploadImage, createIndex, baseUrl } from '../endpoints/index'
+import { generateChartPreview, uploadImage, createIndex, baseUrl, deleteIndex } from '../endpoints/index'
 import BFSelectCryptos from '../components/small/BFSelectCryptos'
 import BFLoading from '../components/small/BFLoading'
 import { toast } from 'react-toastify';
@@ -16,18 +16,19 @@ import BFCryptoImage from '../components/small/BFCryptoImage'
 export default function CreateIndexPage() {
 
 	const navigate = useNavigate()
+	const location = useLocation()
 	const { mutate } = useSWRConfig()
 	const customWeightsForm = useRef(null);
 
 	const [loadingPreview, setLoadingPreview] = useState(false)
 	const [previewShown, setPreviewShown] = useState(false)
 
-	const [name, setName] = useState('')
-	const [description, setDescription] = useState('')
-	const [weightingMethod, setWeightingMethod] = useState('equal_weight')
-	const [initialValue, setInitialValue] = useState('')
-	const [rebalancePeriod, setRebalancePeriod] = useState('never')
-	const [selectedCryptos, setSelectedCryptos] = useState([])
+	const [name, setName] = useState(location.state?.name || '')
+	const [description, setDescription] = useState(location.state?.description || '')
+	const [weightingMethod, setWeightingMethod] = useState(location.state?.weightingMethod || 'equal_weight')
+	const [initialValue, setInitialValue] = useState(location.state?.initialValue || '')
+	const [rebalancePeriod, setRebalancePeriod] = useState(location.state?.rebalancePeriod || 'never')
+	const [selectedCryptos, setSelectedCryptos] = useState(location.state?.selectedCryptos || [])
 	const [returnData, setReturnData] = useState(function(){})
 
 	const [fileSelected, setFileSelected] = useState(null)
@@ -35,8 +36,13 @@ export default function CreateIndexPage() {
 	const handleCreateIndex = async () => {
 		setLoadingPreview(true)
 		const customWeights = getCustomWeights()
-		const newIndex = await createIndex(name, weightingMethod, description, initialValue, selectedCryptos, rebalancePeriod, customWeights)
+		const newIndex = await createIndex(name, weightingMethod, description, initialValue, selectedCryptos, rebalancePeriod, customWeights, location.state?.logo || '')
 		console.log(newIndex)
+
+		if (location.state?.previousId) {
+			deleteIndex(location.state.previousId)
+		}
+
 		if (newIndex.result) {
 			if (fileSelected) {
 				const addLogo = await uploadImage(fileSelected, 'logo', newIndex.data._id.$oid)
