@@ -108,7 +108,7 @@ export default function CreateIndexPage() {
 			<div className="col-span-2 space-y-4 bg-white rounded border p-4 m-4">
 				<h1 className="text-xl font-bold mb-4">Basic</h1>
 				<label>Index Logo</label>
-				<BFUploadImage handleFileSelect={handleFileSelect} fileSelected={fileSelected} />
+				<BFUploadImage handleFileSelect={handleFileSelect} fileSelected={fileSelected} src={location.state?.logo} />
 
 				<div className="space-y-4">
 					<div>
