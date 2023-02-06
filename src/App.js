@@ -13,6 +13,10 @@ import SettingsPage from './pages/SettingsPage'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import TermsPage from './pages/TermsPage'
 
+//
+import ResetPasswordPage from './pages/ResetPasswordPage'
+import EmailConfirmPage from './pages/EmailConfirmPage'
+
 //layout components
 import SidePanel from './components/SidePanel'
 import TopBar from './components/TopBar'
@@ -118,6 +122,14 @@ function App() {
               <TermsPage/>
             </MainLayout>
           }/>          
+
+          <Route exact path="/reset-link/:token" element={
+            <ResetPasswordPage />
+          }/>
+
+          <Route exact path="/email-confirmed/:token" element={
+            <EmailConfirmPage />
+          }/>
 
         </Routes>
       </Router>

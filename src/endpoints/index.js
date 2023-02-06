@@ -224,6 +224,29 @@ export const registerAccount = async ({ email, password, username, first_name, l
 	return data
 }
 
+export const resetPassword = async (token, password, confirm_password) => {
+	const response = await fetch(
+		baseUrl(`/reset-link/${token}`), 
+		POST_DATA_OPTIONS({ 
+			password,
+			new_password: password,
+			confirm_password 
+		})
+	)
+	const data = await response.json()
+	return data
+}
+
+export const useConfirmEmailByToken = async (token) => {
+	const { data, error } = useSWR(baseUrl(`/email-confirmed/${token}`), fetcher)
+
+	return {
+		data: data,
+		isLoading: !error && !data,
+		isError: error
+	}
+}
+
 export const forgotPassword = async (email) => {
 	const response = await fetch(
 		baseUrl('/forgot-password'), 

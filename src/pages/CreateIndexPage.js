@@ -1,5 +1,3 @@
-import BFIcon from '../components/BFIcon'
-import BFSearchBar from '../components/small/BFSearchBar'
 import BFChooseOption from '../components/small/BFChooseOption'
 import GraphCard from '../components/GraphCard'
 import { useNavigate, useLocation } from 'react-router-dom'
