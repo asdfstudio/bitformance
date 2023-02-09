@@ -200,6 +200,16 @@ export const useProfile = () => {
 	}
 }
 
+export const useAreMarketCapCoinsAvailable = () => {
+	const { data, error } = useSWR(baseUrl('/get-marketcap-coins'), fetcherAuth)
+
+	return {
+		data: data,
+		isLoading: !error && !data,
+		isError: error
+	}
+}
+
 
 //POST **********
 

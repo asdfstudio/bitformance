@@ -3,7 +3,7 @@ import GraphCard from '../components/GraphCard'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import BFUploadImage from '../components/small/BFUploadImage'
-import { generateChartPreview, uploadImage, createIndex, baseUrl, deleteIndex } from '../endpoints/index'
+import { generateChartPreview, uploadImage, createIndex, baseUrl, deleteIndex, useAreMarketCapCoinsAvailable } from '../endpoints/index'
 import BFSelectCryptos from '../components/small/BFSelectCryptos'
 import BFLoading from '../components/small/BFLoading'
 import { toast } from 'react-toastify';
@@ -30,6 +30,10 @@ export default function CreateIndexPage() {
 	const [returnData, setReturnData] = useState(function(){})
 
 	const [fileSelected, setFileSelected] = useState(null)
+
+	const [isMarketCapWeightAvailable, setIsMarketCapWeightAvailable] = useState(true)
+
+	const { data, isLoading } = useAreMarketCapCoinsAvailable()	
 
 	const handleCreateIndex = async () => {
 		setLoadingPreview(true)
@@ -99,6 +103,13 @@ export default function CreateIndexPage() {
 		setLoadingPreview(false)
 		setPreviewShown(false)
 		setReturnData(null)
+
+		if (selectedCryptos.some(crypto => data.data[crypto] === false )) {
+			setIsMarketCapWeightAvailable(false)
+			setWeightingMethod('equal_weight')
+		} else {
+			setIsMarketCapWeightAvailable(true)
+		}
 	}, [selectedCryptos, initialValue])
 
 	return (
@@ -162,7 +173,7 @@ export default function CreateIndexPage() {
 						<span className="bg-gray-100 rounded py-1 px-2 text-sm font-normal">5</span>
 					</div>
 					<div className="space-x-2 flex flex-row">
-						<BFChooseOption onSelect={setWeightingMethod} selected={weightingMethod} options={[
+						<BFChooseOption isMarketCapWeightAvailable={isMarketCapWeightAvailable} onSelect={setWeightingMethod} selected={weightingMethod} options={[
 							{
 								id: 'equal_weight',
 								label: 'Equal Weight'
