@@ -27,7 +27,7 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 			{ label: 'Price', id: 'price' },
 			{ label: '24h %', id: 'changepct_24hour' },
 			{ label: '7d %', id: 'changepct_7day' },
-			{ label: 'Market Cap', id: 'market_cap' }
+			{ label: 'Volume', id: 'volume' }
 		]
 	}
 
@@ -58,31 +58,31 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 	return(
 		<div className="overflow-x-auto relative sm:rounded-lg">
 		    <table className={`w-full text-sm text-left ${tableStyle}`}>
-		        
-		        {showHeader && 
+
+		        {showHeader &&
 		        	<thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
 		            <tr>
 	            		{headers.map(header => (
-	            			<HeaderColumn 
-	            				key={header.label + '-coins'} 
-	            				item={header} 
+	            			<HeaderColumn
+	            				key={header.label + '-coins'}
+	            				item={header}
 	            				onClick={handleHeaderClick}
 	            			/>
 	            		))}
 		            </tr>
 		        	</thead>
 		        }
-		      	
+
 		        <tbody>
 		        		{rows.map((coin, index) => {
 		        			return type === 'top-cryptos' ? (<tr onClick={() => onCoinRowClicked(coin)} key={coin.id} className="p-4 bg-white dark:bg-gray-800 dark:border-gray-700"><CoinRow key={coin.id} {...coin} headerShown={showHeader} /></tr>)
 		        				: (type === 'browse-cryptos' || type === 'my-indexes') ? (<React.Fragment key={coin.index._id.$oid}>
 		        					<tr onClick={() => onRowClicked(coin.index)} className="shadow bg-white dark:bg-gray-800 dark:border-gray-700">
-		        						<BrowseCoinRow 
-		        							rowIndex={index} 
-		        							{...coin.index} 
+		        						<BrowseCoinRow
+		        							rowIndex={index}
+		        							{...coin.index}
 		        							marketcap={coin.index.marketcap || coin.rawStocks.reduce((sum, a) => a.market_cap + sum ,0)}
-		        							showHoldings={showHoldings} 
+		        							showHoldings={showHoldings}
 		        							showDelete={type === 'my-indexes'}
 		        							isAuth={type === 'my-indexes'}
 		        						/>

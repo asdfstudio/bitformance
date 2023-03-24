@@ -3,7 +3,7 @@ import useSWR from 'swr'
 const GET_FETCH_OPTIONS = () => {
 	return {
 		method: 'get',
-		headers: { 
+		headers: {
 			'Content-Type': 'application/json',
 		},
 		mode: 'cors',
@@ -13,7 +13,7 @@ const GET_FETCH_OPTIONS = () => {
 const GET_FETCH_OPTIONS_AUTH = () => {
 	return {
 		method: 'get',
-		headers: { 
+		headers: {
 			'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
 			'Content-Type': 'application/json',
 		},
@@ -23,19 +23,19 @@ const GET_FETCH_OPTIONS_AUTH = () => {
 
 // const fetcher = (...args) => fetch(...args).then(res => res.json())
 const fetcher = ( url, query = '' ) => fetch(
-	`${url}${query}`, 
+	`${url}${query}`,
 	GET_FETCH_OPTIONS()
-).then(res => { 
+).then(res => {
 	// console.log(res)
 	// if (res.status === 401) {
 	// 	window.location.href = '/?sessionExpired=true'
 	// }
 	return res.json()
-}) 
+})
 const fetcherAuth = ( url, query = '' ) => fetch(
-	`${url}${query}`, 
+	`${url}${query}`,
 	GET_FETCH_OPTIONS_AUTH()
-).then(res => { 
+).then(res => {
 	if (res.status === 401) {
 		// console.log(res)
 		if (!window.location.href.includes('/?sessionExpired=true') && localStorage.getItem('username')) {
@@ -49,7 +49,7 @@ const fetcherAuth = ( url, query = '' ) => fetch(
 		}
 	}
 	return res.json()
-}) 
+})
 
 export const baseUrl = (slug) => `${process.env.REACT_APP_API_URL}${slug}`
 
@@ -138,9 +138,19 @@ export const useCryptosByMarketCap = (sortField, sortOrder, page = 0) => {
 	}
 }
 
+export const useCryptosByVolume = (sortField, sortOrder, page = 0) => {
+	const { data, error } = useSWR(baseUrl(`/get-coins-by-volume?limit=13&sortOrder=${sortOrder}&sortField=${sortField}&page=${page + 1}`), fetcher)
+
+	return {
+		data: data ? data.data : [],
+		isLoading: !error && !data,
+		isError: error
+	}
+}
+
 export const useCryptoById = (id, isAuth) => {
 	const { data, error } = useSWR(
-		baseUrl(`/get-index?id=${id}`), 
+		baseUrl(`/get-index?id=${id}`),
 		isAuth ? fetcherAuth : fetcher
 	)
 
@@ -153,7 +163,7 @@ export const useCryptoById = (id, isAuth) => {
 
 export const useCoinBySymbol = (symbol) => {
 	const { data, error } = useSWR(
-		baseUrl(`/get-coin-data?symbol=${symbol}`), 
+		baseUrl(`/get-coin-data?symbol=${symbol}`),
 		fetcher
 	)
 
@@ -221,13 +231,13 @@ export const login = async (email, password) => {
 
 export const registerAccount = async ({ email, password, username, first_name, last_name }) => {
 	const response = await fetch(
-		baseUrl('/register'), 
-		POST_DATA_OPTIONS({ 
-			first_name, 
-			last_name, 
-			email, 
-			password, 
-			username 
+		baseUrl('/register'),
+		POST_DATA_OPTIONS({
+			first_name,
+			last_name,
+			email,
+			password,
+			username
 		})
 	)
 	const data = await response.json()
@@ -236,11 +246,11 @@ export const registerAccount = async ({ email, password, username, first_name, l
 
 export const resetPassword = async (token, password, confirm_password) => {
 	const response = await fetch(
-		baseUrl(`/reset-link/${token}`), 
-		POST_DATA_OPTIONS({ 
+		baseUrl(`/reset-link/${token}`),
+		POST_DATA_OPTIONS({
 			password,
 			new_password: password,
-			confirm_password 
+			confirm_password
 		})
 	)
 	const data = await response.json()
@@ -259,9 +269,9 @@ export const useConfirmEmailByToken = async (token) => {
 
 export const forgotPassword = async (email) => {
 	const response = await fetch(
-		baseUrl('/forgot-password'), 
-		POST_DATA_OPTIONS({ 
-			email, 
+		baseUrl('/forgot-password'),
+		POST_DATA_OPTIONS({
+			email,
 		})
 	)
 	const data = await response.json()
@@ -276,15 +286,15 @@ export const favoriteIndex = async (index_id) => {
 
 export const generateChartPreview = async (weighting_method, initial_value, cryptos, custom_weights = {}) => {
 	const response = await fetch(
-		baseUrl('/create-chart-preview'), 
-		POST_DATA_OPTIONS({ 
-			name: 'Example', 
-			weighting_method, 
-			description: 'Test', 
-			initial_value, 
-			cryptos, 
+		baseUrl('/create-chart-preview'),
+		POST_DATA_OPTIONS({
+			name: 'Example',
+			weighting_method,
+			description: 'Test',
+			initial_value,
+			cryptos,
 			custom_weights,
-			logo: '' 
+			logo: ''
 		})
 	)
 	const data = await response.json()
@@ -293,13 +303,13 @@ export const generateChartPreview = async (weighting_method, initial_value, cryp
 
 export const createIndex = async (name, weighting_method, description = '', initial_value, cryptos, rebalancing_interval, custom_weights = {}, logo = '') => {
 	const response = await fetch(
-		baseUrl('/create-new-index'), 
-		POST_DATA_OPTIONS({ 
+		baseUrl('/create-new-index'),
+		POST_DATA_OPTIONS({
 			name,
-			weighting_method, 
+			weighting_method,
 			description,
-			initial_value, 
-			cryptos, 
+			initial_value,
+			cryptos,
 			custom_weights,
 			logo
 		})
@@ -310,8 +320,8 @@ export const createIndex = async (name, weighting_method, description = '', init
 
 export const deleteIndex = async (index_id) => {
 	const response = await fetch(
-		baseUrl('/remove-index'), 
-		POST_DATA_OPTIONS({ 
+		baseUrl('/remove-index'),
+		POST_DATA_OPTIONS({
 			index_id
 		})
 	)
@@ -331,8 +341,8 @@ export const uploadImage = async (imageFile, type = 'logo', indexId) => {
 
 export const contactForm = async ({ username, subject, message, email }) => {
 	const response = await fetch(
-		baseUrl('/contact'), 
-		POST_DATA_OPTIONS({ 
+		baseUrl('/contact'),
+		POST_DATA_OPTIONS({
 			username,
 			subject,
 			message,
@@ -340,7 +350,7 @@ export const contactForm = async ({ username, subject, message, email }) => {
 		})
 	)
 	const data = await response.json()
-	return data	
+	return data
 }
 
 export const updateProfile = async (profile) => {

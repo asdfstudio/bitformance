@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import BFTable from './small/BFTable'
 import { COINS } from '../data/fakeData'
-import { useCryptosByMarketCap } from '../endpoints/index'
+// import { useCryptosByMarketCap } from '../endpoints/index'
+import { useCryptosByVolume } from '../endpoints/index'
 import BFLoading from './small/BFLoading'
 import { Link } from 'react-router-dom'
 
-export default function TopMarketCapCryptos({ title = 'Top Cryptocurrencies by Market Cap' }) {
+export default function TopMarketCapCryptos({ title = 'Top Cryptocurrencies by Volume' }) {
 
-	const [sortField, setSortField] = useState('market_cap')
+	const [sortField, setSortField] = useState('volume')
 	const [sortOrder, setSortOrder] = useState('desc') //'asc'
 	const [page, setPage] = useState(0)
 
@@ -22,13 +23,13 @@ export default function TopMarketCapCryptos({ title = 'Top Cryptocurrencies by M
 	}
 
 	const SortedTable = ({ showHeader, sortField, sortOrder, page }) => {
-		const { data, isLoading } = useCryptosByMarketCap(sortField, sortOrder, page)
+		const { data, isLoading } = useCryptosByVolume(sortField, sortOrder, page)
 		return (<>
-			<BFTable 
+			<BFTable
 				showHeader={showHeader}
-				condensedHeaders={true} 
-				rows={data || []} 
-				type="top-cryptos" 
+				condensedHeaders={true}
+				rows={data || []}
+				type="top-cryptos"
 				handleHeaderClick={sortBy}
 			/>
 			{isLoading &&
@@ -53,7 +54,7 @@ export default function TopMarketCapCryptos({ title = 'Top Cryptocurrencies by M
 		<div className="bg-white min-w-full overflow-y-auto p-4 space-y-4 rounded shadow">
 			<h1>{title}</h1>
 			{pages}
-			{window.location.pathname === '/coins' 
+			{window.location.pathname === '/coins'
 				?	<div className="text-center mt-2">
 						<button onClick={() => loadNextPage()} className="text-sm w-60 rounded bg-blue-500 text-white px-12 py-2">Load more</button>
 					</div>
@@ -61,7 +62,7 @@ export default function TopMarketCapCryptos({ title = 'Top Cryptocurrencies by M
 						<Link to="/coins" className="text-sm w-60 rounded bg-blue-500 text-white px-12 py-2">See all coins</Link>
 					</div>
 			}
-			
+
 		</div>
 	)
 }
