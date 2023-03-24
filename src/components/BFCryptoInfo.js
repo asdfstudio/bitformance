@@ -20,7 +20,6 @@ export default function BFCryptoInfo({
 
 	let formattedHoldings = []
 	let marketCap = 0
-	let volume = 0
 	if (data.rawStocks) {
 		formattedHoldings  = data.rawStocks.map(stock => {
 			return {
@@ -30,7 +29,6 @@ export default function BFCryptoInfo({
 			}
 		})
 		marketCap = data.rawStocks.reduce((sum, a) => a.market_cap + sum, 0)
-		volume = data.rawStocks.reduce((sum, a) => a.volume + sum, 0)
 	}
 
 	const returnGraphData = () => {
@@ -81,10 +79,6 @@ export default function BFCryptoInfo({
 					<label className="text-gray-500">7d %</label>
 					<BFUpDownTag style="font-bold" change={data.index.changepct_7d || data.index.changepct_7day} />
 
-				</div>
-				<div className="space-y-2">
-					<label className="text-gray-500">Volume</label>
-					<p className="font-bold">{formatMoney(data.index.volume || volume)}</p>
 				</div>
 				<div className="space-y-2">
 					<label className="text-gray-500">Market Cap</label>
