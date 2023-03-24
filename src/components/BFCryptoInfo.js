@@ -20,6 +20,7 @@ export default function BFCryptoInfo({
 
 	let formattedHoldings = []
 	let marketCap = 0
+	let volume = 0
 	if (data.rawStocks) {
 		formattedHoldings  = data.rawStocks.map(stock => {
 			return {
