@@ -11,7 +11,7 @@ export default function CoinRow({
 	price,
 	changepct_24hour,
 	changepct_7day,
-	market_cap,
+	volume,
 	headerShown = true,
 }) {
 
@@ -35,7 +35,7 @@ export default function CoinRow({
 		const obj = coinImageMappings.find(obj => obj.symbol === symbol)
 		const parts = obj.name.split(' (')
 		return parts[0]
-	} 
+	}
 
 	const fixUrl = (url) => {
 		if (url && !url.includes('https://')) {
@@ -56,18 +56,18 @@ export default function CoinRow({
 			<td className="text-gray-400 w-28">{symbol}</td>
 			<td className="w-32">{formatMoney(price)}</td>
 			<td className="w-24">
-				{changepct_24hour > 0 
+				{changepct_24hour > 0
 					? <UpTag change={changepct_24hour} />
 					: <DownTag change={changepct_24hour} />
 				}
 			</td>
-			<td className="w-32">	
-				{changepct_7day > 0 
+			<td className="w-32">
+				{changepct_7day > 0
 					? <UpTag change={changepct_7day} />
 					: <DownTag change={changepct_7day} />
 				}
 			</td>
-			<td>{formatMoney(market_cap)}</td>
+			<td>{formatMoney(volume)}</td>
 		</>
 	)
 }
