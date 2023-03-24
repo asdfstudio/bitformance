@@ -81,7 +81,8 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 		        						<BrowseCoinRow
 		        							rowIndex={index}
 		        							{...coin.index}
-		        							marketcap={coin.index.marketcap || coin.rawStocks.reduce((sum, a) => a.market_cap + sum ,0)}
+		        							// marketcap={coin.index.marketcap || coin.rawStocks.reduce((sum, a) => a.market_cap + sum ,0)}
+		        							marketcap={coin.index.marketcap || coin.rawStocks.reduce((sum, a) => a.volume + sum ,0)}
 		        							showHoldings={showHoldings}
 		        							showDelete={type === 'my-indexes'}
 		        							isAuth={type === 'my-indexes'}
