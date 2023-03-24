@@ -13,7 +13,7 @@ export default function BFCryptoInfo({
 	showIcon = false,
 	hideGraph = false,
 	panelId = '',
-}) {	
+}) {
 
 	const totalReturn = calculateReturn(data.index.value || data.index.price, data.index.initial_value)
 	const drawdown = calculateDrawdown(data.index.daily_graph_data.prices || data.index.daily_graph_data.price || [])
@@ -29,6 +29,7 @@ export default function BFCryptoInfo({
 			}
 		})
 		marketCap = data.rawStocks.reduce((sum, a) => a.market_cap + sum, 0)
+		volume = data.rawStocks.reduce((sum, a) => a.volume + sum, 0)
 	}
 
 	const returnGraphData = () => {
@@ -40,11 +41,11 @@ export default function BFCryptoInfo({
 	}
 
 	const UpTag = ({ value }) => (
-		<span className="text-xl text-green-500"><BFIcon iconName="up-right-arrow" /> {Math.abs(value).toFixed(2)}%</span> 
+		<span className="text-xl text-green-500"><BFIcon iconName="up-right-arrow" /> {Math.abs(value).toFixed(2)}%</span>
 	)
 
 	const DownTag = ({ value }) => (
-		<span className="text-xl text-red-500"><BFIcon iconName="down-left-arrow" /> {Math.abs(value).toFixed(2)}%</span> 
+		<span className="text-xl text-red-500"><BFIcon iconName="down-left-arrow" /> {Math.abs(value).toFixed(2)}%</span>
 	)
 
 	let adjustGraphWidth = 380
@@ -55,7 +56,7 @@ export default function BFCryptoInfo({
 	return (<>
 
 		<div className="relative p-4 bg-white rounded-md border space-y-4">
-			<div className="flex flex-row gap-2 items-center"> 
+			<div className="flex flex-row gap-2 items-center">
 				<h2 className="font-bold text-xl">{showIcon ? data.index.name : 'Overview'}</h2>
 				{(showIcon && data.index.symbol) && <BFCryptoImage symbol={data.index.symbol} />}
 				{(showIcon && data.index.logo !== undefined) && <BFImage style="w-8 h-8 object-cover rounded-full" src={data.index.logo} alt={data.index.name} /> }
@@ -79,6 +80,10 @@ export default function BFCryptoInfo({
 					<label className="text-gray-500">7d %</label>
 					<BFUpDownTag style="font-bold" change={data.index.changepct_7d || data.index.changepct_7day} />
 
+				</div>
+				<div className="space-y-2">
+					<label className="text-gray-500">Volume</label>
+					<p className="font-bold">{formatMoney(data.index.volume || volume)}</p>
 				</div>
 				<div className="space-y-2">
 					<label className="text-gray-500">Market Cap</label>
