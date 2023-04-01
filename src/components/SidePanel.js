@@ -12,7 +12,7 @@ export default function SidePanel({ setShowModalType }) {
 	const [indexesExpanded, setIndexesExpanded] = useState(false)
 
 	return (
-		<div className="flex flex-col text-white bg-blue-800 p-4 w-64 h-screen hidden md:flex">
+		<div className="flex flex-col text-white bg-gradient-to-b from-main-deepBlue to-main-deepestBlue p-4 w-64 h-screen hidden md:flex">
 			<div className="space-y-4">
 				<img src={BitLogoWhite} alt="bitformance logo" />
 				<SiteLinks setShowModalType={setShowModalType} />
@@ -25,11 +25,11 @@ export default function SidePanel({ setShowModalType }) {
 				<div className="border-b border-gray-300 opacity-10" />
 	
 
-				<p className="text-gray-300 text-xs">© 2022 Bitformance Ltd. Trademarks and brands are the property of their respective owners</p>
-				<p className="text-sm">
-					<Link to="/privacy-policy" className="hover:text-gray-200">Privacy Policy</Link>
+				<p className="text-white text-xs opacity-40">© 2022 Bitformance Ltd. Trademarks and brands are the property of their respective owners.</p>
+				<p className="text-sm text-[13px]">
+					<Link to="/privacy-policy" className="hover:text-white">Privacy Policy</Link>
 					<span>	•  </span>
-					<Link to="/terms-of-services" className="hover:text-gray-200">Terms of Services</Link>
+					<Link to="/terms-of-services" className="hover:text-white">Terms of Services</Link>
 				</p>
 			</div>
 
