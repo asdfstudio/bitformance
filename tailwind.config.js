@@ -14,6 +14,8 @@ module.exports = {
           deepBlue: "#1c448e",
           gColor: "#5290f4",
           buttonBlue: "#5290f4",
+          white: "#fffff",
+          black: "#11111",
 
         },
       }
