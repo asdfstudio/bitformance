@@ -4,6 +4,7 @@ import BFIcon from '../BFIcon'
 import { useMyIndexes, useFavoriteIndexes } from '../../endpoints/index'
 
 const secondaryColor = '#40C8B8'
+const whiteColor = '#ffffff'
 
 export default function SiteLinks({ setShowModalType, setShowMobileMenu = function(){} , colorStyle = '' }) {
 
@@ -25,6 +26,7 @@ export default function SiteLinks({ setShowModalType, setShowMobileMenu = functi
 		<div className="flex flex-row items-center gap-2 cursor-pointer h-[40px] ml-[10px]" onClick={() => setIndexesExpanded(!indexesExpanded)}>
 			<BFIcon iconName="indexes" color={secondaryColor} />
 			<span className={colorStyle}>Indexes</span>
+			<BFIcon iconName="arrowUP" color={whiteColor} size={7}/>
 		</div>
 		{indexesExpanded && <>
 			<div className="ml-6 cursor-pointer h-[30px]">
@@ -62,7 +64,7 @@ export default function SiteLinks({ setShowModalType, setShowMobileMenu = functi
 			<span className={colorStyle}>Knowledge Base</span>
 		</a>
 		<br />
-		<div onClick={() => setShowMobileMenu(false)}  className="rounded-lg bg-main-buttonBlue text-center px-4 py-2 w-full">
+		<div onClick={() => setShowMobileMenu(false)}  className="rounded-lg bg-main-buttonBlue text-center px-4 py-2 w-full drop-shadow-md">
 			<Link to="/indexes/create-index" className={colorStyle}>+ Create Index</Link>
 		</div>
 	</>)

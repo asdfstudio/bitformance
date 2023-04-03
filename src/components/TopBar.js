@@ -110,7 +110,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 			{showMobileMenu &&
 				<div id="dropdown" className="p-4 px-[20px] absolute left-0 top-12 z-10 w-full rounded-b-xl -mt-1 bg-gradient-to-b from-main-deepBlue to-main-deepestBlue divide-y divide-gray-100 shadow dark:bg-gray-700">
 				    <ul className="space-y-4 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
-				     	<SiteLinks setShowMobileMenu={setShowMobileMenu} setShowModalType={setShowModalType} colorStyle="text-white font-DM_Sans text-[15px] font-medium leading-normal tracking-wide" />
+				     	<SiteLinks setShowMobileMenu={setShowMobileMenu} setShowModalType={setShowModalType} colorStyle="text-white font-DM_Sans text-[15px] font-normal leading-normal tracking-wide"/>
 				    </ul>
 				</div>
 			}

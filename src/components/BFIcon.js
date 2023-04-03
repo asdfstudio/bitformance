@@ -24,7 +24,9 @@ import {
 	faTrashCan,
 	faCoins,
 	faClock,
-	faCircleXmark
+	faCircleXmark,
+	faChevronUp,
+	faChevronDown,
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -78,7 +80,8 @@ export default function BFIcon({ iconName, color, size }) {
 		{ name: 'back', icon: faArrowLeft },
 		{ name: 'coins', icon: faCoins },
 		{ name: 'time', icon: faClock },
-
+		{ name: 'arrowUP', icon: faChevronUp },
+		{ name: 'arrowDown', icon: faChevronDown },
 	]
 
 	const icon = icons.find(icon => icon.name === iconName) || { icon: faHouse }

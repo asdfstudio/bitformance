@@ -22,7 +22,7 @@ export default function RecentlyAdded() {
 	)
 
 	return(
-		<div className="pt-4 pl-4 pb-4  bg-white shadow rounded">
+		<div className="pt-4 pl-4 pb-4  bg-white shadow rounded-2xl">
 			<h1 className="text-xl tracking-wider mb-6">Recently Added</h1>
 			<div>
 				{data.map(coin => (
@@ -50,7 +50,7 @@ export default function RecentlyAdded() {
 				))}
 			</div>
 			<div className="text-right mt-4 mr-4">
-				<Link to="/indexes/browse" className="text-sm w-60 rounded bg-blue-500 text-white px-12 py-2">See all indexes</Link>
+				<Link to="/indexes/browse" className="text-[15px] w-[240px] h-[38px] text-white px-12 py-2 rounded-lg bg-main-buttonBlue text-cente drop-shadow-md font-DM_Sans font-medium">See all Indexes</Link>
 			</div>
 		</div>
 	)
