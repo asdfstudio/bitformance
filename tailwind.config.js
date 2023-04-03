@@ -15,8 +15,11 @@ module.exports = {
           deepBlue: "#1c448e",
           gColor: "#5290f4",
           buttonBlue: "#5290f4",
-          white: "#fffff",
-          black: "#11111",
+          red: "#f64740",
+          black: "#192332",
+          gray: "#566375",
+          lightGray: "#f7f9fc",
+          lightGrayBorder: "#e9edf1"
 
         },
       }

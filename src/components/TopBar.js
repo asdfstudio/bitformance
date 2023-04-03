@@ -128,10 +128,10 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 				<div id="dropdown" className="p-4 absolute right-2 top-12 z-10 w-56 bg-white rounded-lg divide-y divide-gray-100 shadow dark:bg-gray-700">
 				    <ul className="space-y-2 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
 				      <li className="flex flex-row items-center gap-2">
-				      	<button onClick={() => { setShowModalType('SIGN_IN'); setShowMenu(false);}} className="text-sm rounded bg-red-100 font-bold text-red-700 w-full py-2">Sign In</button>
+				      	<button onClick={() => { setShowModalType('SIGN_IN'); setShowMenu(false);}} className="text-sm rounded-lg bg-red-100 text-main-red w-full py-2 text-cente font-DM_Sans font-medium leading-normal tracking-wide">Sign In</button>
 				      </li>
 				      <li className="flex flex-row items-center gap-2">
-				      	<button onClick={() => { setShowModalType('SIGN_UP'); setShowMenu(false); }} className="text-sm rounded bg-blue-500 font-bold text-white w-full py-2">Sign Up</button>
+				      	<button onClick={() => { setShowModalType('SIGN_UP'); setShowMenu(false); }} className="text-sm text-white w-full py-2 rounded-lg bg-main-buttonBlue text-cente font-DM_Sans font-medium leading-normal tracking-wide">Sign Up</button>
 				      </li>
 				    </ul>
 				</div>
@@ -183,8 +183,8 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 			{!username && 
 				<div className="hidden md:flex ml-auto flex-row items-center gap-4">
 					<BFSearchBar onChange={setSearchText} placeholder="Search Index..." />
-					<button onClick={() => setShowModalType('SIGN_IN')} className="text-sm rounded bg-red-100 font-bold text-red-700 w-32 py-2">Sign In</button>
-					<button onClick={() => setShowModalType('SIGN_UP')} className="text-sm rounded bg-blue-500 font-bold text-white w-32 py-2">Sign Up</button>
+					<button onClick={() => setShowModalType('SIGN_IN')} className="text-[15px] bg-red-100 w-32 py-2 rounded-lg text-main-red text-cente font-DM_Sans font-medium leading-normal tracking-normal">Sign In</button>
+					<button onClick={() => setShowModalType('SIGN_UP')} className="text-[15px] w-32 py-2 text-white rounded-lg bg-main-buttonBlue text-cente font-DM_Sans font-medium leading-normal tracking-normal">Sign Up</button>
 				</div>
 			}
 		</div>
