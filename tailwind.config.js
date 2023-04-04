@@ -19,7 +19,8 @@ module.exports = {
           black: "#192332",
           gray: "#566375",
           lightGray: "#f7f9fc",
-          lightGrayBorder: "#e9edf1"
+          lightGrayBorder: "#e9edf1",
+          deepOrange: "#fd5d60",
 
         },
       }

@@ -23,10 +23,18 @@ export default function SiteLinks({ setShowModalType, setShowMobileMenu = functi
 			<BFIcon iconName="coins" color={secondaryColor} />
 			<span className={colorStyle}>Coins</span>
 		</Link>
-		<div className="flex flex-row items-center gap-2 cursor-pointer h-[40px] ml-[10px]" onClick={() => setIndexesExpanded(!indexesExpanded)}>
-			<BFIcon iconName="indexes" color={secondaryColor} />
-			<span className={colorStyle}>Indexes</span>
-			<BFIcon iconName="arrowUP" color={whiteColor} size={7}/>
+		<div className="flex flex-row items-center justify-between gap-2 cursor-pointer h-[40px] ml-[10px]" onClick={() => setIndexesExpanded(!indexesExpanded)}>
+			<div className='flex flex-row items-start'>
+				<div className='pr-2'>
+					<BFIcon iconName="indexes" color={secondaryColor} />
+				</div>
+				<span className={colorStyle}>Indexes</span>
+			</div>
+			<div className='text-[7px]'>
+				{
+					indexesExpanded == true ? <BFIcon iconName="arrowUP" color={whiteColor}/> : <BFIcon iconName="arrowDown" color={whiteColor}/>
+				}
+			</div>
 		</div>
 		{indexesExpanded && <>
 			<div className="ml-6 cursor-pointer h-[30px]">
