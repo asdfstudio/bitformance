@@ -187,10 +187,10 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 		<div className="bg-white p-4">
 			<h1 className="text-lg mb-4 font-bold">{title}</h1>
 			<div className="flex flex-col md:flex-row items-center mb-6">
-				<div className="border rounded-xl">
+				<div className="rounded-lg bg-main-lightGray px-1 py-1">
 					{colorOptions.map(option => (
 						<button 
-							className={`text-sm px-2 py-2 bg-gray-200 hover:bg-gray-300 ${option === graphColor && 'bg-transparent hover:bg-transparent'}`} 
+							className={`text-sm px-3 py-2 text-main-gray font-DM_Sans font-normal leading-normal tracking-wide ${option === graphColor && 'bg-transparent bg-main-white py-1 px-4 rounded-lg shadow text-main-black'}`}
 							key={option} onClick={() => setGraphColor(option)}
 							disabled={(isOverlay && option === 'Price Colored')}
 						>

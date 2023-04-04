@@ -39,9 +39,9 @@ export default function PerfomersCards() {
 		<div className="pt-4 pl-6 pb-8 pr-6 bg-white border-[1px] border-main-lightGrayBorder rounded-2xl">
 			<div className="flex flex-row items-center mb-6">
 				<h1 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-wide text-main-black">24h Performers</h1>
-				<div className="ml-auto mr-2 rounded-lg bg-gray-100 py-0.5 px-1">
-					<button className={`text-xs ${isBest ? ' py-2 px-5 bg-white rounded-lg shadow' : 'px-5'}`} onClick={() => setIsBest(true)}>Best</button>
-					<button className={`text-xs ${isBest ? 'px-5' : ' py-2 px-5 bg-white rounded-lg shadow'}`} onClick={() => setIsBest(false)}>Worst</button>
+				<div className="ml-auto mr-2 rounded-lg bg-main-lightGray py-1 px-1">
+					<button className={`text-[14px] font-DM_Sans font-normal leading-normal tracking-wide ${isBest ? 'py-1.5 px-7 bg-main-white rounded-lg shadow text-main-black' : 'px-7 text-main-gray'}`} onClick={() => setIsBest(true)}>Best</button>
+					<button className={`text-[14px] font-DM_Sans font-normal leading-normal tracking-wide ${isBest ? 'px-7 text-main-gray' : ' py-1.5 px-7 bg-white rounded-lg shadow text-main-black'}`} onClick={() => setIsBest(false)}>Worst</button>
 				</div>
 			</div>
 			<div>
