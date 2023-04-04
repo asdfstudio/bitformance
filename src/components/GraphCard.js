@@ -198,9 +198,9 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 						</button>
 					))}
 				</div>
-				<div className="ml-0 md:ml-auto mt-2 md:mt-0 border rounded-xl">
+				<div className="ml-0 md:ml-auto mt-2 md:mt-0 rounded-xl py-1 bg-main-lightGray">
 					{dateOptions.map(option => (
-						<button className={`text-sm px-3 md:px-2 py-2 bg-gray-200 hover:bg-gray-300 ${option === graphInterval && 'bg-transparent hover:bg-transparent'}`} key={option} onClick={() => setGraphInterval(option)}>{option}</button>
+						<button className={`text-sm px-3 md:px-8 py-2 border-x-[1px] ${option === graphInterval && 'bg-main-white rounded-lg shadow text-main-black mx-2'}`} key={option} onClick={() => setGraphInterval(option)}>{option}</button>
 					))}
 				</div>
 			</div>
