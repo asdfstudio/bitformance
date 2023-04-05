@@ -184,9 +184,9 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 
 // console.log(shownGraphData)
 	return(
-		<div className="bg-white p-4">
-			<h1 className="text-lg mb-4 font-bold">{title}</h1>
-			<div className="flex flex-col md:flex-row items-center mb-6">
+		<div className="bg-white rounded-2xl">
+			<h1 className="text-lg mb-4 font-bold px-5 pt-6">{title}</h1>
+			<div className="flex flex-col md:flex-row items-center mb-6 px-5 pt-4">
 				<div className="rounded-lg bg-main-lightGray px-1 py-1">
 					{colorOptions.map(option => (
 						<button 

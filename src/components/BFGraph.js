@@ -77,7 +77,8 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 		if (showOverlay) {
 			return `${value}%`
 		}
-		return formatter.format(value)
+		// return formatter.format(value)
+		return Math.abs(value) > 999 ? Math.sign(value)*((Math.abs(value)/1000).toFixed(1)) + 'k' : Math.sign(value)*Math.abs(value)
 	}
 
 	const formatXAxis = (value) => {
@@ -180,7 +181,8 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 			  <XAxis dataKey="name" tickFormatter={formatXAxis} />
 			  <YAxis type="number" allowDataOverflow tickFormatter={formatYAxis} domain={[showOverlay ? Math.min(lowestPrice, lowestPercentTwo) : lowestPrice, 'auto']} />
 			  <Tooltip content={<CustomTooltip />} />
-			</>}
+			</>
+			}
 		</AreaChart>
 		
 	)
