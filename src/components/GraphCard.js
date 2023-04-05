@@ -198,15 +198,15 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 						</button>
 					))}
 				</div>
-				<div className="ml-0 md:ml-auto mt-2 md:mt-0 rounded-xl py-1 bg-main-lightGray">
+				<div className="ml-0 md:ml-auto mt-2 md:mt-0 rounded-lg py-1 bg-main-lightGray">
 					{dateOptions.map(option => (
-						<button className={`text-sm px-3 md:px-8 py-2 border-x-[1px] ${option === graphInterval && 'bg-main-white rounded-lg shadow text-main-black mx-2'}`} key={option} onClick={() => setGraphInterval(option)}>{option}</button>
+						<button className={`text-sm text-main-gray font-DM_Sans font-normal leading-normal tracking-wide px-3 md:px-7 py-2 ${option != "All" && 'border-r-[1px]'} ${option === graphInterval && 'ml-2 mr-2 bg-main-white rounded-lg shadow text-main-black'}`} key={option} onClick={() => setGraphInterval(option)}>
+							{option}
+						</button>
 					))}
 				</div>
 			</div>
-
 			<BFGraph subtractWidth={subtractWidth} data={shownGraphData} showOverlay={isOverlay} showPriceColored={graphColor === 'Price Colored'} />
-	
 		</div>
 	)
 }
