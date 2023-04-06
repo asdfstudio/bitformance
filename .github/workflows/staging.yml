@@ -1,4 +1,4 @@
-name: Deploy Bitformance Staging
+name: Deploy Bitformance Staging updated
 
 on:
   push:
