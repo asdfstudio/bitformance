@@ -206,7 +206,9 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 					))}
 				</div>
 			</div>
+			<div className='-ml-6 pb-4'>
 			<BFGraph subtractWidth={subtractWidth} data={shownGraphData} showOverlay={isOverlay} showPriceColored={graphColor === 'Price Colored'} />
+			</div>
 		</div>
 	)
 }

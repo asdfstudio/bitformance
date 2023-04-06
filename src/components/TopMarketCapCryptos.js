@@ -51,8 +51,8 @@ export default function TopMarketCapCryptos({ title = 'Top Cryptocurrencies by V
 	}
 
 	return(
-		<div className="bg-white min-w-full overflow-y-auto p-4 space-y-4 rounded shadow">
-			<h1>{title}</h1>
+		<div className="bg-main-white min-w-full overflow-y-auto p-4 space-y-4 shadow rounded-2xl">
+			<h1 className="text-lg mb-4 font-bold px-2 pt-2">{title}</h1>
 			{pages}
 			{window.location.pathname === '/coins'
 				?	<div className="text-center mt-2">
@@ -60,9 +60,8 @@ export default function TopMarketCapCryptos({ title = 'Top Cryptocurrencies by V
 					</div>
 				: <div className="text-center mt-2">
 						<Link to="/coins" className="text-sm w-60 rounded bg-blue-500 text-white px-12 py-2">See all coins</Link>
-					</div>
+				</div>
 			}
-
 		</div>
 	)
 }

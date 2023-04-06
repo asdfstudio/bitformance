@@ -31,11 +31,17 @@ const MainLayout = ({ showModalType, setShowModalType, children }) => {
     <>
       <ToastContainer />
       {showModalType && <BFModal showModalType={showModalType} setShowModalType={setShowModalType} />}
-      <div className="flex flex-row">
-        <SidePanel setShowModalType={setShowModalType} />
+      <div className="flex flex-row relative">
+        <div className="fixed">
+          <SidePanel setShowModalType={setShowModalType} />
+        </div>
         <div className="w-full h-screen overflow-y">
-          <TopBar showModalType={showModalType} setShowModalType={setShowModalType} />
-          {children}
+          <div className="relative md:pl-64 w-full md:sticky top-0 z-50">
+            <TopBar showModalType={showModalType} setShowModalType={setShowModalType} />
+          </div>
+          <div className="md:ml-64 relative">
+            {children}
+          </div>
         </div>
       </div>
     </>

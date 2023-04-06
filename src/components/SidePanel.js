@@ -24,10 +24,8 @@ export default function SidePanel({ setShowModalType }) {
 					<SocialIconsRow showCopyLink={false} />
 				</div>
 				<div className="border-b border-gray-300 opacity-10" />
-	
-
-				<p className="text-white text-xs opacity-40 font-book font-normal text-[13px]">© 2022 Bitformance Ltd. Trademarks and brands are the property of their respective owners.</p>
-				<p className="text-sm text-[13px] font-book font-normal">
+				<p className="text-white opacity-40 font-DM_Sans font-normal text-[13px] leading-normal tracking-wide">© 2022 Bitformance Ltd. Trademarks and brands are the property of their respective owners.</p>
+				<p className="text-sm text-[14px] font-DM_Sans font-normal">
 					<Link to="/privacy-policy" className="hover:text-white">Privacy Policy</Link>
 					<span>	•  </span>
 					<Link to="/terms-of-services" className="hover:text-white">Terms of Services</Link>
