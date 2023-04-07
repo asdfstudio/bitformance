@@ -49,7 +49,7 @@ export default function BrowsePage() {
 	if (isLoading) return <BFLoading />
 
 	return (
-		<div className="p-4 bg-gray-50">
+		<div className="p-4 bg-main-lightGray">
 			<SortedTable sortField={sortField} sortOrder={sortOrder} />
 		</div>
 	)
