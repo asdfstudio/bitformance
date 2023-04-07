@@ -182,7 +182,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 			</div>}
 			{!username && 
 				<div className="hidden md:flex ml-auto flex-row items-center gap-4">
-					<BFSearchBar onChange={setSearchText} placeholder="Search Index..." />
+					{/* <BFSearchBar onChange={setSearchText} placeholder="Search Index..." /> */}
 					<button onClick={() => setShowModalType('SIGN_IN')} className="text-[15px] bg-red-100 w-32 py-2 rounded-lg text-main-red text-cente font-DM_Sans font-medium leading-normal tracking-normal">Sign In</button>
 					<button onClick={() => setShowModalType('SIGN_UP')} className="text-[15px] w-32 py-2 text-white rounded-lg bg-main-buttonBlue text-cente font-DM_Sans font-medium leading-normal tracking-normal">Sign Up</button>
 				</div>

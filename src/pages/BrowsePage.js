@@ -29,7 +29,6 @@ export default function BrowsePage() {
 
 	const SortedTable = ({ sortField, sortOrder }) => {
 		const { data, isLoading } = useBrowsableIndexes(sortField, sortOrder)
-		console.log(data)
 		return (<>
 			<BFTable 
 				rows={data || []} 
