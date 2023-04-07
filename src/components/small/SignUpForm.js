@@ -65,39 +65,39 @@ export default function SignUpForm({ setShowModalType }) {
 	return(
 
 		<form className="space-y-4" onSubmit={(e) => signUp(e)}>
-			<div className="flex flex-row gap-2">
+			<div className="flex flex-row gap-4">
 				<div>
-					<label className="font-bold text-sm">First Name</label>
-					<input name="first_name" type='text' className="w-full py-1 border rounded" />
+					<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">First Name</label>
+					<input name="first_name" type='text' className="w-full py-1 border rounded mt-1" />
 				</div>
 				<div>
-					<label className="font-bold text-sm">Last Name</label>
-					<input name="last_name" type="text" className="w-full py-1 border rounded" />
+					<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Last Name</label>
+					<input name="last_name" type="text" className="w-full py-1 border rounded mt-1" />
 				</div>
 			</div>
 
 			<div>
-				<label className="font-bold text-sm">Username</label>
-				<input name="username" type="text" className="w-full py-1 border rounded" />
+				<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Username</label>
+				<input name="username" type="text" className="w-full py-1 border rounded mt-1" />
 			</div>
 
 			<div>
-				<label className="font-bold text-sm">Email Address</label>
-				<input name="email" type="email" className="w-full py-1 border rounded" />
+				<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Email Address</label>
+				<input name="email" type="email" className="w-full py-1 border rounded mt-1" />
 			</div>
 
 			<div>
-				<label className="font-bold text-sm">Confirm Email Address</label>
-				<input name="email_confirm" type="email" className="w-full py-1 border rounded" />
+				<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Confirm Email Address</label>
+				<input name="email_confirm" type="email" className="w-full py-1 border rounded mt-1" />
 			</div>
 
 			<div>
-				<label className="font-bold text-sm">Password (Must be at least 8 characters)</label>
-				<input name="password" type="password" className="w-full py-1 border rounded" />
+				<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Password (Must be at least 8 characters)</label>
+				<input name="password" type="password" className="w-full py-1 border rounded mt-1 mb-2" />
 			</div>
 
 
-			<p className="font-bold text-center text-sm">By signing up, I agree to Bitformance&apos;s <a className="text-blue-500" href="/terms-of-services" target="_blank" rel="noopener">terms of service</a> and <a className="text-blue-500" href="/privacy-policy" target="_blank" rel="noopener">privacy policy.</a></p>
+			<p className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black text-center">By signing up, I agree to Bitformance&apos;s <a className="text-blue-500" href="/terms-of-services" target="_blank" rel="noopener">terms of service</a> and <a className="text-blue-500" href="/privacy-policy" target="_blank" rel="noopener">privacy policy.</a></p>
 			<ReCAPTCHA
 			  sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
 			  onChange={onRecaptchaChange}
@@ -105,7 +105,7 @@ export default function SignUpForm({ setShowModalType }) {
 			/>
 			{errorMessage && <p className="text-red-500 text-sm">*{errorMessage}</p>}
 			<div className="mt-auto">
-				<button type="submit" className="font-bold w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2">{loading ? <BFLoading isCenter={true} /> : 'Sign Up'}</button>
+				<button type="submit" className="w-full text-sm rounded-lg bg-main-buttonBlue hover:bg-blue:600 text-main-white font-bold py-2 mt-2 cursor-pointer">{loading ? <BFLoading isCenter={true} /> : 'Sign Up'}</button>
 			</div>
 		</form>
 

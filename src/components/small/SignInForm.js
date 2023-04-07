@@ -82,13 +82,15 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 	}
 
 	const ControlButtons = ({ backTo = 'sign-in' }) => (<>
+	<div>
 		<button 
 			onClick={() => setViewShown(backTo)} 
-			className="float-left rounded-full px-1"
+			className="float-left rounded-full px-1 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-gray"
 		>
-			<BFIcon iconName="back" />
+			<BFIcon iconName="back"/>
 		</button>
  		<CloseModal setShowModalType={setShowModalType} topStyle="top-0" />
+		 </div>
 	</>)
 
 
@@ -96,11 +98,13 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 		{viewShown === 'reset-link' && <>
 			<ControlButtons backTo="forgot-password" />
 			<br />
-
-			<h1 className="text-2xl">Check your email</h1>
-			<p>If this email address exists in our system, you will receive an email containing instructions on how to reset your password. Please check your spam if you can not find the email.</p>
+			<div className="text-[44px] px-2">
+				<BFIcon iconName="contact-us" color={"#b7c3d1"} />
+			</div>
+			<h1 className="text-[30px] mt-2 font-DM_Sans font-medium leading-medium tracking-tight text-main-black">Check your email</h1>
+			<p className="text-[14px] font-DM_Sans font-medium leading-normal tracking-normal text-main-gray">If this email address exists in our system, you will receive an email containing instructions on how to reset your password. Please check your spam if you can not find the email.</p>
 			<div className="mt-auto">
-				<button className="font-bold w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2" onClick={() => backToSignIn()}>Go to Sign In</button>
+				<button className="w-full text-sm rounded-lg bg-main-buttonBlue hover:bg-blue:600 text-main-white font-bold py-2 mb-2 cursor-pointer" onClick={() => backToSignIn()}>Go to Sign In</button>
 			</div>
 		</>}
 
@@ -108,16 +112,16 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 			<ControlButtons backTo="sign-in" />
    		<br />
 
-   		<h1 className="text-2xl">Forgot your password?</h1>
-   		<p>We will send you an email with instructions on how to reset your password.</p>
+   		<h1 className="text-[30px] mt-2 font-DM_Sans font-medium leading-medium tracking-tight text-main-black">Forgot your password?</h1>
+   		<p className="text-[14px] font-DM_Sans font-medium leading-normal tracking-normal text-main-gray">We will send you an email with instructions on how to reset your password.</p>
 
    		<div>
-   			<label className="font-bold">Username or Email Address</label>
-   			<input value={resetAccount} onChange={(e) => setResetAccount(e.target?.value)} className="w-full py-1 border rounded" type="text" />
+   			<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal">Username or Email Address</label>
+   			<input value={resetAccount} onChange={(e) => setResetAccount(e.target?.value)} className="w-full py-1 border rounded mt-2" type="text" />
    		</div>
 
    		<div className="mt-auto pb-4">
-   			<button className="font-bold w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2" onClick={() => resetPasswordLink()}>Send Reset Link</button>
+   			<button className="w-full text-sm rounded-lg bg-main-buttonBlue hover:bg-blue:600 text-main-white font-bold py-2 mt-2 cursor-pointer" onClick={() => resetPasswordLink()}>Send Reset Link</button>
    		</div>
 		</>}
 
@@ -125,22 +129,25 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 		{viewShown === 'sign-in' && <>
 			<CloseModal setShowModalType={setShowModalType} />
 			{errorMessage && <span className="rounded-lg bg-gray-100 p-2 text-red-500 text-xs m-0">* {errorMessage}</span>}
-			<form className="space-y-3" onSubmit={(e) => signIn(e)}>
+			<form className="space-y-4" onSubmit={(e) => signIn(e)}>
 				<div>
-					<label className="font-bold text-sm">Username or Email Address</label>
-					<input value={username} onChange={(e) => setUsername(e.target?.value)} name="username" id="username" className="w-full py-1 border rounded" type="text" />
+					<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Username or Email Address</label>
+					<input value={username} onChange={(e) => setUsername(e.target?.value)} name="username" id="username" className="w-full py-1 border rounded mt-2" type="text" />
 				</div>
 
 				<div>
-					<label className="font-bold text-sm">Password</label>
-					<input name="password" id="password" className="w-full py-1 border rounded" type="password" />
+					<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Password</label>
+					<input name="password" id="password" className="w-full py-1 mt-2 border rounded" type="password" />
 				</div>
 
 				<div className="flex flex-row gap-2">
-					<input name="remember-me" id="remember-me" type="checkbox" />
-					<label className="text-sm">Remember</label>
+					<input name="remember-me" id="remember-me" type="checkbox" className="rounded-full"/>
+					<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Remember</label>
 
-					<button type="button" onClick={() => setViewShown('forgot-password')} className="ml-auto underline text-blue-500 text-sm">Forgot Password?</button>
+					<div className="ml-auto flex flex-row">
+					<div className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black pr-1">Forgot Password?</div>
+					<button type="button" onClick={() => setViewShown('forgot-password')} className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-buttonBlue">Reset</button>
+	                </div>			
 				</div>
 
 
@@ -152,7 +159,7 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 
 
 				<div className="mt-auto">
-					{isLoading ? <div className="mt-2"><BFLoading isCenter={true} /></div> : <input type="submit" className="w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2 mt-2" value="Sign In" />}
+					{isLoading ? <div className="mt-2"><BFLoading isCenter={true} /></div> : <input type="submit" className="w-full text-sm rounded-lg bg-main-buttonBlue hover:bg-blue:600 text-main-white font-bold py-2 mt-2 cursor-pointer" value="Sign In" />}
 				</div>
 			</form>
 		</>}

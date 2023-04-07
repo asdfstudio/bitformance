@@ -16,17 +16,17 @@ export default function CoinRow({
 }) {
 
 	const DownTag = ({ change }) => (<div className="w-20">
-			<div className="flex flex-row px-2 py-1 rounded-lg justify-center items-center gap-1 rounded bg-red-100">
-				<FontAwesomeIcon icon={faArrowLeft} size="xs" transform={{ rotate: -45}} color="red" />
-				<p className="text-sm text-red-400">{Math.abs(change).toFixed(2)}%</p>
+			<div className="flex flex-row px-2 py-1 rounded-lg justify-center items-center gap-1 bg-main-lightRed">
+				<FontAwesomeIcon icon={faArrowLeft} size="sm" transform={{ rotate: -45}} color="#fd5d60" />
+				<p className="text-sm text-main-deepOrange font-DM_Sans font-medium leading-normal tracking-wide">{Math.abs(change).toFixed(2)}%</p>
 			</div>
 		</div>
 	)
 
 	const UpTag = ({ change }) => (<div className="w-20">
-			<div className="flex flex-row px-2 py-1 rounded-lg justify-center items-center gap-1 rounded bg-green-100">
-				<FontAwesomeIcon icon={faArrowRight} size="xs" transform={{ rotate: -45}} color="green" />
-				<p className="text-sm text-green-500">{Math.abs(change).toFixed(2)}%</p>
+			<div className="flex flex-row px-2 py-1 rounded-lg justify-center items-center gap-1 bg-main-lightGreen">
+				<FontAwesomeIcon icon={faArrowRight} size="sm" transform={{ rotate: -45}} color="#40c8b8" />
+				<p className="text-sm text-main-green font-DM_Sans font-medium leading-normal tracking-wide">{Math.abs(change).toFixed(2)}%</p>
 			</div>
 		</div>
 	)
@@ -49,12 +49,12 @@ export default function CoinRow({
 			<td className={`ml-2 w-64`}>
 				<div className="flex flex-row items-center gap-2">
 					<img className="w-10 h-10 rounded-full" src={fixUrl(logo)} alt={name} />
-					<p className="font-bold">{name || findName(symbol)}</p>
+					<p className="font-DM_Sans font-bold leading-normal tracking-wide text-main-black text-base">{name || findName(symbol)}</p>
 				</div>
 			</td>
 
-			<td className="text-gray-400 w-28">{symbol}</td>
-			<td className="w-32">{formatMoney(price)}</td>
+			<td className="text-main-gray w-28 font-DM_Sans font-medium leading-normal tracking-wide text-base">{symbol}</td>
+			<td className="w-32 text-main-black font-DM_Sans font-medium leading-normal tracking-wide text-base">{formatMoney(price)}</td>
 			<td className="w-24">
 				{changepct_24hour > 0
 					? <UpTag change={changepct_24hour} />
@@ -67,7 +67,7 @@ export default function CoinRow({
 					: <DownTag change={changepct_7day} />
 				}
 			</td>
-			<td>{formatMoney(volume)}</td>
+			<td className='w-32 text-main-black font-DM_Sans font-medium leading-normal tracking-wide text-base'>{formatMoney(volume)}</td>
 		</>
 	)
 }

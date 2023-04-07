@@ -10,14 +10,14 @@ export default function SignInModal({ setShowModalType }) {
 	return(
 		<div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
 		 
-		  <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
+		  <div className="rounded-2xl relative transform overflow-hidden bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
 			
 		    <div className="grid grid-cols-1 sm:grid-cols-5">
-		    	<div className="col-span-2 bg-blue-900 text-white flex flex-col p-4 space-y-13">
+		    	<div className="col-span-2 bg-gradient-to-b from-main-deepBlue to-main-deepestBlue text-main-white flex flex-col p-4 space-y-13">
 		    		<BitformanceLeftPanel setShowModalType={setShowModalType} showInfo={viewShown}  />
 		    	</div>
 
-		    	<div className="col-span-3 p-4 space-y-4">
+		    	<div className="col-span-3 p-4 space-y-4 px-6">
 		    		<SignInForm setShowModalType={setShowModalType} setViewShown={setViewShown} viewShown={viewShown} />
 		    	</div>
 		    </div>
