@@ -76,7 +76,7 @@ export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
 
 	return(
     <table className={`w-full text-sm text-left`}>
-        <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-100 ">
           <tr>
         		{headers.map(header => (
         			<HeaderColumn onClick={handleHeaderClick} key={header.label + '-holdings'} item={header} sortable={true} />
@@ -85,7 +85,7 @@ export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
         </thead>
         <tbody>
         	{orderHoldings.map(coin => (
-        		<tr onClick={() => onCoinRowClicked(coin)} key={coin.symbol + '-holdings-table'} className="shadow bg-white dark:bg-gray-800 dark:border-gray-700">
+        		<tr onClick={() => onCoinRowClicked(coin)} key={coin.symbol + '-holdings-table'} className="shadow bg-white">
         			<HoldingsRow {...coin} />
         		</tr>
         	))}

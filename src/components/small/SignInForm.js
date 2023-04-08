@@ -104,7 +104,7 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 			<h1 className="text-[30px] mt-2 font-DM_Sans font-medium leading-medium tracking-tight text-main-black">Check your email</h1>
 			<p className="text-[14px] font-DM_Sans font-medium leading-normal tracking-normal text-main-gray">If this email address exists in our system, you will receive an email containing instructions on how to reset your password. Please check your spam if you can not find the email.</p>
 			<div className="mt-auto">
-				<button className="w-full text-sm rounded-lg bg-main-buttonBlue hover:bg-blue:600 text-main-white font-bold py-2 mb-2 cursor-pointer shadow-sm shadow-main-buttonBlue" onClick={() => backToSignIn()}>Go to Sign In</button>
+				<button className="w-full text-sm rounded-lg bg-main-buttonBlue hover:bg-blue:600 text-main-white font-bold py-2 mb-2 cursor-pointer shadow-sm shadow-main-shadowBlue" onClick={() => backToSignIn()}>Go to Sign In</button>
 			</div>
 		</>}
 
@@ -121,7 +121,7 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
    		</div>
 
    		<div className="mt-auto pb-4">
-   			<button className="w-full text-sm rounded-lg bg-main-buttonBlue hover:bg-blue:600 text-main-white font-bold py-2 mt-2 cursor-pointer shadow-sm shadow-main-buttonBlue" onClick={() => resetPasswordLink()}>Send Reset Link</button>
+   			<button className="w-full text-sm rounded-lg bg-main-buttonBlue hover:bg-blue:600 text-main-white font-bold py-2 mt-2 cursor-pointer shadow-sm shadow-main-shadowBlue" onClick={() => resetPasswordLink()}>Send Reset Link</button>
    		</div>
 		</>}
 
@@ -159,7 +159,7 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 
 
 				<div className="mt-auto">
-					{isLoading ? <div className="mt-2"><BFLoading isCenter={true} /></div> : <input type="submit" className="w-full text-sm rounded-lg bg-main-buttonBlue hover:bg-blue:600 text-main-white font-bold py-2 mt-2 cursor-pointer shadow-sm shadow-main-buttonBlue" value="Sign In" />}
+					{isLoading ? <div className="mt-2"><BFLoading isCenter={true} /></div> : <input type="submit" className="w-full text-sm rounded-lg bg-main-buttonBlue hover:bg-blue:600 text-main-white font-bold py-2 mt-2 cursor-pointer shadow-sm shadow-main-shadowBlue" value="Sign In" />}
 				</div>
 			</form>
 		</>}

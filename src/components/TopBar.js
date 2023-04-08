@@ -108,7 +108,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 				</div>
 			</div>
 			{showMobileMenu &&
-				<div id="dropdown" className="p-4 px-[20px] absolute left-0 top-12 z-10 w-full rounded-b-xl -mt-1 bg-gradient-to-b from-main-gradientColor2 to-main-gradientColor1 divide-y divide-gray-100 shadow dark:bg-gray-700">
+				<div id="dropdown" className="p-4 px-[20px] absolute left-0 top-12 z-10 w-full rounded-b-xl -mt-1 bg-gradient-to-b from-main-gradientColor2 to-main-gradientColor1 divide-y divide-gray-100 shadow">
 				    <ul className="space-y-4 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
 				     	<SiteLinks setShowMobileMenu={setShowMobileMenu} setShowModalType={setShowModalType} colorStyle="text-white font-DM_Sans text-[15px] font-normal leading-normal tracking-wide"/>
 				    </ul>
@@ -125,7 +125,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 					</div>
 				</div>
 				{showMenu &&
-				<div id="dropdown" className="p-4 absolute right-2 top-12 z-10 w-56 bg-white rounded-lg divide-y divide-gray-100 shadow dark:bg-gray-700">
+				<div id="dropdown" className="p-4 absolute right-2 top-12 z-10 w-56 bg-white rounded-lg divide-y divide-gray-100 shadow">
 				    <ul className="space-y-2 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
 				      <li className="flex flex-row items-center gap-2">
 				      	<button onClick={() => { setShowModalType('SIGN_IN'); setShowMenu(false);}} className="text-sm rounded-lg bg-red-100 text-main-red w-full py-2 text-cente font-DM_Sans font-medium leading-normal tracking-wide">Sign In</button>
@@ -138,7 +138,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 				}
 			</div>}
 
-			<div className="ml-2 hidden md:flex flex-row gap-2 items-center text-sm text-gray-500">
+			<div className="ml-2 hidden md:flex flex-row gap-2 items-center text-main-gray text-[15px] text-cente font-DM_Sans font-normal leading-normal tracking-normal">
 				{pathArray.map((crumb, index) => {
 					let to = `/${pathArray.slice(0, index + 1).join('/')}`
 					if (to === '/indexes') {
@@ -165,7 +165,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 					</div>
 				</div>
 				{showMenu &&
-				<div id="dropdown" className="p-4 absolute right-2 top-12 z-10 w-56 bg-white rounded-lg divide-y divide-gray-100 shadow dark:bg-gray-700">
+				<div id="dropdown" className="p-4 absolute right-2 top-12 z-10 w-56 bg-white rounded-lg divide-y divide-gray-100 shadow">
 				    <ul className="space-y-2 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
 				      <li className="flex flex-row items-center gap-2">
 				      	<BFIcon iconName="settings" size="lg" color="gray" />
