@@ -105,7 +105,7 @@ export default function SignUpForm({ setShowModalType }) {
 			/>
 			{errorMessage && <p className="text-red-500 text-sm">*{errorMessage}</p>}
 			<div className="mt-auto">
-				<button type="submit" className="w-full text-sm rounded-lg bg-main-buttonBlue hover:bg-blue:600 text-main-white font-bold py-2 mt-2 cursor-pointer">{loading ? <BFLoading isCenter={true} /> : 'Sign Up'}</button>
+				<button type="submit" className="w-full text-sm rounded-lg bg-main-buttonBlue hover:bg-blue:600 text-main-white font-bold py-2 mt-2 cursor-pointer shadow-sm shadow-main-buttonBlue">{loading ? <BFLoading isCenter={true} /> : 'Sign Up'}</button>
 			</div>
 		</form>
 

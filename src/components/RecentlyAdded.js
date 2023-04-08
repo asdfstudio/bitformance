@@ -49,7 +49,7 @@ export default function RecentlyAdded() {
 				))}
 			</div>
 			<div className="text-right mt-6 -mr-2">
-				<Link to="/indexes/browse" className="text-[15px] text-white px-16 py-2 rounded-lg bg-main-buttonBlue text-cente shadow-sm shadow-main-shadowBlue font-DM_Sans font-normal leading-normal tracking-wide sm:px-16">See all Indexes</Link>
+				<Link to="/indexes/browse" className="text-[15px] text-white px-16 py-2 rounded-lg bg-main-buttonBlue text-cente shadow-sm shadow-main-buttonBlue font-DM_Sans font-normal leading-normal tracking-wide sm:px-16">See all Indexes</Link>
 			</div>
 		</div>
 	)

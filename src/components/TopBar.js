@@ -131,7 +131,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 				      	<button onClick={() => { setShowModalType('SIGN_IN'); setShowMenu(false);}} className="text-sm rounded-lg bg-red-100 text-main-red w-full py-2 text-cente font-DM_Sans font-medium leading-normal tracking-wide">Sign In</button>
 				      </li>
 				      <li className="flex flex-row items-center gap-2">
-				      	<button onClick={() => { setShowModalType('SIGN_UP'); setShowMenu(false); }} className="text-sm text-white w-full py-2 rounded-lg bg-main-buttonBlue text-cente font-DM_Sans font-medium leading-normal tracking-wide">Sign Up</button>
+				      	<button onClick={() => { setShowModalType('SIGN_UP'); setShowMenu(false); }} className="text-sm text-white w-full py-2 rounded-lg bg-main-buttonBlue text-cente font-DM_Sans font-medium leading-normal tracking-wide shadow-sm shadow-main-buttonBlue">Sign Up</button>
 				      </li>
 				    </ul>
 				</div>
@@ -184,7 +184,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 				<div className="hidden md:flex ml-auto flex-row items-center gap-4">
 					{/* <BFSearchBar onChange={setSearchText} placeholder="Search Index..." /> */}
 					<button onClick={() => setShowModalType('SIGN_IN')} className="text-[15px] bg-red-100 w-32 py-2 rounded-lg text-main-red text-cente font-DM_Sans font-medium leading-normal tracking-normal">Sign In</button>
-					<button onClick={() => setShowModalType('SIGN_UP')} className="text-[15px] w-32 py-2 text-white rounded-lg bg-main-buttonBlue text-cente font-DM_Sans font-medium leading-normal tracking-normal">Sign Up</button>
+					<button onClick={() => setShowModalType('SIGN_UP')} className="text-[15px] w-32 py-2 text-white rounded-lg bg-main-buttonBlue text-cente font-DM_Sans font-medium leading-normal tracking-normal shadow-sm shadow-main-buttonBlue">Sign Up</button>
 				</div>
 			}
 		</div>

@@ -66,7 +66,7 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 		    <table className={`w-full text-sm text-left ${tableStyle}`}>
 
 		        {showHeader &&
-		        	<thead className="text-base cursor-pointer text-main-gray bg-main-lightGray dark:bg-gray-700 dark:text-gray-400 font-DM_Sans font-normal leading-normal tracking-wide">
+		        	<thead className="text-base cursor-pointer text-main-gray bg-main-lightGray font-DM_Sans font-normal leading-normal tracking-wide">
 		            <tr>
 	            		{headers.map(header => (
 	            			<HeaderColumn
@@ -82,12 +82,12 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 		        <tbody>
 		        		{rows.map((coin, index) => {
 		        			return type === 'top-cryptos' ? 
-							(<tr onClick={() => onCoinRowClicked(coin)} key={coin.id} className="p-4 bg-mian-white dark:bg-gray-800 dark:border-gray-700">
+							(<tr onClick={() => onCoinRowClicked(coin)} key={coin.id} className="p-4 bg-mian-black">
 								<CoinRow key={coin.id} {...coin} headerShown={showHeader} />
 								</tr>)
 		        				: (type === 'browse-cryptos' || type === 'my-indexes') ? 
 								(<React.Fragment key={coin.index._id.$oid}>
-		        					<tr onClick={() => onRowClicked(coin.index)} className="bg-main-white dark:bg-gray-800 dark:border-gray-700 rounded-2xl border">
+		        					<tr onClick={() => onRowClicked(coin.index)} className="bg-main-white rounded-2xl border">
 		        						<BrowseCoinRow
 		        							rowIndex={index}
 		        							{...coin.index}

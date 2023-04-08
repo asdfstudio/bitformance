@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import BitLogoWhite from '../bitLogoWhite.png'
+import BitLogoWhite from '../logo@3x.png'
 import BFIcon from './BFIcon'
 import SocialIconsRow from './small/SocialIconsRow'
 import SiteLinks from './small/SiteLinks'
