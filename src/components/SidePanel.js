@@ -13,7 +13,7 @@ export default function SidePanel({ setShowModalType }) {
 
 	return (
 		// <div className="bg-gradient-to-r from-main-gColor to-main-gColor">
-          <div className="bg-gradient-to-b from-main-deepBlue to-main-deepestBlue flex-col text-white p-4 w-64 h-screen hidden md:flex">
+          <div className="bg-gradient-to-b from-main-gradientColor2 to-main-gradientColor1 flex-col text-white p-4 w-64 h-screen hidden md:flex">
 			<div className="space-y-4">
 				<img src={BitLogoWhite} alt="bitformance logo" />
 				<SiteLinks setShowModalType={setShowModalType} colorStyle="text-white font-DM_Sans text-[15px] font-normal leading-normal tracking-wide pl-2"/>

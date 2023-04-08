@@ -15,11 +15,11 @@ export default function PerfomersCards() {
 	const { data, isLoading } = usePerformers()
 
 	if (isLoading) return (
-		<div className="pt-4 pl-6 pb-8 pr-6 bg-white border-[1px] border-main-lightGrayBorder rounded-2xl">
-			<h1 className="text-[22px] mb-6 font-DM_Sans font-medium leading-normal tracking-wide text-main-black">24h Performers</h1>
+		<div className="pt-4 pl-6 pb-8 pr-6 bg-white sm:border-[1px] sm:border-main-lightGrayBorder sm:rounded-2xl">
+			<h1 className="text-[20px] mb-6 font-DM_Sans font-medium leading-normal tracking-wide text-main-black">24h Performers</h1>
 			<div className="h-40"><BFLoading heightAdjust="h-2/3" /></div>
 			<div className="text-right mt-6 -mr-2">
-				<Link className="text-[15px] text-white px-16 py-2 rounded-lg bg-main-buttonBlue text-cente drop-shadow-md font-DM_Sans font-normal leading-normal tracking-wide">See all indexes</Link>
+				<Link className="text-[15px] text-white px-16 py-2 rounded-lg bg-main-buttonBlue text-cente shadow-sm shadow-main-shadowBlue font-DM_Sans font-normal leading-normal tracking-wide">See all indexes</Link>
 			</div>
 		</div>
 	)
@@ -36,18 +36,18 @@ export default function PerfomersCards() {
 	}
 	
 	return(
-		<div className="pt-4 pl-6 pb-8 pr-6 bg-white border-[1px] border-main-lightGrayBorder rounded-2xl">
-			<div className="flex flex-row items-center mb-4">
-				<h1 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-wide text-main-black">24h Performers</h1>
-				<div className="ml-auto mr-2 rounded-lg bg-main-lightGray py-1 px-1">
-					<button className={`text-[14px] font-DM_Sans font-normal leading-normal tracking-wide ${isBest ? 'py-1.5 px-7 bg-main-white rounded-lg shadow text-main-black' : 'px-7 text-main-gray'}`} onClick={() => setIsBest(true)}>Best</button>
-					<button className={`text-[14px] font-DM_Sans font-normal leading-normal tracking-wide ${isBest ? 'px-7 text-main-gray' : ' py-1.5 px-7 bg-white rounded-lg shadow text-main-black'}`} onClick={() => setIsBest(false)}>Worst</button>
+		<div className="pt-4 pl-6 pb-8 pr-6 bg-white sm:border-[1px] sm:border-main-lightGrayBorder sm:rounded-2xl">
+			<div className="flex flex-row items-center mb-1">
+				<h1 className="text-[20px] font-DM_Sans font-medium leading-normal tracking-wide text-main-black pb-4">24h Performers</h1>
+				<div className="ml-auto mb-4 rounded-lg bg-main-lightGray py-1 px-1 flex flex-row">
+					<button className={`text-[14px] font-DM_Sans font-normal leading-normal tracking-wide ${isBest ? 'py-1.5 px-4 bg-main-white rounded-lg shadow text-main-black sm:px-7' : 'px-4 text-main-gray sm:px-7'}`} onClick={() => setIsBest(true)}>Best</button>
+					<button className={`text-[14px] font-DM_Sans font-normal leading-normal tracking-wide ${isBest ? 'px-4 text-main-gray sm:px-7' : ' py-1.5 px-4 bg-white rounded-lg shadow text-main-black sm:px-7'}`} onClick={() => setIsBest(false)}>Worst</button>
 				</div>
 			</div>
 			<div>
 				{sorted.slice(0,3).map(coin => (
 					<Link to={`/indexes/browse/${coin._id.$oid}`} key={coin.name + '-recently-added'} className="grid grid-cols-12 gap-4 py-1.5">
-						<div className="flex flex-row items-center gap-2 col-span-5">
+						<div className="flex flex-row items-center gap-2 col-span-5 pt-4">
 							<BFImage src={coin.logo} alt={coin.name} style="w-[30px] h-[30px] object-cover rounded-full border-2 border-white drop-shadow-md" />
 							<p className='text-[18px] font-DM_Sans font-medium leading-normal tracking-wide text-main-black pl-1'>{coin.name}</p>
 						</div>
@@ -70,7 +70,7 @@ export default function PerfomersCards() {
 				))}
 			</div>
 			<div className="text-right mt-6 -mr-2">
-				<Link to="/indexes/browse" className="text-[15px] text-white px-16 py-2 rounded-lg bg-main-buttonBlue text-cente drop-shadow-md font-DM_Sans font-normal leading-normal tracking-wide">See all Indexes</Link>
+				<Link to="/indexes/browse" className="text-[15px] text-white px-16 py-2 rounded-lg bg-main-buttonBlue text-cente shadow-sm shadow-main-shadowBlue font-DM_Sans font-normal leading-normal tracking-wide">See all Indexes</Link>
 			</div>
 		</div>
 	)

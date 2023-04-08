@@ -96,19 +96,19 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 	}, [searchText])
 
 	return(<>
-		<div className="flex flex-row items-center w-full bg-main-deepBlue md:bg-white shadow p-2">
+		<div className="flex flex-row items-center w-full bg-main-gradientColor2 md:bg-white shadow p-2">
 			
 			<div className="flex items-center md:hidden w-full">
 				<Link to="/"><img src={bitLogoWhite} className="ml-1 w-44" alt="bitformance logo" /></Link>
 				<div className="ml-auto mr-6 space-x-4 cursor-pointer">
-					<BFIcon iconName="search" color="white" />
+					{/* <BFIcon iconName="search" color="white" /> */}
 					<span onClick={() => setShowMobileMenu(!showMobileMenu)}>
 						{!showMobileMenu ? <BFIcon iconName="menu" color="white" /> : <BFIcon iconName="close" color="white" />}
 					</span>
 				</div>
 			</div>
 			{showMobileMenu &&
-				<div id="dropdown" className="p-4 px-[20px] absolute left-0 top-12 z-10 w-full rounded-b-xl -mt-1 bg-gradient-to-b from-main-deepBlue to-main-deepestBlue divide-y divide-gray-100 shadow dark:bg-gray-700">
+				<div id="dropdown" className="p-4 px-[20px] absolute left-0 top-12 z-10 w-full rounded-b-xl -mt-1 bg-gradient-to-b from-main-gradientColor2 to-main-gradientColor1 divide-y divide-gray-100 shadow dark:bg-gray-700">
 				    <ul className="space-y-4 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
 				     	<SiteLinks setShowMobileMenu={setShowMobileMenu} setShowModalType={setShowModalType} colorStyle="text-white font-DM_Sans text-[15px] font-normal leading-normal tracking-wide"/>
 				    </ul>

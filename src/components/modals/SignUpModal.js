@@ -9,7 +9,7 @@ export default function SignUpModal({ setShowModalType }) {
 		  <div className="rounded-2xl relative transform overflow-hidden bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
 			
 		    <div className="grid grid-cols-1 sm:grid-cols-5">
-		    	<div className="col-span-2 bg-gradient-to-b from-main-deepBlue to-main-deepestBlue text-white flex flex-col p-4 space-y-15">
+		    	<div className="col-span-2 bg-gradient-to-b from-main-gradientColor2 to-main-gradientColor1 text-white flex flex-col p-4 space-y-15">
 		    		<BitformanceLeftPanel setShowModalType={setShowModalType} showInfo="sign-up"  />
 		    	</div>
 

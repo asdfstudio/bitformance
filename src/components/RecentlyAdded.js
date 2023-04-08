@@ -12,22 +12,22 @@ export default function RecentlyAdded() {
 	const { data, isLoading } = useRecentIndexes()
 
 	if (isLoading) return (
-		<div className="pt-4 pl-6 pb-8 pr-6 bg-white border-[1px] border-main-lightGrayBorder rounded-2xl">
+		<div className="pt-4 pl-6 pb-8 pr-6 bg-white sm:border-[1px] sm:border-main-lightGrayBorder sm:rounded-2xl">
 			<h1 className="text-[22px] mb-6 font-DM_Sans font-medium leading-normal tracking-wide text-main-black">Recently Added</h1>
 			<div className="h-40"><BFLoading heightAdjust="h-2/3" /></div>
 			<div className="text-right mt-6 -mr-2">
-				<Link className="text-[15px] text-white px-16 py-2 rounded-lg bg-main-buttonBlue text-cente drop-shadow-md font-DM_Sans font-normal leading-normal tracking-wide">See all indexes</Link>
+				<Link className="text-[15px] text-white px-16 py-2 rounded-lg bg-main-buttonBlue text-cente shadow-sm shadow-main-shadowBlue font-DM_Sans font-normal leading-normal tracking-wide">See all indexes</Link>
 			</div>
 		</div>
 	)
 
 	return(
-		<div className="pt-4 pl-6 pb-8 pr-6 bg-white border-[1px] border-main-lightGrayBorder rounded-2xl">
+		<div className="pt-4 pl-6 pb-8 pr-6 bg-white border-[1px] border-main-lightGrayBorder sm:rounded-2xl">
 			<h1 className="text-[22px] mb-6 font-DM_Sans font-medium leading-normal tracking-wide text-main-black">Recently Added</h1>
 			<div>
 				{data.map(coin => (
 					<Link to={`/indexes/browse/${coin._id.$oid}`}  key={coin.name + '-recently-added'} className="grid grid-cols-12 gap-4 py-1.5">
-						<div className="flex flex-row items-center gap-2 col-span-5">
+						<div className="flex flex-row items-center gap-2 col-span-5 pt-4">
 							<BFImage src={coin.logo} alt={coin.name} style="w-[30px] h-[30px] object-cover rounded-full border-2 border-white drop-shadow-md" />
 							<p className='text-[18px] font-DM_Sans font-medium leading-normal tracking-wide text-main-black pl-1'>{coin.name}</p>
 						</div>
@@ -49,7 +49,7 @@ export default function RecentlyAdded() {
 				))}
 			</div>
 			<div className="text-right mt-6 -mr-2">
-				<Link to="/indexes/browse" className="text-[15px] text-white px-16 py-2 rounded-lg bg-main-buttonBlue text-cente drop-shadow-md font-DM_Sans font-normal leading-normal tracking-wide">See all Indexes</Link>
+				<Link to="/indexes/browse" className="text-[15px] text-white px-16 py-2 rounded-lg bg-main-buttonBlue text-cente shadow-sm shadow-main-shadowBlue font-DM_Sans font-normal leading-normal tracking-wide sm:px-16">See all Indexes</Link>
 			</div>
 		</div>
 	)

@@ -185,7 +185,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 // console.log(shownGraphData)
 	return(
 		<div className="bg-white rounded-2xl">
-			<h1 className="text-lg mb-4 font-bold px-5 pt-6">{title}</h1>
+			<h1 className="text-lg px-5 pt-6 text-[22px] mb-4 font-DM_Sans font-medium leading-normal tracking-wide text-main-black">{title}</h1>
 			<div className="flex flex-col md:flex-row items-center mb-6 px-5 pt-4">
 				<div className="rounded-lg bg-main-lightGray px-1 py-1">
 					{colorOptions.map(option => (
@@ -198,15 +198,15 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 						</button>
 					))}
 				</div>
-				<div className="ml-0 md:ml-auto mt-2 md:mt-0 rounded-lg py-1 bg-main-lightGray">
+				<div className="flex flex-row ml-0 md:ml-auto mt-2 md:mt-0 rounded-lg py-1 bg-main-lightGray">
 					{dateOptions.map(option => (
-						<button className={`text-sm text-main-gray font-DM_Sans font-normal leading-normal tracking-wide px-3 md:px-7 py-2 ${option != "All" && 'border-r-[1px]'} ${option === graphInterval && 'ml-2 mr-2 bg-main-white rounded-lg shadow text-main-black'}`} key={option} onClick={() => setGraphInterval(option)}>
+						<button className={`text-sm text-main-gray font-DM_Sans font-normal leading-normal tracking-wide px-3 md:px-7 py-2 ${option != "All" && 'border-r-[1px]'} ${option != "24H" && 'border-l-[1px]'} ${option === graphInterval && 'ml-2 mr-2 bg-main-white rounded-lg shadow text-main-black'}`} key={option} onClick={() => setGraphInterval(option)}>
 							{option}
 						</button>
 					))}
 				</div>
 			</div>
-			<div className='-ml-6 pb-4'>
+			<div className='pb-4 text-[14px] font-DM_Sans font-normal leading-normal tracking-normal text-main-gray sm:-ml-6'>
 			<BFGraph subtractWidth={subtractWidth} data={shownGraphData} showOverlay={isOverlay} showPriceColored={graphColor === 'Price Colored'} />
 			</div>
 		</div>

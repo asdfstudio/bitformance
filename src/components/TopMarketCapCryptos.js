@@ -52,14 +52,15 @@ export default function TopMarketCapCryptos({ title = 'Top Cryptocurrencies by V
 
 	return(
 		<div className="bg-main-white min-w-full overflow-y-auto p-4 space-y-4 shadow rounded-2xl">
-			<h1 className="text-lg mb-4 font-bold px-2 pt-2">{title}</h1>
+			<h1 className="text-lg px-2 pt-2 text-[22px] mb-4 font-DM_Sans font-medium leading-normal tracking-wide text-main-black">{title}</h1>
 			{pages}
 			{window.location.pathname === '/coins'
 				?	<div className="text-center mt-2">
 						<button onClick={() => loadNextPage()} className="text-sm w-60 rounded bg-blue-500 text-white px-12 py-2">Load more</button>
 					</div>
-				: <div className="text-center mt-2">
-						<Link to="/coins" className="text-sm w-60 rounded bg-blue-500 text-white px-12 py-2">See all coins</Link>
+				: <div className="text-center mt-2 pb-4">
+					<div class="static h-24 w-full bg-gradient-to-t from-white -mb-10 -mt-28 opacity-80"></div>
+					<Link to="/coins" className="relative text-[15px] text-white px-20 py-2 rounded-lg bg-main-buttonBlue text-cente shadow-sm shadow-main-shadowBlue font-DM_Sans font-normal leading-normal tracking-wide">See all Indexes</Link>
 				</div>
 			}
 		</div>

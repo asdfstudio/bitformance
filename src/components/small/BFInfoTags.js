@@ -11,10 +11,13 @@ export default function BFInfoTags({ style = '', timestamp, weightingMethod, reb
 
 
 	const Items = () => (<>
-		<p className="px-4 py-1 bg-gray-100 rounded"><BFIcon iconName="time" color="gray" />&nbsp;&nbsp;{moment(timestamp).format('MM/DD/YY hh:mm:ss A')}</p>
+		<p className="px-3 py-1 bg-main-lightGray rounded text-main-gray font-DM_Sans font-medium leading-normal tracking-wide text-[14px]">
+			<BFIcon iconName="time" color="#566375" />
+			&nbsp;&nbsp;{moment(timestamp).format('MM/DD/YY hh:mm:ss A')}
+		</p>
 		<div className="my-1">
-			<span className="px-4 py-1 mx-1 bg-gray-100 rounded whitespace-nowrap	">{WEIGHT_TITLE[weightingMethod]}</span>
-			<span className="px-4 py-1 bg-gray-100 rounded whitespace-nowrap">Rebalanced {rebalancingInterval.toLowerCase()}</span>
+			<span className="px-4 py-1 mx-1 bg-main-lightGray rounded whitespace-nowrap	text-main-gray font-DM_Sans font-medium leading-normal tracking-wide text-[14px]">{WEIGHT_TITLE[weightingMethod]}</span>
+			<span className="px-4 py-1 bg-main-lightGray rounded whitespace-nowrap text-main-gray font-DM_Sans font-medium leading-normal tracking-wide text-[14px]">Rebalanced {rebalancingInterval.toLowerCase()}</span>
 		</div>
 	</>)
 

@@ -24,7 +24,10 @@ module.exports = {
           lightRed: "#ffe7e7",
           green: "#40c8b8",
           deepOrange: "#fd5d60",
-
+          skyBlue: "#e2edfe",
+          gradientColor1: "#2e5491",
+          gradientColor2: "#3262b5",
+          shadowBlue: "#00A4EA",
         },
       }
     },

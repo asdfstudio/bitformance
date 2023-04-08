@@ -178,7 +178,7 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 			  </>}
 
 			 	{showOverlay && <Area type="monotone" stackId="2" dataKey="amt2" strokeWidth={1} stroke="#82ca9d" fillOpacity={0} fill="url(#colorGreen)" />}
-			  <XAxis dataKey="name" tickFormatter={formatXAxis} />
+			  <XAxis dataKey="name" tickFormatter={formatXAxis}/>
 			  <YAxis type="number" allowDataOverflow tickFormatter={formatYAxis} domain={[showOverlay ? Math.min(lowestPrice, lowestPercentTwo) : lowestPrice, 'auto']} />
 			  <Tooltip content={<CustomTooltip />} />
 			</>

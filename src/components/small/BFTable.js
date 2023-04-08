@@ -37,7 +37,7 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 
 	const HeaderColumn = ({ item, onClick }) => (
 		<th onClick={() => onClick(item.id, item.type)} key={item.label} scope="col" className="py-3">
-			<div className="flex items-center">
+			<div className="flex flex-row items-center justify-center">
 		    <span className="ml-2">{item.label}</span>
 		    {item.id && <div onClick={() => setIndexesExpanded(!indexesExpanded)} className="ml-1 w-3 h-3 text-[7px] flex justify-center items-center">
 			{
@@ -62,7 +62,7 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 	}
 
 	return(
-		<div className="overflow-x-auto relative sm:rounded-xl">
+		<div className="flex overflow-x-auto relative sm:rounded-xl">
 		    <table className={`w-full text-sm text-left ${tableStyle}`}>
 
 		        {showHeader &&
@@ -76,7 +76,7 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 	            			/>
 	            		))}
 		            </tr>
-		        	</thead>
+		        </thead>
 		        }
 
 		        <tbody>
@@ -85,8 +85,9 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 							(<tr onClick={() => onCoinRowClicked(coin)} key={coin.id} className="p-4 bg-mian-white dark:bg-gray-800 dark:border-gray-700">
 								<CoinRow key={coin.id} {...coin} headerShown={showHeader} />
 								</tr>)
-		        				: (type === 'browse-cryptos' || type === 'my-indexes') ? (<React.Fragment key={coin.index._id.$oid}>
-		        					<tr onClick={() => onRowClicked(coin.index)} className="shadow bg-main-white dark:bg-gray-800 dark:border-gray-700">
+		        				: (type === 'browse-cryptos' || type === 'my-indexes') ? 
+								(<React.Fragment key={coin.index._id.$oid}>
+		        					<tr onClick={() => onRowClicked(coin.index)} className="bg-main-white dark:bg-gray-800 dark:border-gray-700 rounded-2xl border">
 		        						<BrowseCoinRow
 		        							rowIndex={index}
 		        							{...coin.index}
@@ -107,7 +108,7 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 													})} />
 		        						</td>
 		        					</tr>}
-		        					<br />
+		        					<div className="p-[6px]"/>
 		        				</React.Fragment>)
 		        				: (<tr key={coin.id}>no valid type</tr>)
 		        		})}
