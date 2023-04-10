@@ -70,9 +70,9 @@ export default function BrowseCoinRow({
 
 	return(<>
 		<td className="pl-4 p-3">
-			<div className="flex flex-row items-center gap-2 mb-2">
+			<div className="flex flex-row items-center gap-2 mb-2 w-52">
 				<BFImage src={logo} alt={name} style="shadow border-1 rounded-full p-1 bg-white w-16 h-16 object-cover" />
-				<p className="text-main-black font-DM_Sans font-medium leading-normal tracking-normal text-[18px] w-32">{name}</p>
+				<p className="text-main-black font-DM_Sans font-medium leading-normal tracking-normal text-[18px]">{name}</p>
 			</div>
 			<div onClick={(e) => {
 				e.stopPropagation()
@@ -102,18 +102,18 @@ export default function BrowseCoinRow({
 				</div>
 			</div>
 		</td>
-		<td className="flex justify-center align-top text-main-black font-DM_Sans font-bold leading-normal tracking-wide text-base">{formatMoney(value)}</td>
+		<td className="flex justify-center align-top pt-8 text-main-black font-DM_Sans font-bold leading-normal tracking-wide text-base">{formatMoney(value)}</td>
 		<td className="align-top pt-7 text-main-black font-DM_Sans font-medium leading-normal tracking-wide text-base">
 			<BFUpDownTag change={changepct_24hour} />
 		</td>
 		<td className="align-top pt-7 text-main-black font-DM_Sans font-medium leading-normal tracking-wide text-base">	
 			<BFUpDownTag change={changepct_7d} />
 		</td>
-		<td className="flex justify-center align-top pt-8 text-main-black font-DM_Sans font-bold leading-normal tracking-wide text-base">{formatMoney(marketcap)}</td>
-		<td className="align-top pt-8 w-32">
+		<td className="flex justify-end align-top pt-8 text-main-black font-DM_Sans font-bold leading-normal tracking-wide text-base">{formatMoney(marketcap)}</td>
+		<td className="align-top pt-8 w-72 -mr-[50px]">
 			<BFInfoTags timestamp={updated.$date} weightingMethod={weighting_method} rebalancingInterval={rebalancing_interval} />
 		</td>
-		<td className="text-right pr-6 cursor-pointer text-main-gray font-DM_Sans font-medium leading-normal tracking-wide text-[14px] w-28">
+		<td className="text-right pr-6 cursor-pointer text-main-gray font-DM_Sans font-medium leading-normal tracking-wide text-[14px] pt-8 w-32">
 			{loadingFavorites ? <BFLoading isSmall="true" />
 			: (<>
 				<span onClick={(e) => favoriteRow(e, _id)} >

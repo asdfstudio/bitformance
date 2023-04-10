@@ -71,7 +71,7 @@ export default function SiteLinks({ setShowModalType, setShowMobileMenu = functi
 			>
 				<BFIcon iconName="my-indexes" color="white" />
 				<span className={colorStyle}>My Indexes</span>
-				<span className="ml-auto w-4 h-4 rounded bg-main-buttonBlue opacity-20 text-sm flex items-center justify-center mr-2">{data ? data.length : ''}</span>
+				<span className="ml-auto w-[16px] h-[22px] rounded bg-main-buttonBlue text-sm flex items-center justify-center mr-2 font-DM_Sans font-medium leading-normal tracking-normal">{data ? data.length : ''}</span>
 			</Link>
 			<Link to="/indexes/my-favorites" onClick={() => setShowMobileMenu(false) & setSiteSelected('my-favorites')} 
 			className={ siteSelected === 'my-favorites' ? 
@@ -82,7 +82,7 @@ export default function SiteLinks({ setShowModalType, setShowMobileMenu = functi
 			>
 				<BFIcon iconName="favorite" color="white" />
 				<span className={colorStyle}>My Favorites</span>
-				<span className="ml-auto w-4 h-4 rounded bg-main-buttonBlue opacity-20 text-sm flex items-center justify-center mr-2">{favorites ? favorites.length: ''}</span>
+				<span className="ml-auto w-[16px] h-[22px] rounded bg-main-buttonBlue text-sm flex items-center justify-center mr-2 font-DM_Sans font-medium leading-normal tracking-normal">{favorites ? favorites.length: ''}</span>
 			</Link>
 		</>}
 		<Link onClick={() => setShowMobileMenu(false) & setSiteSelected('compare')}  to="/compare" 
