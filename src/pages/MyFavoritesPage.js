@@ -72,7 +72,7 @@ export default function MyFavoritesPage() {
 			<BFTable 
 				rows={order || []} 
 				type="browse-cryptos" 
-				tableStyle="border-separate border-spacing-y-5" 
+				tableStyle="border-separate"
 				onRowClicked={rowClicked}
 				handleHeaderClick={sortBy}
 			/>

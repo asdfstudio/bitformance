@@ -71,7 +71,7 @@ export default function MyIndexesPages() {
 			<BFTable 
 				rows={order || []} 
 				type="my-indexes" 
-				tableStyle="border-separate border-spacing-y-5" 
+				tableStyle="border-separate" 
 				onRowClicked={rowClicked}
 				handleHeaderClick={sortBy}
 			/>

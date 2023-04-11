@@ -103,8 +103,8 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 		        							isAuth={type === 'my-indexes'}
 
 		        						/>
-		        					</td>
-		        					{showHoldingRow === index && 
+		        						</td>
+		        						{showHoldingRow === index && 
 		        						<td className="bg-main-white rounded-b-xl drop-shadow-lg border-t-[1px] border-main-lightGrayBorder pt-4 cursor-pointer" colspan="8">
 		        							<BFHoldingsTable holdings={coin.rawStocks.map(stock => {
 														return {
