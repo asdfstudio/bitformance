@@ -10,7 +10,8 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 	const navigate = useNavigate()
 	const [showHoldingRow, setShowHoldingRow] = useState(null)
 	const [holdings, setHoldings] = useState()
-	const [indexesExpanded, setIndexesExpanded] = useState(false)
+	const [orderItem, setOrderItem] = useState(false)
+	const [indexesExpanded, setIndexesExpanded] = useState("")
 
 	let headers = [
 		{ label: 'Cryptocurrency', id: 'name', type: 'alphabet' },
@@ -39,9 +40,9 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 		<th onClick={() => onClick(item.id, item.type)} key={item.label} scope="col" className="py-3">
 			<div className={`flex flex-row items-center ${item.id === "name" && 'w-56'} ${item.id === "updated" && 'w-56'} ${item.id === "volume" && 'w-40'}`}>
 		    <span className="ml-2 font-DM_Sans font-normal leading-normal tracking-wide">{item.label}</span>
-		    {item.id && <div onClick={() => setIndexesExpanded(!indexesExpanded)} className="ml-1 w-3 h-3 text-[7px] flex justify-center items-center">
+		    {item.id && <div onClick={() => setOrderItem(!orderItem)} className="ml-1 w-3 h-3 text-[7px] flex justify-center items-center">
 			{
-					indexesExpanded == true ? <BFIcon iconName="arrowUp" color={"#111111"}/> : <BFIcon iconName="arrowDown" color={"#111111"}/>
+					orderItem == true ? <BFIcon iconName="arrowUP" color={"#111111"}/> : <BFIcon iconName="arrowDown" color={"#111111"}/>
 				}
 				</div>}
 			</div>
@@ -54,6 +55,9 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 		} else {
 			setShowHoldingRow(index)
 		}
+	}
+	const onClickView = (value) => {
+		setIndexesExpanded(value)
 	}
 
 	const onCoinRowClicked = (coin) => {
@@ -87,18 +91,21 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 								</tr>)
 		        				: (type === 'browse-cryptos' || type === 'my-indexes') ? 
 								(<React.Fragment key={coin.index._id.$oid}>
-		        					<tr onClick={() => onRowClicked(coin.index)} className="bg-main-white rounded-2xl border grid grid-flow-col justify-between mt-2">
-		        						<BrowseCoinRow
+		        					<tr className={`bg-main-white flex flex-col justify-between mt-3 rounded-2xl border border-main-lightGrayBorder ${indexesExpanded ? '' : ''}`}>
+		        						<td onClick={() => onRowClicked(coin.index)} className='grid grid-flow-col justify-between cursor-pointer'>
+										<BrowseCoinRow
 		        							rowIndex={index}
 		        							{...coin.index}
 		        							marketcap={coin.index.marketcap || coin.rawStocks.reduce((sum, a) => a.market_cap + sum ,0)}
 		        							showHoldings={showHoldings}
+											onClickView={onClickView}
 		        							showDelete={type === 'my-indexes'}
 		        							isAuth={type === 'my-indexes'}
+
 		        						/>
-		        					</tr>
-		        					{showHoldingRow === index && <tr>
-		        						<td className="bg-main-white" colspan="8">
+		        					</td>
+		        					{showHoldingRow === index && 
+		        						<td className="bg-main-white rounded-b-xl drop-shadow-lg border-t-[1px] border-main-lightGrayBorder pt-4 cursor-pointer" colspan="8">
 		        							<BFHoldingsTable holdings={coin.rawStocks.map(stock => {
 														return {
 															...stock,
@@ -107,13 +114,13 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 														}
 													})} />
 		        						</td>
-		        					</tr>}
+		        					}
+									</tr>
 		        				</React.Fragment>)
 		        				: (<tr key={coin.id}>no valid type</tr>)
 		        		})}
 		        </tbody>
 		    </table>
-
 		</div>
 
 	)

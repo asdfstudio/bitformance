@@ -26,6 +26,7 @@ export default function BrowseCoinRow({
 	weighting_method,
 	rebalancing_interval,
 	showHoldings,
+	onClickView,
 	showDelete = false,
 	isAuth = false
 }) {
@@ -74,26 +75,33 @@ export default function BrowseCoinRow({
 				<BFImage src={logo} alt={name} style="shadow border-1 rounded-full p-1 bg-white w-16 h-16 object-cover" />
 				<p className="text-main-black font-DM_Sans font-medium leading-normal tracking-normal text-[18px]">{name}</p>
 			</div>
-			<div onClick={(e) => {
-				e.stopPropagation()
-				showHoldings(rowIndex)
-			}} className="hidden md:flex">
+			<div className="hidden md:flex"
+			>
 				<div className="flex flex-row items-center rounded-full px-2 py-1 border shadow">
 					{cryptos.slice(0, 4).map((crypto, index) => <BFCryptoImage key={index} symbol={crypto} index={index} />)}
 					{cryptos.length > 4 && <BFCryptoImage symbol={cryptos.length - 4} index={4} showNumber={true} /> }
-					<div onClick={() => setIndexesExpanded(!indexesExpanded)} className="ml-2 mr-1 px-4 h-6 text-sm rounded-xl shadow bg-main-skyBlue text-main-buttonBlue font-DM_Sans font-medium leading-normal tracking-normal flex items-center cursor-pointer"> 
+					<div onClick={(e) => {
+					e.stopPropagation()
+					showHoldings(rowIndex)
+					onClickView(indexesExpanded)
+					setIndexesExpanded(!indexesExpanded)
+				}}className="ml-2 mr-1 px-4 h-6 text-sm rounded-xl shadow bg-main-skyBlue text-main-buttonBlue font-DM_Sans font-medium leading-normal tracking-normal flex items-center cursor-pointer"> 
 						<div className='text-[7px] pr-1'>
 							{
-								indexesExpanded == true ? <BFIcon iconName="arrowUP" color={"#5290f4"}/> : <BFIcon iconName="arrowDown" color={"#5290f4"}/>
+								indexesExpanded === true ? <BFIcon iconName="arrowUP" color={"#5290f4"}/> : <BFIcon iconName="arrowDown" color={"#5290f4"}/>
 							}
 						</div>
 						{"View"}
 					</div>
 				</div>
 			</div>
+
+			{/* Mobile view */}
+
 			<div onClick={(e) => {
 				e.stopPropagation()
 				showHoldings(rowIndex)
+				onClickView()
 			}} className="flex md:hidden">
 				<div className="flex flex-row items-center rounded-full px-2 py-1 border shadow">
 					{cryptos.slice(0, 2).map((crypto, index) => <BFCryptoImage key={index} symbol={crypto} index={index} />)}

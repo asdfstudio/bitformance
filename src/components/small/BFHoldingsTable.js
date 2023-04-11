@@ -1,6 +1,7 @@
 import HoldingsRow from '../HoldingsRow'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import BFIcon from '../BFIcon'
 
 export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
 	
@@ -12,23 +13,32 @@ export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
 	const headers = [
 		{ label: 'Cryptocurrency', id: 'name', type: 'alphabet' },
 		{ label: 'Tickers', id: 'symbol', type: 'alphabet' },
-		{ label: 'Price', id: '', type: 'computed' },
+		{ label: 'Price', id: 'price1', type: 'computed' },
 		{ label: '24h %', id: 'changepct_24hour' },
 		{ label: '7d %', id: 'changepct_7day' },
 		{ label: 'Market Cap', id: 'market_cap' },
-		{ label: '% of Index', id: '', type: 'computed' },
+		{ label: '% of Index', id: 'index', type: 'computed' },
 		{ label: 'Quantity Held', id: 'holdingQuantity' },
 		{ label: 'Value of Holding', id: 'price' },
 	]
 
 	const HeaderColumn = ({ item, sortable }) => (
 		<th onClick={() => sortBy(item.id, item.type)} key={item.id} scope="col" className="py-3 px-6">
-			<div className="flex items-center">
-		    <span>{item.label}</span>
-		    {sortable && <button><svg xmlns="http://www.w3.org/2000/svg" className="ml-1 w-3 h-3" aria-hidden="true" fill="currentColor" viewBox="0 0 320 512"><path d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z"/></svg></button>}
+			<div className={`flex flex-row items-center 
+				${item.id === "name" && 'w-52'}
+				${item.id === "holdingQuantity" && '-mr-12'}
+				${item.id === "index" && '-mr-10'} 
+			`}>
+		    <span className="ml-2 font-DM_Sans font-normal leading-normal tracking-wide">{item.label}</span>
+		    {sortable && <div className="ml-1 w-3 h-3 text-[7px] flex justify-center items-center">
+			{
+					handleHeaderClick == true ? <BFIcon iconName="arrowUp" color={"#111111"}/> : <BFIcon iconName="arrowDown" color={"#111111"}/>
+				}
+				</div>}
 			</div>
 		</th>
 	)
+
 
 	const sortBy = (id, type) => {
 		console.log(holdings)
@@ -76,8 +86,8 @@ export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
 
 	return(
     <table className={`w-full text-sm text-left`}>
-        <thead className="text-xs text-gray-700 uppercase bg-gray-100 ">
-          <tr>
+        <thead className='text-base cursor-pointer text-main-gray bg-main-lightGray grid rounded-xl'>
+		    <tr className='grid grid-flow-col justify-between'>
         		{headers.map(header => (
         			<HeaderColumn onClick={handleHeaderClick} key={header.label + '-holdings'} item={header} sortable={true} />
         		))}
@@ -85,7 +95,7 @@ export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
         </thead>
         <tbody>
         	{orderHoldings.map(coin => (
-        		<tr onClick={() => onCoinRowClicked(coin)} key={coin.symbol + '-holdings-table'} className="shadow bg-white">
+        		<tr onClick={() => onCoinRowClicked(coin)} key={coin.symbol + '-holdings-table'} className="p-4 bg-mian-black grid grid-flow-col justify-between">
         			<HoldingsRow {...coin} />
         		</tr>
         	))}
