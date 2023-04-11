@@ -67,14 +67,14 @@ export default function BFSelectCryptos({
 	}
 
 	return(
-		<div className="flex flex-col w-full">
+		<div className="flex flex-col w-full mt-1">
 	    <div className="w-full flex flex-col items-center">
 	        <div className="w-full">
 	            <div className="flex flex-col items-center relative">
 	                <div className="w-full">
 	                    <div className="bg-white flex border border-gray-200 rounded">
 	                        <div className="flex flex-auto flex-wrap"></div>
-	                        <input onChange={(e) => searchCrypto(e.target?.value)} placeholder="Search cryptos..." className="p-1 px-2 appearance-none outline-none w-full text-gray-800" />
+	                        <input onChange={(e) => searchCrypto(e.target?.value)} placeholder={`Search & add Cryptocurrency...`} className="p-1 px-2 appearance-none outline-none w-full text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-placeholder" />
 	                        <div className="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200">
 	                            <button onClick={() => setShowMenu(!showMenu)} className="cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none">
 	                                {showMenu ? <BFIcon iconName="close" /> : <BFIcon iconName="menu" />}

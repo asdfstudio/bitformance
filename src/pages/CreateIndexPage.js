@@ -113,39 +113,39 @@ export default function CreateIndexPage() {
 	}, [selectedCryptos, initialValue])
 
 	return (
-		<div className="grid grid-cols-1 md:grid-cols-5 bg-gray-50">
+		<div className="grid grid-cols-1 md:grid-cols-5 bg-main-lightGray">
 			<div className="col-span-2 space-y-4 bg-white rounded border p-4 m-4">
-				<h1 className="text-xl font-bold mb-4">Basic</h1>
-				<label>Index Logo</label>
+				<h1 className="text-[22px] mb-6 font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Basic</h1>
+				<label className='text-[16px] mb-6 font-DM_Sans font-medium leading-normal tracking-normal text-main-black'>Index Logo</label>
 				<BFUploadImage handleFileSelect={handleFileSelect} fileSelected={fileSelected} src={location.state?.logo} />
 
 				<div className="space-y-4">
 					<div>
-						<label className="font-bold text-sm">Index Name</label>
-						<input onChange={(e) => setName(e.target?.value)} value={name} className="w-full px-2 py-1 border rounded" type="text" placeholder="e.g. Windmaker" />
+						<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Index Name</label>
+						<input onChange={(e) => setName(e.target?.value)} value={name} className="w-full px-2 py-1 mt-1 border rounded text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-placeholder" type="text" placeholder="e.g. Windmaker" />
 					</div>
 
 					<div className="relative">
 
-						<label className="font-bold text-sm">Choose Cryptocurrency</label>
+						<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Choose Cryptocurrency</label>
 						<BFSelectCryptos showIndexes={false} selectedCryptos={selectedCryptos} setSelectedCryptos={setSelectedCryptos} />
 					</div>
 
 					<div className="grid grid-cols-2 items-center gap-2">
 						<div>
-							<label className="font-bold text-sm">Initial Balance</label>
+							<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Initial Balance</label>
 							<input 
 								onChange={(e) => setInitialValue(e.target?.value)} 
 								value={initialValue} 
-								className="w-full px-2 py-1 border rounded" 
+								className="w-full px-2 py-1 border rounded mt-1 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-placeholder" 
 								type="text" 
 								placeholder="e.g. 123" 
 							/>
 						</div>
 
 						<div className="flex flex-col mt-1">
-							<label className="font-bold text-sm">Rebalance Period</label>
-							<select onChange={(e) => setRebalancePeriod(e.target?.value)} value={rebalancePeriod} className="rounded border px-2 py-[5px]">
+							<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Rebalance Period</label>
+							<select onChange={(e) => setRebalancePeriod(e.target?.value)} value={rebalancePeriod} className="rounded border px-2 py-[5px] mt-1 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-black bg-main-inputBackground">
 								<option value="never">Never</option>
 								<option value="daily">Daily</option>
 								<option value="weekly">Weekly</option>
@@ -158,8 +158,8 @@ export default function CreateIndexPage() {
 					</div>
 
 					<div>
-						<label className="font-bold text-sm">Description</label>
-						<textarea onChange={(e) => setDescription(e.target?.value)} value={description} className='w-full border h-32'></textarea>
+						<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Description</label>
+						<textarea onChange={(e) => setDescription(e.target?.value)} value={description} placeholder="Enter description here..." className='w-full border p-2 h-32 mt-1 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-placeholder'></textarea>
 					</div>
 
 				</div>

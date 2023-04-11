@@ -28,6 +28,9 @@ module.exports = {
           gradientColor1: "#2e5491",
           gradientColor2: "#3262b5",
           shadowBlue: "rgba(0, 165, 234, 0.2)",
+          grayText: "#b7c3d1",
+          placeholder: "#9d9eb2",
+          inputBackground: "#f6f8fa",
         },
       }
     },
