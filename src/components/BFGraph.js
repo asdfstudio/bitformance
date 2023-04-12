@@ -155,20 +155,20 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 
 	return(
 			<AreaChart width={finalWidth} height={400} data={showPriceColored ? priceData: data}  margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
-		 	<defs>
-        <linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
-          <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
-        </linearGradient>
-        <linearGradient id="colorGreen" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
-          <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
-        </linearGradient>
-        <linearGradient id="colorRed" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="5%" stopColor="#FF0000" stopOpacity={0.8}/>
-          <stop offset="95%" stopColor="#FF0000" stopOpacity={0}/>
-        </linearGradient>
-      </defs>
+		<defs>
+			<linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
+			<stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
+			<stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
+			</linearGradient>
+			<linearGradient id="colorGreen" x1="0" y1="0" x2="0" y2="1">
+			<stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
+			<stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
+			</linearGradient>
+			<linearGradient id="colorRed" x1="0" y1="0" x2="0" y2="1">
+			<stop offset="5%" stopColor="#FF0000" stopOpacity={0.8}/>
+			<stop offset="95%" stopColor="#FF0000" stopOpacity={0}/>
+			</linearGradient>
+		</defs>
 		  <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
 		  {data.length > 0 && <>
 			  {!showPriceColored && <Area type="monotone" stackId="1" dataKey="amt" strokeWidth={1} stroke="#8884d8" fillOpacity={showOverlay ? 0 : 1} fill="url(#colorBlue)" />}

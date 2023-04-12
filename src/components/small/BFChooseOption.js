@@ -2,9 +2,9 @@ import BFIcon from '../BFIcon'
 
 export default function BFChooseOption({ isMarketCapWeightAvailable, onSelect, selected, options }) {
 
-	const selectedStyle = 'border shadow rounded-md bg-blue-400 text-white px-2 py-1 cursor flex flex-row items-center'
-	const notSelectedStyle = 'rounded-md bg-gray-100 hover:bg-gray-200 text-gray-500 px-2 py-1 cursor flex flex-row items-center'
-	const disabledStyle = 'rounded-md bg-gray-200 hover:bg-gray-200 text-gray-500 px-2 py-1 cursor flex flex-row items-center'
+	const selectedStyle = 'border shadow rounded-lg bg-main-gColor text-main-white px-3 py-1 cursor flex flex-row items-center text-[15px] font-DM_Sans font-medium leading-normal tracking-normal'
+	const notSelectedStyle = 'rounded-lg bg-main-lightGray hover:bg-gray-200 text-main-gray px-3 py-1 cursor flex flex-row items-center text-[15px] font-DM_Sans font-medium leading-normal tracking-normal'
+	const disabledStyle = 'rounded-lg bg-main-lightGray hover:bg-gray-200 text-main-gray px-3 py-1 cursor flex flex-row items-center text-[15px] font-DM_Sans font-medium leading-normal tracking-normal'
 
 	const SelectedButton = ({ id, label }) => (
 		<button onClick={() => onSelect(id)} className={selectedStyle}>

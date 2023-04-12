@@ -39,7 +39,7 @@ export default function CreateIndexPage() {
 		setLoadingPreview(true)
 		const customWeights = getCustomWeights()
 		const newIndex = await createIndex(name, weightingMethod, description, initialValue, selectedCryptos, rebalancePeriod, customWeights, location.state?.logo || '')
-		console.log(newIndex)
+		// console.log(newIndex)
 
 		if (location.state?.previousId) {
 			deleteIndex(location.state.previousId)
@@ -113,31 +113,38 @@ export default function CreateIndexPage() {
 	}, [selectedCryptos, initialValue])
 
 	return (
-		<div className="grid grid-cols-1 md:grid-cols-5 bg-main-lightGray">
-			<div className="col-span-2 space-y-4 bg-white rounded border p-4 m-4">
+		<div className="grid grid-cols-1 xl:grid-cols-5 bg-main-lightGray">
+			<div className="col-span-2 space-y-4 bg-white rounded-lg border p-4 m-4">
 				<h1 className="text-[22px] mb-6 font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Basic</h1>
 				<label className='text-[16px] mb-6 font-DM_Sans font-medium leading-normal tracking-normal text-main-black'>Index Logo</label>
 				<BFUploadImage handleFileSelect={handleFileSelect} fileSelected={fileSelected} src={location.state?.logo} />
 
 				<div className="space-y-4">
-					<div>
+					<div className='mt-1'>
 						<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Index Name</label>
-						<input onChange={(e) => setName(e.target?.value)} value={name} className="w-full px-2 py-1 mt-1 border rounded text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-placeholder" type="text" placeholder="e.g. Windmaker" />
+						<input onChange={(e) => setName(e.target?.value)} value={name} 
+							className="w-full px-2 py-1 mt-1 border border-main-inputBorder rounded text-[15px] font-DM_Sans font-normal leading-normal tracking-normal" 
+							type="text" 
+							placeholder="e.g. Windmaker" 
+						/>
 					</div>
 
-					<div className="relative">
-
+					<div className="relative pt-1">
 						<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Choose Cryptocurrency</label>
-						<BFSelectCryptos showIndexes={false} selectedCryptos={selectedCryptos} setSelectedCryptos={setSelectedCryptos} />
+						<BFSelectCryptos 
+							showIndexes={false} 
+							selectedCryptos={selectedCryptos} 
+							setSelectedCryptos={setSelectedCryptos} 
+						/>
 					</div>
 
 					<div className="grid grid-cols-2 items-center gap-2">
-						<div>
+						<div className='mt-1'>
 							<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Initial Balance</label>
 							<input 
 								onChange={(e) => setInitialValue(e.target?.value)} 
 								value={initialValue} 
-								className="w-full px-2 py-1 border rounded mt-1 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-placeholder" 
+								className="w-full px-2 py-[5px] border rounded mt-1 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal" 
 								type="text" 
 								placeholder="e.g. 123" 
 							/>
@@ -145,34 +152,42 @@ export default function CreateIndexPage() {
 
 						<div className="flex flex-col mt-1">
 							<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Rebalance Period</label>
-							<select onChange={(e) => setRebalancePeriod(e.target?.value)} value={rebalancePeriod} className="rounded border px-2 py-[5px] mt-1 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-black bg-main-inputBackground">
-								<option value="never">Never</option>
-								<option value="daily">Daily</option>
-								<option value="weekly">Weekly</option>
-								<option value="monthly">Monthly</option>
-								<option value="quarterly">Quarterly</option>
-								<option value="six-months">6 Months</option>
-								<option value="yearly">Yearly</option>
+							<select 
+								onChange={(e) => setRebalancePeriod(e.target?.value)} 
+								value={rebalancePeriod}
+								className="rounded border px-2 py-[5px] mt-1 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-black bg-main-inputBackground focus:border-main-buttonBlue"
+							>
+								<option className='text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-black' value="never">Never</option>
+								<option className='text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-black' value="daily">Daily</option>
+								<option className='text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-black' value="weekly">Weekly</option>
+								<option className='text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-black' value="monthly">Monthly</option>
+								<option className='text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-black' value="quarterly">Quarterly</option>
+								<option className='text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-black' value="six-months">6 Months</option>
+								<option className='text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-black' value="yearly">Yearly</option>
 							</select>
 						</div>
 					</div>
 
-					<div>
+					<div className='pt-1'>
 						<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Description</label>
-						<textarea onChange={(e) => setDescription(e.target?.value)} value={description} placeholder="Enter description here..." className='w-full border p-2 h-32 mt-1 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-placeholder'></textarea>
+						<textarea 
+							onChange={(e) => setDescription(e.target?.value)} 
+							value={description} placeholder="Enter description here..." 
+							className='w-full border p-2 h-32 mt-1 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal rounded'
+						/>
 					</div>
 
 				</div>
 			</div>
 
 
-			<div className="col-span-3 mr-4 mt-4 mb-4">
-				<div className="bg-white p-4 rounded-md border space-y-4">
+			<div className="col-span-3 m-4">
+				<div className="bg-white p-4 rounded-lg border space-y-4">
 					<div className=" flex flex-row items-center gap-2">
-						<h1 className="text-xl font-bold">Weighting Method</h1>
-						<span className="bg-gray-100 rounded py-1 px-2 text-sm font-normal">5</span>
+						<h1 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Weighting Method</h1>
+						<span className="bg-main-lightSkyBlue rounded py-1 px-2 text-[13px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gray">5</span>
 					</div>
-					<div className="space-x-2 flex flex-row">
+					<div className="space-x-4 flex flex-row pb-2">
 						<BFChooseOption isMarketCapWeightAvailable={isMarketCapWeightAvailable} onSelect={setWeightingMethod} selected={weightingMethod} options={[
 							{
 								id: 'equal_weight',
@@ -192,17 +207,17 @@ export default function CreateIndexPage() {
 					{weightingMethod === 'custom_weights' && 
 						<form ref={customWeightsForm}>
 							<div>
-								<p>{selectedCryptos.length > 0 ? 'Enter Custom Weights (Total Must Add To 100)' : 'Select coins to allow for weight entry'}</p>
+								<p className='text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black'>{selectedCryptos.length > 0 ? 'Enter Custom Weights (Total Must Add To 100)' : 'Select coins to allow for weight entry'}</p>
 								{selectedCryptos.map(crypto => {
 									const coin = coinImageMappings.find(obj => obj.symbol === crypto)
 									return (
 										<div key={crypto + '-custom-weights'} className="flex flex-row gap-2 items-center bg-gray-100 my-2 rounded-lg p-2">
 											<BFCryptoImage symbol={crypto} index={0} isLarge={true} />
-											<p className="font-bold">{coin.name.slice(0, coin.name.length - 6)}</p>
-											<p className="text-gray-500">{crypto}</p>
+											<p className="text-[16px] font-DM_Sans font-bold leading-normal tracking-normal text-main-black">{coin.name.slice(0, coin.name.length - 6)}</p>
+											<p className="text-[14px] font-DM_Sans font-normal leading-normal tracking-normal text-main-symbol">{crypto}</p>
 										
-											<p className="ml-auto font-bold">Custom Weight</p>
-											<input className="border rounded p-1 w-24 md:w-36" type="number" min="0" max="100" step="1" name={crypto} /> 
+											<p className="ml-auto text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Custom Weight</p>
+											<input className="border rounded p-1 w-24 md:w-36 bg-main-lightGray" type="number" min="0" max="100" step="1" name={crypto} /> 
 										</div>
 									)
 								})}
@@ -212,15 +227,15 @@ export default function CreateIndexPage() {
 				</div>
 
 				<div className="bg-white mt-4 rounded-md border space-y-4">
-					{returnData && <GraphCard title="Chart Preview" subtractWidth={500} hook={loadData} />}
+					{returnData && <GraphCard title="Chart Preview" subtractWidth={650} hook={loadData} />}
 				</div>
 			</div>
 
-			<div className="bg-white fixed bottom-3 w-72 right-4">
+			<div className="bg-white fixed bottom-1 w-72 right-4">
 				<div className="flex flex-row gap-2">
-					<button className="w-full text-sm rounded bg-blue-50 hover:bg-blue-200 font-bold text-blue-500 py-2" onClick={() => navigate(-1)}>Cancel</button>
-					{!previewShown && <button className="shadow font-bold w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2" onClick={() => loadPreview()}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Preview'}</button>}
-					{previewShown && <button className="shadow font-bold w-full text-sm rounded bg-blue-500 hover:bg-blue:600 text-white py-2" onClick={() => handleCreateIndex()}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Create'}</button>}
+					<button className="w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor bg-opacity-10 text-main-gColor py-2" onClick={() => navigate(-1)}>Cancel</button>
+					{!previewShown && <button className="shadow w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor hover:bg-main-buttonBlue text-white py-2" onClick={() => loadPreview()}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Preview'}</button>}
+					{previewShown && <button className="shadow w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor hover:bg-main-buttonBlue text-white py-2" onClick={() => handleCreateIndex()}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Create'}</button>}
 				</div>
 			</div>
 
