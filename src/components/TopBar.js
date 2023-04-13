@@ -128,17 +128,17 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 				<div id="dropdown" className="p-4 absolute right-2 top-12 z-10 w-56 bg-white rounded-lg divide-y divide-gray-100 shadow">
 				    <ul className="space-y-2 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
 				      <li className="flex flex-row items-center gap-2">
-				      	<button onClick={() => { setShowModalType('SIGN_IN'); setShowMenu(false);}} className="text-sm rounded-lg bg-red-100 text-main-red w-full py-2 text-cente font-DM_Sans font-medium leading-normal tracking-wide">Sign In</button>
+				      	<button onClick={() => { setShowModalType('SIGN_IN'); setShowMenu(false);}} className="text-sm rounded-lg bg-red-100 text-main-red w-full py-2 text-cente font-DM_Sans font-medium leading-normal tracking-wide whitespace-nowrap">Sign In</button>
 				      </li>
 				      <li className="flex flex-row items-center gap-2">
-				      	<button onClick={() => { setShowModalType('SIGN_UP'); setShowMenu(false); }} className="text-sm text-white w-full py-2 rounded-lg bg-main-buttonBlue text-cente font-DM_Sans font-medium leading-normal tracking-wide shadow-sm shadow-main-buttonBlue">Sign Up</button>
+				      	<button onClick={() => { setShowModalType('SIGN_UP'); setShowMenu(false); }} className="text-sm text-white w-full py-2 rounded-lg bg-main-buttonBlue text-cente font-DM_Sans font-medium leading-normal tracking-wide shadow-sm shadow-main-buttonBlue whitespace-nowrap">Sign Up</button>
 				      </li>
 				    </ul>
 				</div>
 				}
 			</div>}
 
-			<div className="ml-2 hidden md:flex flex-row gap-2 items-center text-main-gray text-[15px] text-cente font-DM_Sans font-normal leading-normal tracking-normal">
+			<div className="ml-2 hidden md:flex flex-row gap-2 items-center text-main-gray text-[16px] text-cente font-DM_Sans font-bold leading-normal tracking-normal">
 				{pathArray.map((crumb, index) => {
 					let to = `/${pathArray.slice(0, index + 1).join('/')}`
 					if (to === '/indexes') {
@@ -169,11 +169,11 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 				    <ul className="space-y-2 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
 				      <li className="flex flex-row items-center gap-2">
 				      	<BFIcon iconName="settings" size="lg" color="gray" />
-				        <Link to="/settings" onClick={() => setShowMenu(false)} className="font-bold block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings & Account</Link>
+				        <Link to="/settings" onClick={() => setShowMenu(false)} className="block py-2 px-4 text-main-black text-[16px] text-cente font-DM_Sans font-bold leading-normal tracking-normal bg-white whitespace-nowrap">Settings & Account</Link>
 				      </li>
 				      <li className="flex flex-row items-center gap-2">
 				      	<BFIcon iconName="logout" size="lg" color="gray" />
-				        <button onClick={() => logout()} className="font-bold block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Logout</button>
+				        <button onClick={() => logout()} className="block py-2 px-4 text-main-black text-[16px] text-cente font-DM_Sans font-bold leading-normal tracking-normal bg-white whitespace-nowrap">Logout</button>
 				      </li>
 				     
 				    </ul>
@@ -183,8 +183,8 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 			{!username && 
 				<div className="hidden md:flex ml-auto flex-row items-center gap-4">
 					{/* <BFSearchBar onChange={setSearchText} placeholder="Search Index..." /> */}
-					<button onClick={() => setShowModalType('SIGN_IN')} className="text-[15px] bg-red-100 w-32 py-2 rounded-lg text-main-red text-cente font-DM_Sans font-medium leading-normal tracking-normal">Sign In</button>
-					<button onClick={() => setShowModalType('SIGN_UP')} className="text-[15px] w-32 py-2 text-white rounded-lg bg-main-buttonBlue text-cente font-DM_Sans font-medium leading-normal tracking-normal shadow-sm shadow-main-buttonBlue">Sign Up</button>
+					<button onClick={() => setShowModalType('SIGN_IN')} className="text-[15px] bg-red-100 w-32 py-2 rounded-lg text-main-red text-cente font-DM_Sans font-medium leading-normal tracking-normal whitespace-nowrap">Sign In</button>
+					<button onClick={() => setShowModalType('SIGN_UP')} className="text-[15px] w-32 py-2 text-white rounded-lg bg-main-buttonBlue text-cente font-DM_Sans font-medium leading-normal tracking-normal shadow-sm shadow-main-buttonBlue whitespace-nowrap">Sign Up</button>
 				</div>
 			}
 		</div>

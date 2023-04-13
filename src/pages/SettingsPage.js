@@ -3,6 +3,7 @@ import BFIcon from '../components/BFIcon'
 import BFUploadImage from '../components/small/BFUploadImage'
 import { useProfile, updateProfile, uploadImage } from '../endpoints/index'
 import BFLoading from '../components/small/BFLoading'
+import { Link } from 'react-router-dom'
 
 export default function SettingsPage({ setShowModalType }) {
 
@@ -79,37 +80,39 @@ export default function SettingsPage({ setShowModalType }) {
 		setFileSelected(file)
 	}
 
-	const selected = 'rounded-lg bg-blue-100 w-full py-2 pl-2 cursor-pointer'
-	const notSelected = 'rounded-lg hover:bg-blue-100 w-full py-2 pl-2 cursor-pointer'
+	const selected = 'rounded-lg bg-main-gColor bg-opacity-10 w-full py-1 pl-2 cursor-pointer'
+	const notSelected = 'rounded-lg w-full py-1.5 pl-2 cursor-pointer'
 
 	return(
-		<div className="bg-gray-100 h-screen p-4">
-			<div className="bg-white rounded-md shadow mx-auto max-w-[740px]">
+		<div className="bg-main-lightGray h-screen p-4">
+			<div className="bg-white rounded-lg shadow mx-auto max-w-[740px]">
 				<div className="flex flex-col md:flex-row">
-					<div className="w-full md:w-56 space-y-4 p-4 border-b md:border-r">
+					<div className="w-full text-[15px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black md:w-[280px] space-y-4 p-4 md:border-r">
 						<p onClick={() => setTabSelected('profile')} className={tabSelected === 'profile' ? selected : notSelected}>
+						&nbsp;
 							<BFIcon iconName="profile" color="#5390F4" />
-							&nbsp;&nbsp;Profile
+							&nbsp;&nbsp;&nbsp;Profile
 						</p>
 						<p onClick={() => setTabSelected('account')} className={tabSelected === 'account' ? selected: notSelected}>
+						&nbsp;
 							<BFIcon iconName="account" color="#5390F4" /> 
-							&nbsp;&nbsp;Account
+							&nbsp;&nbsp;&nbsp;Account
 						</p>
 					</div>
 					{ tabSelected === 'profile' && 
 							<div className="py-4 px-4 w-full space-y-4">
 								{errorMessage && <p className="text-xs text-red-500">*{errorMessage}</p>}
 								<div>
-									<h1 className="font-bold mb-2">Profile Picture</h1>
+									<h1 className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black mb-2">Profile Picture</h1>
 									<BFUploadImage handleFileSelect={handleFileSelect} fileSelected={fileSelected} src={profilePic} />
 								</div>
 								<div>
-									<label className="text-sm font-bold ">User Name</label>
-									<input name="username" className="mt-1 text-sm w-full px-2 py-1.5 border rounded" disabled value={data?.data?.username} />
+									<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">User Name</label>
+									<input name="username" className="mt-2 text-sm w-full px-2 py-1.5 border rounded-md bg-main-inputBackground" disabled value={data?.data?.username} />
 								</div>
 								<div>
-									<label className="text-sm font-bold">Your Name</label>
-									<input name="full-name" className="mt-1 text-sm w-full px-2 py-1.5 border rounded" onChange={(e) => setName(e.target?.value)} value={name} />
+									<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Your Name</label>
+									<input name="full-name" className="mt-2 text-sm w-full px-2 py-1.5 border rounded-md  mb-4" onChange={(e) => setName(e.target?.value)} value={name} />
 								</div>
 							</div>
 					}
@@ -117,29 +120,30 @@ export default function SettingsPage({ setShowModalType }) {
 					{ tabSelected !== 'profile' && 
 					  	<div className="w-full">
 					  		{errorMessage && <p className="px-4 pt-2 text-xs text-red-500">*{errorMessage}</p>}
-								<h2 className="px-4 pt-4 text-sm text-gray-400">Password</h2>
+								<h2 className="px-4 pt-4 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-gray opacity-60">Password</h2>
 								<div className="px-4 py-2">
-									<label className="font-bold text-sm">New Password</label>
-									<input onChange={(e) => setNewPassword(e.target?.value)} value={newPassword} name="new-password" className="w-full py-1 border rounded" type="password" />
+									<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">New Password</label>
+									<input onChange={(e) => setNewPassword(e.target?.value)} value={newPassword} name="new-password" className="w-full px-2 py-1.5 mt-2 text-sm border rounded-md bg-main-inputBackground" type="password" />
 								</div>
-								<div className="px-4 py-2 pb-4">
-									<label className="font-bold text-sm">Confirm New Password</label>
-									<input onChange={(e) => setConfirmNewPassword(e.target?.value)} value={confirmNewPassword} name="confirm-new-password" className="w-full py-1 border rounded" type="password" />
+								<div className="px-4 py-2 pb-5">
+									<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Confirm New Password</label>
+									<input onChange={(e) => setConfirmNewPassword(e.target?.value)} value={confirmNewPassword} name="confirm-new-password" className="w-full px-2 py-1.5 mt-2 text-sm border rounded-md bg-main-inputBackground" type="password" />
 								</div>
 								<hr />
-								<h2 className="px-4 pt-4 text-sm text-gray-400">Email</h2>
+								<h2 className="px-4 pt-5 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-gray opacity-60">Email</h2>
 								<div className="px-4 py-2 pb-4">
-									<label className="font-bold text-sm">Login Email</label>
-									<input disabled onChange={(e) => setEmail(e.target?.value)} value={email} name="login-email" className="w-full py-1 border rounded" type="text" />
+									<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Login Email</label>
+									<input disabled onChange={(e) => setEmail(e.target?.value)} value={email} name="login-email" className="w-full px-2 py-1.5 mt-2 text-sm border rounded-md bg-main-inputBackground" type="text" />
 								</div>
 							</div>
 					} 
 				
 				</div>
-				<div className="p-2 border-t text-right">
-{/*					<button className="w-full text-sm rounded bg-blue-50 hover:bg-blue-200 font-bold text-blue-500 py-2" onClick={() => setShowModalType('SIGN_UP')}>Cancel</button>
-*/}					<button className="px-8 text-sm rounded bg-blue-50 hover:bg-blue-200 font-bold text-blue-500 py-2" onClick={() => saveProfile()}>{loading ? <BFLoading isCenter={true} /> : 'Save'}</button>
-
+				<div className="p-2 border-t text-right fle flex-col pb-3 pt-3">
+				<Link to="/">
+				<button className="px-12 mr-4 rounded-lg bg-main-gColor bg-opacity-10 text-[15px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gColor py-1">Cancel</button>
+				</Link>					
+					<button className="px-12 rounded-lg bg-main-gColor text-[15px] font-DM_Sans font-bold leading-normal tracking-normal text-white py-1 shadow-sm shadow-main-shadowBlue" onClick={() => saveProfile()}>{loading ? <BFLoading isCenter={true} /> : 'Save'}</button>
 				</div>
 			</div>
 		</div>
