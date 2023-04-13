@@ -87,7 +87,7 @@ export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
 	return(
     <table className={`w-full text-sm text-left`}>
         <thead className='text-base cursor-pointer text-main-gray bg-main-lightGray grid rounded-xl'>
-		    <tr className='grid grid-flow-col justify-between'>
+		    <tr className='grid grid-flow-col justify-between whitespace-nowrap'>
         		{headers.map(header => (
         			<HeaderColumn onClick={handleHeaderClick} key={header.label + '-holdings'} item={header} sortable={true} />
         		))}

@@ -1,7 +1,7 @@
 import BFGraph from './BFGraph'
 import { useState, useEffect } from 'react'
 
-export default function GraphCard({ title, subtractWidth = 0, holdings, isOverlay = false, hook = function () { return { data: {}, isLoading: false, isError: false }} }) {
+export default function GraphCard({ title, subtractWidth = 0, holdings, isOverlay = false, halfGraph = false,  hook = function () { return { data: {}, isLoading: false, isError: false }} }) {
 
 	const { data, isLoading, isError } = hook()
 
@@ -200,13 +200,22 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 				</div>
 				<div className="flex flex-row ml-0 md:ml-auto mt-2 md:mt-0 rounded-lg py-1 bg-main-lightGray">
 					{dateOptions.map(option => (
-						<button className={`text-sm text-main-gray font-DM_Sans font-normal leading-normal tracking-wide px-3 md:px-7 py-2 ${option != "All" && 'border-r-[1px]'} ${option != "24H" && 'border-l-[1px]'} ${option === graphInterval && 'ml-2 mr-2 bg-main-white rounded-lg shadow text-main-black'}`} key={option} onClick={() => setGraphInterval(option)}>
+						console.log("halfGraph", halfGraph),
+						<button 
+							className={`text-sm text-main-gray font-DM_Sans font-normal leading-normal tracking-wide px-3 py-2 
+							${halfGraph ? 'px-3 py-2' : 'md:px-7 py-2'}
+							${option != "All" && 'border-r-[1px]'} 
+							${option != "24H" && 'border-l-[1px]'} 
+							${option === graphInterval && 'ml-2 mr-2 bg-main-white rounded-lg shadow text-main-black'}`} 
+							key={option} 
+							onClick={() => setGraphInterval(option)}
+						>
 							{option}
 						</button>
 					))}
 				</div>
 			</div>
-			<div className='pb-4 text-[14px] font-DM_Sans font-normal leading-normal tracking-normal text-main-gray sm:-ml-6'>
+			<div className='pb-4 text-[14px] font-DM_Sans font-normal leading-normal tracking-normal text-main-gray'>
 				<BFGraph subtractWidth={subtractWidth} data={shownGraphData} showOverlay={isOverlay} showPriceColored={graphColor === 'Price Colored'} />
 			</div>
 		</div>

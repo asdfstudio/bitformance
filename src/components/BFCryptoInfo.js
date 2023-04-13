@@ -13,6 +13,7 @@ export default function BFCryptoInfo({
 	showIcon = false,
 	hideGraph = false,
 	panelId = '',
+	halfGraph = false,
 }) {
 
 	const totalReturn = calculateReturn(data.index.value || data.index.price, data.index.initial_value)
@@ -40,25 +41,25 @@ export default function BFCryptoInfo({
 	}
 
 	const UpTag = ({ value }) => (
-		<span className="text-xl text-green-500"><BFIcon iconName="up-right-arrow" /> {Math.abs(value).toFixed(2)}%</span>
+		<span className="text-[30px] font-DM_Sans font-medium leading-normal tracking-normal text-main-green"><BFIcon iconName="up-right-arrow" /> {Math.abs(value).toFixed(2)}%</span>
 	)
 
 	const DownTag = ({ value }) => (
-		<span className="text-xl text-red-500"><BFIcon iconName="down-left-arrow" /> {Math.abs(value).toFixed(2)}%</span>
+		<span className="text-[30px] font-DM_Sans font-medium leading-normal tracking-normal text-main-deepOrange"><BFIcon iconName="down-left-arrow" /> {Math.abs(value).toFixed(2)}%</span>
 	)
 
 	let adjustGraphWidth = 380
 	if (isHalfGraph) {
-		adjustGraphWidth += 250
+		adjustGraphWidth += 480
 	}
 
 	return (<>
 
-		<div className="relative p-4 bg-white rounded-md border space-y-4">
-			<div className="flex flex-row gap-2 items-center">
-				<h2 className="font-bold text-xl">{showIcon ? data.index.name : 'Overview'}</h2>
+		<div className="relative p-4 bg-white border-t-2 border-main-lightGrayBorder space-y-4 mt-4">
+			<div className="flex flex-row gap-3 items-center">
 				{(showIcon && data.index.symbol) && <BFCryptoImage symbol={data.index.symbol} />}
-				{(showIcon && data.index.logo !== undefined) && <BFImage style="w-8 h-8 object-cover rounded-full" src={data.index.logo} alt={data.index.name} /> }
+				{(showIcon && data.index.logo !== undefined) && <BFImage style="w-[55px] h-[55px] object-cover rounded-full border-2 border-white drop-shadow-md" src={data.index.logo} alt={data.index.name} /> }
+				<h2 className="text-[18px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">{showIcon ? data.index.name : 'Overview'}</h2>
 			</div>
 
 			<div className="absolute -top-1 right-3">
@@ -67,22 +68,22 @@ export default function BFCryptoInfo({
 			</div>
 
 			<div className="flex flex-row justify-between text-sm">
-				<div className="space-y-2">
-					<label className="text-gray-500">Price</label>
-					<p className="font-bold">{formatMoney(data.index.value || data.index.price)}</p>
+				<div className="space-y-2 text-[16px] font-DM_Sans leading-normal tracking-normal">
+					<label className="font-normal text-main-gray">Price</label>
+					<p className="font-bold text-main-black">{formatMoney(data.index.value || data.index.price)}</p>
 				</div>
-				<div className="space-y-2">
-					<label className="text-gray-500">24h %</label>
-					<BFUpDownTag style="font-bold" change={data.index.changepct_24hour} />
+				<div className="space-y-2 text-[16px] font-DM_Sans leading-normal tracking-normal">
+					<label className="font-normal text-main-gray">24h %</label>
+					<BFUpDownTag style="font-medium text-main-black" change={data.index.changepct_24hour} />
 				</div>
-				<div className="space-y-2">
-					<label className="text-gray-500">7d %</label>
-					<BFUpDownTag style="font-bold" change={data.index.changepct_7d || data.index.changepct_7day} />
+				<div className="space-y-2 text-[16px] font-DM_Sans leading-normal tracking-normal">
+					<label className="font-normal text-main-gray">7d %</label>
+					<BFUpDownTag style="font-medium text-main-black" change={data.index.changepct_7d || data.index.changepct_7day} />
 
 				</div>
-				<div className="space-y-2">
-					<label className="text-gray-500">Market Cap</label>
-					<p className="font-bold">{formatMoney(data.index.marketcap || marketCap)}</p>
+				<div className="space-y-2 text-[16px] font-DM_Sans leading-normal tracking-normal">
+					<label className="font-normal text-main-gray">Market Cap</label>
+					<p className="font-bold text-main-black">{formatMoney(data.index.marketcap || marketCap)}</p>
 				</div>
 				{(data.index.updated && !isHalfGraph) && <BFInfoTags timestamp={data.index.updated.$date} weightingMethod={data.index.weighting_method} 	rebalancingInterval={data.index.rebalancing_interval} />}
 			</div>
@@ -90,29 +91,32 @@ export default function BFCryptoInfo({
 		</div>
 
 		{!hideGraph &&
-		<div className="bg-white rounded-md border">
-			<GraphCard title="Currency Indexes" subtractWidth={adjustGraphWidth} hook={returnGraphData} />
+		<div className="bg-white border-t-2 border-main-lightGrayBorder">
+			<GraphCard title="Currency Indexes" subtractWidth={adjustGraphWidth} halfGraph={true} hook={returnGraphData} />
 		</div>
 		}
 
 		{(totalReturn && !hideGraph) &&
-		<div className="bg-white rounded-md border p-4 flex flex-row justify-between items-center">
-			<h2 className="text-xl font-bold">Performance Metrics</h2>
-			<div className="flex flex-row space-x-6">
-				<p className="flex flex-row items-center">
-					{data.index.drawdown > 0 ? <UpTag value={data.index.drawdown || drawdown} /> : <DownTag value={data.index.drawdown || drawdown} /> }
-					<span className="ml-2 mt-0.5 text-sm">Maximum Drawdown</span>
-				</p>
-				<p className="flex flex-row items-center">
-					{totalReturn > 0 ? <UpTag value={totalReturn} /> : <DownTag value={totalReturn} /> }
-					<span className="ml-2 mt-0.5 text-sm">Total Return</span>
-				</p>
+		<div className='bg-white border-t-2 border-main-lightGrayBorder p-4'>
+			<h2 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Performance Metrics</h2>
+			<div className="p-4 flex flex-col justify-between items-start">
+				<div className="flex flex-row space-x-6">
+					<p className="flex flex-col items-start ">
+						{data.index.drawdown > 0 ? <UpTag value={data.index.drawdown || drawdown} /> : <DownTag value={data.index.drawdown || drawdown} /> }
+						<span className="ml-2 mt-0.5 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-black">Maximum Drawdown</span>
+					</p>
+					<p className='border-r-[1px] border-main-lightGrayBorder'/>
+					<p className="flex flex-col items-start">
+						{totalReturn > 0 ? <UpTag value={totalReturn} /> : <DownTag value={totalReturn} /> }
+						<span className="ml-2 mt-0.5 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-black">Total Return</span>
+					</p>
+				</div>
 			</div>
 		</div>
 		}
 		{(formattedHoldings.length > 0 && !hideGraph) &&
-			<div className="bg-white rounded-md border p-4 min-w-full overflow-y-auto space-y-4">
-				<h2 className="text-xl font-bold">Holdings <span className="bg-gray-100 rounded py-1 px-2 text-sm font-normal">{data.rawStocks.length}</span></h2>
+			<div className="bg-white border-t-2 border-main-lightGrayBorder p-4 min-w-full overflow-y-auto space-y-4">
+				<h2 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Holdings <span className="bg-main-lightSkyBlue rounded py-1 px-2 text-[13px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gray">{data.rawStocks.length}</span></h2>
 				<BFHoldingsTable holdings={formattedHoldings} />
 			</div>
 		}

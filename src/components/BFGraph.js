@@ -89,7 +89,7 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	if (width < 700) {
 		finalWidth = width - 76
 	} else {
-		finalWidth = width - 286 - subtractWidth
+		finalWidth = width - 320 - subtractWidth
 	}
 
 	const CustomTooltip = ({ active, payload, label }) => {

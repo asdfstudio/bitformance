@@ -45,6 +45,7 @@ export default function BFCryptoSelectorCard({ mode, selectedCrypto, isAuthRequi
 						isHalfGraph={true} 
 						data={{ index: data }} 
 						panelId={panelId}
+						halfGraph={true}
 					/>
 				}
 				{isLoading && <BFLoading />}
@@ -72,8 +73,8 @@ export default function BFCryptoSelectorCard({ mode, selectedCrypto, isAuthRequi
 	}
 
 	return(
-		<div className="bg-main-white rounded-xl border p-4 flex flex-col space-y-2">
-			<h2 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black mb-2">Choose Cryptocurrency</h2>
+		<div className="bg-main-white rounded-xl border p-4 px-6 flex flex-col space-y-2">
+		  <h2 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black mb-2">Choose Cryptocurrency</h2>
 			<BFSelectCryptos 
 				isSingleSelectMode={true} 
 				selectedCryptos={selectedCryptos} 
