@@ -18,8 +18,19 @@ export default function BFCryptoSelectorCard({ mode, selectedCrypto, isAuthRequi
 	}
 
 	const DefaultView = () => (
-		<div className="text-center my-auto py-28">
-			<BFIcon iconName="scale" size="8x" color="#ECECEC" />
+		<div>
+			<div className='ml-4'>
+				<BFIcon iconName="arrowUP" color="#b7c3d1" />
+			</div>
+			<div className='ml-[23px] -mt-4 w-8 h-12 border-l-[2px] border-b-[1px] border-main-symbol rounded-bl-full'/>
+			<h1 className="text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-gray mr-2 p-4 pl-20 -mt-10">
+				You haven’t added any currency to
+				<br/> 
+				compare. Please all from above.
+			</h1>
+			<div className="text-center my-auto py-28">
+				<BFIcon iconName="scale" size="8x" color="#ECECEC" />
+			</div>
 		</div>
 	)
 
@@ -61,8 +72,8 @@ export default function BFCryptoSelectorCard({ mode, selectedCrypto, isAuthRequi
 	}
 
 	return(
-		<div className="bg-white shadow rounded-md p-4 flex flex-col space-y-2">
-			<h2 className="text-lg mb-2">Choose Cryptocurrency</h2>
+		<div className="bg-main-white rounded-xl border p-4 flex flex-col space-y-2">
+			<h2 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black mb-2">Choose Cryptocurrency</h2>
 			<BFSelectCryptos 
 				isSingleSelectMode={true} 
 				selectedCryptos={selectedCryptos} 

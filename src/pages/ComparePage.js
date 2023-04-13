@@ -59,9 +59,9 @@ export default function ComparePage() {
 	}
 
 	return(
-		<div className="p-4 h-5/6">
-			<div className="flex flex-row gap-4 rounded-lg border bg-white p-4 shadow items-center">
-				<h1 className="text-xl mr-2">Compare Currencies</h1>
+		<div className="p-4 h-5/6 bg-main-lightGray">
+			<div className="flex flex-row gap-4 rounded-xl border bg-main-white p-4 items-center m-2 mb-4">
+				<h1 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black mr-2">Compare Currencies</h1>
 				<BFChooseOption onSelect={setTypeSelected} selected={typeSelected} options={[
 					{
 						id: 'side-by-side',
@@ -74,7 +74,7 @@ export default function ComparePage() {
 				]} />
 			</div>
 
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-1 items-start overflow-y-auto">
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-1 items-start overflow-y-auto m-2">
 				<BFCryptoSelectorCard mode={typeSelected} selectedCrypto={selectedCryptoOne} isAuthRequired={isAuthRequiredOne} selectCrypto={selectCrypto} panelId="1" />
 				<BFCryptoSelectorCard mode={typeSelected} selectedCrypto={selectedCryptoTwo} isAuthRequired={isAuthRequiredTwo} selectCrypto={selectCrypto} panelId="2" />
 			</div>

@@ -114,7 +114,7 @@ export default function CreateIndexPage() {
 
 	return (
 		<div className="grid grid-cols-1 xl:grid-cols-5 bg-main-lightGray">
-			<div className="col-span-2 space-y-4 bg-white rounded-lg border p-4 m-4">
+			<div className="col-span-2 space-y-4 bg-white rounded-lg border p-4 ml-4 mt-4">
 				<h1 className="text-[22px] mb-6 font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Basic</h1>
 				<label className='text-[16px] mb-6 font-DM_Sans font-medium leading-normal tracking-normal text-main-black'>Index Logo</label>
 				<BFUploadImage handleFileSelect={handleFileSelect} fileSelected={fileSelected} src={location.state?.logo} />
@@ -181,7 +181,7 @@ export default function CreateIndexPage() {
 			</div>
 
 
-			<div className="col-span-3 m-4">
+			<div className="col-span-3 ml-4 mt-4">
 				<div className="bg-white p-4 rounded-lg border space-y-4">
 					<div className=" flex flex-row items-center gap-2">
 						<h1 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Weighting Method</h1>
