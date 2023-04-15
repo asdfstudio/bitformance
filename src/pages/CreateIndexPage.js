@@ -1,6 +1,6 @@
 import BFChooseOption from '../components/small/BFChooseOption'
 import GraphCard from '../components/GraphCard'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { useState, useEffect, useRef } from 'react'
 import BFUploadImage from '../components/small/BFUploadImage'
 import { generateChartPreview, uploadImage, createIndex, baseUrl, deleteIndex, useAreMarketCapCoinsAvailable } from '../endpoints/index'
@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { useSWRConfig } from 'swr'
 import { coinImageMappings } from '../data/coinImages'
 import BFCryptoImage from '../components/small/BFCryptoImage'
+import BFIcon from '../components/BFIcon'
 
 export default function CreateIndexPage() {
 
@@ -28,6 +29,7 @@ export default function CreateIndexPage() {
 	const [rebalancePeriod, setRebalancePeriod] = useState(location.state?.rebalancePeriod || 'never')
 	const [selectedCryptos, setSelectedCryptos] = useState(location.state?.selectedCryptos || [])
 	const [returnData, setReturnData] = useState(function(){})
+	const [showMenu, setShowMenu] = useState(false)
 
 	const [fileSelected, setFileSelected] = useState(null)
 
@@ -36,6 +38,7 @@ export default function CreateIndexPage() {
 	const { data, isLoading } = useAreMarketCapCoinsAvailable()	
 
 	const handleCreateIndex = async () => {
+		setShowMenu(false)
 		setLoadingPreview(true)
 		const customWeights = getCustomWeights()
 		const newIndex = await createIndex(name, weightingMethod, description, initialValue, selectedCryptos, rebalancePeriod, customWeights, location.state?.logo || '')
@@ -235,10 +238,35 @@ export default function CreateIndexPage() {
 				<div className="flex flex-row gap-2">
 					<button className="w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor bg-opacity-10 text-main-gColor py-2" onClick={() => navigate(-1)}>Cancel</button>
 					{!previewShown && <button className="shadow w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor hover:bg-main-buttonBlue text-white py-2" onClick={() => loadPreview()}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Preview'}</button>}
-					{previewShown && <button className="shadow w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor hover:bg-main-buttonBlue text-white py-2" onClick={() => handleCreateIndex()}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Create'}</button>}
+					{previewShown && <button className="shadow w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor hover:bg-main-buttonBlue text-white py-2" onClick={() => setShowMenu(!showMenu)}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Create'}</button>}
 				</div>
 			</div>
-
+			{showMenu &&
+			<div className="relative z-[60]" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+			  <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+   			    <div className="fixed inset-0 z-[70] overflow-y-auto">
+			      <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+		           <div className="relative transform overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+		             <div className="px-4 pt-5 pb-4 sm:p-6 sm:pb-4 bg-main-white"/>
+						<div className="p-4 space-y-6">
+						  <div className='text-[38px] flex justify-center'>
+							<BFIcon color="#40C8B8" iconName="checkToSlot" />
+						  </div>
+							<p className='text-[18px] font-DM_Sans font-medium leading-normal tracking-normal flex justify-center'>Index Created Successfully!</p>
+					  	<div className="mt-auto flex flex-col gap-2">
+						  <Link onClick={() => handleCreateIndex()}>
+							<button type="submit" className="w-full rounded-lg bg-main-gColor text-[15px] font-DM_Sans font-bold leading-normal tracking-normal shadow-sm shadow-main-shadowBlue text-white py-2">Great, View Index</button>
+							</Link>
+						  <Link to='/indexes/my-indexes' onClick={() => setShowMenu(false)}>
+							<button className="w-full rounded-lg bg-main-gColor bg-opacity-10 text-[15px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gColor py-2">Go to My Index</button>
+							</Link>
+				    	</div>
+					</div>
+				  </div>
+				</div> 
+			</div>
+		  </div>
+		  }
 		</div>
 	)
 }

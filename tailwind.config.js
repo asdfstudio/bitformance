@@ -23,6 +23,7 @@ module.exports = {
           lightGreen: "#e6f9f5",
           lightRed: "#ffe7e7",
           green: "#40c8b8",
+          lightGreen: "#e6f9f5",
           deepOrange: "#fd5d60",
           skyBlue: "#e2edfe",
           lightSkyBlue: "#e2eaf1",

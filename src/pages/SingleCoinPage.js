@@ -18,13 +18,13 @@ export default function SingleCoinPage() {
 	}
 
 	const PanelOne = ({ id, name, description }) => (
-		<div className="col-span-3 p-6 space-y-4 border h-[94vh] bg-white">
+		<div className="p-6 space-y-4 border bg-white xl:block col-span-3">
 			<div className="flex flex-row items-center gap-2">
 				<BFCryptoImage symbol={data.symbol} index={0} isLarge={true} />
 				<h2 className="text-xl">{data.name}</h2>
 			</div>
 			<div className="flex flex-row gap-2 justify-between">
-				<button onClick={(e) => compareRow(e)} className="w-full text-green-500 bg-green-100 rounded px-6 py-2 font-bold text-sm">Compare</button>
+				<button onClick={(e) => compareRow(e)} className="px-6 py-1.5 w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded-md bg-main-lightGreen text-main-green">Compare</button>
 			</div>
 			<p>{data.description}</p>
 		</div>
@@ -33,11 +33,11 @@ export default function SingleCoinPage() {
 	if (isLoading) return <BFLoading />
 
 	return (
-		<div className="grid grid-cols-1 md:grid-cols-10 bg-gray-50">
+		<div className="grid grid-cols-1 md:grid-cols-12 bg-main-lightGray">
 			<PanelOne {...data.index} />
 
-			<div className="col-span-7 p-4 space-y-4">
-				<BFCryptoInfo data={{ index: data }} />
+			<div className="col-span-9 p-4 space-y-4">
+				<BFCryptoInfo data={{ index: data }} singlePage={true}/>
 			</div>
 		</div>
 	)

@@ -51,28 +51,30 @@ export default function CryptoPage({ isAuth }) {
 	}
 
 	const PanelOne = ({ id, name, description, isAuth }) => (
-		<div className="col-span-3 p-6 space-y-4 border h-[94vh] bg-white">
+		<div className="p-6 space-y-4 border bg-white hidden xl:block col-span-3">
 			<div className="flex flex-row items-center gap-2">
 				<BFImage style="shadow-md w-16 h-16 rounded-full bg-white p-1" alt="crypto" src={data.index.logo} />
-				<h2 className="text-xl">{name}</h2>
+				<h2 className="text-[18px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">{name}</h2>
 			</div>
-			<div className="flex flex-row gap-2 justify-between">
-				<button onClick={(e) => favoriteRow(e)} className="w-full text-white px-5 py-2 rounded bg-blue-500 text-sm font-bold flex flex-row gap-2 justify-center items-center">
+			<div className="flex flex-row gap-2 justify-between w-full"
+			>
+				<button onClick={(e) => favoriteRow(e)} className="w-full flex flex-row gap-2 justify-center items-center shadow text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded-md bg-main-gColor hover:bg-main-buttonBlue text-white py-1 px-4">
 					{loadingFavorites ? <BFLoading isInline={true} />
 						: favoriteData?.some(obj => obj.index._id.$oid === params.id) ? <BFIcon iconName="favorite" /> 
 						: <BFIcon iconName="open-favorite" /> 
 					} Favorite
 				</button>
-				<button onClick={(e) => compareRow(e)} className="w-full text-green-500 bg-green-100 rounded px-6 py-2 font-bold text-sm">Compare</button>
+				<button onClick={(e) => compareRow(e)} className="w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded-md bg-main-lightGreen text-main-green px-4 py-1">Compare</button>
 			</div>
-			{/*
+			
 			<div>
-				<p className="text-gray-400 text-sm mb-2">Share this index</p>
-				<div className="flex flex-row gap-8 cursor-pointer text-gray-500">
+				<p className="text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-grayText mb-2">Share this index</p>
+				<div className="flex flex-row justify-between cursor-pointer text-main-gray">
 					<SocialIconsRow showCopyLink={true} />
 				</div>
-			</div>*/}
-			<p>{description}</p>
+			</div>
+			{/* <p className='text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-grayText'>{'Share this Index'}</p> */}
+			<p className='text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-gray pt-2'>{description}</p>
 
 			{isAuth && <div className="absolute bottom-2 w-1/5 flex flex-row gap-2 justify-between">
 				<button onClick={() => editRow()} className="w-full text-gray-500 bg-gray-100 rounded px-6 py-2 font-bold text-sm">Edit</button>
@@ -101,11 +103,11 @@ export default function CryptoPage({ isAuth }) {
 	}
 
 	return (
-		<div className="grid grid-cols-1 md:grid-cols-10 bg-gray-50">
+		<div className="grid grid-cols-1 xl:grid-cols-12 bg-main-lightGray">
 			<PanelOne {...data.index} isAuth={isAuth} />
 
-			<div className="col-span-7 p-4 space-y-4">
-				<BFCryptoInfo data={data} />
+			<div className="col-span-9 p-4 space-y-4">
+				<BFCryptoInfo data={data} singlePage={true}/>
 			</div>
 		</div>
 	)

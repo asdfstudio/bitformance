@@ -6,6 +6,7 @@ import GraphCard from './GraphCard'
 import BFHoldingsTable from './small/BFHoldingsTable'
 import BFCryptoImage from './small/BFCryptoImage'
 import BFImage from './small/BFImage'
+import useWindowDimensions from '../hooks/useWindowDimensions'
 
 export default function BFCryptoInfo({
 	data,
@@ -14,7 +15,9 @@ export default function BFCryptoInfo({
 	hideGraph = false,
 	panelId = '',
 	halfGraph = false,
+	singlePage = false,
 }) {
+	const { width } = useWindowDimensions();
 
 	const totalReturn = calculateReturn(data.index.value || data.index.price, data.index.initial_value)
 	const drawdown = calculateDrawdown(data.index.daily_graph_data.prices || data.index.daily_graph_data.price || [])
@@ -48,14 +51,21 @@ export default function BFCryptoInfo({
 		<span className="text-[30px] font-DM_Sans font-medium leading-normal tracking-normal text-main-deepOrange"><BFIcon iconName="down-left-arrow" /> {Math.abs(value).toFixed(2)}%</span>
 	)
 
-	let adjustGraphWidth = 380
-	if (isHalfGraph) {
-		adjustGraphWidth += 480
+	let adjustGraphWidth = 0
+
+	if (width < 1200) {
+		adjustGraphWidth = 0
+	} else if (isHalfGraph) {
+		adjustGraphWidth += 860
+	} else if(width < 1400){
+		adjustGraphWidth = 260
+	} else  {
+		adjustGraphWidth = 360
 	}
 
 	return (<>
 
-		<div className="relative p-4 bg-white border-t-2 border-main-lightGrayBorder space-y-4 mt-4">
+		<div className={`relative p-4 bg-white border-main-lightGrayBorder space-y-4 mt-1 ${singlePage ? 'border rounded-xl' : 'border-t-2'}`}>
 			<div className="flex flex-row gap-3 items-center">
 				{(showIcon && data.index.symbol) && <BFCryptoImage symbol={data.index.symbol} />}
 				{(showIcon && data.index.logo !== undefined) && <BFImage style="w-[55px] h-[55px] object-cover rounded-full border-2 border-white drop-shadow-md" src={data.index.logo} alt={data.index.name} /> }
@@ -91,13 +101,13 @@ export default function BFCryptoInfo({
 		</div>
 
 		{!hideGraph &&
-		<div className="bg-white border-t-2 border-main-lightGrayBorder">
+		<div className={`bg-white border-main-lightGrayBorder ${singlePage ? 'border rounded-xl' : 'border-t-2'}`}>
 			<GraphCard title="Currency Indexes" subtractWidth={adjustGraphWidth} halfGraph={true} hook={returnGraphData} />
 		</div>
 		}
 
 		{(totalReturn && !hideGraph) &&
-		<div className='bg-white border-t-2 border-main-lightGrayBorder p-4'>
+		<div className={`bg-white border-main-lightGrayBorder p-4 ${singlePage ? 'border rounded-xl' : 'border-t-2'}`}>
 			<h2 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Performance Metrics</h2>
 			<div className="p-4 flex flex-col justify-between items-start">
 				<div className="flex flex-row space-x-6">
@@ -115,7 +125,7 @@ export default function BFCryptoInfo({
 		</div>
 		}
 		{(formattedHoldings.length > 0 && !hideGraph) &&
-			<div className="bg-white border-t-2 border-main-lightGrayBorder p-4 min-w-full overflow-y-auto space-y-4">
+			<div className={`bg-white border-main-lightGrayBorder p-4 min-w-full overflow-y-auto space-y-4 ${singlePage ? 'border rounded-xl' : 'border-t-2'}`}>
 				<h2 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Holdings <span className="bg-main-lightSkyBlue rounded py-1 px-2 text-[13px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gray">{data.rawStocks.length}</span></h2>
 				<BFHoldingsTable holdings={formattedHoldings} />
 			</div>
