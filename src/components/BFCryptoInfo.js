@@ -60,7 +60,7 @@ export default function BFCryptoInfo({
 	} else if(width < 1400){
 		adjustGraphWidth = 260
 	} else  {
-		adjustGraphWidth = 360
+		adjustGraphWidth = 420
 	}
 
 	return (<>

@@ -1,4 +1,4 @@
-import bitLogoWhite from '../../bitLogoWhite.png'
+import bitLogoWhite from '../../logo@3x.png'
 
 export default function BitformanceLeftPanel({ setShowModalType, showInfo }) {
 
@@ -9,8 +9,8 @@ export default function BitformanceLeftPanel({ setShowModalType, showInfo }) {
 	const SignInHeader = () => (
 		<div className="space-y-4">
 			<img className="w-44" src={bitLogoWhite} alt="bitformance logo" />
-			<h1 className="text-[30px] mt-2 font-DM_Sans font-normal leading-medium tracking-tight">Sign in to Bitformance</h1>
-			<p className='text-[16px] font-DM_Sans font-normal leading-normal tracking-normal'>Bitformance is the easiest <br/> place to track, analyze, and create cryptocurrency indexes.</p>
+			<h1 className="text-[30px] mt-2 font-DM_Sans font-normal leading-9 tracking-tight">Sign in to Bitformance</h1>
+			<p className='text-[16px] font-DM_Sans font-normal leading-5 tracking-normal'>Bitformance is the easiest <br/> place to track, analyze, and create cryptocurrency indexes.</p>
 		</div>
 	)
 
@@ -24,8 +24,8 @@ export default function BitformanceLeftPanel({ setShowModalType, showInfo }) {
 	const SignUpHeader = () => (
 		<div className="space-y-4">
 			<img className="w-44" src={bitLogoWhite} alt="bitformance logo" />
-			<h1 className="text-[30px] mt-2 font-DM_Sans font-normal leading-medium tracking-tight">Create your account</h1>
-			<p className='text-[16px] font-DM_Sans font-normal leading-normal tracking-normal'>Bitformance is the easiest <br/> place to track, analyze, and create cryptocurrency indexes.</p>
+			<h1 className="text-[30px] mt-2 font-DM_Sans font-normal leading-9 tracking-tight">Create your account</h1>
+			<p className='text-[16px] font-DM_Sans font-normal leading-5 tracking-normal'>Bitformance is the easiest <br/> place to track, analyze, and create cryptocurrency indexes.</p>
 		</div>
 	)
 

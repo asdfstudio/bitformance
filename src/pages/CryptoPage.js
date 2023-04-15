@@ -58,13 +58,19 @@ export default function CryptoPage({ isAuth }) {
 			</div>
 			<div className="flex flex-row gap-2 justify-between w-full"
 			>
-				<button onClick={(e) => favoriteRow(e)} className="w-full flex flex-row gap-2 justify-center items-center shadow text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded-md bg-main-gColor hover:bg-main-buttonBlue text-white py-1 px-4">
+				<button 
+					onClick={(e) => favoriteRow(e)} 
+					className="w-full flex flex-row gap-2 justify-center items-center shadow text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded-md bg-main-gColor hover:bg-main-buttonBlue text-white py-1">
 					{loadingFavorites ? <BFLoading isInline={true} />
 						: favoriteData?.some(obj => obj.index._id.$oid === params.id) ? <BFIcon iconName="favorite" /> 
 						: <BFIcon iconName="open-favorite" /> 
 					} Favorite
 				</button>
-				<button onClick={(e) => compareRow(e)} className="w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded-md bg-main-lightGreen text-main-green px-4 py-1">Compare</button>
+				<button 
+					onClick={(e) => compareRow(e)} 
+					className="w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded-md bg-main-lightGreen text-main-green py-1">
+						Compare
+				</button>
 			</div>
 			
 			<div>

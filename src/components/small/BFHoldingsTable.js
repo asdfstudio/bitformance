@@ -23,7 +23,7 @@ export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
 	]
 
 	const HeaderColumn = ({ item, sortable }) => (
-		<th onClick={() => sortBy(item.id, item.type)} key={item.id} scope="col" className="py-3 px-6">
+		<th onClick={() => sortBy(item.id, item.type)} key={item.id} scope="col" className="py-2 px-6">
 			<div className={`flex flex-row items-center 
 				${item.id === "name" && 'w-52'}
 				${item.id === "holdingQuantity" && '-mr-12'}

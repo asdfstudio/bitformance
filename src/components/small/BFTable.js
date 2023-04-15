@@ -37,7 +37,7 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 
 
 	const HeaderColumn = ({ item, onClick }) => (
-		<th onClick={() => onClick(item.id, item.type)} key={item.label} scope="col" className="py-3">
+		<th onClick={() => onClick(item.id, item.type)} key={item.label} scope="col" className="py-2">
 			<div className={`flex flex-row items-center ${item.id === "name" && 'w-56'} ${item.id === "updated" && 'w-56'} ${item.id === "volume" && 'w-40'}`}>
 		    <span className="ml-2 font-DM_Sans font-normal leading-normal tracking-wide">{item.label}</span>
 		    {item.id && <div onClick={() => setOrderItem(!orderItem)} className="ml-1 w-3 h-3 text-[7px] flex justify-center items-center">
