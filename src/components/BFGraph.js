@@ -11,7 +11,7 @@ import moment from 'moment'
 import { useState, useEffect } from 'react'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = false, showPriceColored = false }) {
+export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = false, showPriceColored = false, graphInterval = "3Y"  }) {
 
 	const { width } = useWindowDimensions();
 
@@ -82,7 +82,24 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	}
 
 	const formatXAxis = (value) => {
-		return formatDate(value, '3Y')
+		switch (graphInterval) {
+			case "24H":
+			  return formatDate(value, '24H')
+			case "7D":
+				return formatDate(value, '7D')
+			case "1M":
+				return formatDate(value, '1M')
+			case "3M":
+				return formatDate(value, '3M')
+			case "6M":
+				return formatDate(value, '6M')
+			case "1Y":
+				return formatDate(value, '1Y')
+			case "3Y":
+				return formatDate(value, '3Y')
+			default:
+				return formatDate(value, '3Y')
+		  }
 	}
 
 	let finalWidth = 0
