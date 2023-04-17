@@ -98,7 +98,7 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	  		return (
 	  			<div className="border bg-white p-4">
 	  				<p>{formatDate(label, '3Y')}</p>
-	  			  <p>{formatter.format(payload[0].value || payload[1].value)}</p>
+	  			  	<p>{formatter.format(payload[0].value || payload[1].value)}</p>
 	  			</div>
 	  		)
 	  	}
@@ -155,33 +155,45 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 
 	return(
 			<AreaChart width={finalWidth} height={400} data={showPriceColored ? priceData: data}  margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
-		<defs>
-			<linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
-			<stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
-			<stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
-			</linearGradient>
-			<linearGradient id="colorGreen" x1="0" y1="0" x2="0" y2="1">
-			<stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
-			<stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
-			</linearGradient>
-			<linearGradient id="colorRed" x1="0" y1="0" x2="0" y2="1">
-			<stop offset="5%" stopColor="#FF0000" stopOpacity={0.8}/>
-			<stop offset="95%" stopColor="#FF0000" stopOpacity={0}/>
-			</linearGradient>
-		</defs>
-		  <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
-		  {data.length > 0 && <>
-			  {!showPriceColored && <Area type="monotone" stackId="1" dataKey="amt" strokeWidth={1} stroke="#8884d8" fillOpacity={showOverlay ? 0 : 1} fill="url(#colorBlue)" />}
-				{showPriceColored && <>
-				<Area type="monotone" stackId="1" dataKey="green" strokeWidth={1} stroke="#82ca9d" fillOpacity={0.5} fill="url(#colorGreen)" />
-			  <Area type="monotone" stackId="2" dataKey="red" strokeWidth={1} stroke="#FF00000" fillOpacity={0.3} fill="url(#colorRed)" />
-			  </>}
+				<defs>
+					<linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
+						{/* #8884d8 */}
+						<stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
+						<stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
+					</linearGradient>
+					<linearGradient id="colorGreen" x1="0" y1="0" x2="0" y2="1">
+						{/* #82ca9d */}
+						<stop offset="5%" stopColor="#40c8b8" stopOpacity={0.8}/>
+						<stop offset="95%" stopColor="#40c8b8" stopOpacity={0}/>
+					</linearGradient>
+					<linearGradient id="colorRed" x1="0" y1="0" x2="0" y2="1">
+						{/* #FF0000 */}
+						<stop offset="5%" stopColor="#fd5d60" stopOpacity={0.8}/>
+						<stop offset="95%" stopColor="#fd5d60" stopOpacity={0}/>
+					</linearGradient>
+				</defs>
+				<CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
+				{data.length > 0 && <>
+					{!showPriceColored && 
+						<Area type="monotone" stackId="1" dataKey="amt" strokeWidth={1} stroke="#8884d8" fillOpacity={showOverlay ? 0 : 1} fill="url(#colorBlue)" />
+						
+					}
+						
+					{showPriceColored && <>
+						<Area type="monotone" stackId="1" dataKey="green" strokeWidth={1} stroke="#40c8b8" fillOpacity={0.5} fill="url(#colorGreen)" />
+						<Area type="monotone" stackId="2" dataKey="red" strokeWidth={1} stroke="#fd5d60" fillOpacity={0.5} fill="url(#colorRed)" />
+					</>
+					}
 
-			 	{showOverlay && <Area type="monotone" stackId="2" dataKey="amt2" strokeWidth={1} stroke="#82ca9d" fillOpacity={0} fill="url(#colorGreen)" />}
-			  <XAxis dataKey="name" tickFormatter={formatXAxis}/>
-			  <YAxis type="number" allowDataOverflow tickFormatter={formatYAxis} domain={[showOverlay ? Math.min(lowestPrice, lowestPercentTwo) : lowestPrice, 'auto']} />
-			  <Tooltip content={<CustomTooltip />} />
-			</>
+					{showOverlay && 
+						<Area type="monotone" stackId="2" dataKey="amt2" strokeWidth={1} stroke="#40c8b8" fillOpacity={0} fill="url(#colorGreen)" />
+					}
+
+						
+					<XAxis dataKey="name" tickFormatter={formatXAxis}/>
+					<YAxis type="number" allowDataOverflow tickFormatter={formatYAxis} domain={[showOverlay ? Math.min(lowestPrice, lowestPercentTwo) : lowestPrice, 'auto']} />
+					<Tooltip content={<CustomTooltip />} />
+					</>
 			}
 		</AreaChart>
 		

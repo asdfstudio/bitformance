@@ -151,25 +151,25 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 				setShownGraphData(hourlyData)	      
 				break;
 	    case "7D":
-	    	isOverlay ? loadOverlayData(-7) : setShownGraphData(fullGraphData.slice(-7))
+	    	isOverlay ? loadOverlayData(-7) : setShownGraphData(fullGraphData.slice(-7)) //7
 	      break;
 	    case "1M":
-	    	isOverlay ? loadOverlayData(-30) : setShownGraphData(fullGraphData.slice(-30))
+	    	isOverlay ? loadOverlayData(-3) : setShownGraphData(fullGraphData.slice(-3)) //30
 	      break;
 	    case "3M":
-	    	isOverlay ? loadOverlayData(-90) : setShownGraphData(fullGraphData.slice(-90))
+	    	isOverlay ? loadOverlayData(-30) : setShownGraphData(fullGraphData.slice(-30)) //90
 	      break;
 	    case "6M":
-	    	isOverlay ? loadOverlayData(-180) : setShownGraphData(fullGraphData.slice(-180))
+	    	isOverlay ? loadOverlayData(-30) : setShownGraphData(fullGraphData.slice(-30)) //180
 	     break;
 	    case "1Y":
-	    	isOverlay ? loadOverlayData(-365) : setShownGraphData(fullGraphData.slice(-365))
+	    	isOverlay ? loadOverlayData(-30) : setShownGraphData(fullGraphData.slice(-30)) //365
 	      break;
 	    case "3Y":
-	    	isOverlay ? loadOverlayData(-1095) :setShownGraphData(fullGraphData.slice(-1095))
+	    	isOverlay ? loadOverlayData(-30) :setShownGraphData(fullGraphData.slice(-30)) //1095
 	      break;
 	    case "All":
-	    		isOverlay ? loadOverlayData(-3000) :setShownGraphData(fullGraphData.slice(-3000))
+	    		isOverlay ? loadOverlayData(-3000) :setShownGraphData(fullGraphData.slice(-3000)) ///3000
 	    	  break;
 	    default:
 	      setShownGraphData([])
@@ -186,7 +186,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 	return(
 		<div className="bg-white rounded-2xl">
 			<h1 className="text-lg px-5 pt-6 text-[22.1px] mb-4 font-DM_Sans font-medium leading-normal tracking-wide text-main-black">{title}</h1>
-			<div className="flex flex-col md:flex-row items-center mb-6 px-5 pt-4">
+			<div className="flex flex-col lg:flex-row items-center mb-6 px-5 pt-4">
 				<div className="rounded-lg bg-main-lightGray px-1 py-1">
 					{colorOptions.map(option => (
 						<button 
@@ -198,9 +198,8 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 						</button>
 					))}
 				</div>
-				<div className="flex flex-row ml-0 md:ml-auto mt-2 md:mt-0 rounded-lg py-1 bg-main-lightGray">
+				<div className="flex flex-row ml-0 lg:ml-auto mt-2 lg:mt-0 rounded-lg py-1 bg-main-lightGray items-center">
 					{dateOptions.map(option => (
-						console.log("halfGraph", halfGraph),
 						<button 
 							className={`text-sm text-main-gray font-DM_Sans font-normal leading-normal tracking-wide px-3 py-2 
 							${halfGraph ? 'px-3 py-2' : 'sm:px-7 py-2'}
