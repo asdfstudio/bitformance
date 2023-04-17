@@ -96,7 +96,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 	}, [searchText])
 
 	return(<>
-		<div className="flex flex-row items-center w-full bg-gradient-to-l from-main-gradientColor2 to-main-gradientColor1 md:bg-white shadow p-2 py-3">
+		<div className="flex flex-row items-center w-full bg-main-gradientColor2 md:bg-white shadow p-2 py-3">
 			
 			<div className="flex items-center md:hidden w-full">
 				<Link to="/"><img src={bitLogoWhite} className="ml-1 w-44" alt="bitformance logo" /></Link>
