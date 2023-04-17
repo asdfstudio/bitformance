@@ -59,9 +59,9 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	    case "1Y":
 	      return date.format("MMM Do")
 	    case "3Y":
-	      return date.format("MM/DD/YY")
+	      return date.format("MM/DD")
 	    default:
-	      return date.format("MM/DD/YY")
+	      return date.format("MM/DD")
 	  }
 	}
 
@@ -86,8 +86,8 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	}
 
 	let finalWidth = 0
-	if (width < 700) {
-		finalWidth = width - 76
+	if (width < 768) {
+		finalWidth = width - 20
 	} else {
 		finalWidth = width - 320 - subtractWidth
 	}

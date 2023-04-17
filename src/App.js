@@ -36,10 +36,10 @@ const MainLayout = ({ showModalType, setShowModalType, children }) => {
           <SidePanel setShowModalType={setShowModalType} />
         </div>
         <div className="w-full h-screen overflow-y">
-          <div className="relative md:pl-64 w-full md:sticky top-0 z-50">
+          <div className="fixed top-0 z-50 md:pl-64 w-full">
             <TopBar showModalType={showModalType} setShowModalType={setShowModalType} />
           </div>
-          <div className="md:ml-64 relative">
+          <div className="mt-14 md:ml-64 relative">
             {children}
           </div>
         </div>

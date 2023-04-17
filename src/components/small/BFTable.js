@@ -86,7 +86,7 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 		        <tbody>
 		        		{rows.map((coin, index) => {
 		        			return type === 'top-cryptos' ? 
-							(<tr onClick={() => onCoinRowClicked(coin)} key={coin.id} className="p-4 bg-mian-black grid grid-flow-col justify-between">
+							(<tr onClick={() => onCoinRowClicked(coin)} key={coin.id} className="p-2 bg-mian-black grid grid-flow-col justify-between">
 								<CoinRow key={coin.id} {...coin} headerShown={showHeader} />
 								</tr>)
 		        				: (type === 'browse-cryptos' || type === 'my-indexes') ? 

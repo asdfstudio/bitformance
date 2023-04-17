@@ -22,7 +22,7 @@ export default function RecentlyAdded() {
 	)
 
 	return(
-		<div className="pt-4 pl-6 pb-8 pr-6 bg-white border-[1px] border-main-lightGrayBorder sm:rounded-2xl">
+		<div className="pl-6 pb-5 pt-4 pr-6 bg-white border-[1px] border-main-lightGrayBorder sm:rounded-2xl">
 			<h1 className="text-[22px] mb-6 font-DM_Sans font-medium leading-normal tracking-wide text-main-black">Recently Added</h1>
 			<div>
 				{data.map(coin => (
@@ -48,8 +48,10 @@ export default function RecentlyAdded() {
 					</Link>
 				))}
 			</div>
-			<div className="text-right mt-6 -mr-2">
-				<Link to="/indexes/browse" className="text-[15px] text-white px-16 py-2 rounded-lg bg-main-buttonBlue text-cente shadow-sm shadow-main-shadowBlue font-DM_Sans font-normal leading-normal tracking-wide sm:px-16">See all Indexes</Link>
+			<div className='flex justify-center sm:justify-end'>
+				<div className="w-full mt-6 text-[15px] text-white py-2 rounded-lg bg-main-buttonBlue shadow-sm shadow-main-shadowBlue font-DM_Sans font-medium leading-normal tracking-wide text-center sm:w-[240px]">
+					<Link to="/indexes/browse">See all Indexes</Link>
+				</div>
 			</div>
 		</div>
 	)

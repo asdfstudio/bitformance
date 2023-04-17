@@ -95,7 +95,7 @@ export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
         </thead>
         <tbody>
         	{orderHoldings.map(coin => (
-        		<tr onClick={() => onCoinRowClicked(coin)} key={coin.symbol + '-holdings-table'} className="p-4 bg-mian-black grid grid-flow-col justify-between">
+        		<tr onClick={() => onCoinRowClicked(coin)} key={coin.symbol + '-holdings-table'} className="p-2 bg-mian-black grid grid-flow-col justify-between">
         			<HoldingsRow {...coin} />
         		</tr>
         	))}

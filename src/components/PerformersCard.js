@@ -36,7 +36,7 @@ export default function PerfomersCards() {
 	}
 	
 	return(
-		<div className="pt-4 pl-6 pb-8 pr-6 bg-white sm:border-[1px] sm:border-main-lightGrayBorder sm:rounded-2xl">
+		<div className="pt-4 pl-6 pb-5 pr-6 bg-white sm:border-[1px] sm:border-main-lightGrayBorder sm:rounded-2xl">
 			<div className="flex flex-row items-center mb-1">
 				<h1 className="text-[20px] font-DM_Sans font-medium leading-normal tracking-wide text-main-black pb-4">24h Performers</h1>
 				<div className="ml-auto mb-4 rounded-lg bg-main-lightGray py-1 px-1 flex flex-row">
@@ -69,8 +69,10 @@ export default function PerfomersCards() {
 					</Link>
 				))}
 			</div>
-			<div className="text-right mt-6 -mr-2">
-				<Link to="/indexes/browse" className="text-[15px] text-white px-16 py-2 rounded-lg bg-main-buttonBlue text-cente shadow-sm shadow-main-shadowBlue font-DM_Sans font-normal leading-normal tracking-wide">See all Indexes</Link>
+			<div className='flex justify-center sm:justify-end'>
+				<div className="w-full mt-6 text-[15px] text-white py-2 rounded-lg bg-main-buttonBlue shadow-sm shadow-main-shadowBlue font-DM_Sans font-medium leading-normal tracking-wide text-center sm:w-[240px]">
+					<Link to="/indexes/browse">See all Indexes</Link>
+				</div>
 			</div>
 		</div>
 	)

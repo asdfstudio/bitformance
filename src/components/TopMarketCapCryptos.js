@@ -58,9 +58,11 @@ export default function TopMarketCapCryptos({ title = 'Top Cryptocurrencies by V
 				?	<div className="text-center mt-2">
 						<button onClick={() => loadNextPage()} className="text-sm w-60 rounded bg-blue-500 text-white px-12 py-2">Load more</button>
 					</div>
-				: <div className="text-center mt-2 pb-4">
-					<div class="static h-24 w-full bg-gradient-to-t from-white -mb-10 -mt-28 opacity-80"></div>
-					<Link to="/coins" className="relative text-[15px] text-white px-20 py-2 rounded-lg bg-main-buttonBlue text-cente shadow-sm shadow-main-shadowBlue font-DM_Sans font-normal leading-normal tracking-wide">See all Indexes</Link>
+				: <div className="text-center mt-2 pb-6">
+					<div class="static h-24 w-full bg-gradient-to-t from-white -mb-14 -mt-28 opacity-90"></div>
+					<div className='flex justify-center w-full -mb-1'>
+						<Link to="/coins" className="relative text-[15px] text-white py-2 rounded-lg bg-main-buttonBlue text-cente shadow-sm shadow-main-shadowBlue font-DM_Sans font-medium leading-normal tracking-wide w-full sm:w-[240px]">See all Indexes</Link>
+					</div>
 				</div>
 			}
 		</div>

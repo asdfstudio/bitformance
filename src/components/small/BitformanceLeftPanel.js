@@ -1,4 +1,4 @@
-import bitLogoWhite from '../../logo@3x.png'
+import bitLogoWhite from '../../bitLogoWhite.png'
 
 export default function BitformanceLeftPanel({ setShowModalType, showInfo }) {
 
