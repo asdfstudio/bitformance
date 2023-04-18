@@ -184,7 +184,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 
 // console.log(shownGraphData)
 	return(
-		<div className="bg-white rounded-2xl">
+		<div className="bg-white rounded-2xl border border-main-inputBorder">
 			<h1 className="text-lg px-5 pt-6 text-[22.1px] mb-4 font-DM_Sans font-medium leading-normal tracking-wide text-main-black">{title}</h1>
 			<div className="flex flex-col lg:flex-row items-center mb-6 px-5 pt-4">
 				<div className="rounded-lg bg-main-lightGray px-1 py-1">
