@@ -5,6 +5,7 @@ import GraphCard from '../components/GraphCard'
 import TopMarketCap from '../components/TopMarketCapCryptos'
 import TwitterEnbeb from '../components/TwitterEnbeb'
 import { useTopFifty } from '../endpoints/index'
+import FooterMobile from '../components/small/FooterMobile'
 
 export default function HomePage() {
 
@@ -23,6 +24,9 @@ export default function HomePage() {
 				<div className="bg-main-white rounded-2xl col-start-1 col-span-3 xl:col-start-4">
 					<TwitterEnbeb />
 				</div>
+			</div>
+			<div className='bg-white md:hidden'>
+				<FooterMobile />
 			</div>
 		</div>
 	)
