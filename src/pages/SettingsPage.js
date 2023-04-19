@@ -87,7 +87,7 @@ export default function SettingsPage({ setShowModalType }) {
 		<div className="bg-main-lightGray h-screen p-4">
 			<div className="bg-white rounded-lg shadow mx-auto max-w-[740px]">
 				<div className="flex flex-col md:flex-row">
-					<div className="w-full text-[15px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black md:w-[280px] space-y-4 p-4 md:border-r">
+					<div className="flex flex-row w-full text-[15px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black md:w-[280px] p-4 md:border-r md:space-y-4 md:flex-col">
 						<p onClick={() => setTabSelected('profile')} className={tabSelected === 'profile' ? selected : notSelected}>
 						&nbsp;
 							<BFIcon iconName="profile" color="#5390F4" />
