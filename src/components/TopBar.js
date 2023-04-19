@@ -188,8 +188,8 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 				</div>
 			}
 		</div>
-		<div className='w-full bg-main-white relative border p-2'>
-			<div className="ml-2 md:flex flex-row gap-2 items-center text-main-gray text-[15px] text-cente font-DM_Sans font-bold leading-normal tracking-normal">
+		<div className='w-full bg-main-white relative border p-2 md:hidden'>
+			<div className="ml-2 flex flex-row items-center text-main-gray text-[15px] text-cente font-DM_Sans font-bold leading-normal tracking-normal">
 				{pathArray.map((crumb, index) => {
 					let to = `/${pathArray.slice(0, index + 1).join('/')}`
 					if (to === '/indexes') {

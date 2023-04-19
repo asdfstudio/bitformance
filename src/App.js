@@ -39,7 +39,7 @@ const MainLayout = ({ showModalType, setShowModalType, children }) => {
           <div className="fixed top-0 z-50 md:pl-64 w-full">
             <TopBar showModalType={showModalType} setShowModalType={setShowModalType} />
           </div>
-          <div className="mt-20 md:ml-64 relative">
+          <div className="mt-20 md:mt-14 md:ml-64 relative">
             {children}
           </div>
         </div>
