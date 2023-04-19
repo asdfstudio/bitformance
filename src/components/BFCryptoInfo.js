@@ -7,6 +7,7 @@ import BFHoldingsTable from './small/BFHoldingsTable'
 import BFCryptoImage from './small/BFCryptoImage'
 import BFImage from './small/BFImage'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import FooterMobile from './small/FooterMobile'
 
 export default function BFCryptoInfo({
 	data,
@@ -77,27 +78,59 @@ export default function BFCryptoInfo({
 				{(showIcon && hideGraph && panelId == '2') && <div className="bg-green-500 rounded-full w-2 h-2" />}
 			</div>
 
-			<div className="flex flex-row justify-between text-sm">
-				<div className="space-y-2 text-[16px] font-DM_Sans leading-normal tracking-normal">
-					<label className="font-normal text-main-gray">Price</label>
-					<p className="font-bold text-main-black">{formatMoney(data.index.value || data.index.price)}</p>
-				</div>
-				<div className="space-y-2 text-[16px] font-DM_Sans leading-normal tracking-normal">
-					<label className="font-normal text-main-gray">24h %</label>
-					<BFUpDownTag style="font-medium text-main-black" change={data.index.changepct_24hour} />
-				</div>
-				<div className="space-y-2 text-[16px] font-DM_Sans leading-normal tracking-normal">
-					<label className="font-normal text-main-gray">7d %</label>
-					<BFUpDownTag style="font-medium text-main-black" change={data.index.changepct_7d || data.index.changepct_7day} />
+			<div className='hidden md:block'>
+				<div className="flex flex-row justify-between text-sm">
+					<div className="space-y-2 text-[16px] font-DM_Sans leading-normal tracking-normal">
+						<label className="font-normal text-main-gray">Price</label>
+						<p className="font-bold text-main-black">{formatMoney(data.index.value || data.index.price)}</p>
+					</div>
+					<div className="space-y-2 text-[16px] font-DM_Sans leading-normal tracking-normal">
+						<label className="font-normal text-main-gray">24h %</label>
+						<BFUpDownTag style="font-medium text-main-black" change={data.index.changepct_24hour} />
+					</div>
+					<div className="space-y-2 text-[16px] font-DM_Sans leading-normal tracking-normal">
+						<label className="font-normal text-main-gray">7d %</label>
+						<BFUpDownTag style="font-medium text-main-black" change={data.index.changepct_7d || data.index.changepct_7day} />
 
+					</div>
+					<div className="space-y-2 text-[16px] font-DM_Sans leading-normal tracking-normal">
+						<label className="font-normal text-main-gray">Market Cap</label>
+						<p className="font-bold text-main-black">{formatMoney(data.index.marketcap || marketCap)}</p>
+					</div>
+					{(data.index.updated && !isHalfGraph) && <BFInfoTags timestamp={data.index.updated.$date} weightingMethod={data.index.weighting_method} rebalancingInterval={data.index.rebalancing_interval} />}
 				</div>
-				<div className="space-y-2 text-[16px] font-DM_Sans leading-normal tracking-normal">
-					<label className="font-normal text-main-gray">Market Cap</label>
-					<p className="font-bold text-main-black">{formatMoney(data.index.marketcap || marketCap)}</p>
-				</div>
-				{(data.index.updated && !isHalfGraph) && <BFInfoTags timestamp={data.index.updated.$date} weightingMethod={data.index.weighting_method} 	rebalancingInterval={data.index.rebalancing_interval} />}
 			</div>
-			{(data.index.updated && isHalfGraph) && <BFInfoTags style="normal" timestamp={data.index.updated.$date} weightingMethod={data.index.weighting_method} 	rebalancingInterval={data.index.rebalancing_interval} />}
+			{/* mobile view */}
+			<div className='block md:hidden'>
+				<div className="space-y-4 text-[16px] font-DM_Sans leading-normal tracking-normal flex flex-row items-center gap-2">
+						<label className="font-normal text-main-gray pt-3">Price</label>
+						<p className="font-bold text-main-black">{formatMoney(data.index.value || data.index.price)}</p>
+				</div>
+				<div className='border-t my-2 border-main-lightGrayBorder'/>
+				<div className='flex flex-row justify-between items-center'>
+					<div className="space-y-1 text-[16px] font-DM_Sans leading-normal tracking-normal flex flex-col items-center">
+							<label className="font-normal text-main-gray pt-3">24h %</label>
+							<p className='font-bold'><BFUpDownTag style="font-medium text-main-black" change={data.index.changepct_24hour} /></p>
+					</div>
+					<div className="space-y-1 text-[16px] font-DM_Sans leading-normal tracking-normal flex flex-col items-center">
+							<label className="font-normal text-main-gray pt-3">7d %</label>
+							<p className='font-bold'><BFUpDownTag style="font-medium text-main-black" change={data.index.changepct_7d || data.index.changepct_7day} /></p>
+					</div>
+					<div className="space-y-1 text-[16px] font-DM_Sans leading-normal tracking-normal flex flex-col items-center">
+							<label className="font-normal text-main-gray pt-3">Market Cap</label>
+							<p className="font-bold text-main-black">{formatMoney(data.index.marketcap || marketCap)}</p>
+					</div>
+				</div>
+
+				<div className='border-t my-2 border-main-lightGrayBorder'/>
+
+				<div className="space-y-1 text-[16px] font-DM_Sans leading-normal tracking-normal flex flex-col items-start mb-2">
+					<label className="font-normal text-main-gray pt-3">Market Cap</label>
+					{(data.index.updated && !isHalfGraph) && <BFInfoTags timestamp={data.index.updated.$date} weightingMethod={data.index.weighting_method} rebalancingInterval={data.index.rebalancing_interval} />}
+				</div>
+				
+			</div>
+			{/* {(data.index.updated && isHalfGraph) && <BFInfoTags style="normal" timestamp={data.index.updated.$date} weightingMethod={data.index.weighting_method} 	rebalancingInterval={data.index.rebalancing_interval} />} */}
 		</div>
 
 		{!hideGraph &&
@@ -110,12 +143,13 @@ export default function BFCryptoInfo({
 		<div className={`bg-white p-4 ${singlePage ? 'border border-main-lightGrayBorder rounded-xl' : 'border-t-2'}`}>
 			<h2 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Performance Metrics</h2>
 			<div className="p-4 flex flex-col justify-between items-start">
-				<div className="flex flex-row space-x-6">
+				<div className="flex flex-col space-x-6 md:flex-row">
 					<p className="flex flex-col items-start ">
 						{data.index.drawdown > 0 ? <UpTag value={data.index.drawdown || drawdown} /> : <DownTag value={data.index.drawdown || drawdown} /> }
 						<span className="ml-2 mt-0.5 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-black">Maximum Drawdown</span>
 					</p>
-					<p className='border-r-[1px] border-main-lightGrayBorder'/>
+					<div className='hidden md:block border-r-[1px] my-2 border-main-lightGrayBorder'/>
+					<div className='border-t my-2 border-main-lightGrayBorder w-full md:hidden'/>
 					<p className="flex flex-col items-start">
 						{totalReturn > 0 ? <UpTag value={totalReturn} /> : <DownTag value={totalReturn} /> }
 						<span className="ml-2 mt-0.5 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-black">Total Return</span>
@@ -130,5 +164,8 @@ export default function BFCryptoInfo({
 				<BFHoldingsTable holdings={formattedHoldings} />
 			</div>
 		}
+		<div className='bg-white rounded-xl border md:hidden'>
+			<FooterMobile />
+		</div>
 	</>)
 }

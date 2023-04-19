@@ -51,13 +51,12 @@ export default function CryptoPage({ isAuth }) {
 	}
 
 	const PanelOne = ({ id, name, description, isAuth }) => (
-		<div className="p-6 space-y-4 border bg-white hidden xl:block col-span-3">
+		<div>
 			<div className="flex flex-row items-center gap-2">
 				<BFImage style="shadow-md w-16 h-16 rounded-full bg-white p-1" alt="crypto" src={data.index.logo} />
 				<h2 className="text-[18px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">{name}</h2>
 			</div>
-			<div className="flex flex-row gap-2 justify-between w-full"
-			>
+			<div className="flex flex-row gap-2 justify-between w-full my-4">
 				<button 
 					onClick={(e) => favoriteRow(e)} 
 					className="w-full flex flex-row gap-2 justify-center items-center shadow text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded-md bg-main-gColor hover:bg-main-buttonBlue text-white py-1">
@@ -80,7 +79,7 @@ export default function CryptoPage({ isAuth }) {
 				</div>
 			</div>
 			{/* <p className='text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-grayText'>{'Share this Index'}</p> */}
-			<p className='text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-gray pt-2'>{description}</p>
+			<p className='text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-gray pt-2 my-4'>{description}</p>
 
 			{isAuth && <div className="absolute bottom-2 w-1/5 flex flex-row gap-2 justify-between">
 				<button onClick={() => editRow()} className="w-full text-gray-500 bg-gray-100 rounded px-6 py-2 font-bold text-sm">Edit</button>
@@ -110,9 +109,14 @@ export default function CryptoPage({ isAuth }) {
 
 	return (
 		<div className="grid grid-cols-1 xl:grid-cols-12 bg-main-lightGray">
-			<PanelOne {...data.index} isAuth={isAuth} />
+			<div className="p-6 space-y-4 border bg-white hidden xl:block col-span-3">
+				<PanelOne {...data.index} isAuth={isAuth} />
+			</div>
 
 			<div className="col-span-9 p-4 space-y-4">
+				<div className='block bg-main-white rounded-xl p-4 border md:hidden'>
+					<PanelOne {...data.index} isAuth={isAuth} />
+				</div>
 				<BFCryptoInfo data={data} singlePage={true}/>
 			</div>
 		</div>

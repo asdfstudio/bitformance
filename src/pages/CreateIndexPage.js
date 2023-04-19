@@ -116,8 +116,8 @@ export default function CreateIndexPage() {
 	}, [selectedCryptos, initialValue])
 
 	return (
-		<div className="grid grid-cols-1 xl:grid-cols-5 bg-main-lightGray">
-			<div className="col-span-2 space-y-4 bg-white rounded-lg border p-4 ml-4 mt-4">
+		<div className="grid grid-cols-1 pb-10 xl:grid-cols-5 bg-main-lightGray">
+			<div className="col-span-2 space-y-4 bg-white border p-4 mt-4 md:m-4 md:rounded-lg">
 				<h1 className="text-[22px] mb-6 font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Basic</h1>
 				<label className='text-[16px] mb-6 font-DM_Sans font-medium leading-normal tracking-normal text-main-black'>Index Logo</label>
 				<BFUploadImage handleFileSelect={handleFileSelect} fileSelected={fileSelected} src={location.state?.logo} />
@@ -184,13 +184,13 @@ export default function CreateIndexPage() {
 			</div>
 
 
-			<div className="col-span-3 ml-4 mt-4">
-				<div className="bg-white p-4 rounded-lg border space-y-4">
+			<div className="col-span-3 mt-4 md:m-4 md:rounded-lg">
+				<div className="bg-white p-4 border space-y-4 md:rounded-lg">
 					<div className=" flex flex-row items-center gap-2">
 						<h1 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Weighting Method</h1>
 						<span className="bg-main-lightSkyBlue rounded py-1 px-2 text-[13px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gray">5</span>
 					</div>
-					<div className="space-x-4 flex flex-row pb-2">
+					<div className="flex flex-col pb-2 space-y-2 md:space-x-4 md:flex-row">
 						<BFChooseOption isMarketCapWeightAvailable={isMarketCapWeightAvailable} onSelect={setWeightingMethod} selected={weightingMethod} options={[
 							{
 								id: 'equal_weight',
@@ -234,8 +234,8 @@ export default function CreateIndexPage() {
 				</div>
 			</div>
 
-			<div className="bg-white fixed bottom-1 w-72 right-4">
-				<div className="flex flex-row gap-2">
+			<div className="bg-main-white fixed bottom-0 w-full md:w-72 right-0">
+				<div className="flex flex-row gap-2 p-2">
 					<button className="w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor bg-opacity-10 text-main-gColor py-2" onClick={() => navigate(-1)}>Cancel</button>
 					{!previewShown && <button className="shadow w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor hover:bg-main-buttonBlue text-white py-2" onClick={() => loadPreview()}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Preview'}</button>}
 					{previewShown && <button className="shadow w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor hover:bg-main-buttonBlue text-white py-2" onClick={() => setShowMenu(!showMenu)}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Create'}</button>}

@@ -30,7 +30,7 @@ export default function BFInfoTags({ style = '', timestamp, weightingMethod, reb
 	}
 
 	return(
-		<div className="flex flex-col flex-start text-xs gap-0.5 items-start sm:items-end">
+		<div className="flex flex-col flex-start text-xs gap-0.5 items-start md:items-end">
 			<Items />
 		</div>
 	)
