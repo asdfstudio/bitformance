@@ -98,22 +98,24 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 		{viewShown === 'reset-link' && <>
 			<ControlButtons backTo="forgot-password" />
 			<br />
-			<div className="text-[44px] px-2">
+			<div className="text-[44px] px-2 text-center sm:text-start">
 				<BFIcon iconName="contact-us" color={"#b7c3d1"} />
 			</div>
-			<h1 className="text-[30px] mt-2 font-DM_Sans font-medium leading-medium tracking-tight text-main-black">Check your email</h1>
-			<p className="text-[14px] font-DM_Sans font-medium leading-normal tracking-normal text-main-gray">If this email address exists in our system, you will receive an email containing instructions on how to reset your password. Please check your spam if you can not find the email.</p>
+			<h1 className="text-[30px] mt-2 font-DM_Sans font-medium leading-medium tracking-tight text-main-black text-center sm:text-start">Check your email</h1>
+			<p className="text-[14px] font-DM_Sans font-medium leading-normal tracking-normal text-main-gray ">If this email address exists in our system, you will receive an email containing instructions on how to reset your password. Please check your spam if you can not find the email.</p>
 			<div className="mt-auto">
 				<button className="w-full text-sm rounded-lg bg-main-buttonBlue hover:bg-blue:600 text-main-white font-bold py-2 mb-2 cursor-pointer shadow-sm shadow-main-shadowBlue" onClick={() => backToSignIn()}>Go to Sign In</button>
 			</div>
 		</>}
 
 		{viewShown === 'forgot-password' && <>
-			<ControlButtons backTo="sign-in" />
-   		<br />
+		<div className="bg-main-lightGray p-8 -m-6 sm:bg-main-white">
+				<ControlButtons backTo="sign-in" />
+			<br />
 
-   		<h1 className="text-[30px] mt-2 font-DM_Sans font-medium leading-medium tracking-tight text-main-black">Forgot your password?</h1>
-   		<p className="text-[14px] font-DM_Sans font-medium leading-normal tracking-normal text-main-gray">We will send you an email with instructions on how to reset your password.</p>
+			<h1 className="pt-4 text-[30px] mt-2 font-DM_Sans font-medium leading-medium tracking-tight text-main-black text-center sm:text-start">Forgot your password?</h1>
+		</div>
+   		<p className="text-[14px] font-DM_Sans font-medium leading-normal tracking-normal text-main-gray pt-8 sm:pt-0 pl-2">We will send you an email with instructions on how to reset your password.</p>
 
    		<div>
    			<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal">Username or Email Address</label>

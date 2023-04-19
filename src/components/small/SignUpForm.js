@@ -65,7 +65,7 @@ export default function SignUpForm({ setShowModalType }) {
 	return(
 
 		<form className="space-y-4" onSubmit={(e) => signUp(e)}>
-			<div className="flex flex-row gap-4">
+			<div className="flex flex-col gap-4 sm:flex-row">
 				<div>
 					<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">First Name</label>
 					<input name="first_name" type='text' className="w-full py-1 border rounded mt-1" />
@@ -97,7 +97,7 @@ export default function SignUpForm({ setShowModalType }) {
 			</div>
 
 
-			<p className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black text-center">By signing up, I agree to Bitformance&apos;s <a className="text-blue-500" href="/terms-of-services" target="_blank" rel="noopener">terms of service</a> and <a className="text-blue-500" href="/privacy-policy" target="_blank" rel="noopener">privacy policy.</a></p>
+			<p className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black text-start sm:text-center">By signing up, I agree to Bitformance&apos;s <a className="text-blue-500" href="/terms-of-services" target="_blank" rel="noopener">terms of service</a> and <a className="text-blue-500" href="/privacy-policy" target="_blank" rel="noopener">privacy policy.</a></p>
 			<ReCAPTCHA
 			  sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
 			  onChange={onRecaptchaChange}
