@@ -7,7 +7,6 @@ import BFHoldingsTable from './small/BFHoldingsTable'
 import BFCryptoImage from './small/BFCryptoImage'
 import BFImage from './small/BFImage'
 import useWindowDimensions from '../hooks/useWindowDimensions'
-import FooterMobile from './small/FooterMobile'
 
 export default function BFCryptoInfo({
 	data,
@@ -164,8 +163,5 @@ export default function BFCryptoInfo({
 				<BFHoldingsTable holdings={formattedHoldings} />
 			</div>
 		}
-		<div className='bg-white rounded-xl border md:hidden'>
-			<FooterMobile />
-		</div>
 	</>)
 }

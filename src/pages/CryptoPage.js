@@ -13,6 +13,7 @@ import { useSWRConfig } from 'swr'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BFImage from '../components/small/BFImage'
+import FooterMobile from '../components/small/FooterMobile'
 
 export default function CryptoPage({ isAuth }) {
 	const params = useParams()
@@ -118,6 +119,9 @@ export default function CryptoPage({ isAuth }) {
 					<PanelOne {...data.index} isAuth={isAuth} />
 				</div>
 				<BFCryptoInfo data={data} singlePage={true}/>
+			</div>
+			<div className='bg-white rounded-xl border md:hidden'>
+				<FooterMobile />
 			</div>
 		</div>
 	)

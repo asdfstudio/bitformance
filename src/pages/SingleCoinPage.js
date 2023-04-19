@@ -5,6 +5,7 @@ import BFCryptoInfo from '../components/BFCryptoInfo'
 import { baseUrl, useCoinBySymbol } from '../endpoints/index'
 import { useNavigate } from 'react-router-dom'
 import BFCryptoImage from '../components/small/BFCryptoImage'
+import FooterMobile from '../components/small/FooterMobile'
 
 export default function SingleCoinPage() {
 	const params = useParams()
@@ -38,6 +39,9 @@ export default function SingleCoinPage() {
 
 			<div className="col-span-9 p-4 space-y-4">
 				<BFCryptoInfo data={{ index: data }} singlePage={true}/>
+			</div>
+			<div className='bg-white rounded-xl border md:hidden'>
+				<FooterMobile />
 			</div>
 		</div>
 	)
