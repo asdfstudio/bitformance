@@ -54,7 +54,6 @@ export default function BFCryptoSelectorCard({ mode, selectedCrypto, isAuthRequi
 	}
 
 	const IndexView = () => {
-		console.log(isAuthRequired)
 		const { data, isLoading } = useCryptoById(selectedCrypto, isAuthRequired)
 		return (
 			<div className="space-y-4 h-full">

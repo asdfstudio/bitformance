@@ -148,9 +148,9 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 					}
 
 					if (pathArray.length === 1 || pathArray.length - 1 === index) {
-						return <Link to={to} key={crumb}>{capitalizeFirstLetter(crumb) || 'Home'}</Link>
+						return <Link className="text-main-black" to={to} key={crumb}>{capitalizeFirstLetter(crumb) || 'Home'}</Link>
 					} else {
-						return (<Link to={to} key={crumb}>{capitalizeFirstLetter(crumb) || 'Home'} &nbsp;<FontAwesomeIcon icon={faArrowRight} /></Link>)
+						return (<Link className="text-main-gray" to={to} key={crumb}>{capitalizeFirstLetter(crumb) || 'Home'} &nbsp;<FontAwesomeIcon icon={faArrowRight} /></Link>)
 					}
 				})}
 			</div>
@@ -187,6 +187,24 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 					<button onClick={() => setShowModalType('SIGN_UP')} className="text-[15px] w-32 py-2 text-white rounded-lg bg-main-buttonBlue text-cente font-DM_Sans font-medium leading-normal tracking-normal shadow-sm shadow-main-buttonBlue whitespace-nowrap">Sign Up</button>
 				</div>
 			}
+		</div>
+		<div className='w-full bg-main-white relative border p-2'>
+			<div className="ml-2 md:flex flex-row gap-2 items-center text-main-gray text-[15px] text-cente font-DM_Sans font-bold leading-normal tracking-normal">
+				{pathArray.map((crumb, index) => {
+					let to = `/${pathArray.slice(0, index + 1).join('/')}`
+					if (to === '/indexes') {
+						to = '/'
+					} else if (to === '/settings') {
+						crumb = 'Settings & Account'
+					}
+
+					if (pathArray.length === 1 || pathArray.length - 1 === index) {
+						return <Link className="text-main-black" to={to} key={crumb}>{capitalizeFirstLetter(crumb) || 'Home'}</Link>
+					} else {
+						return (<Link className="text-main-gray" to={to} key={crumb}>{capitalizeFirstLetter(crumb) || 'Home'} &nbsp;<FontAwesomeIcon icon={faArrowRight} />&nbsp;&nbsp;</Link>)
+					}
+				})}
+			</div>
 		</div>
 	</>)
 }

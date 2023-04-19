@@ -11,13 +11,13 @@ export default function BFInfoTags({ style = '', timestamp, weightingMethod, reb
 
 
 	const Items = () => (<>
-		<p className="px-3 py-1 bg-main-lightGray rounded text-main-gray font-DM_Sans font-medium leading-normal tracking-wide text-[14px]">
-			<BFIcon iconName="time" color="#566375" />
-			&nbsp;&nbsp;{moment(timestamp).format('MM/DD/YY hh:mm:ss A')}
-		</p>
-		<div className="my-1">
-			<span className="px-4 py-1 mx-1 bg-main-lightGray rounded whitespace-nowrap	text-main-gray font-DM_Sans font-medium leading-normal tracking-wide text-[14px]">{WEIGHT_TITLE[weightingMethod]}</span>
-			<span className="px-4 py-1 bg-main-lightGray rounded whitespace-nowrap text-main-gray font-DM_Sans font-medium leading-normal tracking-wide text-[14px]">Rebalanced {rebalancingInterval.toLowerCase()}</span>
+			<p className="px-3 py-1 bg-main-lightGray rounded text-main-gray font-DM_Sans font-medium leading-normal tracking-wide text-[14px]">
+				<BFIcon iconName="time" color="#566375" />
+				&nbsp;&nbsp;{moment(timestamp).format('MM/DD/YY hh:mm:ss A')}
+			</p>
+		<div className="my-1.5 -ml-1.5">
+			<span className="px-4 py-1 mr-1.5 bg-main-lightGray rounded text-main-gray font-DM_Sans font-medium leading-normal tracking-wide text-[14px]">{WEIGHT_TITLE[weightingMethod]}</span>
+			<span className="px-4 py-1 bg-main-lightGray rounded text-main-gray font-DM_Sans font-medium leading-normal tracking-wide text-[14px]">Rebalanced {rebalancingInterval.toLowerCase()}</span>
 		</div>
 	</>)
 
@@ -30,7 +30,7 @@ export default function BFInfoTags({ style = '', timestamp, weightingMethod, reb
 	}
 
 	return(
-		<div className="flex flex-col flex-start text-xs items-end gap-0.5">
+		<div className="flex flex-col flex-start text-xs gap-0.5 items-start sm:items-end">
 			<Items />
 		</div>
 	)
