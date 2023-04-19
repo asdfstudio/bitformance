@@ -165,7 +165,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 					</div>
 				</div>
 				{showMenu &&
-				<div id="dropdown" className="p-4 absolute right-2 top-12 z-10 w-56 bg-white rounded-lg divide-y divide-gray-100 shadow">
+				<div id="dropdown" className="p-4 absolute right-2 top-12 z-10 bg-white rounded-lg divide-y divide-gray-100 shadow w-full sm:w-56">
 				    <ul className="space-y-2 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
 				      <li className="flex flex-row items-center gap-2">
 				      	<BFIcon iconName="settings" size="lg" color="gray" />

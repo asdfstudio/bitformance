@@ -104,7 +104,7 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 
 	let finalWidth = 0
 	if (width < 768) {
-		finalWidth = width - 46
+		finalWidth = width - 66
 	} else {
 		finalWidth = width - 320 - subtractWidth
 	}

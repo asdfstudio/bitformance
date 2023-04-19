@@ -77,7 +77,7 @@ export default function ComparePage() {
 				</div>
 			</div>
 
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-1 items-start overflow-y-auto m-2">
+			<div className="grid grid-cols-1 xl:grid-cols-2 gap-4 p-1 items-start overflow-y-auto m-2">
 				<BFCryptoSelectorCard mode={typeSelected} selectedCrypto={selectedCryptoOne} isAuthRequired={isAuthRequiredOne} selectCrypto={selectCrypto} panelId="1" />
 				<BFCryptoSelectorCard mode={typeSelected} selectedCrypto={selectedCryptoTwo} isAuthRequired={isAuthRequiredTwo} selectCrypto={selectCrypto} panelId="2" />
 			</div>
@@ -86,7 +86,7 @@ export default function ComparePage() {
 			</div>
 			<div className='bg-white md:hidden'>
 				<FooterMobile />
-		</div>
+			</div>
 		</div>
 	)
 }
