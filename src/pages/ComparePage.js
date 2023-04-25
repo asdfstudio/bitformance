@@ -60,7 +60,7 @@ export default function ComparePage() {
 	}
 
 	return(
-		<div className="h-5/6 bg-main-lightGray md:p-4">
+		<div className="h-5/6 bg-main-lightGray pt-1 md:p-4">
 			<div className="gap-4 rounded-xl border bg-main-white p-4 m-2 mb-4 flex flex-col items-start md:flex-row md:items-center">
 				<h1 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black mr-2">Compare Currencies</h1>
 				<div className='flex flex-row gap-2'>

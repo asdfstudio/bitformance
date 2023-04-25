@@ -46,28 +46,28 @@ export default function CoinRow({
 
 	return (
 		<>
-			<td className={`ml-2 w-64`}>
+			<td className={`ml-2 w-64 cursor-pointer`}>
 				<div className="flex flex-row items-center gap-2">
 					<img className="w-10 h-10 rounded-full" src={fixUrl(logo)} alt={name} />
 					<p className="font-DM_Sans font-bold leading-normal tracking-wide text-main-black text-base">{name || findName(symbol)}</p>
 				</div>
 			</td>
 
-			<td className="text-main-gray w-28 font-DM_Sans font-medium leading-normal tracking-wide text-base">{symbol}</td>
-			<td className="w-32 text-main-black font-DM_Sans font-medium leading-normal tracking-wide text-base">{formatMoney(price)}</td>
-			<td className="w-24">
+			<td className="text-main-gray w-28 font-DM_Sans font-medium leading-normal tracking-wide text-base cursor-pointer">{symbol}</td>
+			<td className="w-32 text-main-black font-DM_Sans font-medium leading-normal tracking-wide text-base cursor-pointer">{formatMoney(price)}</td>
+			<td className="w-24 cursor-pointer">
 				{changepct_24hour > 0
 					? <UpTag change={changepct_24hour} />
 					: <DownTag change={changepct_24hour} />
 				}
 			</td>
-			<td className="w-32">
+			<td className="w-32 cursor-pointer">
 				{changepct_7day > 0
 					? <UpTag change={changepct_7day} />
 					: <DownTag change={changepct_7day} />
 				}
 			</td>
-			<td className='w-32 text-main-black font-DM_Sans font-medium leading-normal tracking-wide text-base'>{formatMoney(volume)}</td>
+			<td className='w-32 text-main-black font-DM_Sans font-medium leading-normal tracking-wide text-base cursor-pointer'>{formatMoney(volume)}</td>
 		</>
 	)
 }

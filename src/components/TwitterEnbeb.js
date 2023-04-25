@@ -24,7 +24,7 @@ export default function TwitterEnbeb() {
 			 <TwitterTimelineEmbed
 				sourceType="profile"
 				screenName="elonmusk"
-				tweetLimit= '4'
+				tweetLimit= '10'
 				noScrollbar
 				options={{height: 986}}
 				onLoad={onLoad}

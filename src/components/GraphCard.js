@@ -90,7 +90,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 		// console.log('computed array')
 		// console.log(array)
 
-		console.log(array)
+		// console.log('computed array', array)
 
 		setFullGraphData(array)
 		setShownGraphData(array.slice(timeInterval))
@@ -148,7 +148,8 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 	function displayGraphData(plotPeriod) {
 	  switch (plotPeriod) {
 	    case "24H":
-				setShownGraphData(hourlyData)	      
+				setShownGraphData(hourlyData)
+				console.log('hourlyData', hourlyData)
 				break;
 	    case "7D":
 	    	isOverlay ? loadOverlayData(-7) : setShownGraphData(fullGraphData.slice(-7)) //7
