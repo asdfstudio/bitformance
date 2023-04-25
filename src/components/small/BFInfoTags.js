@@ -15,9 +15,9 @@ export default function BFInfoTags({ style = '', timestamp, weightingMethod, reb
 				<BFIcon iconName="time" color="#566375" />
 				&nbsp;&nbsp;{moment(timestamp).format('MM/DD/YY hh:mm:ss A')}
 			</p>
-		<div className="my-1.5 -ml-1.5">
-			<span className="px-4 py-1 mr-1.5 bg-main-lightGray rounded text-main-gray font-DM_Sans font-medium leading-normal tracking-wide text-[14px]">{WEIGHT_TITLE[weightingMethod]}</span>
-			<span className="px-4 py-1 bg-main-lightGray rounded text-main-gray font-DM_Sans font-medium leading-normal tracking-wide text-[14px]">Rebalanced {rebalancingInterval.toLowerCase()}</span>
+		<div className="my-1.5 -ml-1.5 flex flex-row">
+			<span className="px-2 py-1 mr-1.5 bg-main-lightGray rounded text-main-gray font-DM_Sans font-medium leading-normal tracking-wide text-[14px]">{WEIGHT_TITLE[weightingMethod]}</span>
+			<span className="px-2 py-1 bg-main-lightGray rounded text-main-gray font-DM_Sans font-medium leading-normal tracking-wide text-[14px]">Rebalanced {rebalancingInterval.toLowerCase()}</span>
 		</div>
 	</>)
 
