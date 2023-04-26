@@ -4,7 +4,7 @@ import SocialIconsRows from './SocialIconsRow'
 export default function FooterMobile() {
 
 	return(
-			<div className="mt-auto space-y-4 p-12">
+			<div className="mt-auto space-y-4 p-7">
 				<div className="flex flex-row justify-around cursor-pointer">
 					<SocialIconsRows showCopyLink={false} />
 				</div>

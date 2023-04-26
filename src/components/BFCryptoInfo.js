@@ -65,7 +65,7 @@ export default function BFCryptoInfo({
 
 	return (<>
 
-		<div className={`relative p-4 bg-white space-y-4 mt-1 ${singlePage ? 'border border-main-lightGrayBorder rounded-xl' : 'border-t-2'}`}>
+		<div className={`relative p-4 bg-white space-y-4 mt-1 ${singlePage ? 'border border-main-lightGrayBorder sm:rounded-xl' : 'border-t-2'}`}>
 			<div className="flex flex-row gap-3 items-center">
 				{(showIcon && data.index.symbol) && <BFCryptoImage symbol={data.index.symbol} />}
 				{(showIcon && data.index.logo !== undefined) && <BFImage style="w-[55px] h-[55px] object-cover rounded-full border-2 border-white drop-shadow-md" src={data.index.logo} alt={data.index.name} /> }
@@ -133,16 +133,16 @@ export default function BFCryptoInfo({
 		</div>
 
 		{!hideGraph &&
-		<div className={`bg-white ${singlePage ? 'border border-main-lightGrayBorder rounded-xl' : 'border-t-2'}`}>
+		<div className={`bg-white ${singlePage ? 'sm:rounded-xl' : 'border-t-2'}`}>
 			<GraphCard title="Currency Indexes" subtractWidth={adjustGraphWidth} halfGraph={true} hook={returnGraphData}/>
 		</div>
 		}
 
 		{(totalReturn && !hideGraph) &&
-		<div className={`bg-white p-4 ${singlePage ? 'border border-main-lightGrayBorder rounded-xl' : 'border-t-2'}`}>
+		<div className={`bg-white p-4 ${singlePage ? 'border border-main-lightGrayBorder sm:rounded-xl' : 'border-t-2'}`}>
 			<h2 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Performance Metrics</h2>
-			<div className="p-4 flex flex-col justify-between items-start">
-				<div className="flex flex-col space-x-6 md:flex-row">
+			<div className="pt-4 flex flex-col justify-between items-start">
+				<div className="flex flex-col md:flex-row md:space-x-6">
 					<p className="flex flex-col items-start ">
 						{data.index.drawdown > 0 ? <UpTag value={data.index.drawdown || drawdown} /> : <DownTag value={data.index.drawdown || drawdown} /> }
 						<span className="ml-2 mt-0.5 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-black">Maximum Drawdown</span>
@@ -158,7 +158,7 @@ export default function BFCryptoInfo({
 		</div>
 		}
 		{(formattedHoldings.length > 0 && !hideGraph) &&
-			<div className={`bg-white border-main-lightGrayBorder p-4 min-w-full overflow-y-auto space-y-4 ${singlePage ? 'border rounded-xl' : 'border-t-2'}`}>
+			<div className={`bg-white border-main-lightGrayBorder p-4 min-w-full overflow-y-auto space-y-4 ${singlePage ? 'border sm:rounded-xl' : 'border-t-2'}`}>
 				<h2 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Holdings <span className="bg-main-lightSkyBlue rounded py-1 px-2 text-[13px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gray">{data.rawStocks.length}</span></h2>
 				<BFHoldingsTable holdings={formattedHoldings} />
 			</div>

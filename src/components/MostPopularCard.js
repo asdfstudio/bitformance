@@ -11,7 +11,7 @@ export default function MostPopularCard() {
 	const { data, isLoading } = usePopularIndexes()
 
 	if (isLoading) return (
-		<div className="pt-4 pl-6 pb-8 pr-6 bg-white sm:border-[1px] sm:border-main-lightGrayBorder sm:rounded-2xl">
+		<div className="pt-4 pl-6 pb-8 pr-6 bg-white border-[1px] sm:border-main-lightGrayBorder sm:rounded-2xl">
 			<h1 className="text-[22px] mb-6 font-DM_Sans font-medium leading-normal tracking-wide text-main-black">Most Popular</h1>
 			<div className="h-40"><BFLoading heightAdjust="h-2/3" /></div>
 			<div className='flex justify-center sm:justify-end'>
@@ -23,7 +23,7 @@ export default function MostPopularCard() {
 	)
 
 	return(
-		<div className="pt-4 pl-6 pb-5 pr-6 bg-white sm:border-[1px] sm:border-main-lightGrayBorder sm:rounded-2xl">
+		<div className="pt-4 pl-6 pb-5 pr-6 bg-white border-[1px] sm:border-main-lightGrayBorder sm:rounded-2xl">
 			<h1 className="text-[22px] mb-6 font-DM_Sans font-medium leading-normal tracking-wide text-main-black">Most Popular</h1>
 			<div>
 				{data.map(coin => (

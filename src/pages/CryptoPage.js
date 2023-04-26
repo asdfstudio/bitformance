@@ -57,10 +57,10 @@ export default function CryptoPage({ isAuth }) {
 				<BFImage style="shadow-md w-16 h-16 rounded-full bg-white p-1" alt="crypto" src={data.index.logo} />
 				<h2 className="text-[18px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">{name}</h2>
 			</div>
-			<div className="flex flex-row gap-2 justify-between w-full my-4">
+			<div className="flex flex-row gap-3 justify-between w-full my-4">
 				<button 
 					onClick={(e) => favoriteRow(e)} 
-					className="w-full flex flex-row gap-2 justify-center items-center shadow text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded-md bg-main-gColor hover:bg-main-buttonBlue text-white py-1">
+					className="w-full flex flex-row gap-2 justify-center items-center shadow shadow-main-shadowBlue text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded-lg bg-main-gColor hover:bg-main-buttonBlue text-white h-[38px]">
 					{loadingFavorites ? <BFLoading isInline={true} />
 						: favoriteData?.some(obj => obj.index._id.$oid === params.id) ? <BFIcon iconName="favorite" /> 
 						: <BFIcon iconName="open-favorite" /> 
@@ -68,7 +68,7 @@ export default function CryptoPage({ isAuth }) {
 				</button>
 				<button 
 					onClick={(e) => compareRow(e)} 
-					className="w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded-md bg-main-lightGreen text-main-green py-1">
+					className="w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal shadow shadow-main-shadowBlue rounded-lg bg-main-lightGreen text-main-green h-[38px]">
 						Compare
 				</button>
 			</div>
@@ -109,18 +109,18 @@ export default function CryptoPage({ isAuth }) {
 	}
 
 	return (
-		<div className="grid grid-cols-1 xl:grid-cols-12 bg-main-lightGray">
+		<div className="grid grid-cols-1 xl:grid-cols-12 bg-main-lightGray pt-8 sm:pt-0">
 			<div className="p-6 space-y-4 border bg-white hidden xl:block col-span-3">
 				<PanelOne {...data.index} isAuth={isAuth} />
 			</div>
 
-			<div className="col-span-9 p-4 space-y-4">
-				<div className='block bg-main-white rounded-xl p-4 border md:hidden'>
+			<div className="col-span-9 space-y-4 sm:p-4">
+				<div className='block bg-main-white p-4 border-[1px] border-main-lightGrayBorder md:hidden'>
 					<PanelOne {...data.index} isAuth={isAuth} />
 				</div>
 				<BFCryptoInfo data={data} singlePage={true}/>
 			</div>
-			<div className='bg-white rounded-xl border md:hidden'>
+			<div className='bg-white md:hidden'>
 				<FooterMobile />
 			</div>
 		</div>

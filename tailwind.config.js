@@ -29,6 +29,7 @@ module.exports = {
           lightSkyBlue: "#e2eaf1",
           gradientColor1: "#2e5491",
           gradientColor2: "#3262b5",
+          shadow: "rgba(164, 179, 197, 0.4)",
           shadowBlue: "rgba(0, 165, 234, 0.2)",
           grayText: "#b7c3d1",
           placeholder: "#9d9eb2",

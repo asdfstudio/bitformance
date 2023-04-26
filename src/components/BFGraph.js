@@ -168,10 +168,8 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 		}
 	})
 
-	console.log(data)
-
 	return(
-			<AreaChart width={finalWidth} height={400} data={showPriceColored ? priceData: data}  margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
+			<AreaChart width={finalWidth} height={400} className='text-[14px] font-DM_Sans font-normal leading-normal tracking-wide' data={showPriceColored ? priceData: data}  margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
 				<defs>
 					<linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
 						{/* #8884d8 */}

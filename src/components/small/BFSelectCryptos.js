@@ -84,7 +84,7 @@ export default function BFSelectCryptos({
 								placeholder={`Search & add Cryptocurrency...`} 
 								className={`p-1 px-2 appearance-none outline-none w-full text-[15px] font-DM_Sans font-normal leading-normal tracking-normal rounded bg-main-inputBackground`} 
 							/>
-	                        <div className="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200">
+	                        <div className="text-gray-300 w-8 py-1 pl-2 pr-2 border-l flex items-center border-gray-200">
 	                            <button onClick={() => setShowMenu(!showMenu)} className="cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none">
 	                                {showMenu ? <BFIcon iconName="close" /> : <BFIcon iconName="menu" />}
 	                            </button>

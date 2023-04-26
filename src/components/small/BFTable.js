@@ -38,12 +38,12 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 
 
 	const HeaderColumn = ({ item, onClick }) => (
-		<th onClick={() => onClick(item.id, item.type)} key={item.label} scope="col" className="py-2">
+		<th onClick={() => onClick(item.id, item.type) && setOrderItem(!orderItem)} key={item.label} scope="col" className="py-2 rounded-xl">
 			<div className={`flex flex-row items-center ${item.id === "name" && 'w-56'} ${item.id === "updated" && 'w-56'} ${item.id === "volume" && 'w-40'}`}>
 		    <span className="ml-2 font-DM_Sans font-normal leading-normal tracking-wide">{item.label}</span>
-		    {item.id && <div onClick={() => setOrderItem(!orderItem)} className="ml-1 w-3 h-3 text-[7px] flex justify-center items-center">
+		    {item.id && item.id != "action" && <div className="ml-1 w-3 h-3 text-[7px] flex justify-center items-center">
 			{
-					orderItem == true ? <BFIcon iconName="arrowUP" color={"#111111"}/> : <BFIcon iconName="arrowDown" color={"#111111"}/>
+					orderItem === true ? <BFIcon iconName="arrowUP" color={"#566375"}/> : <BFIcon iconName="arrowDown" color={"#566375"}/>
 				}
 				</div>}
 			</div>
@@ -71,21 +71,21 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 		    <table className={`w-full text-sm text-left ${tableStyle}`}>
 
 		        {showHeader &&
-		        <thead className='text-base cursor-pointer text-main-gray bg-main-lightGray'>
+		        <thead className='text-base cursor-pointer text-main-gray rounded-xl'>
 					{
 						type === 'top-cryptos' ? 
-						<tr className='grid grid-flow-col justify-between rounded-xl border-[1px] border-main-lightGrayBorder'>
-							{headers.map(header => (
-								<HeaderColumn
-									key={header.label + '-coins'}
-									item={header}
-									onClick={handleHeaderClick}
-								/>
-							))}
-		            	</tr>
+							<tr className='grid grid-flow-col justify-between rounded-xl border-[1px] border-main-lightGrayBorder bg-main-lightGray'>
+								{headers.map(header => (
+									<HeaderColumn
+										key={header.label + '-coins'}
+										item={header}
+										onClick={handleHeaderClick}
+									/>
+								))}
+							</tr>
 						:
 						<div className='hidden sm:block'>
-							<tr className='grid grid-flow-col justify-between rounded-xl border-[1px] border-main-lightGrayBorder'>
+							<tr className='px-4 grid grid-flow-col justify-between rounded-xl border-[1px] border-main-lightGrayBorder'>
 								{headers.map(header => (
 									<HeaderColumn
 										key={header.label + '-coins'}
@@ -107,7 +107,7 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 								</tr>)
 		        				: (type === 'browse-cryptos' || type === 'my-indexes') ? 
 								(<React.Fragment key={coin.index._id.$oid}>
-		        					<tr className={`bg-main-white flex flex-col justify-between mt-3 rounded-2xl border border-main-lightGrayBorder ${indexesExpanded ? '' : ''}`}>
+		        					<tr className={`bg-main-white flex flex-col justify-between mt-3 border-[1px] border-main-lightGrayBorder sm:rounded-2xl p-1 ${indexesExpanded ? '' : ''}`}>
 		        						<div className='hidden sm:block'>
 											<td onClick={() => onRowClicked(coin.index)} className='grid grid-flow-col justify-between cursor-pointer'>
 												<BrowseCoinRow
@@ -118,7 +118,6 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 													onClickView={onClickView}
 													showDelete={type === 'my-indexes'}
 													isAuth={type === 'my-indexes'}
-
 												/>
 											</td>
 										</div>

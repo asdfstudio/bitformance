@@ -20,7 +20,7 @@ export default function BFCryptoImage({ symbol, index = 0, showNumber = false, i
 		if (isLarge) {
 			return <img className={`w-12 h-12 rounded-full ${zIndex} ${adjust}`} src={coin.image_url} alt={symbol} />
 		} 
-		return <img className={`w-8 h-8 shadow border rounded-full p-0.25 bg-white ${zIndex} ${adjust}`} src={coin.image_url} alt={symbol} />
+		return <img className={`w-8 h-8 shadow border-[3px] border-main-white rounded-full p-0.25 bg-white ${zIndex} ${adjust}`} src={coin.image_url} alt={symbol} />
 	}
 	return <div>image</div>
 }

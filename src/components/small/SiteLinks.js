@@ -59,7 +59,7 @@ export default function SiteLinks({ setShowModalType, setShowMobileMenu = functi
 				}
 				>
 					<BFIcon iconName="browse" color="white" />
-					<span className={`ml-2 ${colorStyle}`}>Browse</span>
+					<span className={`${colorStyle}`}>Browse</span>
 				</Link>
 			</div>
 			<Link to="/indexes/my-indexes" onClick={() => setShowMobileMenu(false) & setSiteSelected('my-indexes')} 

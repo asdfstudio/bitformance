@@ -12,7 +12,7 @@ export default function RecentlyAdded() {
 	const { data, isLoading } = useRecentIndexes()
 
 	if (isLoading) return (
-		<div className="pt-4 pl-6 pb-8 pr-6 bg-white sm:border-[1px] sm:border-main-lightGrayBorder sm:rounded-2xl">
+		<div className="pt-4 pl-6 pb-8 pr-6 bg-white border-[1px] sm:border-main-lightGrayBorder sm:rounded-2xl">
 			<h1 className="text-[22px] mb-6 font-DM_Sans font-medium leading-normal tracking-wide text-main-black">Recently Added</h1>
 			<div className="h-40"><BFLoading heightAdjust="h-2/3" /></div>
 			<div className='flex justify-center sm:justify-end'>

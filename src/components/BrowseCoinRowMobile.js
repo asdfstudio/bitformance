@@ -36,7 +36,6 @@ export default function BrowseCoinRowMobile({
 
 	const [loadingFavorites, setLoadingFavorites] = useState(false)
 	const [favoriteValue, setFavoriteValue] = useState(0)
-	const [indexesExpanded, setIndexesExpanded] = useState(false)
 
 	const compareRow = (e, { $oid }) => {
 		e.stopPropagation()
@@ -70,10 +69,10 @@ export default function BrowseCoinRowMobile({
 	}
 
 	return(<>
-		<div className="pl-4 p-3 overflow-y-hidden">
-			<div className='flex flex-row justify-between items-center'>
+		<div className="overflow-y-hidden">
+			<div className='px-2 flex flex-row justify-between items-center'>
 				<div className="flex flex-row items-center gap-2">
-					<BFImage src={logo} alt={name} style="shadow border-1 rounded-full p-1 bg-white w-16 h-16 object-cover" />
+					<BFImage src={logo} alt={name} style="shadow border-1 rounded-full p-1 bg-white w-16 h-16 object-cover shadow-lg shadow-main-shadow" />
 					<p className="text-main-black font-DM_Sans font-medium leading-normal tracking-normal text-[18px]">{name}</p>
 				</div>
 
@@ -90,7 +89,7 @@ export default function BrowseCoinRowMobile({
 				</div>
 			</div>
 
-			<div className="space-y-4 text-[16px] font-DM_Sans leading-normal tracking-normal flex flex-row items-center gap-2">
+			<div className="space-y-4 pl-2 text-[16px] font-DM_Sans leading-normal tracking-normal flex flex-row items-center gap-2">
 					<label className="font-normal text-main-gray pt-3">Price</label>
 					<p className="font-bold text-main-black">{formatMoney(value)}</p>
 			</div>
@@ -112,7 +111,7 @@ export default function BrowseCoinRowMobile({
 
 			<div className='border-t my-2 border-main-lightGrayBorder'/>
 
-			<div className="space-y-1 text-[16px] font-DM_Sans leading-normal tracking-normal flex flex-col items-start mb-2">
+			<div className="pl-2 space-y-1 text-[16px] font-DM_Sans leading-normal tracking-normal flex flex-col items-start mb-2">
 				<label className="font-normal text-main-gray pt-3">Market Cap</label>
 				<BFInfoTags timestamp={updated.$date} weightingMethod={weighting_method} rebalancingInterval={rebalancing_interval} />
 			</div>
@@ -121,8 +120,8 @@ export default function BrowseCoinRowMobile({
 				e.stopPropagation()
 				showHoldings(rowIndex)
 				onClickView()
-			}} className="flex md:hidden">
-				<div className="flex flex-row items-center rounded-full px-2 py-1 border shadow">
+			}} className="flex pl-2 mb-1 md:hidden">
+				<div className="flex flex-row items-center rounded-full px-2 py-1 border shadow shadow-main-shadow">
 					{cryptos.slice(0, 2).map((crypto, index) => <BFCryptoImage key={index} symbol={crypto} index={index} />)}
 					{cryptos.length > 2 && <BFCryptoImage symbol={cryptos.length - 2} index={3} showNumber={true} /> }
 					<button className="ml-2 mr-1 px-4 h-6 text-sm rounded-xl shadow bg-main-skyBlue text-main-buttonBlue font-DM_Sans font-medium leading-normal tracking-normal"> View</button>

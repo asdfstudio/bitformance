@@ -24,8 +24,8 @@ export default function SingleCoinPage() {
 				<BFCryptoImage symbol={data.symbol} index={0} isLarge={true} />
 				<h2 className="text-xl">{data.name}</h2>
 			</div>
-			<div className="flex flex-row gap-2 justify-between">
-				<button onClick={(e) => compareRow(e)} className="px-6 py-1.5 w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded-md bg-main-lightGreen text-main-green">Compare</button>
+			<div className="flex flex-row gap-3 justify-between">
+				<button onClick={(e) => compareRow(e)} className="px-6 py-1.5 w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded-lg shadow shadow-main-shadowBlue bg-main-lightGreen text-main-green">Compare</button>
 			</div>
 			<p>{data.description}</p>
 		</div>

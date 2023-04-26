@@ -72,11 +72,11 @@ export default function BrowseCoinRow({
 	return(<>
 		<td className="pl-4 p-3">
 			<div className="flex flex-row items-center gap-2 mb-2 w-52">
-				<BFImage src={logo} alt={name} style="shadow border-1 rounded-full p-1 bg-white w-16 h-16 object-cover" />
+				<BFImage src={logo} alt={name} style="border-1 rounded-full p-1 bg-white w-16 h-16 object-cover shadow-lg shadow-main-shadow" />
 				<p className="text-main-black font-DM_Sans font-medium leading-normal tracking-normal text-[18px]">{name}</p>
 			</div>
 			<div>
-				<div className="flex flex-row items-center rounded-full px-2 py-1 border shadow">
+				<div className="flex flex-row items-center rounded-full px-2 py-1 border shadow shadow-main-shadow">
 					{cryptos.slice(0, 4).map((crypto, index) => <BFCryptoImage key={index} symbol={crypto} index={index} />)}
 					{cryptos.length > 4 && <BFCryptoImage symbol={cryptos.length - 4} index={4} showNumber={true} /> }
 					<div onClick={(e) => {
@@ -84,8 +84,8 @@ export default function BrowseCoinRow({
 					showHoldings(rowIndex)
 					onClickView(indexesExpanded)
 					setIndexesExpanded(!indexesExpanded)
-				}}className="ml-2 mr-1 px-4 h-6 text-sm rounded-xl shadow bg-main-skyBlue text-main-buttonBlue font-DM_Sans font-medium leading-normal tracking-normal flex items-center cursor-pointer"> 
-						<div className='text-[7px] pr-1'>
+				}}className="ml-2 mr-1 px-4 h-6 text-sm rounded-xl bg-main-skyBlue text-main-buttonBlue font-DM_Sans font-medium leading-normal tracking-normal flex items-center cursor-pointer"> 
+						<div className='text-[12px] pr-1'>
 							{
 								indexesExpanded === true ? <BFIcon iconName="arrowUP" color={"#5290f4"}/> : <BFIcon iconName="arrowDown" color={"#5290f4"}/>
 							}
