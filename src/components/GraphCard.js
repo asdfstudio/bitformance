@@ -148,9 +148,8 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 	function displayGraphData(plotPeriod) {
 	  switch (plotPeriod) {
 	    case "24H":
-				setShownGraphData(hourlyData)
-				console.log('hourlyData', hourlyData)
-				break;
+			setShownGraphData(hourlyData)
+			break;
 	    case "7D":
 	    	isOverlay ? loadOverlayData(-7) : setShownGraphData(fullGraphData.slice(-7)) //7
 	      break;
@@ -185,6 +184,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 
 // console.log(shownGraphData)
 	return(
+		console.log('shownGraphData', shownGraphData),
 		<div className="bg-white sm:rounded-xl">
 			<h1 className="px-5 pt-6 text-[22.1px] mb-4 font-DM_Sans font-medium leading-normal tracking-wide text-main-black">{title}</h1>
 			<div className="flex flex-col lg:flex-row items-center mb-6 px-5 pt-4">
