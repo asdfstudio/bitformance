@@ -100,56 +100,56 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 		        }
 
 		        <tbody>
-		        		{rows.map((coin, index) => {
-		        			return type === 'top-cryptos' ? 
-							(<tr onClick={() => onCoinRowClicked(coin)} key={coin.id} className="p-2 bg-mian-black grid grid-flow-col justify-between">
-								<CoinRow key={coin.id} {...coin} headerShown={showHeader} />
-								</tr>)
-		        				: (type === 'browse-cryptos' || type === 'my-indexes') ? 
-								(<React.Fragment key={coin.index._id.$oid}>
-		        					<tr className={`bg-main-white flex flex-col justify-between mt-3 border-[1px] border-main-lightGrayBorder sm:rounded-2xl p-1 ${indexesExpanded ? '' : ''}`}>
-		        						<div className='hidden sm:block'>
-											<td onClick={() => onRowClicked(coin.index)} className='grid grid-flow-col justify-between cursor-pointer'>
-												<BrowseCoinRow
-													rowIndex={index}
-													{...coin.index}
-													marketcap={coin.index.marketcap || coin.rawStocks.reduce((sum, a) => a.market_cap + sum ,0)}
-													showHoldings={showHoldings}
-													onClickView={onClickView}
-													showDelete={type === 'my-indexes'}
-													isAuth={type === 'my-indexes'}
-												/>
-											</td>
-										</div>
-										<div className="overflow-hidden">
-											<td onClick={() => onRowClicked(coin.index)} className='block sm:hidden'>
-												<BrowseCoinRowMobile
-													rowIndex={index}
-													{...coin.index}
-													marketcap={coin.index.marketcap || coin.rawStocks.reduce((sum, a) => a.market_cap + sum ,0)}
-													showHoldings={showHoldings}
-													onClickView={onClickView}
-													showDelete={type === 'my-indexes'}
-													isAuth={type === 'my-indexes'}
+					{rows.map((coin, index) => {
+						return type === 'top-cryptos' ? 
+						(<tr onClick={() => onCoinRowClicked(coin)} key={coin.id} className="p-2 bg-mian-black grid grid-flow-col justify-between">
+							<CoinRow key={coin.id} {...coin} headerShown={showHeader} />
+							</tr>)
+							: (type === 'browse-cryptos' || type === 'my-indexes') ? 
+							(<React.Fragment key={coin.index._id.$oid}>
+								<tr className={`bg-main-white flex flex-col justify-between mt-3 border-[1px] border-main-lightGrayBorder sm:rounded-2xl p-1 ${indexesExpanded ? '' : ''}`}>
+									<div className='hidden sm:block'>
+										<td onClick={() => onRowClicked(coin.index)} className='grid grid-flow-col justify-between cursor-pointer'>
+											<BrowseCoinRow
+												rowIndex={index}
+												{...coin.index}
+												marketcap={coin.index.marketcap || coin.rawStocks.reduce((sum, a) => a.market_cap + sum ,0)}
+												showHoldings={showHoldings}
+												onClickView={onClickView}
+												showDelete={type === 'my-indexes'}
+												isAuth={type === 'my-indexes'}
+											/>
+										</td>
+									</div>
+									<div>
+										<td onClick={() => onRowClicked(coin.index)} className='block sm:hidden'>
+											<BrowseCoinRowMobile
+												rowIndex={index}
+												{...coin.index}
+												marketcap={coin.index.marketcap || coin.rawStocks.reduce((sum, a) => a.market_cap + sum ,0)}
+												showHoldings={showHoldings}
+												onClickView={onClickView}
+												showDelete={type === 'my-indexes'}
+												isAuth={type === 'my-indexes'}
 
-												/>
-											</td>
-										</div>
-		        						{showHoldingRow === index && 
-		        						<td className="bg-main-white rounded-b-xl drop-shadow-lg border-t-[1px] border-main-lightGrayBorder pt-4 cursor-pointer" colspan="8">
-		        							<BFHoldingsTable holdings={coin.rawStocks.map(stock => {
+											/>
+										</td>
+									</div>
+										{showHoldingRow === index && 
+										<td className="bg-main-white rounded-b-xl drop-shadow-lg border-t-[1px] border-main-lightGrayBorder pt-4 cursor-pointer" colspan="8">
+											<BFHoldingsTable holdings={coin.rawStocks.map(stock => {
 												return {
 													...stock,
 													holdingQuantity: coin.index.holdings[stock.symbol],
 													indexPrice: coin.index.value
 												}
 											})} />
-		        						</td>
-		        						}
-									</tr>
-		        				</React.Fragment>)
-		        				: (<tr key={coin.id}>no valid type</tr>)
-		        		})}
+										</td>
+										}
+								</tr>
+							</React.Fragment>)
+							: (<tr key={coin.id}>no valid type</tr>)
+					})}
 		        </tbody>
 		    </table>
 		</div>
