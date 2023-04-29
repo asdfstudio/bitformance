@@ -70,26 +70,26 @@ export default function BrowseCoinRow({
 	}
 
 	return(<>
-		<td className="pl-4 p-3">
+		<td className="pl-4 p-3 flex flex-col justify-between">
 			<div className="flex flex-row items-center gap-2 mb-2 w-52">
 				<BFImage src={logo} alt={name} style="border-1 rounded-full p-1 bg-white w-16 h-16 object-cover shadow-lg shadow-main-shadow" />
 				<p className="text-main-black font-DM_Sans font-medium leading-normal tracking-normal text-[18px]">{name}</p>
 			</div>
 			<div>
-				<div className="flex flex-row items-center rounded-full px-2 py-1 border shadow shadow-main-shadow">
+				<div className="absolute flex flex-row items-center rounded-full px-2 py-1 border shadow shadow-main-shadow">
 					{cryptos.slice(0, 4).map((crypto, index) => <BFCryptoImage key={index} symbol={crypto} index={index} />)}
 					{cryptos.length > 4 && <BFCryptoImage symbol={cryptos.length - 4} index={4} showNumber={true} /> }
 					<div onClick={(e) => {
-					e.stopPropagation()
-					showHoldings(rowIndex)
-					onClickView(indexesExpanded)
-					setIndexesExpanded(!indexesExpanded)
-				}}className="ml-2 mr-1 px-4 h-6 text-sm rounded-xl bg-main-skyBlue text-main-buttonBlue font-DM_Sans font-medium leading-normal tracking-normal flex items-center cursor-pointer"> 
-						<div className='text-[12px] pr-1'>
-							{
-								indexesExpanded === true ? <BFIcon iconName="arrowUP" color={"#5290f4"}/> : <BFIcon iconName="arrowDown" color={"#5290f4"}/>
-							}
-						</div>
+						e.stopPropagation()
+						showHoldings(rowIndex)
+						onClickView(indexesExpanded)
+						setIndexesExpanded(!indexesExpanded)
+							}}className="w-[65px] h-[24px] ml-2 mr-1 text-sm rounded-xl bg-main-skyBlue text-main-buttonBlue font-DM_Sans font-medium leading-normal tracking-normal flex items-center justify-center cursor-pointer"> 
+							<div className='text-[12px] pr-1'>
+								{
+									indexesExpanded === true ? <BFIcon iconName="arrowUP" color={"#5290f4"}/> : <BFIcon iconName="arrowDown" color={"#5290f4"}/>
+								}
+							</div>
 						{"View"}
 					</div>
 				</div>
@@ -103,7 +103,7 @@ export default function BrowseCoinRow({
 			<BFUpDownTag change={changepct_7d} />
 		</td>
 		<td className="flex justify-end align-top pt-8 text-main-black font-DM_Sans font-bold leading-normal tracking-wide text-base">{formatMoney(marketcap)}</td>
-		<td className="align-top pt-8 w-72 -mr-[50px]">
+		<td className="align-top pt-8 w-72 -mr-[50px] whitespace-nowrap">
 			<BFInfoTags timestamp={updated.$date} weightingMethod={weighting_method} rebalancingInterval={rebalancing_interval} />
 		</td>
 		<td className="text-right pr-6 cursor-pointer text-main-gray font-DM_Sans font-medium leading-normal tracking-wide text-[14px] pt-8 w-32">

@@ -31,6 +31,9 @@ export default function CreateIndexPage() {
 	const [returnData, setReturnData] = useState(function(){})
 	const [showMenu, setShowMenu] = useState(false)
 
+	const [WordCountDesc, setWordCountDesc] = useState(0)
+	const [WordCountTitle, setWordCountTitle] = useState(0)
+
 	const [fileSelected, setFileSelected] = useState(null)
 
 	const [isMarketCapWeightAvailable, setIsMarketCapWeightAvailable] = useState(true)
@@ -72,11 +75,14 @@ export default function CreateIndexPage() {
 	const loadPreview = async () => {
 		if (initialValue && selectedCryptos.length) {
 			const customWeights = getCustomWeights()
-			setLoadingPreview(true)
-			const data = await generateChartPreview(weightingMethod, initialValue, selectedCryptos, customWeights)
-			setReturnData(data.data)
-			setLoadingPreview(false)
-			setPreviewShown(true)
+			
+			if(customWeights != null){
+				setLoadingPreview(true)
+				const data = await generateChartPreview(weightingMethod, initialValue, selectedCryptos, customWeights)
+				setReturnData(data.data)
+				setLoadingPreview(false)
+				setPreviewShown(true)
+			}
 		}
 	}
 
@@ -87,8 +93,22 @@ export default function CreateIndexPage() {
 		const formData = new FormData(customWeightsForm.current);
 		const keys = selectedCryptos
 		let data = {}
-		keys.forEach(key => data[key] = parseInt(formData.get(key)))
-		return data
+		let dataa = []
+		let total = 0;
+		const maxWeight = 100;
+		keys.forEach(key => 
+			data[key] = parseInt(formData.get(key)) & 
+			dataa.push(parseInt(formData.get(key)))
+		)
+		for (var i in dataa) {
+		total += dataa[i];
+		}
+		if(total < maxWeight+1){
+			return data
+		}else{
+			alert("Wight must equal to "+maxWeight);
+			return null
+		}
 	}
 
 	const handleFileSelect = async (e) => {
@@ -115,9 +135,35 @@ export default function CreateIndexPage() {
 		}
 	}, [selectedCryptos, initialValue])
 
+	const maxWord = 200;
+	const maxTitle = 30;
+
+	const countWordsDesc = (e) => {
+		const text = e.target?.value;
+		setWordCountDesc(text.split(" ").length);
+		if(WordCountDesc < maxWord){
+			setDescription(text)
+		}else{
+			alert("You cannot put more than "+maxWord+" words.");
+		}
+	}
+	const countWordsName = (e) => {
+		const text = e.target?.value;
+		setWordCountTitle(text.trim().length);
+		if(WordCountTitle < maxTitle){
+			setName(text)
+		}else{
+			alert("You cannot put more than "+maxTitle+" characters.");
+		}
+	}
+	const countCustomWeight = (e) => {
+		const text = e.target?.value;
+		console.log("custom wight", text)
+	}
+
 	return (
-		<div className="grid grid-cols-1 pb-10 xl:grid-cols-5 bg-main-lightGray">
-			<div className="col-span-2 space-y-4 bg-white border p-4 mt-4 md:m-4 md:rounded-lg">
+		<div className="grid grid-cols-1 pb-1 xl:grid-cols-5 bg-main-lightGray">
+			<div className="col-span-2 space-y-4 bg-white border p-4 mt-2 md:m-4 md:rounded-lg">
 				<h1 className="text-[22px] mb-6 font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Basic</h1>
 				<label className='text-[16px] mb-6 font-DM_Sans font-medium leading-normal tracking-normal text-main-black'>Index Logo</label>
 				<BFUploadImage handleFileSelect={handleFileSelect} fileSelected={fileSelected} src={location.state?.logo} />
@@ -125,10 +171,10 @@ export default function CreateIndexPage() {
 				<div className="space-y-4">
 					<div className='mt-1'>
 						<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Index Name</label>
-						<input onChange={(e) => setName(e.target?.value)} value={name} 
+						<input onChange={(e) =>countWordsName(e)} value={name} 
 							className="w-full px-2 py-1 mt-1 border border-main-inputBorder rounded text-[15px] font-DM_Sans font-normal leading-normal tracking-normal" 
 							type="text" 
-							placeholder="e.g. Windmaker" 
+							placeholder="e.g. Windmaker"
 						/>
 					</div>
 
@@ -174,10 +220,16 @@ export default function CreateIndexPage() {
 					<div className='pt-1'>
 						<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Description</label>
 						<textarea 
-							onChange={(e) => setDescription(e.target?.value)} 
+							onChange={(e) => countWordsDesc(e)}
+							// maxlength={10}
+							// disabled = {WordCountDesc == 20 ? "disabled" : ""}
 							value={description} placeholder="Enter description here..." 
-							className='w-full border p-2 h-32 mt-1 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal rounded'
+							className='w-full border p-2 h-52 mt-1 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal rounded'
 						/>
+					</div>
+					<div className='flex flex-row justify-end text-[14px] font-DM_Sans font-normal leading-normal tracking-wide text-main-grayText'>
+						<p>{WordCountDesc}</p>
+						<p>{'/'}{maxWord}</p>
 					</div>
 
 				</div>
@@ -188,9 +240,9 @@ export default function CreateIndexPage() {
 				<div className="bg-white p-4 border space-y-4 md:rounded-lg">
 					<div className=" flex flex-row items-center gap-2">
 						<h1 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Weighting Method</h1>
-						<span className="bg-main-lightSkyBlue rounded py-1 px-2 text-[13px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gray">5</span>
+						{/* <span className="bg-main-lightSkyBlue rounded py-1 px-2 text-[13px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gray">5</span> */}
 					</div>
-					<div className="flex flex-col pb-2 space-y-2 md:space-x-4 md:flex-row">
+					<div className="flex flex-col pb-2 md:space-x-4 md:flex-row">
 						<BFChooseOption isMarketCapWeightAvailable={isMarketCapWeightAvailable} onSelect={setWeightingMethod} selected={weightingMethod} options={[
 							{
 								id: 'equal_weight',
@@ -220,7 +272,7 @@ export default function CreateIndexPage() {
 											<p className="text-[14px] font-DM_Sans font-normal leading-normal tracking-normal text-main-symbol">{crypto}</p>
 										
 											<p className="ml-auto text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Custom Weight</p>
-											<input className="border rounded p-1 w-24 md:w-36 bg-main-lightGray" type="number" min="0" max="100" step="1" name={crypto} /> 
+											<input className="border rounded p-1 w-24 md:w-36 bg-main-lightGray" type="number" min="0" max="100" step="1" name={crypto} />
 										</div>
 									)
 								})}
@@ -230,17 +282,18 @@ export default function CreateIndexPage() {
 				</div>
 
 				<div className="bg-white mt-4 rounded-md border space-y-4">
-					{returnData && <GraphCard title="Chart Preview" subtractWidth={650} hook={loadData} />}
+					{returnData && <GraphCard title="Chart Preview" subtractWidth={650} hook={loadData} halfGraph={true}/>}
 				</div>
-			</div>
 
-			<div className="bg-main-white fixed bottom-0 w-full md:w-72 right-0">
-				<div className="flex flex-row gap-2 p-2">
-					<button className="w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor bg-opacity-10 text-main-gColor py-2" onClick={() => navigate(-1)}>Cancel</button>
-					{!previewShown && <button className="shadow w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor hover:bg-main-buttonBlue text-white py-2" onClick={() => loadPreview()}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Preview'}</button>}
-					{previewShown && <button className="shadow w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor hover:bg-main-buttonBlue text-white py-2" onClick={() => setShowMenu(!showMenu)}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Create'}</button>}
-				</div>
+				{/* <div className={`bg-main-white fixed w-full md:w-72 right-0 ${previewShown ? 'bottom-0' : 'bottom-0 md:bottom-0'}`}> */}
+					<div className="flex flex-row gap-2 p-2 bg-main-white border rounded-lg mt-4 justify-end">
+						<button className="w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor bg-opacity-10 text-main-gColor py-2 md:w-[150px]" onClick={() => navigate(-1)}>Cancel</button>
+						{!previewShown && <button className="shadow w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor hover:bg-main-buttonBlue text-white py-2 md:w-[150px]" onClick={() => loadPreview()}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Preview'}</button>}
+						{previewShown && <button className="shadow w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor hover:bg-main-buttonBlue text-white py-2 md:w-[150px]" onClick={() => setShowMenu(!showMenu)}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Create'}</button>}
+					</div>
+			  	{/* </div> */}
 			</div>
+			
 			{showMenu &&
 			<div className="relative z-[60]" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 			  <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>

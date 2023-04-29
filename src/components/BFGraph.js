@@ -11,7 +11,7 @@ import moment from 'moment'
 import { useState, useEffect } from 'react'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = false, showPriceColored = false, graphInterval = "3Y"  }) {
+export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = false, showPriceColored = false, graphInterval = "All"  }) {
 
 	const { width } = useWindowDimensions();
 
@@ -47,7 +47,7 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	  const date = moment.unix(unixTime)
 	  switch (plotPeriod) {
 	    case "24H":
-	      return date.format("HH:mm")
+	      return date.format("H:MM")
 	    case "7D":
 	      return date.format("MMM Do")
 	    case "1M":
@@ -59,8 +59,10 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	    case "1Y":
 	      return date.format("MMM Do")
 	    case "3Y":
-	      return date.format("MM/DD")
-		  case "Hover":
+	      return date.format("MMM Do")
+		case "All":
+	      return date.format("MMM Do Y")
+		case "Hover":
 	      return date.format("MM/DD/YY")
 	    default:
 	      return date.format("MM/DD")
@@ -100,7 +102,29 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 			case "3Y":
 				return formatDate(value, '3Y')
 			default:
-				return formatDate(value, '3Y')
+				return formatDate(value, 'All')
+		  }
+	}
+	const XAxisInterval = () => {
+		switch (graphInterval) {
+			case "24H":
+			  return -36
+			case "7D":
+				return null
+			case "1M":
+				return 2
+			case "3M":
+				return 28
+			case "6M":
+				return 28
+			case "1Y":
+				return 28
+			case "3Y":
+				return 28
+			case "All":
+				return 365
+			default:
+				return 28
 		  }
 	}
 
@@ -122,11 +146,16 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	  		)
 	  	}
 	    return (
-	      <div className="border rounded-lg bg-white p-4">
-	      	<p>{formatDate(label, 'Hover')}</p>
-			  <p>{formatDate(label, '24H')}</p>
-	        <p className={showOverlay ? 'text-blue-400' : ''}>{showOverlay ? `${Math.min(payload[0].value).toFixed(2)}%` : formatter.format(payload[0].value)}</p>
-	        {showOverlay && <p className="text-green-400">{showOverlay ? `${Math.min(payload[1].value).toFixed(2)}%` : formatter.format(payload[1].value)}</p>}
+	      <div className="w-48 border border-main-lightGrayBorder rounded-lg bg-white p-4 text-[14px] font-DM_Sans font-bold leading-normal tracking-wide text-main-black">
+	      	<div className="flex flex-row justify-between items-center pb-2">
+				<p className="text-main-black">{formatDate(label, 'Hover')}</p>
+				<p className="text-main-gray">{formatDate(label, '24H')}</p>
+			</div>
+			<div className="flex flex-col">
+				{/* <p className="text-main-gray font-medium pr-1">Price: </p> */}
+				<p className={showOverlay ? 'text-blue-400' : ''}>{showOverlay ? `${Math.min(payload[0].value).toFixed(2)}%` : formatter.format(payload[0].value)}</p>
+	        	{showOverlay && <p className="text-green-400">{showOverlay ? `${Math.min(payload[1].value).toFixed(2)}%` : formatter.format(payload[1].value)}</p>}
+			</div>
 	      </div>
 	    );
 	  }
@@ -172,7 +201,7 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	})
 
 	return(
-			<AreaChart width={finalWidth} height={400} className='text-[14px] font-DM_Sans font-normal leading-normal tracking-wide' data={showPriceColored ? priceData: data}  margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
+			<AreaChart width={finalWidth} height={400} className='text-[14px] font-DM_Sans font-normal leading-normal tracking-wide' data={showPriceColored ? priceData : data}  margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
 				<defs>
 					<linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
 						{/* #8884d8 */}
@@ -208,7 +237,7 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 					}
 
 						
-					<XAxis dataKey="name" tickFormatter={formatXAxis}/>
+					<XAxis dataKey="name" tickFormatter={formatXAxis} interval={XAxisInterval()}/>
 					<YAxis type="number" allowDataOverflow tickFormatter={formatYAxis} domain={[showOverlay ? Math.min(lowestPrice, lowestPercentTwo) : lowestPrice, 'auto']} />
 					<Tooltip content={<CustomTooltip />} />
 					</>

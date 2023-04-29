@@ -109,7 +109,7 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 							(<React.Fragment key={coin.index._id.$oid}>
 								<tr className={`bg-main-white flex flex-col justify-between mt-3 border-[1px] border-main-lightGrayBorder sm:rounded-2xl p-1 ${indexesExpanded ? '' : ''}`}>
 									<div className='hidden sm:block'>
-										<td onClick={() => onRowClicked(coin.index)} className='grid grid-flow-col justify-between cursor-pointer'>
+										<td onClick={() => onRowClicked(coin.index)} className='grid grid-flow-col justify-between cursor-pointer mb-8'>
 											<BrowseCoinRow
 												rowIndex={index}
 												{...coin.index}

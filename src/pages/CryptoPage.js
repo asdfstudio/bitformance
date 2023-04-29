@@ -73,12 +73,12 @@ export default function CryptoPage({ isAuth }) {
 				</button>
 			</div>
 			
-			<div>
+			{/* <div>
 				<p className="text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-grayText mb-2">Share this index</p>
 				<div className="flex flex-row justify-between cursor-pointer text-main-gray">
 					<SocialIconsRow showCopyLink={true} />
 				</div>
-			</div>
+			</div> */}
 			{/* <p className='text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-grayText'>{'Share this Index'}</p> */}
 			<p className='text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-gray pt-2 my-4'>{description}</p>
 
@@ -107,10 +107,21 @@ export default function CryptoPage({ isAuth }) {
 			}
 		})
 	}
+	let formattedHoldings = []
+	if (data.rawStocks) {
+		formattedHoldings  = data.rawStocks.map(stock => {
+			return {
+				...stock,
+				holdingQuantity: data.index.holdings[stock.symbol],
+				indexPrice: data.index.value
+			}
+		})
+	}
 
 	return (
+		<div>
 		<div className="grid grid-cols-1 xl:grid-cols-12 bg-main-lightGray pt-8 sm:pt-0">
-			<div className="p-6 space-y-4 border bg-white hidden xl:block col-span-3">
+			<div className="p-6 space-y-4 border-r bg-white hidden xl:block col-span-3">
 				<PanelOne {...data.index} isAuth={isAuth} />
 			</div>
 
@@ -118,10 +129,22 @@ export default function CryptoPage({ isAuth }) {
 				<div className='block bg-main-white p-4 border-[1px] border-main-lightGrayBorder md:hidden'>
 					<PanelOne {...data.index} isAuth={isAuth} />
 				</div>
-				<BFCryptoInfo data={data} singlePage={true}/>
+				<BFCryptoInfo data={data} singlePage={true} indexPage={true}/>
 			</div>
 			<div className='bg-white md:hidden'>
 				<FooterMobile />
+			</div>
+		</div>
+		
+			<div className='hidden xl:block w-full border'>
+				{(formattedHoldings.length > 0) &&
+					<div className={`bg-white border-main-lightGrayBorder p-4 overflow-y-auto space-y-4`}>
+						<h2 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Holdings 
+							<span className="bg-main-lightSkyBlue rounded py-1 px-2 text-[13px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gray">{data.rawStocks.length}</span>
+						</h2>
+						<BFHoldingsTable holdings={formattedHoldings} />
+					</div>
+				}
 			</div>
 		</div>
 	)

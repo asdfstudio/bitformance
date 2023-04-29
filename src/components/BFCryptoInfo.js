@@ -16,6 +16,7 @@ export default function BFCryptoInfo({
 	panelId = '',
 	halfGraph = false,
 	singlePage = false,
+	indexPage = false,
 }) {
 	const { width } = useWindowDimensions();
 
@@ -165,7 +166,7 @@ export default function BFCryptoInfo({
 		</div>
 		}
 		{(formattedHoldings.length > 0 && !hideGraph) &&
-			<div className={`bg-white border-main-lightGrayBorder p-4 min-w-full overflow-y-auto space-y-4 ${singlePage ? 'border sm:rounded-xl' : 'border-t-[1px] border-main-lightGrayBorder -mx-4 sm:-mx-6'}`}>
+			<div className={`bg-white border-main-lightGrayBorder p-4 min-w-full overflow-y-auto space-y-4 ${singlePage ? 'border sm:rounded-xl' : 'border-t-[1px] border-main-lightGrayBorder -mx-4 sm:-mx-6'} ${indexPage && 'xl:hidden'}`}>
 				<h2 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Holdings <span className="bg-main-lightSkyBlue rounded py-1 px-2 text-[13px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gray">{data.rawStocks.length}</span></h2>
 				<BFHoldingsTable holdings={formattedHoldings} />
 			</div>

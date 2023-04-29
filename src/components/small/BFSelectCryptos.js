@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import BFIcon from '../BFIcon'
 import BFCryptoImage from './BFCryptoImage'
 import { coinImageMappings } from '../../data/coinImages'
@@ -66,9 +66,25 @@ export default function BFSelectCryptos({
 		setShowMenu(false)
 	}
 
+	let domNode = useRef();
+
+	useEffect(() => {
+		let maybeHandler = (event) => {
+		if (!domNode.current.contains(event.target)) {
+			setShowMenu(false);
+		}
+		};
+
+		document.addEventListener("mousedown", maybeHandler);
+
+		return () => {
+		document.removeEventListener("mousedown", maybeHandler);
+		};
+	});
+
 	return(
 		<div className="flex flex-col w-full mt-1">
-	    <div className="w-full flex flex-col items-center">
+	    <div ref={domNode} className="w-full flex flex-col items-center">
 	        <div className="w-full">
 	            <div className="flex flex-col items-center relative">
 	                <div className="w-full">
@@ -92,36 +108,36 @@ export default function BFSelectCryptos({
 	                    </div>
 	                </div>
 	                {showMenu &&
-	                <div className="absolute shadow-lg bg-white top-[100%] z-40 w-full left-0 rounded-lg max-h-[280px] overflow-y-auto drop-shadow">
-                    <div className="flex flex-col w-full">
-                    	{(isLoading || isLoadingBrowsable) ? <BFLoading isCenter={true} /> : showIndexes && shownIndexes?.map(obj => (
-                    	    <div onClick={() => handleSelectIndex(obj.index._id.$oid, obj.index.is_browsable)} key={obj.index._id.$oid} className="cursor-pointer w-full border-gray-100 rounded-t hover:bg-main-lightGrayBorder">
-                    	        <div className="flex flex-row items-center gap-2 p-2">
-                    	        	<BFImage src={obj.index.logo} alt={obj.index.name} style="shadow border rounded-full p-1 bg-white w-16 h-16 object-cover" />
-                    	        	<p className="font-bold text-lg">{obj.index.name}</p>
-                    	          <div className="flex flex-row items-center rounded-full px-2 py-1 border shadow">
-                    	          	{obj.rawStocks.slice(0, 4).map((crypto, index) => <BFCryptoImage key={crypto.symbol} symbol={crypto.symbol} index={index} />)}
-                    	          	{obj.rawStocks.length > 4 && <BFCryptoImage symbol={obj.rawStocks.length - 4} index={4} showNumber={true} /> }
-                    	          </div>
-                    	          {selectedCryptos.includes(crypto.symbol) && <div className="ml-auto"><BFIcon iconName="checked-circle" color="blue" /></div>}
-                    	        </div>
-                    	    </div>
-                    	))}
-                    	{shownIndexes && <hr />}
-                    	{shownIndexes && <hr />}
+						<div className="absolute shadow-lg bg-white top-[100%] z-40 w-full left-0 rounded-lg max-h-[280px] overflow-y-auto drop-shadow">
+						<div className="flex flex-col w-full">
+							{(isLoading || isLoadingBrowsable) ? <BFLoading isCenter={true} /> : showIndexes && shownIndexes?.map(obj => (
+								<div onClick={() => handleSelectIndex(obj.index._id.$oid, obj.index.is_browsable)} key={obj.index._id.$oid} className="cursor-pointer w-full border-gray-100 rounded-t hover:bg-main-lightGrayBorder">
+									<div className="flex flex-row items-center gap-2 p-2">
+										<BFImage src={obj.index.logo} alt={obj.index.name} style="shadow border rounded-full p-1 bg-white w-16 h-16 object-cover" />
+										<p className="font-bold text-lg">{obj.index.name}</p>
+									<div className="flex flex-row items-center rounded-full px-2 py-1 border shadow">
+										{obj.rawStocks.slice(0, 4).map((crypto, index) => <BFCryptoImage key={crypto.symbol} symbol={crypto.symbol} index={index} />)}
+										{obj.rawStocks.length > 4 && <BFCryptoImage symbol={obj.rawStocks.length - 4} index={4} showNumber={true} /> }
+									</div>
+									{selectedCryptos.includes(crypto.symbol) && <div className="ml-auto"><BFIcon iconName="checked-circle" color="blue" /></div>}
+									</div>
+								</div>
+							))}
+							{shownIndexes && <hr />}
+							{shownIndexes && <hr />}
 
-                    	{shownCryptos.map(crypto => (
-                        <div onClick={() => handleSelectCrypto(crypto.symbol)} key={crypto.symbol + '-shown-cryptos'} className="cursor-pointer w-full border-gray-100 rounded-t hover:bg-main-lightGrayBorder">
-                            <div className="flex flex-row items-center gap-2 p-2">
-                            	<BFCryptoImage symbol={crypto.symbol} index={0} isLarge={true} />
-                              <p className='text-[16px] font-DM_Sans font-bold leading-normal tracking-normal text-main-black'>{crypto.name.replace(/\(\w+\)/, '')}</p>
-                              <p className="text-[14px] font-DM_Sans font-normal leading-normal tracking-normal text-main-symbol mt-0.5">{crypto.symbol}</p>
-                              {selectedCryptos.includes(crypto.symbol) && <div className="ml-auto"><BFIcon iconName="checked-circle" color="#5290f4" /></div>}
-                            </div>
-                        </div>
-                    	))}
-                    </div>
-	                </div>
+							{shownCryptos.map(crypto => (
+							<div onClick={() => handleSelectCrypto(crypto.symbol)} key={crypto.symbol + '-shown-cryptos'} className="cursor-pointer w-full border-gray-100 rounded-t hover:bg-main-lightGrayBorder">
+								<div className="flex flex-row items-center gap-2 p-2">
+									<BFCryptoImage symbol={crypto.symbol} index={0} isLarge={true} />
+								<p className='text-[16px] font-DM_Sans font-bold leading-normal tracking-normal text-main-black'>{crypto.name.replace(/\(\w+\)/, '')}</p>
+								<p className="text-[14px] font-DM_Sans font-normal leading-normal tracking-normal text-main-symbol mt-0.5">{crypto.symbol}</p>
+								{selectedCryptos.includes(crypto.symbol) && <div className="ml-auto"><BFIcon iconName="checked-circle" color="#5290f4" /></div>}
+								</div>
+							</div>
+							))}
+						</div>
+					  </div>
 	              	}
 	            </div>
 	        </div>

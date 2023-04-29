@@ -21,7 +21,8 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 	useEffect(() => {
 	 	if (isOverlay && fullGraphData.length === 0) {
 			loadOverlayData()
-		} else if (data && data.index && fullGraphData.length === 0) {
+		} 
+		else if (data && data.index && fullGraphData.length === 0) {
 			loadData()
 		}
 
@@ -126,7 +127,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 				})
 			}
 			setFullGraphData(array)
-			setShownGraphData(array.slice(-1095))
+			setShownGraphData(array.slice(-3000))//1095
 			const hourly = []
 			const { dates: hourlyDates, prices: hourlyPrices, price: hourlyPrice } = data.index.fivemin_graph_data
 			for (let z = 0; z < hourlyDates.length; z++) {
@@ -154,19 +155,19 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 	    	isOverlay ? loadOverlayData(-7) : setShownGraphData(fullGraphData.slice(-7)) //7
 	      break;
 	    case "1M":
-	    	isOverlay ? loadOverlayData(-3) : setShownGraphData(fullGraphData.slice(-3)) //30
+	    	isOverlay ? loadOverlayData(-30) : setShownGraphData(fullGraphData.slice(-30)) //30
 	      break;
 	    case "3M":
-	    	isOverlay ? loadOverlayData(-30) : setShownGraphData(fullGraphData.slice(-30)) //90
+	    	isOverlay ? loadOverlayData(-90) : setShownGraphData(fullGraphData.slice(-90)) //90
 	      break;
 	    case "6M":
-	    	isOverlay ? loadOverlayData(-30) : setShownGraphData(fullGraphData.slice(-30)) //180
+	    	isOverlay ? loadOverlayData(-180) : setShownGraphData(fullGraphData.slice(-180)) //180
 	     break;
 	    case "1Y":
-	    	isOverlay ? loadOverlayData(-30) : setShownGraphData(fullGraphData.slice(-30)) //365
+	    	isOverlay ? loadOverlayData(-365) : setShownGraphData(fullGraphData.slice(-365)) //365
 	      break;
 	    case "3Y":
-	    	isOverlay ? loadOverlayData(-30) :setShownGraphData(fullGraphData.slice(-30)) //1095
+	    	isOverlay ? loadOverlayData(-1095) :setShownGraphData(fullGraphData.slice(-1095)) //1095
 	      break;
 	    case "All":
 	    		isOverlay ? loadOverlayData(-3000) :setShownGraphData(fullGraphData.slice(-3000)) ///3000
@@ -182,11 +183,9 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 	// 	return 'Error...'
 	// }
 
-// console.log(shownGraphData)
 	return(
-		console.log('shownGraphData', shownGraphData),
 		<div className="bg-white sm:rounded-xl">
-			<h1 className="px-5 pt-6 text-[22.1px] mb-4 font-DM_Sans font-medium leading-normal tracking-wide text-main-black">{title}</h1>
+			<h1 className="px-5 pt-6 text-[22.1px] font-DM_Sans font-medium leading-normal tracking-wide text-main-black">{title}</h1>
 			<div className="flex flex-col lg:flex-row items-center mb-6 px-5 pt-4">
 				<div className="rounded-lg bg-main-lightGray px-1 py-1 text-main-gray">
 					{colorOptions.map(option => (
