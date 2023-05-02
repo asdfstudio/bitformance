@@ -359,7 +359,7 @@ export default function CreateIndexPage() {
 							<BFIcon color="#fd5d60" iconName="alert" />
 						  </div>
 							<p className='text-[18px] font-DM_Sans font-medium leading-normal tracking-normal flex justify-center text-center'>
-								{alertType === "weight" && "Custom weight should be equal to "+'"'+alertMax+'"' + ", "}{"Current total is equal to "+'"'+alertTotalWeight+'"'+"."}
+								{alertType === "weight" && "Custom weight should be equal to "+'"'+alertMax+'"' + ", Current total is equal to "+'"'+alertTotalWeight+'"'+"."}
 								{alertType === "Desc" && "You cannot put more than "+alertMax+" words."}
 								{alertType === "Name" && "You cannot put more than "+alertMax+" characters."}
 								{alertType === "emptyBalance" && "Please fill the Initial Balance to Preview."}
