@@ -7,7 +7,7 @@ import BFLoading from './small/BFLoading'
 import { baseUrl, favoriteIndex, useFavoriteIndexes, deleteIndex } from '../endpoints/index'
 import { useSWRConfig } from 'swr'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { formatMoney } from '../helpers/index'
 
 export default function BrowseCoinRow({
@@ -37,6 +37,7 @@ export default function BrowseCoinRow({
 	const [loadingFavorites, setLoadingFavorites] = useState(false)
 	const [favoriteValue, setFavoriteValue] = useState(0)
 	const [indexesExpanded, setIndexesExpanded] = useState(false)
+	const [showMenu, setShowMenu] = useState(false)
 
 	const compareRow = (e, { $oid }) => {
 		e.stopPropagation()
@@ -63,10 +64,15 @@ export default function BrowseCoinRow({
 
 	const handleDeleteIndex = async(e, { $oid }) => {
 		e.stopPropagation()
+		setShowMenu(!showMenu)
+	}
+	const DeleteIndex = async(e, { $oid }) => {
+		e.stopPropagation()
 		setLoadingFavorites(true)
 		const result = await deleteIndex($oid)
 		await mutate(baseUrl('/get-user-indexes'))
 		setLoadingFavorites(false)
+		setShowMenu(false)
 	}
 
 	return(<>
@@ -118,5 +124,45 @@ export default function BrowseCoinRow({
 			}
 		</td>
 
+		{showMenu &&
+			<div className="relative z-[60]" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+			  <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+   			    <div className="fixed inset-0 z-[70] overflow-y-auto">
+			      <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+		           <div className="relative transform overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+		             <div className="px-4 pt-5 pb-4 sm:p-6 sm:pb-4 bg-main-white"/>
+						<div className="p-4 space-y-6">
+						  <div className='text-[38px] flex justify-center'>
+							<BFIcon color="#b7c3d1" iconName="delete" />
+						  </div>
+							<p className='text-[18px] font-DM_Sans font-medium leading-normal tracking-normal flex justify-center text-center'>Are you sure you want to remove this index from My Indexes?</p>
+					  	<div className="mt-auto flex flex-col gap-2">
+						  <Link onClick={(e) => DeleteIndex(e, _id)}>
+							<button 
+								type="submit" 
+								className="w-full rounded-lg bg-main-gColor text-[15px] font-DM_Sans font-bold leading-normal tracking-normal shadow-sm shadow-main-shadowBlue text-white py-2"
+							>
+								{loadingFavorites ? 
+									<div className="flex justify-center py-1">
+										<BFLoading isSmall="true" />
+									</div> 
+									: "Yes"
+								}
+							</button>
+							</Link>
+						  <Link to='/indexes/my-indexes' onClick={(e) => e.stopPropagation() & setShowMenu(false)}>
+							<button 
+								className="w-full rounded-lg bg-main-gColor bg-opacity-10 text-[15px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gColor py-2"
+							>
+								No
+							</button>
+							</Link>
+				    	</div>
+					</div>
+				  </div>
+				</div> 
+			</div>
+		  </div>
+		  }
 	</>)
 }	
