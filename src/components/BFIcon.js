@@ -28,6 +28,7 @@ import {
 	faChevronUp,
 	faChevronDown,
 	faCheckToSlot,
+	faExclamationCircle,
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -84,6 +85,7 @@ export default function BFIcon({ iconName, color, size }) {
 		{ name: 'arrowUP', icon: faChevronUp },
 		{ name: 'arrowDown', icon: faChevronDown },
 		{ name: 'checkToSlot', icon:  faCheckToSlot},
+		{ name: 'alert', icon:  faExclamationCircle},
 	]
 
 	const icon = icons.find(icon => icon.name === iconName) || { icon: faHouse }

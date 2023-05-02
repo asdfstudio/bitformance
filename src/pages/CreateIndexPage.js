@@ -30,6 +30,10 @@ export default function CreateIndexPage() {
 	const [selectedCryptos, setSelectedCryptos] = useState(location.state?.selectedCryptos || [])
 	const [returnData, setReturnData] = useState(function(){})
 	const [showMenu, setShowMenu] = useState(false)
+	const [showAlertMenu, setShowAlertMenu] = useState(false)
+	const [alertType, setAlertType] = useState("")
+	const [alertMax, setAlertMax] = useState("")
+	const [alertTotalWeight, setAlertTotalWeight] = useState("")
 
 	const [WordCountDesc, setWordCountDesc] = useState(0)
 	const [WordCountTitle, setWordCountTitle] = useState(0)
@@ -106,7 +110,11 @@ export default function CreateIndexPage() {
 		if(total == maxWeight){
 			return data
 		}else{
-			alert("Wight must equal to "+maxWeight +", Current total is "+total+".");
+			setShowAlertMenu(!showAlertMenu)
+			setAlertType("weight")
+			setAlertMax(maxWeight)
+			setAlertTotalWeight(total)
+
 			return null
 		}
 	}
@@ -144,7 +152,9 @@ export default function CreateIndexPage() {
 		if(WordCountDesc < maxWord){
 			setDescription(text)
 		}else{
-			alert("You cannot put more than "+maxWord+" words.");
+			setShowAlertMenu(!showAlertMenu)
+			setAlertType("Desc")
+			setAlertMax(maxWord)
 		}
 	}
 	const countWordsName = (e) => {
@@ -153,7 +163,9 @@ export default function CreateIndexPage() {
 		if(WordCountTitle < maxTitle){
 			setName(text)
 		}else{
-			alert("You cannot put more than "+maxTitle+" characters.");
+			setShowAlertMenu(!showAlertMenu)
+			setAlertType("Name")
+			setAlertMax(maxTitle)
 		}
 	}
 	const countCustomWeight = (e) => {
@@ -320,6 +332,34 @@ export default function CreateIndexPage() {
 			</div>
 		  </div>
 		  }
+		  
+		{showAlertMenu &&
+		<div className="relative z-[60]" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+			  <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+   			    <div className="fixed inset-0 z-[70] overflow-y-auto">
+			      <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+		           <div className="relative transform overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+		             <div className="px-4 pt-5 pb-4 sm:p-6 sm:pb-4 bg-main-white"/>
+						<div className="p-4 space-y-6">
+						  <div className='text-[38px] flex justify-center'>
+							<BFIcon color="#fd5d60" iconName="alert" />
+						  </div>
+							<p className='text-[18px] font-DM_Sans font-medium leading-normal tracking-normal flex justify-center'>
+								{alertType === "weight" && "Wight must equal to "+alertMax +", Current total is "+alertTotalWeight+"."}
+								{alertType === "Desc" && "You cannot put more than "+alertMax+" words."}
+								{alertType === "Name" && "You cannot put more than "+alertMax+" characters."}
+							</p>
+					  	<div className="mt-auto flex flex-col gap-2">
+						  <Link onClick={() => setShowAlertMenu(false)}>
+							<button type="submit" className="w-full rounded-lg bg-main-gColor text-[15px] font-DM_Sans font-bold leading-normal tracking-normal shadow-sm shadow-main-shadowBlue text-white py-2">Ok</button>
+							</Link>
+				    	</div>
+					</div>
+				  </div>
+				</div> 
+			</div>
+		  </div>
+		}
 		</div>
 	)
 }
