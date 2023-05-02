@@ -103,10 +103,10 @@ export default function CreateIndexPage() {
 		for (var i in dataa) {
 		total += dataa[i];
 		}
-		if(total < maxWeight+1){
+		if(total == maxWeight){
 			return data
 		}else{
-			alert("Wight must equal to "+maxWeight);
+			alert("Wight must equal to "+maxWeight +", Current total is "+total+".");
 			return null
 		}
 	}
@@ -310,7 +310,7 @@ export default function CreateIndexPage() {
 						  <Link onClick={() => handleCreateIndex()}>
 							<button type="submit" className="w-full rounded-lg bg-main-gColor text-[15px] font-DM_Sans font-bold leading-normal tracking-normal shadow-sm shadow-main-shadowBlue text-white py-2">Great, View Index</button>
 							</Link>
-						  <Link to='/indexes/my-indexes' onClick={() => setShowMenu(false)}>
+						  <Link to='/indexes/my-indexes' onClick={() => handleCreateIndex()}>
 							<button className="w-full rounded-lg bg-main-gColor bg-opacity-10 text-[15px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gColor py-2">Go to My Index</button>
 							</Link>
 				    	</div>
