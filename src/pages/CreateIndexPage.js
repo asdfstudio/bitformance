@@ -87,6 +87,9 @@ export default function CreateIndexPage() {
 				setLoadingPreview(false)
 				setPreviewShown(true)
 			}
+		}else{
+			setShowAlertMenu(!showAlertMenu)
+			setAlertType("empty")
 		}
 	}
 
@@ -106,6 +109,7 @@ export default function CreateIndexPage() {
 		)
 		for (var i in dataa) {
 		total += dataa[i];
+		console.log("total", total)
 		}
 		if(total == maxWeight){
 			return data
@@ -159,6 +163,7 @@ export default function CreateIndexPage() {
 	}
 	const countWordsName = (e) => {
 		const text = e.target?.value;
+		
 		setWordCountTitle(text.trim().length);
 		if(WordCountTitle < maxTitle){
 			setName(text)
@@ -344,10 +349,11 @@ export default function CreateIndexPage() {
 						  <div className='text-[38px] flex justify-center'>
 							<BFIcon color="#fd5d60" iconName="alert" />
 						  </div>
-							<p className='text-[18px] font-DM_Sans font-medium leading-normal tracking-normal flex justify-center'>
+							<p className='text-[18px] font-DM_Sans font-medium leading-normal tracking-normal flex justify-center text-center'>
 								{alertType === "weight" && "Wight must equal to "+alertMax +", Current total is "+alertTotalWeight+"."}
 								{alertType === "Desc" && "You cannot put more than "+alertMax+" words."}
 								{alertType === "Name" && "You cannot put more than "+alertMax+" characters."}
+								{alertType === "empty" && "Please fill the Initial Balance or Selete any Crypto to Preview..."}
 							</p>
 					  	<div className="mt-auto flex flex-col gap-2">
 						  <Link onClick={() => setShowAlertMenu(false)}>
