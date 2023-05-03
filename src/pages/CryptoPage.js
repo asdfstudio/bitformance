@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import BFIcon from '../components/BFIcon'
 import SocialIconsRow from '../components/small/SocialIconsRow'
 import GraphCard from '../components/GraphCard'
@@ -25,6 +25,8 @@ export default function CryptoPage({ isAuth }) {
 
 	const [loadingFavorites, setLoadingFavorites] = useState(false)
 	const [loadingDelete, setLoadingDelete] = useState(false)
+
+	const [showMenu, setShowMenu] = useState(false)
 
 	const compareRow = (e) => {
 		e.stopPropagation()
@@ -62,7 +64,7 @@ export default function CryptoPage({ isAuth }) {
 				{isAuth && 
 				<div className="w-1/5 flex flex-row gap-2 items-end">
 					<span onClick={() => editRow()}> <BFIcon iconName="edit" size="sm" color="#b7c3d1" /> </span>
-					<span className="mx-2" onClick={() => deleteRow()}> <BFIcon iconName="delete" size="sm" color="#b7c3d1" /> </span>
+					{loadingDelete ? <BFLoading isCenter={true} /> : <span className="mx-2" onClick={() => setShowMenu(!showMenu)}> <BFIcon iconName="delete" size="sm" color="#b7c3d1" /> </span>}
 				</div>
 				}
 			</div>
@@ -157,6 +159,47 @@ export default function CryptoPage({ isAuth }) {
 					</div>
 				}
 			</div>
+
+			{showMenu &&
+			<div className="relative z-[60]" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+			  <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+   			    <div className="fixed inset-0 z-[70] overflow-y-auto">
+			      <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+		           <div className="relative transform overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+		             <div className="px-4 pt-5 pb-4 sm:p-6 sm:pb-4 bg-main-white"/>
+						<div className="p-4 space-y-6">
+						  <div className='text-[38px] flex justify-center'>
+							<BFIcon color="#b7c3d1" iconName="delete" />
+						  </div>
+							<p className='text-[18px] font-DM_Sans font-medium leading-normal tracking-normal flex justify-center text-center'>Are you sure you want to remove?</p>
+					  	<div className="mt-auto flex flex-col gap-2">
+						  <Link onClick={() => deleteRow()}>
+							<button 
+								type="submit" 
+								className="w-full rounded-lg bg-main-gColor text-[15px] font-DM_Sans font-bold leading-normal tracking-normal shadow-sm shadow-main-shadowBlue text-white py-2"
+							>
+								{loadingDelete ? 
+									<div className="flex justify-center py-1">
+										<BFLoading isSmall="true" />
+									</div> 
+									: "Yes"
+								}
+							</button>
+							</Link>
+						  <Link onClick={() => setShowMenu(false)}>
+							<button 
+								className="w-full rounded-lg bg-main-gColor bg-opacity-10 text-[15px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gColor py-2"
+							>
+								No
+							</button>
+							</Link>
+				    	</div>
+					</div>
+				  </div>
+				</div> 
+			</div>
+		  </div>
+		  }
 		</div>
 	)
 }
