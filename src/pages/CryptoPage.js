@@ -53,9 +53,18 @@ export default function CryptoPage({ isAuth }) {
 
 	const PanelOne = ({ id, name, description, isAuth }) => (
 		<div>
-			<div className="flex flex-row items-center gap-2">
-				<BFImage style="shadow-md w-16 h-16 rounded-full bg-white p-1" alt="crypto" src={data.index.logo} />
-				<h2 className="text-[18px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">{name}</h2>
+			<div className="flex flex-row items-center justify-between">
+				<div className='flex flex-row items-center gap-2'>
+					<BFImage style="shadow-md w-16 h-16 rounded-full bg-white p-1" alt="crypto" src={data.index.logo} />
+					<h2 className="text-[18px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">{name}</h2>
+				</div>
+
+				{isAuth && 
+				<div className="w-1/5 flex flex-row gap-2 items-end">
+					<span onClick={() => editRow()}> <BFIcon iconName="edit" size="sm" color="#b7c3d1" /> </span>
+					<span className="mx-2" onClick={() => deleteRow()}> <BFIcon iconName="delete" size="sm" color="#b7c3d1" /> </span>
+				</div>
+				}
 			</div>
 			<div className="flex flex-row gap-3 justify-between w-full my-4">
 				<button 
@@ -82,12 +91,14 @@ export default function CryptoPage({ isAuth }) {
 			{/* <p className='text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-grayText'>{'Share this Index'}</p> */}
 			<p className='text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-gray pt-2 my-4'>{description}</p>
 
-			{isAuth && <div className="absolute bottom-2 w-1/5 flex flex-row gap-2 justify-between">
-				<button onClick={() => editRow()} className="w-full text-gray-500 bg-gray-100 rounded px-6 py-2 font-bold text-sm">Edit</button>
-				<button onClick={() => deleteRow()} className="w-full text-red-500 bg-red-100 rounded px-6 py-2 font-bold text-sm">
-					{loadingDelete ? <BFLoading isCenter={true} /> : 'Delete'}
-				</button>
-			</div>}
+			{/* {isAuth && 
+				<div className="absolute bottom-2 w-1/5 flex flex-row gap-2 justify-between">
+					<button onClick={() => editRow()} className="w-full text-gray-500 bg-gray-100 rounded px-6 py-2 font-bold text-sm">Edit</button>
+					<button onClick={() => deleteRow()} className="w-full text-red-500 bg-red-100 rounded px-6 py-2 font-bold text-sm">
+						{loadingDelete ? <BFLoading isCenter={true} /> : 'Delete'}
+					</button>
+				</div>
+				} */}
 		</div>
 	)
 
@@ -140,7 +151,7 @@ export default function CryptoPage({ isAuth }) {
 				{(formattedHoldings.length > 0) &&
 					<div className={`bg-white border-main-lightGrayBorder p-4 overflow-y-auto space-y-4`}>
 						<h2 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Holdings 
-							<span className="bg-main-lightSkyBlue rounded py-1 px-2 text-[13px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gray">{data.rawStocks.length}</span>
+							<span className="bg-main-lightSkyBlue rounded py-1 px-2 ml-2  text-[13px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gray">{data.rawStocks.length}</span>
 						</h2>
 						<BFHoldingsTable holdings={formattedHoldings} />
 					</div>

@@ -363,7 +363,7 @@ export default function CreateIndexPage() {
 								{alertType === "Desc" && "You cannot put more than "+alertMax+" words."}
 								{alertType === "Name" && "You cannot put more than "+alertMax+" characters."}
 								{alertType === "emptyBalance" && "Please fill the Initial Balance to Preview."}
-								{alertType === "emptyCrypto" && "Please Selete any Crypto to Preview..."}
+								{alertType === "emptyCrypto" && "Please Selete any Crypto to Preview."}
 							</p>
 					  	<div className="mt-auto flex flex-col gap-2">
 						  <Link onClick={() => setShowAlertMenu(false)}>

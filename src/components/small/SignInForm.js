@@ -119,7 +119,7 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 
    		<div>
    			<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal">Username or Email Address</label>
-   			<input value={resetAccount} onChange={(e) => setResetAccount(e.target?.value)} className="w-full py-1 border rounded mt-2" type="text" />
+   			<input value={resetAccount} onChange={(e) => setResetAccount(e.target?.value)} className="w-full py-1 border rounded mt-2 px-2" type="text" />
    		</div>
 
    		<div className="mt-auto pb-4">
@@ -134,12 +134,12 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 			<form className="space-y-4" onSubmit={(e) => signIn(e)}>
 				<div>
 					<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Username or Email Address</label>
-					<input value={username} onChange={(e) => setUsername(e.target?.value)} name="username" id="username" className="w-full py-1 border rounded mt-2" type="text" />
+					<input value={username} onChange={(e) => setUsername(e.target?.value)} name="username" id="username" className="w-full py-1 px-2 border rounded mt-2" type="text" />
 				</div>
 
 				<div>
 					<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Password</label>
-					<input name="password" id="password" className="w-full py-1 mt-2 border rounded" type="password" />
+					<input name="password" id="password" className="w-full py-1 px-2 mt-2 border rounded" type="password" />
 				</div>
 
 				<div className="flex flex-row gap-2">

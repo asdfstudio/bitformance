@@ -68,32 +68,32 @@ export default function SignUpForm({ setShowModalType }) {
 			<div className="flex flex-col gap-4 sm:flex-row">
 				<div>
 					<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">First Name</label>
-					<input name="first_name" type='text' className="w-full py-1 border rounded mt-1" />
+					<input name="first_name" type='text' className="w-full py-1 border rounded mt-1 px-2" />
 				</div>
 				<div>
 					<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Last Name</label>
-					<input name="last_name" type="text" className="w-full py-1 border rounded mt-1" />
+					<input name="last_name" type="text" className="w-full py-1 border rounded mt-1 px-2" />
 				</div>
 			</div>
 
 			<div>
 				<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Username</label>
-				<input name="username" type="text" className="w-full py-1 border rounded mt-1" />
+				<input name="username" type="text" className="w-full py-1 border rounded mt-1 px-2" />
 			</div>
 
 			<div>
 				<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Email Address</label>
-				<input name="email" type="email" className="w-full py-1 border rounded mt-1" />
+				<input name="email" type="email" className="w-full py-1 border rounded mt-1 px-2" />
 			</div>
 
 			<div>
 				<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Confirm Email Address</label>
-				<input name="email_confirm" type="email" className="w-full py-1 border rounded mt-1" />
+				<input name="email_confirm" type="email" className="w-full py-1 border rounded mt-1 px-2" />
 			</div>
 
 			<div>
 				<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Password (Must be at least 8 characters)</label>
-				<input name="password" type="password" className="w-full py-1 border rounded mt-1 mb-2" />
+				<input name="password" type="password" className="w-full py-1 border rounded mt-1 mb-2 px-2" />
 			</div>
 
 
