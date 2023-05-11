@@ -11,7 +11,7 @@ import moment from 'moment'
 import { useState, useEffect } from 'react'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = false, halfGraph = false, isCompare = false, showPriceColored = false, graphInterval = "All"  }) {
+export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], showOverlay = false, halfGraph = false, isCompare = false, showPriceColored = false, graphInterval = "All"  }) {
 
 	const { width } = useWindowDimensions();
 
@@ -228,6 +228,7 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	};
 
 
+	// const firstPrice = indexPrice || 0
 	const firstPrice = data[0]?.amt || 0
 	const lowestPrice = data.reduce((prev, curr) => {
 		return prev.amt < curr.amt ? prev : curr
