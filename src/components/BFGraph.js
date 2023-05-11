@@ -196,10 +196,17 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	  if (active && payload && payload.length) {
 	  	if (payload.length > 1 && !showOverlay) {
 	  		return (
-	  			<div className="border bg-white p-4">
-	  				<p>{formatDate(label, '3Y')}</p>
-	  			  	<p>{formatter.format(payload[0].value || payload[1].value)}</p>
-	  			</div>
+				<div className="w-48 border border-main-lightGrayBorder rounded-lg bg-white p-4 text-[14px] font-DM_Sans font-bold leading-normal tracking-wide text-main-black">
+				<div className="flex flex-row justify-between items-center pb-2">
+				  <p className="text-main-black">{formatDate(label, 'Hover')}</p>
+				  <p className="text-main-gray">{formatDate(label, '24H')}</p>
+			  </div>
+			  <div className="flex flex-col">
+				  {/* <p className="text-main-gray font-medium pr-1">Price: </p> */}
+				  <p className={showOverlay ? 'text-blue-400' : ''}>{showOverlay ? `${Math.min(payload[0].value).toFixed(2)}%` : formatter.format(payload[0].value)}</p>
+				  {showOverlay && <p className="text-green-400">{showOverlay ? `${Math.min(payload[1].value).toFixed(2)}%` : formatter.format(payload[1].value)}</p>}
+			  </div>
+			</div>
 	  		)
 	  	}
 	    return (
@@ -235,12 +242,10 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 		let green = obj.amt > firstPrice ? obj.amt : null
 
 		if (data.length > index + 1	) {
-			let red = obj.amt > firstPrice ? null : obj.amt
-			let green = obj.amt > firstPrice ? obj.amt : null
 			const nextObj = data[index + 1]
 			if (nextObj.amt > firstPrice && obj.amt <= firstPrice) {
 				green = obj.amt
-				// red = null
+				red = null
 			}
 			else if (nextObj.amt < firstPrice && obj.amt > firstPrice) {
 				red = obj.amt
@@ -261,7 +266,6 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	})
 
 	return(
-		console.log('priceData', priceData),
 		<AreaChart width={finalWidth} height={400} className='text-[14px] font-DM_Sans font-normal leading-normal tracking-wide w-full' data={showPriceColored ? priceData : data}  margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
 			<defs>
 				<linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
