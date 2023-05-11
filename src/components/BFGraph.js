@@ -107,28 +107,6 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 				return formatDate(value, 'All')
 		  }
 	}
-	// const XAxisInterval = () => {
-	// 	switch (graphInterval) {
-	// 		case "24H":
-	// 		  return -36
-	// 		case "7D":
-	// 			return null
-	// 		case "1M":
-	// 			return 2
-	// 		case "3M":
-	// 			return 28
-	// 		case "6M":
-	// 			return 28
-	// 		case "1Y":
-	// 			return 28
-	// 		case "3Y":
-	// 			return 28
-	// 		case "All":
-	// 			return 365
-	// 		default:
-	// 			return 28
-	// 	  }
-	// }
 	const XAxisInterval = () => {
 		{
 			if (width < 1024 || isCompare) {
@@ -267,6 +245,7 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 	})
 
 	return(
+		console.log(data),
 		<AreaChart width={finalWidth} height={400} className='text-[14px] font-DM_Sans font-normal leading-normal tracking-wide w-full' data={showPriceColored ? priceData : data}  margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
 			<defs>
 				<linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">

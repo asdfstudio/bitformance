@@ -76,11 +76,19 @@ export default function GraphCard({ title, indexPrice, subtractWidth = 0, holdin
 
 		let smallerLength = formatPrice.length > formatPriceTwo.length ? formatPriceTwo.length: formatPrice.length
 		for (let i = 0; i < smallerLength; i++) {
-			array.push({
-				name: properDateRange[i],
-				amt:  ((formatPrice[i] - dataOne.data.index.initial_value) / dataOne.data.index.initial_value) * 100,
-				amt2: ((formatPriceTwo[i] - dataTwo.data.index.initial_value) / dataTwo.data.index.initial_value) * 100
-			})
+			if (i==0) {
+				array.push({
+					name: properDateRange[i],
+					amt: 0,
+					amt2: 0
+				})
+			} else{
+				array.push({
+					name: properDateRange[i],
+					amt: ((formatPrice[i] - dataOne.data.index.initial_value) / dataOne.data.index.initial_value) * 100,
+					amt2: ((formatPriceTwo[i] - dataTwo.data.index.initial_value) / dataTwo.data.index.initial_value) * 100
+				})
+			}
 			// array.splice(0, 0, {
 			// 	name: useLessDates[i],
 			// 	amt:  ((formatPrice[i] - dataOne.data.index.initial_value) / dataOne.data.index.initial_value) * 100,
@@ -201,7 +209,7 @@ export default function GraphCard({ title, indexPrice, subtractWidth = 0, holdin
 					))}
 				</div>
 				<div className={`flex flex-row ml-0 lg:ml-auto mt-2 lg:mt-0 rounded-lg py-1 bg-main-lightGray items-center 
-				${isCompare && 'xl:ml-0 2xl:ml-auto'}
+					${isCompare && 'xl:ml-0 2xl:ml-auto'}
 				`}>
 					{dateOptions.map(option => (
 						<button 
