@@ -245,7 +245,6 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 	})
 
 	return(
-		console.log(data),
 		<AreaChart width={finalWidth} height={400} className='text-[14px] font-DM_Sans font-normal leading-normal tracking-wide w-full' data={showPriceColored ? priceData : data}  margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
 			<defs>
 				<linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
