@@ -11,7 +11,7 @@ import moment from 'moment'
 import { useState, useEffect } from 'react'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = false, showPriceColored = false, graphInterval = "All"  }) {
+export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = false, halfGraph = false, isCompare = false, showPriceColored = false, graphInterval = "All"  }) {
 
 	const { width } = useWindowDimensions();
 
@@ -101,38 +101,95 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 				return formatDate(value, '1Y')
 			case "3Y":
 				return formatDate(value, '3Y')
+			case "All":
+				return formatDate(value, 'All')
 			default:
 				return formatDate(value, 'All')
 		  }
 	}
+	// const XAxisInterval = () => {
+	// 	switch (graphInterval) {
+	// 		case "24H":
+	// 		  return -36
+	// 		case "7D":
+	// 			return null
+	// 		case "1M":
+	// 			return 2
+	// 		case "3M":
+	// 			return 28
+	// 		case "6M":
+	// 			return 28
+	// 		case "1Y":
+	// 			return 28
+	// 		case "3Y":
+	// 			return 28
+	// 		case "All":
+	// 			return 365
+	// 		default:
+	// 			return 28
+	// 	  }
+	// }
 	const XAxisInterval = () => {
-		switch (graphInterval) {
-			case "24H":
-			  return -36
-			case "7D":
-				return null
-			case "1M":
-				return 2
-			case "3M":
-				return 28
-			case "6M":
-				return 28
-			case "1Y":
-				return 28
-			case "3Y":
-				return 28
-			case "All":
-				return 365
-			default:
-				return 28
-		  }
+		{
+			if (width < 1024 || isCompare) {
+				switch (graphInterval) {
+					case "24H":
+					  return -36
+					case "7D":
+						return null
+					case "1M":
+						return 7
+					case "3M":
+						return 30
+					case "6M":
+						return 60
+					case "1Y":
+						return 120
+					case "3Y":
+						return 182
+					case "All":
+						return 910
+					default:
+						return 28
+				  }
+			} else {
+				switch (graphInterval) {
+					case "24H":
+					  return -36
+					case "7D":
+						return null
+					case "1M":
+						return 2
+					case "3M":
+						return 28
+					case "6M":
+						return 28
+					case "1Y":
+						return 28
+					case "3Y":
+						return 365
+					case "All":
+						return 365
+					default:
+						return 28
+				  }
+			} 
+		}
 	}
 
 	let finalWidth = 0
-	if (width < 768) {
+	if (width < 640) {
+		finalWidth = width - 50 //30 for home
+	} else if (width < 768) {
 		finalWidth = width - 66
+	} else if (width < 1280) {
+		{
+			isCompare ? finalWidth = width - 320 + (subtractWidth * 0.0) : finalWidth = width- 66 - subtractWidth
+		}
 	} else {
-		finalWidth = width - 320 - subtractWidth
+		{
+			isCompare ? finalWidth = width - 320 - (subtractWidth * 2) : finalWidth = width - 320 - subtractWidth
+		}
 	}
 
 	const CustomTooltip = ({ active, payload, label }) => {
@@ -177,15 +234,18 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 		let red = obj.amt > firstPrice ? null : obj.amt
 		let green = obj.amt > firstPrice ? obj.amt : null
 
-		if (data.length > index + 1) {
+		if (data.length > index + 1	) {
+			let red = obj.amt > firstPrice ? null : obj.amt
+			let green = obj.amt > firstPrice ? obj.amt : null
 			const nextObj = data[index + 1]
 			if (nextObj.amt > firstPrice && obj.amt <= firstPrice) {
 				green = obj.amt
+				// red = null
 			}
-			if (nextObj.amt < firstPrice && obj.amt > firstPrice) {
+			else if (nextObj.amt < firstPrice && obj.amt > firstPrice) {
 				red = obj.amt
+				// green = null
 			}
-	
 			return {
 				...obj,
 				red: red,
@@ -201,48 +261,49 @@ export default function BFGraph({ subtractWidth = 0, data = [], showOverlay = fa
 	})
 
 	return(
-			<AreaChart width={finalWidth} height={400} className='text-[14px] font-DM_Sans font-normal leading-normal tracking-wide' data={showPriceColored ? priceData : data}  margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
-				<defs>
-					<linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
-						{/* #8884d8 */}
-						<stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
-						<stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
-					</linearGradient>
-					<linearGradient id="colorGreen" x1="0" y1="0" x2="0" y2="1">
-						{/* #82ca9d */}
-						<stop offset="5%" stopColor="#40c8b8" stopOpacity={0.8}/>
-						<stop offset="95%" stopColor="#40c8b8" stopOpacity={0}/>
-					</linearGradient>
-					<linearGradient id="colorRed" x1="0" y1="0" x2="0" y2="1">
-						{/* #FF0000 */}
-						<stop offset="5%" stopColor="#fd5d60" stopOpacity={0.8}/>
-						<stop offset="95%" stopColor="#fd5d60" stopOpacity={0}/>
-					</linearGradient>
-				</defs>
-				<CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
-				{data.length > 0 && <>
-					{!showPriceColored && 
-						<Area type="monotone" stackId="1" dataKey="amt" strokeWidth={1} stroke="#8884d8" fillOpacity={showOverlay ? 0 : 1} fill="url(#colorBlue)" />
-						
-					}
-						
-					{showPriceColored && <>
-						<Area type="monotone" stackId="1" dataKey="green" strokeWidth={1} stroke="#40c8b8" fillOpacity={0.5} fill="url(#colorGreen)" />
-						<Area type="monotone" stackId="2" dataKey="red" strokeWidth={1} stroke="#fd5d60" fillOpacity={0.5} fill="url(#colorRed)" />
-					</>
-					}
+		console.log('priceData', priceData),
+		<AreaChart width={finalWidth} height={400} className='text-[14px] font-DM_Sans font-normal leading-normal tracking-wide w-full' data={showPriceColored ? priceData : data}  margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
+			<defs>
+				<linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
+					{/* #8884d8 */}
+					<stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
+					<stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
+				</linearGradient>
+				<linearGradient id="colorGreen" x1="0" y1="0" x2="0" y2="1">
+					{/* #82ca9d */}
+					<stop offset="5%" stopColor="#40c8b8" stopOpacity={0.8}/>
+					<stop offset="95%" stopColor="#40c8b8" stopOpacity={0}/>
+				</linearGradient>
+				<linearGradient id="colorRed" x1="0" y1="0" x2="0" y2="1">
+					{/* #FF0000 */}
+					<stop offset="5%" stopColor="#fd5d60" stopOpacity={0.8}/>
+					<stop offset="95%" stopColor="#fd5d60" stopOpacity={0}/>
+				</linearGradient>
+			</defs>
+			<CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
+			{data.length > 0 && <>
+				{!showPriceColored && 
+					<Area type="monotone" stackId="1" dataKey="amt" strokeWidth={1} stroke="#8884d8" fillOpacity={showOverlay ? 0 : 1} fill="url(#colorBlue)" />
+					
+				}
+					
+				{showPriceColored && <>
+					<Area type="monotone" stackId="1" dataKey="green" strokeWidth={1} stroke="#40c8b8" fillOpacity={0.5} fill="url(#colorGreen)" />
+					<Area type="monotone" stackId="2" dataKey="red" strokeWidth={1} stroke="#fd5d60" fillOpacity={0.5} fill="url(#colorRed)" />
+				</>
+				}
 
-					{showOverlay && 
-						<Area type="monotone" stackId="2" dataKey="amt2" strokeWidth={1} stroke="#40c8b8" fillOpacity={0} fill="url(#colorGreen)" />
-					}
+				{showOverlay && 
+					<Area type="monotone" stackId="2" dataKey="amt2" strokeWidth={1} stroke="#40c8b8" fillOpacity={0} fill="url(#colorGreen)" />
+				}
 
-						
-					<XAxis dataKey="name" tickFormatter={formatXAxis} interval={XAxisInterval()}/>
-					<YAxis type="number" allowDataOverflow tickFormatter={formatYAxis} domain={[showOverlay ? Math.min(lowestPrice, lowestPercentTwo) : lowestPrice, 'auto']} />
-					<Tooltip content={<CustomTooltip />} />
-					</>
-			}
-		</AreaChart>
+					
+				<XAxis dataKey="name" tickFormatter={formatXAxis} interval={XAxisInterval()}/>
+				<YAxis type="number" allowDataOverflow tickFormatter={formatYAxis} domain={[showOverlay ? Math.min(lowestPrice, lowestPercentTwo) : lowestPrice, 'auto']} />
+				<Tooltip content={<CustomTooltip />} />
+				</>
+		}
+	</AreaChart>
 		
 	)
 }

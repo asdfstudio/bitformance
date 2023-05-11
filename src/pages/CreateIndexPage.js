@@ -111,6 +111,7 @@ export default function CreateIndexPage() {
 		setAlertTotalWeight("0")
 		
 		const maxWeight = 100;
+		const minWeight = 100;
 		keys.forEach(key => 
 			data[key] = parseInt(formData.get(key)) & 
 			dataa.push(parseInt(formData.get(key)))
@@ -120,7 +121,7 @@ export default function CreateIndexPage() {
 		console.log("total", total)
 		}
 
-		if(total == maxWeight){
+		if(total == maxWeight && total <= minWeight ){
 			return data
 		}else{
 			setShowAlertMenu(!showAlertMenu)
@@ -161,7 +162,7 @@ export default function CreateIndexPage() {
 
 	const countWordsDesc = (e) => {
 		const text = e.target?.value;
-		setWordCountDesc(text.split(" ").length);
+		setWordCountDesc(text.length);
 		if(WordCountDesc < maxWord){
 			setDescription(text)
 		}else{
@@ -184,7 +185,6 @@ export default function CreateIndexPage() {
 	}
 	const countCustomWeight = (e) => {
 		const text = e.target?.value;
-		console.log("custom wight", text)
 	}
 
 	return (
@@ -269,7 +269,7 @@ export default function CreateIndexPage() {
 						{/* <span className="bg-main-lightSkyBlue rounded py-1 px-2 text-[13px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gray">5</span> */}
 					</div>
 					<div className="flex flex-col pb-2 md:space-x-4 md:flex-row">
-						<BFChooseOption isMarketCapWeightAvailable={isMarketCapWeightAvailable} onSelect={setWeightingMethod} selected={weightingMethod} options={[
+						<BFChooseOption isMarketCapWeightAvailable={isMarketCapWeightAvailable} onSelect={setWeightingMethod} onChange={setReturnData} preview={setPreviewShown} selected={weightingMethod} options={[
 							{
 								id: 'equal_weight',
 								label: 'Equal Weight'

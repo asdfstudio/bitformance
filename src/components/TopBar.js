@@ -97,7 +97,6 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 
 	return(<>
 		<div className="flex flex-row items-center w-full bg-main-gradientColor2 md:bg-white shadow p-2 py-3">
-			
 			<div className="flex items-center md:hidden w-full">
 				<Link to="/"><img src={bitLogoWhite} className="ml-1 w-44" alt="bitformance logo" /></Link>
 				<div className="ml-auto mr-6 space-x-4 cursor-pointer">
@@ -128,7 +127,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 				<div id="dropdown" className="p-4 absolute right-2 top-12 z-10 w-56 bg-white rounded-lg divide-y divide-gray-100 shadow">
 				    <ul className="space-y-2 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
 				      <li className="flex flex-row items-center gap-2">
-				      	<button onClick={() => { setShowModalType('SIGN_IN'); setShowMenu(false);}} className="text-sm rounded-lg bg-red-100 text-main-red w-full py-2 text-cente font-DM_Sans font-medium leading-normal tracking-wide whitespace-nowrap">Sign In</button>
+				      	<button onClick={() => { setShowModalType('SIGN_IN'); setShowMenu(false);}} className="text-sm rounded-lg bg-main-lightGreen text-main-green w-full py-2 text-cente font-DM_Sans font-medium leading-normal tracking-wide whitespace-nowrap">Sign In</button>
 				      </li>
 				      <li className="flex flex-row items-center gap-2">
 				      	<button onClick={() => { setShowModalType('SIGN_UP'); setShowMenu(false); }} className="text-sm text-white w-full py-2 rounded-lg bg-main-buttonBlue text-cente font-DM_Sans font-medium leading-normal tracking-wide shadow-sm shadow-main-buttonBlue whitespace-nowrap">Sign Up</button>
@@ -149,19 +148,21 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 
 					if (pathArray.length === 1 || pathArray.length - 1 === index) {
 						return <Link className="text-main-black" to={to} key={crumb}>{capitalizeFirstLetter(crumb) || 'Home'}</Link>
-					} else {
+					} 
+					else {
 						return (<Link className="text-main-gray" to={to} key={crumb}>{capitalizeFirstLetter(crumb) || 'Home'} &nbsp;<FontAwesomeIcon icon={faArrowRight} /></Link>)
 					}
 				})}
 			</div>
+			
 			{username && <div className="ml-auto relative cursor-pointer">
-				<div id="dropdownDefault" data-dropdown-toggle="dropdown" onClick={() => setShowMenu(!showMenu)} className="flex flex-row items-center gap-2">
+				<div id="dropdownDefault" data-dropdown-toggle="dropdown" onClick={() => setShowMenu(!showMenu)} className="flex flex-row items-center gap-2 -my-1">
 					<div className="hidden md:block">
-						<p className="text-sm">{firstName} {lastName}</p>
-						<p className="text-xs text-gray-400 text-right">@{username}</p>
+						<p className="text-[15px]">{firstName} {lastName}</p>
+						<p className="text-[14px] text-gray-400 text-right">@{username}</p>
 					</div>
 					<div className="rounded-full bg-white shadow p-1">
-						{picture ? <img className="w-6 h-6 rounded-full" src={picture} /> : <div className="w-6 h-6 flex justify-center items-center rounded-full bg-gray-100 p-2"><BFIcon iconName="no-picture" size="xs" /></div>}
+						{picture ? <img className="w-[40px] h-[40px] rounded-full" src={picture} /> : <div className="w-[40px] h-[40px] flex justify-center items-center rounded-full bg-gray-100 p-2"><BFIcon iconName="no-picture" size="xs" /></div>}
 					</div>
 				</div>
 				{showMenu &&
@@ -183,13 +184,13 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 			{!username && 
 				<div className="hidden md:flex ml-auto flex-row items-center gap-4">
 					{/* <BFSearchBar onChange={setSearchText} placeholder="Search Index..." /> */}
-					<button onClick={() => setShowModalType('SIGN_IN')} className="text-[15px] bg-red-100 w-32 py-2 rounded-lg text-main-red text-cente font-DM_Sans font-medium leading-normal tracking-normal whitespace-nowrap">Sign In</button>
+					<button onClick={() => setShowModalType('SIGN_IN')} className="text-[15px] bg-main-lightGreen text-main-green w-32 py-2 rounded-lg text-cente font-DM_Sans font-medium leading-normal tracking-normal whitespace-nowrap">Sign In</button>
 					<button onClick={() => setShowModalType('SIGN_UP')} className="text-[15px] w-32 py-2 text-white rounded-lg bg-main-buttonBlue text-cente font-DM_Sans font-medium leading-normal tracking-normal shadow-sm shadow-main-buttonBlue whitespace-nowrap">Sign Up</button>
 				</div>
 			}
 		</div>
 		<div className='w-full bg-main-white relative border p-2 md:hidden'>
-			<div className="ml-2 flex flex-row items-center text-main-gray text-[15px] text-cente font-DM_Sans font-bold leading-normal tracking-normal">
+			<div className="ml-2 flex flex-row items-center text-main-gray text-[15px] text-cente font-DM_Sans font-bold leading-normal tracking-normal whitespace-nowrap">
 				{pathArray.map((crumb, index) => {
 					let to = `/${pathArray.slice(0, index + 1).join('/')}`
 					if (to === '/indexes') {
@@ -199,7 +200,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 					}
 
 					if (pathArray.length === 1 || pathArray.length - 1 === index) {
-						return <Link className="text-main-black" to={to} key={crumb}>{capitalizeFirstLetter(crumb) || 'Home'}</Link>
+						return <Link className="text-main-black " to={to} key={crumb}>{capitalizeFirstLetter(crumb) || 'Home'}</Link>
 					} else {
 						return (<Link className="text-main-gray" to={to} key={crumb}>{capitalizeFirstLetter(crumb) || 'Home'} &nbsp;<FontAwesomeIcon icon={faArrowRight} />&nbsp;&nbsp;</Link>)
 					}

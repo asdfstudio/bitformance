@@ -78,10 +78,10 @@ export default function ComparePage() {
 			</div>
 
 			<div className="grid grid-cols-1 xl:grid-cols-2 gap-4 p-1 items-start overflow-y-auto m-2">
-				<BFCryptoSelectorCard mode={typeSelected} selectedCrypto={selectedCryptoOne} isAuthRequired={isAuthRequiredOne} selectCrypto={selectCrypto} panelId="1" />
-				<BFCryptoSelectorCard mode={typeSelected} selectedCrypto={selectedCryptoTwo} isAuthRequired={isAuthRequiredTwo} selectCrypto={selectCrypto} panelId="2" />
+				<BFCryptoSelectorCard isCompare={true} mode={typeSelected} selectedCrypto={selectedCryptoOne} isAuthRequired={isAuthRequiredOne} selectCrypto={selectCrypto} panelId="1" />
+				<BFCryptoSelectorCard isCompare={true} mode={typeSelected} selectedCrypto={selectedCryptoTwo} isAuthRequired={isAuthRequiredTwo} selectCrypto={selectCrypto} panelId="2" />
 			</div>
-			<div className='m-3 bg-main-white rounded-xl border'>
+			<div className='pl-2 bg-main-white rounded-xl border'>
 				{(typeSelected === 'overlay' && selectedCryptoOne && selectedCryptoTwo) && <OverlayGraph selectedCryptoOne={selectedCryptoOne} selectedCryptoTwo={selectedCryptoTwo} />}
 			</div>
 			<div className='bg-white md:hidden'>

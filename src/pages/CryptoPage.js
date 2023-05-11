@@ -14,6 +14,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BFImage from '../components/small/BFImage'
 import FooterMobile from '../components/small/FooterMobile'
+import { calculateDrawdown, calculateReturn } from '../helpers'
+import BFPerformance from '../components/small/BFPerformance'
 
 export default function CryptoPage({ isAuth }) {
 	const params = useParams()
@@ -54,7 +56,7 @@ export default function CryptoPage({ isAuth }) {
 	}
 
 	const PanelOne = ({ id, name, description, isAuth }) => (
-		<div>
+		<div className='w-full h-full'>
 			<div className="flex flex-row items-center justify-between">
 				<div className='flex flex-row items-center gap-2'>
 					<BFImage style="shadow-md w-16 h-16 rounded-full bg-white p-1" alt="crypto" src={data.index.logo} />
@@ -90,7 +92,9 @@ export default function CryptoPage({ isAuth }) {
 					<SocialIconsRow showCopyLink={true} />
 				</div>
 			</div> */}
+
 			{/* <p className='text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-grayText'>{'Share this Index'}</p> */}
+
 			<p className='text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-gray pt-2 my-4'>{description}</p>
 
 			{/* {isAuth && 
@@ -101,6 +105,7 @@ export default function CryptoPage({ isAuth }) {
 					</button>
 				</div>
 				} */}
+			<BFPerformance data={data}/>
 		</div>
 	)
 
@@ -131,6 +136,17 @@ export default function CryptoPage({ isAuth }) {
 		})
 	}
 
+	const UpTag = ({ value }) => (
+		<span className="text-[30px] font-DM_Sans font-medium leading-normal tracking-normal text-main-green"><BFIcon iconName="up-right-arrow" /> {Math.abs(value).toFixed(2)}%</span>
+	)
+
+	const DownTag = ({ value }) => (
+		<span className="text-[30px] font-DM_Sans font-medium leading-normal tracking-normal text-main-deepOrange"><BFIcon iconName="down-left-arrow" /> {Math.abs(value).toFixed(2)}%</span>
+	)
+
+	const totalReturn = calculateReturn(data.index.value || data.index.price, data.index.initial_value)
+	const drawdown = calculateDrawdown(data.index.daily_graph_data.prices || data.index.daily_graph_data.price || [])
+
 	return (
 		<div>
 		<div className="grid grid-cols-1 xl:grid-cols-12 bg-main-lightGray pt-8 sm:pt-0">
@@ -149,18 +165,18 @@ export default function CryptoPage({ isAuth }) {
 			</div>
 		</div>
 		
-			<div className='hidden xl:block w-full border'>
-				{(formattedHoldings.length > 0) &&
-					<div className={`bg-white border-main-lightGrayBorder p-4 overflow-y-auto space-y-4`}>
-						<h2 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Holdings 
-							<span className="bg-main-lightSkyBlue rounded py-1 px-2 ml-2  text-[13px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gray">{data.rawStocks.length}</span>
-						</h2>
-						<BFHoldingsTable holdings={formattedHoldings} />
-					</div>
-				}
-			</div>
+		<div className='hidden xl:block w-full border'>
+			{(formattedHoldings.length > 0) &&
+				<div className={`bg-white border-main-lightGrayBorder p-4 overflow-y-auto space-y-4`}>
+					<h2 className="text-[22px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Holdings 
+						<span className="bg-main-lightSkyBlue rounded py-1 px-2 ml-2  text-[13px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gray">{data.rawStocks.length}</span>
+					</h2>
+					<BFHoldingsTable holdings={formattedHoldings} />
+				</div>
+			}
+		</div>
 
-			{showMenu &&
+		{showMenu &&
 			<div className="relative z-[60]" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 			  <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
    			    <div className="fixed inset-0 z-[70] overflow-y-auto">

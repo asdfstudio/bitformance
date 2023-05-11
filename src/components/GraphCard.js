@@ -1,7 +1,7 @@
 import BFGraph from './BFGraph'
 import { useState, useEffect } from 'react'
 
-export default function GraphCard({ title, subtractWidth = 0, holdings, isOverlay = false, halfGraph = false,  hook = function () { return { data: {}, isLoading: false, isError: false }} }) {
+export default function GraphCard({ title, subtractWidth = 0, holdings, isOverlay = false, halfGraph = false, isCompare = false,  hook = function () { return { data: {}, isLoading: false, isError: false }} }) {
 
 	const { data, isLoading, isError } = hook()
 
@@ -186,11 +186,13 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 	return(
 		<div className="bg-white sm:rounded-xl">
 			<h1 className="px-5 pt-6 text-[22.1px] font-DM_Sans font-medium leading-normal tracking-wide text-main-black">{title}</h1>
-			<div className="flex flex-col lg:flex-row items-center mb-6 px-5 pt-4">
+			<div className={`flex flex-col lg:flex-row items-center mb-6 px-5 pt-4 
+				${isCompare && 'xl:flex-col gap-1 2xl:flex-row'}`
+			}>
 				<div className="rounded-lg bg-main-lightGray px-1 py-1 text-main-gray">
 					{colorOptions.map(option => (
 						<button 
-							className={`text-sm px-3 py-2 font-DM_Sans font-normal leading-normal tracking-wide ${option === graphColor && 'bg-main-white py-1 px-4 rounded-lg shadow text-main-black'}`}
+							className={`text-[12px] px-3 py-2 font-DM_Sans font-normal leading-normal tracking-wide ${option === graphColor && 'bg-main-white py-1 px-4 rounded-lg shadow text-main-black text-[12px] font-bold'}`}
 							key={option} onClick={() => setGraphColor(option)}
 							disabled={(isOverlay && option === 'Price Colored')}
 						>
@@ -198,10 +200,12 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 						</button>
 					))}
 				</div>
-				<div className="flex flex-row ml-0 lg:ml-auto mt-2 lg:mt-0 rounded-lg py-1 bg-main-lightGray items-center">
+				<div className={`flex flex-row ml-0 lg:ml-auto mt-2 lg:mt-0 rounded-lg py-1 bg-main-lightGray items-center 
+				${isCompare && 'xl:ml-0 2xl:ml-auto'}
+				`}>
 					{dateOptions.map(option => (
 						<button 
-							className={`text-sm text-main-gray font-DM_Sans font-normal leading-normal tracking-wide px-3 py-2 
+							className={`text-[12px] text-main-gray font-DM_Sans font-normal leading-normal tracking-wide px-3 py-2 
 							${halfGraph ? 'px-3 py-2' : 'sm:px-7 py-2'}
 							${option != "All" && 'border-r-[1px]'} 
 							${option != "24H" && 'border-l-[1px]'} 
@@ -215,7 +219,7 @@ export default function GraphCard({ title, subtractWidth = 0, holdings, isOverla
 				</div>
 			</div>
 			<div className='pb-4 text-[14px] font-DM_Sans font-normal leading-normal tracking-normal text-main-gray'>
-				<BFGraph subtractWidth={subtractWidth} data={shownGraphData} showOverlay={isOverlay} showPriceColored={graphColor === 'Price Colored'} graphInterval={graphInterval}/>
+				<BFGraph subtractWidth={subtractWidth} halfGraph={halfGraph} isCompare={isCompare} data={shownGraphData} showOverlay={isOverlay} showPriceColored={graphColor === 'Price Colored'} graphInterval={graphInterval}/>
 			</div>
 		</div>
 	)

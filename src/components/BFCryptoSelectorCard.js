@@ -6,7 +6,7 @@ import { useMyIndexes, useCoinBySymbol, useCryptoById } from '../endpoints/index
 import BFCryptoInfo from './BFCryptoInfo'
 import BFLoading from './small/BFLoading'
 
-export default function BFCryptoSelectorCard({ mode, selectedCrypto, isAuthRequired, selectCrypto, panelId }) {
+export default function BFCryptoSelectorCard({ mode, selectedCrypto, isAuthRequired, selectCrypto, panelId, isCompare }) {
 	const [selectedCryptos, setSelectedCryptos] = useState([])
 
 	const selectC = (symbol) => {
@@ -44,6 +44,7 @@ export default function BFCryptoSelectorCard({ mode, selectedCrypto, isAuthRequi
 						data={{ index: data }} 
 						panelId={panelId}
 						halfGraph={true}
+						isCompare={isCompare}
 					/>
 				}
 				{isLoading && <BFLoading />}
@@ -62,6 +63,8 @@ export default function BFCryptoSelectorCard({ mode, selectedCrypto, isAuthRequi
 				 			data={data} 
 				 			isHalfGraph={true} 
 				 			panelId={panelId}
+							halfGraph={true}
+							isCompare={isCompare}
 				 		/>
 				 	}
 				 {isLoading && <BFLoading />}

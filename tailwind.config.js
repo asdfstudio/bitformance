@@ -4,6 +4,15 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
+    // screens: {
+    //   sm: '640px', //mobile
+    //   m : '768px',
+    //   lg: '1024px', //tablet | 1009px is 1024 px in ipad
+    //   xl: '1280px', //laptop | 1009px is 1024 px in ipad
+    //   '1xl': '1480px', //laptop
+    //   '2xl': '1536px', //desktop
+    //   '5xl': '1920px', // ultra wide
+    // },
     extend: {
       fontFamily : {
         DM_Sans: "'DM Sans', sans-serif",

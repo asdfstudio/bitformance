@@ -1,6 +1,6 @@
 import BFIcon from '../BFIcon'
 
-export default function BFChooseOption({ isMarketCapWeightAvailable, onSelect, selected, options }) {
+export default function BFChooseOption({ isMarketCapWeightAvailable, onSelect, onChange, preview, selected, options }) {
 
 	// const selectedStyle = 'w-full h-[38px] shadow shadow-main-shadow rounded-lg bg-main-gColor text-main-white px-3 cursor flex flex-row items-center text-[15px] font-DM_Sans font-medium leading-normal tracking-normal whitespace-nowrap md:w-[146px]'
 	// const notSelectedStyle = 'w-full h-[38px] rounded-lg bg-main-lightGray text-main-gray px-3 cursor flex flex-row items-center text-[15px] font-DM_Sans font-medium leading-normal tracking-normal whitespace-nowrap md:w-[146px]'
@@ -18,7 +18,7 @@ export default function BFChooseOption({ isMarketCapWeightAvailable, onSelect, s
 	)
 
 	const NotSelectedButton = ({ id, label }) => (
-		<button onClick={() => onSelect(id)} className={notSelectedStyle}>
+		<button onClick={() => onSelect(id) & onChange(null) & preview(false)} className={notSelectedStyle}>
 			<BFIcon iconName="open-circle" />&nbsp;&nbsp;
 			<span className="text-sm">{label}</span>
 		</button>
