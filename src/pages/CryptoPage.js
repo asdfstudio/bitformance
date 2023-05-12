@@ -32,7 +32,8 @@ export default function CryptoPage({ isAuth }) {
 
 	const compareRow = (e) => {
 		e.stopPropagation()
-		navigate(`/compare?id=${params.id}`)
+		// navigate(`/compare?id=${params.id}`)
+		navigate(`/compare?id=${params.id}&isAuth=${isAuth}`)
 	}
 
 	const favoriteRow = async (e) => {

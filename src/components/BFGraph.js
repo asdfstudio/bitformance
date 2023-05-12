@@ -226,7 +226,7 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 				green = obj.amt
 				red = null
 			}
-			else if (nextObj.amt < firstPrice && obj.amt > firstPrice) {
+			if (nextObj.amt < firstPrice && obj.amt > firstPrice) {
 				red = obj.amt
 				// green = null
 			}
@@ -244,8 +244,38 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 		}
 	})
 
-	return(
-		<AreaChart width={finalWidth} height={400} className='text-[14px] font-DM_Sans font-normal leading-normal tracking-wide w-full' data={showPriceColored ? priceData : data}  margin={{ top: 0, right: 0, bottom: 0, left: 18 }}>
+	const priceData2 = priceData.map((obj, index) => {
+		let red = obj.red
+		let green = obj.green
+
+		if (priceData.length > index + 1) {
+			const nextObj = priceData[index + 1]
+			if (obj.red && nextObj.green) {
+				green = obj.amt
+				green = obj.amt
+			}
+			return {
+				...obj,
+				red: red,
+				green: green
+			}
+		}
+
+		return {
+			...obj,
+			red: red,
+			green: green
+		}
+	})
+
+	return(console.log('priceData2', priceData2),
+		<AreaChart 
+			width={finalWidth} 
+			height={400} 
+			className='text-[14px] font-DM_Sans font-normal leading-normal tracking-wide w-full' 
+			data={showPriceColored ? priceData2 : data} 
+			margin={{ top: 0, right: 0, bottom: 0, left: 18 }}
+		>
 			<defs>
 				<linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
 					{/* #8884d8 */}

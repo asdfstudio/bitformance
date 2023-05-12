@@ -104,10 +104,10 @@ export default function BFCryptoInfo({
 	// 	adjustGraphWidth = 420
 	// }
 
-	return (<>
-
+	return (
+	<>
 		<div className={`relative p-4 bg-white space-y-4 mt-1 ${singlePage ? 'border border-main-lightGrayBorder sm:rounded-xl' : 'border-t-[1px] border-main-lightGrayBorder -mx-4 mt-4 sm:-mx-6'}`}>
-			<div className="flex flex-row gap-3 items-center">
+			<div className="flex flex-row gap-3 items-center h-[55px]">
 				{(showIcon && data.index.symbol) && <BFCryptoImage symbol={data.index.symbol} />}
 				{(showIcon && data.index.logo !== undefined) && <BFImage style="w-[55px] h-[55px] object-cover rounded-full border-2 border-white drop-shadow-md" src={data.index.logo} alt={data.index.name} /> }
 				<h2 className="text-[18px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">{showIcon ? data.index.name : 'Overview'}</h2>
