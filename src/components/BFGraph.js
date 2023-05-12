@@ -252,7 +252,6 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 			const nextObj = priceData[index + 1]
 			if (obj.red && nextObj.green) {
 				green = obj.amt
-				green = obj.amt
 			}
 			return {
 				...obj,
