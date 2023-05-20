@@ -119,7 +119,7 @@ export default function BrowseCoinRowMobile({
 			<div className='border-t my-2 border-main-lightGrayBorder'/>
 
 			<div className="pl-2 space-y-1 text-[16px] font-DM_Sans leading-normal tracking-normal flex flex-col items-start mb-2">
-				<label className="font-normal text-main-gray pt-3">Market Cap</label>
+				<label className="font-normal text-main-gray pt-3">Last Updated</label>
 				<BFInfoTags timestamp={updated.$date} weightingMethod={weighting_method} rebalancingInterval={rebalancing_interval} />
 			</div>
 

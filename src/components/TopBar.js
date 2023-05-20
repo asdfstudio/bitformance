@@ -1,5 +1,5 @@
+import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import BFSearchBar from './small/BFSearchBar'
@@ -95,35 +95,61 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 		setTimer(newTimer)
 	}, [searchText])
 
+	let domNode = useRef();
+
+	useEffect(() => {
+		let maybeHandler = (event) => {
+		if (!domNode.current.contains(event.target)) {
+			setShowMobileMenu(false);
+			setShowMenu(false);
+		}};
+
+		document.addEventListener("mousedown", maybeHandler);
+
+		return () => {
+		document.removeEventListener("mousedown", maybeHandler);
+		};
+	});
+
 	return(<>
 		<div className="flex flex-row items-center w-full bg-main-gradientColor2 md:bg-white shadow p-2 py-3">
 			<div className="flex items-center md:hidden w-full">
 				<Link to="/"><img src={bitLogoWhite} className="ml-1 w-44" alt="bitformance logo" /></Link>
-				<div className="ml-auto mr-6 space-x-4 cursor-pointer">
+				<div className="ml-auto mr-4 space-x-4 cursor-pointer">
 					{/* <BFIcon iconName="search" color="white" /> */}
-					<span onClick={() => setShowMobileMenu(!showMobileMenu)}>
+					<span onClick={() => setShowMobileMenu(!showMobileMenu) & setShowMenu(false)}>
 						{!showMobileMenu ? <BFIcon iconName="menu" color="white" /> : <BFIcon iconName="close" color="white" />}
 					</span>
 				</div>
 			</div>
 			{showMobileMenu &&
-				<div id="dropdown" className="p-4 px-[20px] absolute left-0 top-12 z-10 w-full rounded-b-xl -mt-1 bg-gradient-to-b from-main-gradientColor2 to-main-gradientColor1 divide-y divide-gray-100 shadow">
+				<div id="dropdown" className="p-4 px-[20px] absolute left-0 top-[60px] z-10 w-full rounded-b-xl -mt-1 bg-gradient-to-b from-main-gradientColor2 to-main-gradientColor1 divide-y divide-gray-100 shadow">
 				    <ul className="space-y-4 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
 				     	<SiteLinks setShowMobileMenu={setShowMobileMenu} setShowModalType={setShowModalType} colorStyle="text-white font-DM_Sans text-[15px] font-normal leading-normal tracking-wide"/>
 				    </ul>
 				</div>
 			}
 			{!username && <div className="ml-auto md:hidden relative cursor-pointer">
+
 				<div id="dropdownDefault" data-dropdown-toggle="dropdown" onClick={() => setShowMenu(!showMenu)} className="flex flex-row items-center gap-2">
 					<div className="hidden md:block">
 						<p className="text-sm">{localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</p>
 						<p className="text-xs text-gray-400 text-right">@{username}</p>
 					</div>
-					<div className="rounded-full bg-white shadow p-1">
-						{picture ? <img className="w-6 h-6 rounded-full" src={localStorage.getItem('picture')} /> : <div className="w-6 h-6 flex justify-center items-center rounded-full bg-gray-100 p-2"><BFIcon iconName="no-picture" size="xs" /></div>}
-					</div>
+					<button onClick={() => setShowModalType('SIGN_IN')} className="text-[15px] bg-main-lightGreen text-main-green w-20 py-2 rounded-lg text-cente font-DM_Sans font-medium leading-normal tracking-normal whitespace-nowrap">Sign In</button>
 				</div>
-				{showMenu &&
+
+				{/* previous */}
+				{/* <div id="dropdownDefault" data-dropdown-toggle="dropdown" onClick={() => setShowMenu(!showMenu)} className="flex flex-row items-center gap-2">
+					<div className="hidden md:block">
+						<p className="text-sm">{localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</p>
+						<p className="text-xs text-gray-400 text-right">@{username}</p>
+					</div>
+					<div className="rounded-full bg-white shadow p-1">
+						{picture ? <img className="w-[40px] h-[40px] rounded-full" src={localStorage.getItem('picture')} /> : <div className="w-[40px] h-[40px] flex justify-center items-center rounded-full bg-gray-100 p-2"><BFIcon iconName="no-picture" size="xs" /></div>}
+					</div>
+				</div> */}
+				{/* {showMenu &&
 				<div id="dropdown" className="p-4 absolute right-2 top-12 z-10 w-56 bg-white rounded-lg divide-y divide-gray-100 shadow">
 				    <ul className="space-y-2 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
 				      <li className="flex flex-row items-center gap-2">
@@ -134,7 +160,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 				      </li>
 				    </ul>
 				</div>
-				}
+				} */}
 			</div>}
 
 			<div className="ml-2 hidden md:flex flex-row gap-2 items-center text-main-gray text-[16px] text-cente font-DM_Sans font-bold leading-normal tracking-normal">
@@ -156,7 +182,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 			</div>
 			
 			{username && <div className="ml-auto relative cursor-pointer">
-				<div id="dropdownDefault" data-dropdown-toggle="dropdown" onClick={() => setShowMenu(!showMenu)} className="flex flex-row items-center gap-2 -my-1">
+				<div id="dropdownDefault" data-dropdown-toggle="dropdown" onClick={() => setShowMenu(!showMenu) & setShowMobileMenu(false)} className="flex flex-row items-center gap-2 -my-1">
 					<div className="hidden md:block">
 						<p className="text-[15px]">{firstName} {lastName}</p>
 						<p className="text-[14px] text-gray-400 text-right">@{username}</p>

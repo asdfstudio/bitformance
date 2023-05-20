@@ -11,7 +11,7 @@ import moment from 'moment'
 import { useState, useEffect } from 'react'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 
-export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], showOverlay = false, halfGraph = false, isCompare = false, showPriceColored = false, graphInterval = "All"  }) {
+export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], showOverlay = false, halfGraph = false, isCompare = false, createIndex = false, showPriceColored = false, graphInterval = "All"  }) {
 
 	const { width } = useWindowDimensions();
 
@@ -49,19 +49,19 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 	    case "24H":
 	      return date.format("H:MM")
 	    case "7D":
-	      return date.format("MMM Do")
+	      return date.format("MMM D")
 	    case "1M":
-	      return date.format("MMM Do")
+	      return date.format("MMM D")
 	    case "3M":
-	      return date.format("MMM Do")
+	      return date.format("MMM D")
 	    case "6M":
-	     return date.format("MMM Do")
+	     return date.format("MMM D")
 	    case "1Y":
-	      return date.format("MMM Do")
+	      return date.format("MMM D") //MMM D
 	    case "3Y":
-	      return date.format("MMM Do")
+	      return date.format("MMM D")
 		case "All":
-	      return date.format("MMM Do Y")
+	      return date.format("MMM Y")
 		case "Hover":
 	      return date.format("MM/DD/YY")
 	    default:
@@ -112,7 +112,7 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 			if (width < 1024 || isCompare) {
 				switch (graphInterval) {
 					case "24H":
-					  return -36
+					  return -55
 					case "7D":
 						return null
 					case "1M":
@@ -126,9 +126,9 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 					case "3Y":
 						return 182
 					case "All":
-						return 910
+						return 1095
 					default:
-						return 28
+						return 1095
 				  }
 			} else {
 				switch (graphInterval) {
@@ -149,7 +149,7 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 					case "All":
 						return 365
 					default:
-						return 28
+						return 365
 				  }
 			} 
 		}
@@ -162,11 +162,29 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 		finalWidth = width - 66
 	} else if (width < 1280) {
 		{
-			isCompare ? finalWidth = width - 320 + (subtractWidth * 0.0) : finalWidth = width- 66 - subtractWidth
+			createIndex ? 
+				finalWidth = width - 320 + (subtractWidth * 0.0)
+			 :
+				isCompare ? finalWidth = width - 320 + (subtractWidth * 0.0) : finalWidth = width- 66 - subtractWidth
 		}
 	} else {
 		{
-			isCompare ? finalWidth = width - 320 - (subtractWidth * 2) : finalWidth = width - 320 - subtractWidth
+			createIndex ?
+				width < 1380 ? finalWidth = width - 30 - (subtractWidth * 2) :
+				width < 1480 ? finalWidth = width - 80 - (subtractWidth * 2) :
+				width < 1580 ? finalWidth = width - 130 - (subtractWidth * 2) :
+				width < 1680 ? finalWidth = width - 150 - (subtractWidth * 2) :
+				width < 1780 ? finalWidth = width - 200 - (subtractWidth * 2) :
+				width < 1880 ? finalWidth = width - 230 - (subtractWidth * 2) :
+				width < 1980 ? finalWidth = width - 280 - (subtractWidth * 2) :
+				width < 2080 ? finalWidth = width - 330 - (subtractWidth * 2) :
+				width < 2180 ? finalWidth = width - 350 - (subtractWidth * 2) :
+				width < 2280 ? finalWidth = width - 390 - (subtractWidth * 2) :
+				width < 2380 ? finalWidth = width - 430 - (subtractWidth * 2) :
+				width < 2480 ? finalWidth = width - 480 - (subtractWidth * 2) :
+				finalWidth = width - (subtractWidth * 3.5)
+			 :
+				isCompare ? finalWidth = width - 320 - (subtractWidth * 2) : finalWidth = width - 320 - subtractWidth
 		}
 	}
 
@@ -267,7 +285,7 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 		}
 	})
 
-	return(console.log('priceData2', priceData2),
+	return(
 		<AreaChart 
 			width={finalWidth} 
 			height={400} 
@@ -310,8 +328,17 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 				}
 
 					
-				<XAxis dataKey="name" tickFormatter={formatXAxis} interval={XAxisInterval()}/>
-				<YAxis type="number" allowDataOverflow tickFormatter={formatYAxis} domain={[showOverlay ? Math.min(lowestPrice, lowestPercentTwo) : lowestPrice, 'auto']} />
+				<XAxis
+					dataKey="name" 
+					tickFormatter={formatXAxis} 
+					interval={XAxisInterval()}
+				 />
+				<YAxis 
+					type="number" 
+					allowDataOverflow 
+					tickFormatter={formatYAxis} 
+					domain={[showOverlay ? Math.min(lowestPrice, lowestPercentTwo) : lowestPrice, 'auto']} 
+				/>
 				<Tooltip content={<CustomTooltip />} />
 				</>
 		}

@@ -63,7 +63,7 @@ export default function TopMarketCapCryptos({ title = 'Top Cryptocurrencies by V
 					<div className="static h-24 w-full bg-gradient-to-t from-white -mb-12 -mt-28 opacity-30"></div>
 					<div className="static h-24 w-full bg-gradient-to-t from-white -mb-6 -mt-28 opacity-80 md:hidden"></div>
 					<div className='flex justify-center w-full -mb-1'>
-						<Link to="/coins" className="relative text-[15px] text-white py-3 rounded-lg bg-main-buttonBlue text-cente shadow-sm shadow-main-shadowBlue font-DM_Sans font-medium leading-normal tracking-wide w-full sm:w-[300px]">See all Indexes</Link>
+						<Link to="/coins" className="relative text-[15px] text-white py-3 rounded-lg bg-main-buttonBlue text-cente shadow-sm shadow-main-shadowBlue font-DM_Sans font-medium leading-normal tracking-wide w-full sm:w-[300px]">See all Cryptocurrencies</Link>
 					</div>
 				</div>
 			}

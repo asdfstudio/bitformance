@@ -24,6 +24,8 @@ export default function CreateIndexPage() {
 
 	const [name, setName] = useState(location.state?.name || '')
 	const [description, setDescription] = useState(location.state?.description || '')
+	const [isWeighted, setWeighted] = useState(false)
+	const [isWeightedNegative, setWeightedNegative] = useState(false)
 	const [weightingMethod, setWeightingMethod] = useState(location.state?.weightingMethod || 'equal_weight')
 	const [initialValue, setInitialValue] = useState(location.state?.initialValue || '')
 	const [rebalancePeriod, setRebalancePeriod] = useState(location.state?.rebalancePeriod || 'never')
@@ -49,7 +51,6 @@ export default function CreateIndexPage() {
 		setLoadingPreview(true)
 		const customWeights = getCustomWeights()
 		const newIndex = await createIndex(name, weightingMethod, description, initialValue, selectedCryptos, rebalancePeriod, customWeights, location.state?.logo || '')
-		// console.log(newIndex)
 
 		if (location.state?.previousId) {
 			deleteIndex(location.state.previousId)
@@ -117,15 +118,16 @@ export default function CreateIndexPage() {
 			dataa.push(parseInt(formData.get(key)))
 		)
 		for (var i in dataa) {
-		total += dataa[i];
-		console.log("total", total)
+			total += dataa[i];
 		}
 
-		if(total == maxWeight && total <= minWeight ){
+		if(total == maxWeight && total <= minWeight && isWeighted ){
 			return data
 		}else{
 			setShowAlertMenu(!showAlertMenu)
-			setAlertType("weight")
+			{
+				isWeightedNegative ? setAlertType("weightNegative") : setAlertType("weight") 
+			}
 			setAlertMax(maxWeight)
 			{total ? setAlertTotalWeight(total) : setAlertTotalWeight(0)}
 
@@ -159,6 +161,8 @@ export default function CreateIndexPage() {
 
 	const maxWord = 200;
 	const maxTitle = 30;
+	const maxWeight = 100;
+	const minWeight = 0;
 
 	const countWordsDesc = (e) => {
 		const text = e.target?.value;
@@ -169,6 +173,21 @@ export default function CreateIndexPage() {
 			setShowAlertMenu(!showAlertMenu)
 			setAlertType("Desc")
 			setAlertMax(maxWord)
+		}
+	}
+	const checkWeight = (e) => {
+		const weight = e.target?.value;
+
+		if(weight <= maxWeight && weight >= minWeight){
+			setWeighted(true)
+		}else{
+			setWeighted(false)
+		}
+
+		if(Math.sign(weight) === -1){
+			setWeightedNegative(true)
+		}else{
+			setWeightedNegative(false)
 		}
 	}
 	const countWordsName = (e) => {
@@ -220,7 +239,7 @@ export default function CreateIndexPage() {
 								onChange={(e) => setInitialValue(e.target?.value)} 
 								value={initialValue} 
 								className="w-full px-2 py-[5px] border rounded mt-1 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal" 
-								type="text" 
+								type="number" 
 								placeholder="e.g. 123" 
 							/>
 						</div>
@@ -296,9 +315,16 @@ export default function CreateIndexPage() {
 											<BFCryptoImage symbol={crypto} index={0} isLarge={true} />
 											<p className="text-[16px] font-DM_Sans font-bold leading-normal tracking-normal text-main-black">{coin.name.slice(0, coin.name.length - 6)}</p>
 											<p className="text-[14px] font-DM_Sans font-normal leading-normal tracking-normal text-main-symbol">{crypto}</p>
-										
 											<p className="ml-auto text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Custom Weight</p>
-											<input className="border rounded p-1 w-24 md:w-36 bg-main-lightGray" type="number" min="0" max="100" step="1" name={crypto} />
+											<input 
+												className={`rounded p-1 w-24 md:w-36 bg-main-lightGray border-2`} 
+												type="number" 
+												min="0" 
+												max="100" 
+												step="1" 
+												name={crypto}
+												onChange={(e) => checkWeight(e) & setReturnData(null) & setPreviewShown(false)}
+											/>
 										</div>
 									)
 								})}
@@ -308,7 +334,7 @@ export default function CreateIndexPage() {
 				</div>
 
 				<div className="bg-white mt-4 rounded-md border space-y-4">
-					{returnData && <GraphCard title="Chart Preview" subtractWidth={650} hook={loadData} halfGraph={true}/>}
+					{returnData && <GraphCard title="Chart Preview" subtractWidth={360} hook={loadData} halfGraph={true} createIndex={true}/>}
 				</div>
 
 				{/* <div className={`bg-main-white fixed w-full md:w-72 right-0 ${previewShown ? 'bottom-0' : 'bottom-0 md:bottom-0'}`}> */}
@@ -360,6 +386,7 @@ export default function CreateIndexPage() {
 						  </div>
 							<p className='text-[18px] font-DM_Sans font-medium leading-normal tracking-normal flex justify-center text-center'>
 								{alertType === "weight" && "Custom weight should be equal to "+'"'+alertMax+'"' + ", Current total is equal to "+'"'+alertTotalWeight+'"'+"."}
+								{alertType === "weightNegative" && "Custom weight value cannot be Negative."}
 								{alertType === "Desc" && "You cannot put more than "+alertMax+" words."}
 								{alertType === "Name" && "You cannot put more than "+alertMax+" characters."}
 								{alertType === "emptyBalance" && "Please fill the Initial Balance to Preview."}
