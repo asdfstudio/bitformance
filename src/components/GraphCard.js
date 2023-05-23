@@ -32,6 +32,9 @@ export default function GraphCard({ title, indexPrice, subtractWidth = 0, holdin
 		const dataOne = data[0]
 		const dataTwo = data[1]
 
+		// console.log('data111111111', dataOne)
+		// console.log('data222222222', dataTwo)	
+
 		let daily_graph_data_one = dataOne.data.daily_graph_data
 		let daily_graph_data_two = dataTwo.data.daily_graph_data
 		let fivemin_graph_data_one = dataOne.data.fivemin_graph_data

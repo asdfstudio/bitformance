@@ -35,7 +35,7 @@ export default function BFCryptoSelectorCard({ mode, selectedCrypto, isAuthRequi
 	const CoinView = () => {
 		const { data, isLoading } = useCoinBySymbol(selectedCrypto)
 		return (
-			<div>
+			<div className="space-y-4 h-full">
 				{data && 
 					<BFCryptoInfo 
 						showIcon={true} 

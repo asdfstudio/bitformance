@@ -131,7 +131,6 @@ export default function BFCryptoInfo({
 					<div className="space-y-2 text-[16px] font-DM_Sans leading-normal tracking-normal">
 						<label className="font-normal text-main-gray">7d %</label>
 						<BFUpDownTag style="font-medium text-main-black" change={data.index.changepct_7d || data.index.changepct_7day} />
-
 					</div>
 					<div className="space-y-2 text-[16px] font-DM_Sans leading-normal tracking-normal">
 						<label className="font-normal text-main-gray">Market Cap</label>
