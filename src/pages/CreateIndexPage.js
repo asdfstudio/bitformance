@@ -183,16 +183,16 @@ export default function CreateIndexPage() {
 	const checkWeight = (e) => {
 		const weight = e.target?.value;
 
-		if(weight <= maxWeight && weight >= minWeight){
-			setWeighted(true)
-		}else{
-			setWeighted(false)
-		}
-
 		if(Math.sign(weight) === -1){
 			setWeightedNegative(true)
 		}else{
 			setWeightedNegative(false)
+		}
+
+		if(weight <= maxWeight && weight >= minWeight){
+			setWeighted(true)
+		}else{
+			setWeighted(false)
 		}
 	}
 	const countWordsName = (e) => {

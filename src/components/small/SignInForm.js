@@ -161,7 +161,7 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 
 
 				<div className="mt-auto">
-					{isLoading ? <div className="mt-2"><BFLoading isCenter={true} /></div> : <input type="submit" className="w-full text-sm rounded-lg bg-main-buttonBlue hover:bg-blue:600 text-main-white font-bold py-2 mt-2 cursor-pointer shadow-sm shadow-main-shadowBlue" value="Sign In" />}
+					{isLoading ? <div className="mt-8"><BFLoading isCenter={true} /></div> : <input type="submit" className="w-full text-sm rounded-lg bg-main-buttonBlue hover:bg-blue:600 text-main-white font-bold py-2 mt-2 cursor-pointer shadow-sm shadow-main-shadowBlue" value="Sign In" />}
 				</div>
 			</form>
 		</>}

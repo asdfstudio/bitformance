@@ -140,16 +140,6 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 											/>
 										</td>
 									</div>
-									{/* ${width < 320 && "max-w-[260px]"}
-												${width >= 320 && "max-w-[310px]"}
-												${width >= 360 && "max-w-[350px]"} 
-												${width >= 390 && "max-w-[380px]"}
-												${width >= 420 && "max-w-[410px]"}
-												${width >= 428 && "max-w-[418px]"}
-												${width >= 470 && "max-w-[460px]"}
-												${width >= 500 && "max-w-[490px]"}
-												${width >= 550 && "max-w-[541px]"}
-												${width >= 600 && "max-w-[590px]"} */}
 									<div className='flex flex-row items-center justify-center w-screen -mr-3 -ml-2'>
 										{showHoldingRow === index && 
 										<td 
