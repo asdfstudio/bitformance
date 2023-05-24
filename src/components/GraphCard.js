@@ -32,8 +32,8 @@ export default function GraphCard({ title, indexPrice, subtractWidth = 0, holdin
 		const dataOne = data[0]
 		const dataTwo = data[1]
 
-		// console.log('data111111111', dataOne)
-		// console.log('data222222222', dataTwo)	
+		// console.log('data1', dataOne)
+		// console.log('data2', dataTwo)	
 
 		let daily_graph_data_one = dataOne.data.daily_graph_data
 		let daily_graph_data_two = dataTwo.data.daily_graph_data
@@ -68,6 +68,7 @@ export default function GraphCard({ title, indexPrice, subtractWidth = 0, holdin
 			}
 
 		}
+		
 
 		//Make date array lengths match
 		let formatPrice = prices ? prices : price
@@ -75,35 +76,30 @@ export default function GraphCard({ title, indexPrice, subtractWidth = 0, holdin
 
 		formatPrice = formatPrice.slice(timeInterval)
 		formatPriceTwo = formatPriceTwo.slice(timeInterval)
+
+
+		let initialIndexOne = formatPrice[0] 
+		let initialIndexTwo = formatPriceTwo[0]
 		const properDateRange = dates.slice(timeInterval)
 
 		let smallerLength = formatPrice.length > formatPriceTwo.length ? formatPriceTwo.length: formatPrice.length
 		for (let i = 0; i < smallerLength; i++) {
-			if (i==0) {
-				array.push({
-					name: properDateRange[i],
-					amt: 0,
-					amt2: 0
-				})
-			} else{
-				array.push({
-					name: properDateRange[i],
-					amt: ((formatPrice[i] - dataOne.data.index.initial_value) / dataOne.data.index.initial_value) * 100,
-					amt2: ((formatPriceTwo[i] - dataTwo.data.index.initial_value) / dataTwo.data.index.initial_value) * 100
-				})
-			}
-			// array.splice(0, 0, {
-			// 	name: useLessDates[i],
-			// 	amt:  ((formatPrice[i] - dataOne.data.index.initial_value) / dataOne.data.index.initial_value) * 100,
-			// 	amt2: ((formatPriceTwo[i] - dataTwo.data.index.initial_value) / dataTwo.data.index.initial_value) * 100
-			// })
+			array.push({
+				name: properDateRange[i],
+				amt: ((formatPrice[i] - initialIndexOne) / initialIndexOne) * 100,
+				amt2: ((formatPriceTwo[i] - initialIndexTwo) / initialIndexTwo) * 100
+			})
+
+			// console.log('******************************')
+
+			// console.log('formatPrice[i]', formatPrice[i])
+
+			// console.log('dataOne.data.index.initial_value', dataOne.data.index.initial_value)
+
+			// console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
+
+			// console.log('formatPriceTwo[i]', formatPriceTwo[i])
 		}
-		// array.sort((a, b) => a.name - b.name)
-		// console.log('computed array')
-		// console.log(array)
-
-		// console.log('computed array', array)
-
 		setFullGraphData(array)
 		setShownGraphData(array.slice(timeInterval))
 		const hourly = []

@@ -48,7 +48,7 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 		}
 
 		const result = await login(data.username, data.password)
-		console.log(result)
+		// console.log(result)
 		if (!result.result) {
 			setErrorMessage(result.error)
 			setIsLoading(false)
@@ -77,7 +77,7 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 	}
 
 	function onRecaptchaChange(value) {
-	  console.log('captch value: ', value)
+	//   console.log('captch value: ', value)
 	  setCompletedRecaptcha(true)
 	}
 

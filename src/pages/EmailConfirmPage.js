@@ -7,7 +7,7 @@ export default function EmailConfirmPage() {
 	const params = useParams()
 	const { data, isLoading } = useConfirmEmailByToken(params.token)
 
-	console.log(data)
+	// console.log(data)
 	if (isLoading) {
 		return (
 			<div className="max-w-lg mt-4 mx-auto">

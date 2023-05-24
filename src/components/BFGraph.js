@@ -5,13 +5,25 @@ import {
 	Area, 
 	AreaChart,
 	Tooltip,
+	ReferenceLine,
+	ResponsiveContainer,
 } from 'recharts';
 
 import moment from 'moment'
 import { useState, useEffect } from 'react'
 import useWindowDimensions from '../hooks/useWindowDimensions'
+import { formatMoney } from '../helpers';
 
-export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], showOverlay = false, halfGraph = false, isCompare = false, createIndex = false, showPriceColored = false, graphInterval = "All"  }) {
+export default function BFGraph({ 
+	subtractWidth = 0, 
+	indexPrice, data = [], 
+	showOverlay = false, 
+	halfGraph = false, 
+	isCompare = false, 
+	createIndex = false, 
+	showPriceColored = false, 
+	graphInterval = "All"  
+}) {
 
 	const { width } = useWindowDimensions();
 
@@ -53,15 +65,15 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 	    case "1M":
 	      return date.format("MMM D")
 	    case "3M":
-	      return date.format("MMM D")
+	      return date.format("MMM")
 	    case "6M":
-	     return date.format("MMM D")
+	     return date.format("MMM")
 	    case "1Y":
-	      return date.format("MMM D") //MMM D
+	      return date.format("MMM") //MMM D
 	    case "3Y":
-	      return date.format("MMM D")
+	      return date.format("MMM D Y")
 		case "All":
-	      return date.format("MMM Y")
+	      return date.format("Y")
 		case "Hover":
 	      return date.format("MM/DD/YY")
 	    default:
@@ -112,7 +124,7 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 			if (width < 1024 || isCompare) {
 				switch (graphInterval) {
 					case "24H":
-					  return -55
+					  return 55
 					case "7D":
 						return null
 					case "1M":
@@ -133,7 +145,7 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 			} else {
 				switch (graphInterval) {
 					case "24H":
-					  return -36
+					  return 36
 					case "7D":
 						return null
 					case "1M":
@@ -155,38 +167,38 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 		}
 	}
 
-	let finalWidth = 0
-	if (width < 640) {
-		finalWidth = width - 50 //30 for home
-	} else if (width < 768) {
-		finalWidth = width - 66
-	} else if (width < 1280) {
-		{
-			createIndex ? 
-				finalWidth = width - 320 + (subtractWidth * 0.0)
-			 :
-				isCompare ? finalWidth = width - 320 + (subtractWidth * 0.0) : finalWidth = width- 66 - subtractWidth
-		}
-	} else {
-		{
-			createIndex ?
-				width < 1380 ? finalWidth = width - 30 - (subtractWidth * 2) :
-				width < 1480 ? finalWidth = width - 80 - (subtractWidth * 2) :
-				width < 1580 ? finalWidth = width - 130 - (subtractWidth * 2) :
-				width < 1680 ? finalWidth = width - 150 - (subtractWidth * 2) :
-				width < 1780 ? finalWidth = width - 200 - (subtractWidth * 2) :
-				width < 1880 ? finalWidth = width - 230 - (subtractWidth * 2) :
-				width < 1980 ? finalWidth = width - 280 - (subtractWidth * 2) :
-				width < 2080 ? finalWidth = width - 330 - (subtractWidth * 2) :
-				width < 2180 ? finalWidth = width - 350 - (subtractWidth * 2) :
-				width < 2280 ? finalWidth = width - 390 - (subtractWidth * 2) :
-				width < 2380 ? finalWidth = width - 430 - (subtractWidth * 2) :
-				width < 2480 ? finalWidth = width - 480 - (subtractWidth * 2) :
-				finalWidth = width - (subtractWidth * 3.5)
-			 :
-				isCompare ? finalWidth = width - 320 - (subtractWidth * 2) : finalWidth = width - 320 - subtractWidth
-		}
-	}
+	// let finalWidth = 0
+	// if (width < 640) {
+	// 	finalWidth = width - 50 //30 for home
+	// } else if (width < 768) {
+	// 	finalWidth = width - 66
+	// } else if (width < 1280) {
+	// 	{
+	// 		createIndex ? 
+	// 			finalWidth = width - 320 + (subtractWidth * 0.0)
+	// 		 :
+	// 			isCompare ? finalWidth = width - 320 + (subtractWidth * 0.0) : finalWidth = width- 66 - subtractWidth
+	// 	}
+	// } else {
+	// 	{
+	// 		createIndex ?
+	// 			width < 1380 ? finalWidth = width - 30 - (subtractWidth * 2) :
+	// 			width < 1480 ? finalWidth = width - 80 - (subtractWidth * 2) :
+	// 			width < 1580 ? finalWidth = width - 130 - (subtractWidth * 2) :
+	// 			width < 1680 ? finalWidth = width - 150 - (subtractWidth * 2) :
+	// 			width < 1780 ? finalWidth = width - 200 - (subtractWidth * 2) :
+	// 			width < 1880 ? finalWidth = width - 230 - (subtractWidth * 2) :
+	// 			width < 1980 ? finalWidth = width - 280 - (subtractWidth * 2) :
+	// 			width < 2080 ? finalWidth = width - 330 - (subtractWidth * 2) :
+	// 			width < 2180 ? finalWidth = width - 350 - (subtractWidth * 2) :
+	// 			width < 2280 ? finalWidth = width - 390 - (subtractWidth * 2) :
+	// 			width < 2380 ? finalWidth = width - 430 - (subtractWidth * 2) :
+	// 			width < 2480 ? finalWidth = width - 480 - (subtractWidth * 2) :
+	// 			finalWidth = width - (subtractWidth * 3.5)
+	// 		 :
+	// 			isCompare ? finalWidth = width - 320 - (subtractWidth * 2) : finalWidth = width - 320 - subtractWidth
+	// 	}
+	// }
 
 	const CustomTooltip = ({ active, payload, label }) => {
 	  if (active && payload && payload.length) {
@@ -242,11 +254,9 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 			const nextObj = data[index + 1]
 			if (nextObj.amt > firstPrice && obj.amt <= firstPrice) {
 				green = obj.amt
-				red = null
 			}
 			if (nextObj.amt < firstPrice && obj.amt > firstPrice) {
 				red = obj.amt
-				// green = null
 			}
 			return {
 				...obj,
@@ -262,36 +272,39 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 		}
 	})
 
-	const priceData2 = priceData.map((obj, index) => {
-		let red = obj.red
-		let green = obj.green
-
-		if (priceData.length > index + 1) {
-			const nextObj = priceData[index + 1]
-			if (obj.red && nextObj.green) {
-				green = obj.amt
-			}
-			return {
-				...obj,
-				red: red,
-				green: green
-			}
+	const data2 = [
+		{
+			name: 1684368000, amt: 0.4595, red: 0.4595, green: 0.4595
+		},
+		{
+			name: 1684454400, amt: 0.4677, red: null, green: 0.4677
+		},
+		{
+			name: 1684540800, amt: 0.4687, red: 0.4687, green: 0.4687
+		},
+		{
+			name: 1684627200, amt: 0.4573, red: 0.4573, green: null
+		},
+		{
+			name: 1684713600, amt: 0.4587, red: 0.4587, green: 0.4587
+		},
+		{
+			name: 1684800000, amt: 0.4615, red: null, green: 0.4615
+		},
+		{
+			name: 1684800000, amt: 0.4615, red: null, green: 0.4615
 		}
-
-		return {
-			...obj,
-			red: red,
-			green: green
-		}
-	})
+	  ];
 
 	return(
+		<ResponsiveContainer height={400}>
 		<AreaChart 
-			width={finalWidth} 
-			height={400} 
+			// width={finalWidth} 
+			// height={400}
 			className='text-[14px] font-DM_Sans font-normal leading-normal tracking-wide w-full' 
-			data={showPriceColored ? priceData2 : data} 
-			margin={{ top: 0, right: 0, bottom: 0, left: 18 }}
+			data={showPriceColored ? priceData : data}
+			baseValue={showPriceColored && firstPrice}
+			margin={{ top: 0, right: 30, bottom: 0, left: 10 }}
 		>
 			<defs>
 				<linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
@@ -299,6 +312,8 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 					<stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
 					<stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
 				</linearGradient>
+
+				{/* price color */}
 				<linearGradient id="colorGreen" x1="0" y1="0" x2="0" y2="1">
 					{/* #82ca9d */}
 					<stop offset="5%" stopColor="#40c8b8" stopOpacity={0.8}/>
@@ -306,20 +321,43 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 				</linearGradient>
 				<linearGradient id="colorRed" x1="0" y1="0" x2="0" y2="1">
 					{/* #FF0000 */}
-					<stop offset="5%" stopColor="#fd5d60" stopOpacity={0.8}/>
-					<stop offset="95%" stopColor="#fd5d60" stopOpacity={0}/>
+					<stop offset="5%" stopColor="#fd5d60" stopOpacity={0}/>
+					<stop offset="95%" stopColor="#fd5d60" stopOpacity={0.8}/>
 				</linearGradient>
+
+				<linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
+					<stop offset="0.75" stopColor="#40c8b8" stopOpacity={0.8} />
+					<stop offset="0.75" stopColor="#fd5d60" stopOpacity={1} />
+				</linearGradient>
+				
 			</defs>
 			<CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
 			{data.length > 0 && <>
 				{!showPriceColored && 
 					<Area type="monotone" stackId="1" dataKey="amt" strokeWidth={1} stroke="#8884d8" fillOpacity={showOverlay ? 0 : 1} fill="url(#colorBlue)" />
-					
+
 				}
 					
 				{showPriceColored && <>
-					<Area type="monotone" stackId="1" dataKey="green" strokeWidth={1} stroke="#40c8b8" fillOpacity={0.5} fill="url(#colorGreen)" />
-					<Area type="monotone" stackId="2" dataKey="red" strokeWidth={1} stroke="#fd5d60" fillOpacity={0.5} fill="url(#colorRed)" />
+					<Area type="monotone" dataKey="green" strokeWidth={2} stroke="#40c8b8" fillOpacity={0.5} fill="url(#colorGreen)" />
+					<Area type="monotone" dataKey="red" strokeWidth={2} stroke="#fd5d60" fillOpacity={0.5} fill="url(#colorRed)" />
+					<ReferenceLine 
+						y={firstPrice} 
+						label={{ 
+							position: 'insideBottomRight',
+							offset: 10,
+							value: formatMoney(firstPrice), 
+							fill: 'gray', 
+							fontSize: 13, 
+							fontWeight: 600,
+						}} 
+						strokeWidth={1} 
+						stroke="gray" 
+						strokeDasharray="2 3" 
+					/>
+
+					{/* <Area type="monotone" dataKey="amt" strokeWidth={2} stroke="gray"  fillOpacity={0.5} fill="url(#splitColor)" /> */}
+					{/* <Area type="monotone" dataKey="green" strokeWidth={2} stroke="#40c8b8" fillOpacity={0.5} fill="url(#colorGreen)" /> */}
 				</>
 				}
 
@@ -343,6 +381,7 @@ export default function BFGraph({ subtractWidth = 0, indexPrice, data = [], show
 				</>
 		}
 	</AreaChart>
+	</ResponsiveContainer>
 		
 	)
 }

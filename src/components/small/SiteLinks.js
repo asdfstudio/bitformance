@@ -111,8 +111,10 @@ export default function SiteLinks({ setShowModalType, setShowMobileMenu = functi
 			<span className={colorStyle}>Knowledge Base</span>
 		</a>
 		<br />
-		<div onClick={() => setShowMobileMenu(false) & setSiteSelected('')}  className="rounded-lg bg-main-buttonBlue text-center px-4 py-2 w-full shadow-sm shadow-main-shadowBlue">
-			<Link to="/indexes/create-index" className={colorStyle}>+ Create Index</Link>
-		</div>
+		<Link to="/indexes/create-index" className={colorStyle}>
+			<div onClick={() => setShowMobileMenu(false) & setSiteSelected('')}  className="rounded-lg bg-main-buttonBlue text-center px-4 py-2 mt-2 w-full shadow-sm shadow-main-shadowBlue">
+				+ Create Index
+			</div>
+		</Link>
 	</>)
 }

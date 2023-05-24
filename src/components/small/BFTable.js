@@ -62,7 +62,7 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 	}
 
 	const onCoinRowClicked = (coin) => {
-		console.log(coin)
+		// console.log(coin)
 		navigate(`/coins/${coin.symbol}`)
 	}
 

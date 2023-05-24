@@ -27,7 +27,7 @@ export default function ResetPasswordPage() {
 		if (params.token && data.password && data.confirmPassword) {
 			const result = await resetPassword(params.token, data.password, data.confirmPassword)
 			setLoading(false)
-			console.log(result)
+			// console.log(result)
 			navigate('/')
 			return
 		}

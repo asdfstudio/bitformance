@@ -33,6 +33,7 @@ export default function CreateIndexPage() {
 	const [returnData, setReturnData] = useState(function(){})
 	const [showMenu, setShowMenu] = useState(false)
 	const [showAlertMenu, setShowAlertMenu] = useState(false)
+	const [checkInput, setCheckInput] = useState(false)
 	const [alertType, setAlertType] = useState("")
 	const [alertMax, setAlertMax] = useState("")
 	const [alertTotalWeight, setAlertTotalWeight] = useState(0)
@@ -78,7 +79,7 @@ export default function CreateIndexPage() {
 	}
 
 	const loadPreview = async () => {
-		if (initialValue && selectedCryptos.length) {
+		if (initialValue && selectedCryptos.length && !checkInput) {
 			const customWeights = getCustomWeights()
 			
 			if(customWeights != null){
@@ -89,6 +90,10 @@ export default function CreateIndexPage() {
 				setPreviewShown(true)
 			}
 		}else{
+			if(checkInput){
+				setAlertType("emptyBalance")
+				setShowAlertMenu(!showAlertMenu)
+			}
 			if(!initialValue){
 				setAlertType("emptyBalance")
 				setShowAlertMenu(!showAlertMenu)
@@ -202,8 +207,16 @@ export default function CreateIndexPage() {
 			setAlertMax(maxTitle)
 		}
 	}
-	const countCustomWeight = (e) => {
-		const text = e.target?.value;
+	const haldleInput = (e) => {
+		const num = e.target?.value;
+		setInitialValue(num)
+
+		if(!isNaN(+num)){
+			setInitialValue(num)
+			setCheckInput(false)
+		}else{
+			setCheckInput(true)
+		}
 	}
 
 	return (
@@ -235,12 +248,11 @@ export default function CreateIndexPage() {
 					<div className="grid grid-cols-2 items-center gap-2">
 						<div className='mt-1'>
 							<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Initial Balance</label>
-							<input 
-								onChange={(e) => setInitialValue(e.target?.value)} 
-								value={initialValue} 
+							<input  
 								className="w-full px-2 py-[5px] border rounded mt-1 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal" 
-								type="number" 
-								placeholder="e.g. 123" 
+								placeholder="e.g. 123"
+								onChange={(e) => haldleInput(e)} 
+								value={initialValue}
 							/>
 						</div>
 
@@ -261,13 +273,17 @@ export default function CreateIndexPage() {
 							</select>
 						</div>
 					</div>
+					{
+						checkInput ? 
+						<p className="text-[16px] font-DM_Sans font-normal leading-normal tracking-normal text-main-red relative">
+							{'Value must be a Number!'}
+						</p> : <p className=''></p>
+					}
 
-					<div className='pt-1'>
+					<div className=''>
 						<label className="text-[16px] font-DM_Sans font-medium leading-normal tracking-normal text-main-black">Description</label>
 						<textarea 
-							onChange={(e) => countWordsDesc(e)}
-							// maxlength={10}
-							// disabled = {WordCountDesc == 20 ? "disabled" : ""}
+							onChange={(e) => countWordsDesc(e)} 
 							value={description} placeholder="Enter description here..." 
 							className='w-full border p-2 h-52 mt-1 text-[16px] font-DM_Sans font-normal leading-normal tracking-normal rounded'
 						/>
@@ -389,7 +405,7 @@ export default function CreateIndexPage() {
 								{alertType === "weightNegative" && "Custom weight value cannot be Negative."}
 								{alertType === "Desc" && "You cannot put more than "+alertMax+" words."}
 								{alertType === "Name" && "You cannot put more than "+alertMax+" characters."}
-								{alertType === "emptyBalance" && "Please fill the Initial Balance to Preview."}
+								{alertType === "emptyBalance" && "Please fill the Initial Balance properly to Preview."}
 								{alertType === "emptyCrypto" && "Please Selete any Crypto to Preview."}
 							</p>
 					  	<div className="mt-auto flex flex-col gap-2">

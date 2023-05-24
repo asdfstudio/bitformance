@@ -106,10 +106,13 @@ export default function BFSelectCryptos({
 	                        </div>
 	                    </div>
 	                </div>
+					
 	                {showMenu &&
-						<div className="absolute shadow-lg bg-white top-[100%] z-40 w-full left-0 rounded-lg max-h-[280px] overflow-y-auto drop-shadow">
+						<div className="absolute shadow-lg bg-white top-[100%] z-40 w-full left-0 rounded-lg max-h-[280px] overflow-y-auto drop-shadow" onMouseEnter={() => setHover('')}>
 						<div className="flex flex-col w-full">
-							{(isLoading || isLoadingBrowsable) ? <BFLoading isCenter={true} /> : showIndexes && shownIndexes?.map(obj => (
+							{(isLoading || isLoadingBrowsable) ? 
+							<div className='p-4'><BFLoading isCenter={true} /></div> : 
+							(showIndexes && shownIndexes?.map(obj => (
 								<div onClick={() => handleSelectIndex(obj.index._id.$oid, obj.index.is_browsable)} key={obj.index._id.$oid} className="cursor-pointer w-full border-gray-100 rounded-t hover:bg-main-lightGrayBorder">
 									<div className="flex flex-row items-center gap-2 p-2">
 										<BFImage src={obj.index.logo} alt={obj.index.name} style="shadow border rounded-full p-1 bg-white w-16 h-16 object-cover" />
@@ -121,8 +124,20 @@ export default function BFSelectCryptos({
 									{selectedCryptos.includes(crypto.symbol) && <div className="ml-auto"><BFIcon iconName="checked-circle" color="blue" /></div>}
 									</div>
 								</div>
-							))}
-							{shownIndexes && <hr />}
+							)), shownCryptos.map(crypto => (
+								<div onClick={() => handleSelectCrypto(crypto.symbol)} key={crypto.symbol + '-shown-cryptos'} className="cursor-pointer w-full border-gray-100 rounded-t hover:bg-main-lightGrayBorder">
+									<div className="flex flex-row items-center gap-2 p-2">
+										<BFCryptoImage symbol={crypto.symbol} index={0} isLarge={true} />
+									<p className='text-[16px] font-DM_Sans font-bold leading-normal tracking-normal text-main-black'>{crypto.name.replace(/\(\w+\)/, '')}</p>
+									<p className="text-[14px] font-DM_Sans font-normal leading-normal tracking-normal text-main-symbol mt-0.5">{crypto.symbol}</p>
+									{selectedCryptos.includes(crypto.symbol) && <div className="ml-auto"><BFIcon iconName="checked-circle" color="#5290f4" /></div>}
+									</div>
+								</div>
+								))
+							
+							)
+							}
+							{/* {shownIndexes && <hr />}
 							{shownIndexes && <hr />}
 
 							{shownCryptos.map(crypto => (
@@ -134,7 +149,7 @@ export default function BFSelectCryptos({
 								{selectedCryptos.includes(crypto.symbol) && <div className="ml-auto"><BFIcon iconName="checked-circle" color="#5290f4" /></div>}
 								</div>
 							</div>
-							))}
+							))} */}
 						</div>
 					  </div>
 	              	}

@@ -95,21 +95,11 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 		setTimer(newTimer)
 	}, [searchText])
 
-	let domNode = useRef();
-
-	useEffect(() => {
-		let maybeHandler = (event) => {
-		if (!domNode.current.contains(event.target)) {
-			setShowMobileMenu(false);
-			setShowMenu(false);
-		}};
-
-		document.addEventListener("mousedown", maybeHandler);
-
-		return () => {
-		document.removeEventListener("mousedown", maybeHandler);
-		};
-	});
+	const onClickOutsideListener = () => {
+		setShowMobileMenu(false)
+		setShowMenu(false)
+		document.removeEventListener("click", onClickOutsideListener)
+	  }
 
 	return(<>
 		<div className="flex flex-row items-center w-full bg-main-gradientColor2 md:bg-white shadow p-2 py-3">
@@ -123,7 +113,13 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 				</div>
 			</div>
 			{showMobileMenu &&
-				<div id="dropdown" className="p-4 px-[20px] absolute left-0 top-[60px] z-10 w-full rounded-b-xl -mt-1 bg-gradient-to-b from-main-gradientColor2 to-main-gradientColor1 divide-y divide-gray-100 shadow">
+				<div 
+					id="dropdown"
+					onMouseLeave={() => {
+						document.addEventListener("click", onClickOutsideListener)
+					}} 
+					className="p-4 px-[20px] absolute left-0 top-[60px] z-10 w-full rounded-b-xl -mt-1 bg-gradient-to-b from-main-gradientColor2 to-main-gradientColor1 divide-y divide-gray-100 shadow"
+				>
 				    <ul className="space-y-4 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
 				     	<SiteLinks setShowMobileMenu={setShowMobileMenu} setShowModalType={setShowModalType} colorStyle="text-white font-DM_Sans text-[15px] font-normal leading-normal tracking-wide"/>
 				    </ul>
@@ -182,7 +178,11 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 			</div>
 			
 			{username && <div className="ml-auto relative cursor-pointer">
-				<div id="dropdownDefault" data-dropdown-toggle="dropdown" onClick={() => setShowMenu(!showMenu) & setShowMobileMenu(false)} className="flex flex-row items-center gap-2 -my-1">
+				<div 
+				id="dropdownDefault" 
+				data-dropdown-toggle="dropdown" 
+				onClick={() => setShowMenu(!showMenu) & setShowMobileMenu(false)} 
+				className="flex flex-row items-center gap-2 -my-1">
 					<div className="hidden md:block">
 						<p className="text-[15px]">{firstName} {lastName}</p>
 						<p className="text-[14px] text-gray-400 text-right">@{username}</p>
@@ -192,19 +192,25 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 					</div>
 				</div>
 				{showMenu &&
-				<div id="dropdown" className="p-4 absolute right-2 top-12 z-10 bg-white rounded-lg divide-y divide-gray-100 shadow w-56">
-				    <ul className="space-y-2 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
-				      <li className="flex flex-row items-center gap-2">
-				      	<BFIcon iconName="settings" size="lg" color="gray" />
-				        <Link to="/settings" onClick={() => setShowMenu(false)} className="block py-2 px-4 text-main-black text-[16px] text-cente font-DM_Sans font-bold leading-normal tracking-normal bg-white whitespace-nowrap">Settings & Account</Link>
-				      </li>
-				      <li className="flex flex-row items-center gap-2">
-				      	<BFIcon iconName="logout" size="lg" color="gray" />
-				        <button onClick={() => logout()} className="block py-2 px-4 text-main-black text-[16px] text-cente font-DM_Sans font-bold leading-normal tracking-normal bg-white whitespace-nowrap">Logout</button>
-				      </li>
-				     
-				    </ul>
-				</div>
+					<div 
+						id="dropdown"
+						onMouseLeave={() => {
+							document.addEventListener("click", onClickOutsideListener)
+						}} 
+						className="p-4 absolute right-2 top-12 z-10 bg-white rounded-lg divide-y divide-gray-100 shadow w-56"
+					>
+						<ul className="space-y-2 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+						<li className="flex flex-row items-center gap-2">
+							<BFIcon iconName="settings" size="lg" color="gray" />
+							<Link to="/settings" onClick={() => setShowMenu(false)} className="block py-2 px-4 text-main-black text-[16px] text-cente font-DM_Sans font-bold leading-normal tracking-normal bg-white whitespace-nowrap">Settings & Account</Link>
+						</li>
+						<li className="flex flex-row items-center gap-2">
+							<BFIcon iconName="logout" size="lg" color="gray" />
+							<button onClick={() => logout()} className="block py-2 px-4 text-main-black text-[16px] text-cente font-DM_Sans font-bold leading-normal tracking-normal bg-white whitespace-nowrap">Logout</button>
+						</li>
+						
+						</ul>
+					</div>
 				}
 			</div>}
 			{!username && 
