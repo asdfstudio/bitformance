@@ -1,10 +1,11 @@
 import CoinRow from '../CoinRow'
 import BrowseCoinRow from '../BrowseCoinRow'
 import BFHoldingsTable from './BFHoldingsTable'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BFIcon from '../BFIcon'
 import BrowseCoinRowMobile from '../BrowseCoinRowMobile'
+import useWindowDimensions from '../../hooks/useWindowDimensions'
 
 export default function BFTable({ showHeader = true, handleHeaderClick = function() {}, condensedHeaders = false, rows, type, tableStyle = '', onRowClicked = function () {} }) {
 
@@ -13,6 +14,10 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 	const [holdings, setHoldings] = useState()
 	const [orderItem, setOrderItem] = useState(false)
 	const [indexesExpanded, setIndexesExpanded] = useState("")
+
+	const { width } = useWindowDimensions();
+	let maxWidth = 'max-w-['+width+'px]'
+	let n = '440'
 
 	let headers = [
 		{ label: 'Cryptocurrency', id: 'name', type: 'alphabet' },
@@ -66,7 +71,7 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 		navigate(`/coins/${coin.symbol}`)
 	}
 
-	return(
+	return(console.log(maxWidth),
 		<div className="flex overflow-x-auto relative sm:rounded-xl">
 		    <table className={`w-full text-sm text-left ${tableStyle}`}>
 
@@ -135,8 +140,21 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 											/>
 										</td>
 									</div>
+									{/* ${width < 320 && "max-w-[260px]"}
+												${width >= 320 && "max-w-[310px]"}
+												${width >= 360 && "max-w-[350px]"} 
+												${width >= 390 && "max-w-[380px]"}
+												${width >= 420 && "max-w-[410px]"}
+												${width >= 428 && "max-w-[418px]"}
+												${width >= 470 && "max-w-[460px]"}
+												${width >= 500 && "max-w-[490px]"}
+												${width >= 550 && "max-w-[541px]"}
+												${width >= 600 && "max-w-[590px]"} */}
+									<div className='flex flex-row items-center justify-center w-screen -mr-3 -ml-2'>
 										{showHoldingRow === index && 
-										<td className="bg-main-white rounded-b-xl drop-shadow-lg border-t-[1px] border-main-lightGrayBorder pt-4 cursor-pointer" colspan="8">
+										<td 
+											className={`bg-main-white rounded-b-xl drop-shadow-lg border-t-[1px] border-main-lightGrayBorder pt-4 cursor-pointer overflow-x-scroll max-w-full`} 
+											colspan="8">
 											<BFHoldingsTable holdings={coin.rawStocks.map(stock => {
 												return {
 													...stock,
@@ -146,6 +164,7 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 											})} />
 										</td>
 										}
+										</div>
 								</tr>
 							</React.Fragment>)
 							: (<tr key={coin.id}>no valid type</tr>)
