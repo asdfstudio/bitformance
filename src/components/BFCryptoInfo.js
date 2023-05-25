@@ -6,7 +6,6 @@ import GraphCard from './GraphCard'
 import BFHoldingsTable from './small/BFHoldingsTable'
 import BFCryptoImage from './small/BFCryptoImage'
 import BFImage from './small/BFImage'
-import useWindowDimensions from '../hooks/useWindowDimensions'
 
 export default function BFCryptoInfo({
 	data,
@@ -19,7 +18,6 @@ export default function BFCryptoInfo({
 	indexPage = false,
 	isCompare = false,
 }) {
-	const { width } = useWindowDimensions();
 
 	const totalReturn = calculateReturn(data.index.value || data.index.price, data.index.initial_value)
 	const drawdown = calculateDrawdown(data.index.daily_graph_data.prices || data.index.daily_graph_data.price || [])
@@ -54,55 +52,6 @@ export default function BFCryptoInfo({
 	)
 
 	let adjustGraphWidth = 0
-	// let avgWidth = 560
-
-	// if (width < 768) {
-	// 	adjustGraphWidth = 0
-	// } else if (width < 901) {
-	// 	adjustGraphWidth = avgWidth - 300
-	// } else if (width < 1001) {
-	// 	adjustGraphWidth = avgWidth - 300
-	// } else if (width < 1101) {
-	// 	adjustGraphWidth = avgWidth - 300
-	// } else if (width < 1201) {
-	// 	adjustGraphWidth = avgWidth - 320
-	// } else if (width < 1301) {
-	// 	adjustGraphWidth = avgWidth - 305
-	// } else if(width < 1401){
-	// 	adjustGraphWidth = avgWidth - 280
-	// } else if (width < 1501) {
-	// 	adjustGraphWidth = avgWidth - 255
-	// } else if(width < 1601){
-	// 	adjustGraphWidth = avgWidth - 230
-	// } else if (width < 1701) {
-	// 	adjustGraphWidth = avgWidth - 205
-	// } else if(width < 1801){
-	//  	adjustGraphWidth = avgWidth - 180
-	// } else if (width < 1901) {
-	// 	adjustGraphWidth = avgWidth - 155
-	// } else if(width < 2001){
-	// 	adjustGraphWidth = avgWidth - 130
-	// } else if (width < 2101) {
-	// 	adjustGraphWidth = avgWidth - 105
-	// } else if(width < 2201){
-	// 	adjustGraphWidth = avgWidth - 80
-	// } else if (width < 2301) {
-	// 	adjustGraphWidth = avgWidth - 50
-	// } else if(width < 2401){
-	// 	adjustGraphWidth = avgWidth - 30
-	// } else  {
-	// 	adjustGraphWidth = avgWidth
-	// }
-
-	// if (width < 1200) {
-	// 	adjustGraphWidth = 0
-	// } else if (isHalfGraph) {
-	// 	adjustGraphWidth += 860
-	// } else if(width < 1400){
-	// 	adjustGraphWidth = 260
-	// } else  {
-	// 	adjustGraphWidth = 420
-	// }
 
 	return (
 	<>

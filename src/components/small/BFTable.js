@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BFIcon from '../BFIcon'
 import BrowseCoinRowMobile from '../BrowseCoinRowMobile'
-import useWindowDimensions from '../../hooks/useWindowDimensions'
 
 export default function BFTable({ showHeader = true, handleHeaderClick = function() {}, condensedHeaders = false, rows, type, tableStyle = '', onRowClicked = function () {} }) {
 
@@ -14,10 +13,6 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 	const [holdings, setHoldings] = useState()
 	const [orderItem, setOrderItem] = useState(false)
 	const [indexesExpanded, setIndexesExpanded] = useState("")
-
-	const { width } = useWindowDimensions();
-	let maxWidth = 'max-w-['+width+'px]'
-	let n = '440'
 
 	let headers = [
 		{ label: 'Cryptocurrency', id: 'name', type: 'alphabet' },
@@ -71,7 +66,7 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 		navigate(`/coins/${coin.symbol}`)
 	}
 
-	return(console.log(maxWidth),
+	return(
 		<div className="flex overflow-x-auto relative sm:rounded-xl">
 		    <table className={`w-full text-sm text-left ${tableStyle}`}>
 

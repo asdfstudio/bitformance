@@ -10,7 +10,6 @@ import {
 } from 'recharts';
 
 import moment from 'moment'
-import { useState, useEffect } from 'react'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { formatMoney } from '../helpers';
 
@@ -167,39 +166,6 @@ export default function BFGraph({
 		}
 	}
 
-	// let finalWidth = 0
-	// if (width < 640) {
-	// 	finalWidth = width - 50 //30 for home
-	// } else if (width < 768) {
-	// 	finalWidth = width - 66
-	// } else if (width < 1280) {
-	// 	{
-	// 		createIndex ? 
-	// 			finalWidth = width - 320 + (subtractWidth * 0.0)
-	// 		 :
-	// 			isCompare ? finalWidth = width - 320 + (subtractWidth * 0.0) : finalWidth = width- 66 - subtractWidth
-	// 	}
-	// } else {
-	// 	{
-	// 		createIndex ?
-	// 			width < 1380 ? finalWidth = width - 30 - (subtractWidth * 2) :
-	// 			width < 1480 ? finalWidth = width - 80 - (subtractWidth * 2) :
-	// 			width < 1580 ? finalWidth = width - 130 - (subtractWidth * 2) :
-	// 			width < 1680 ? finalWidth = width - 150 - (subtractWidth * 2) :
-	// 			width < 1780 ? finalWidth = width - 200 - (subtractWidth * 2) :
-	// 			width < 1880 ? finalWidth = width - 230 - (subtractWidth * 2) :
-	// 			width < 1980 ? finalWidth = width - 280 - (subtractWidth * 2) :
-	// 			width < 2080 ? finalWidth = width - 330 - (subtractWidth * 2) :
-	// 			width < 2180 ? finalWidth = width - 350 - (subtractWidth * 2) :
-	// 			width < 2280 ? finalWidth = width - 390 - (subtractWidth * 2) :
-	// 			width < 2380 ? finalWidth = width - 430 - (subtractWidth * 2) :
-	// 			width < 2480 ? finalWidth = width - 480 - (subtractWidth * 2) :
-	// 			finalWidth = width - (subtractWidth * 3.5)
-	// 		 :
-	// 			isCompare ? finalWidth = width - 320 - (subtractWidth * 2) : finalWidth = width - 320 - subtractWidth
-	// 	}
-	// }
-
 	const CustomTooltip = ({ active, payload, label }) => {
 	  if (active && payload && payload.length) {
 	  	if (payload.length > 1 && !showOverlay) {
@@ -271,31 +237,6 @@ export default function BFGraph({
 			green: green
 		}
 	})
-
-	const data2 = [
-		{
-			name: 1684368000, amt: 0.4595, red: 0.4595, green: 0.4595
-		},
-		{
-			name: 1684454400, amt: 0.4677, red: null, green: 0.4677
-		},
-		{
-			name: 1684540800, amt: 0.4687, red: 0.4687, green: 0.4687
-		},
-		{
-			name: 1684627200, amt: 0.4573, red: 0.4573, green: null
-		},
-		{
-			name: 1684713600, amt: 0.4587, red: 0.4587, green: 0.4587
-		},
-		{
-			name: 1684800000, amt: 0.4615, red: null, green: 0.4615
-		},
-		{
-			name: 1684800000, amt: 0.4615, red: null, green: 0.4615
-		}
-	  ];
-
 	  const gradientOffset = () => {
 		const dataMax = Math.max(...data.map((i) => i.amt));
 		const dataMin = Math.min(...data.map((i) => i.amt));
@@ -307,8 +248,6 @@ export default function BFGraph({
 	return(
 		<ResponsiveContainer height={400}>
 		<AreaChart 
-			// width={finalWidth} 
-			// height={400}
 			className='text-[14px] font-DM_Sans font-normal leading-normal tracking-wide w-full' 
 			data={showPriceColored ? priceData : data}
 			baseValue={showPriceColored && firstPrice}
