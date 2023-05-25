@@ -296,6 +296,14 @@ export default function BFGraph({
 		}
 	  ];
 
+	  const gradientOffset = () => {
+		const dataMax = Math.max(...data.map((i) => i.amt));
+		const dataMin = Math.min(...data.map((i) => i.amt));
+	  
+		return (1-((firstPrice -dataMin)/(dataMax-dataMin)));
+	  };
+	  
+	  const off = gradientOffset();
 	return(
 		<ResponsiveContainer height={400}>
 		<AreaChart 
@@ -326,8 +334,14 @@ export default function BFGraph({
 				</linearGradient>
 
 				<linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
-					<stop offset="0.75" stopColor="#40c8b8" stopOpacity={0.8} />
-					<stop offset="0.75" stopColor="#fd5d60" stopOpacity={1} />
+				<stop offset="0%" stopColor="#40c8b8" stopOpacity={0.9} />
+					<stop offset={off} stopColor="#40c8b8" stopOpacity={0} />
+					<stop offset={off} stopColor="#fd5d60" stopOpacity={0} />
+				<stop offset="100%" stopColor="#fd5d60" stopOpacity={0.9} />
+				</linearGradient>
+				<linearGradient id="strokeColor" x1="0" y1="0" x2="0" y2="1">
+					<stop offset={off} stopColor="#40c8b8" stopOpacity={1} />
+					<stop offset={off} stopColor="#fd5d60" stopOpacity={1} />
 				</linearGradient>
 				
 			</defs>
@@ -339,25 +353,25 @@ export default function BFGraph({
 				}
 					
 				{showPriceColored && <>
-					<Area type="monotone" dataKey="green" strokeWidth={2} stroke="#40c8b8" fillOpacity={0.5} fill="url(#colorGreen)" />
-					<Area type="monotone" dataKey="red" strokeWidth={2} stroke="#fd5d60" fillOpacity={0.5} fill="url(#colorRed)" />
+					{/* <Area type="monotone" dataKey="green" strokeWidth={2} stroke="#40c8b8" fillOpacity={0.5} fill="url(#colorGreen)" />
+					<Area type="monotone" dataKey="red" strokeWidth={2} stroke="#fd5d60" fillOpacity={0.5} fill="url(#colorRed)" /> */}
 					<ReferenceLine 
 						y={firstPrice} 
 						label={{ 
-							position: 'insideBottomRight',
+							position: 'insideRight',
 							offset: 10,
 							value: formatMoney(firstPrice), 
-							fill: 'gray', 
+							fill: 'black', 
 							fontSize: 13, 
-							fontWeight: 600,
+							fontWeight: 800,
 						}} 
 						strokeWidth={1} 
 						stroke="gray" 
-						strokeDasharray="2 3" 
+						strokeDasharray="2 3"
+						 
 					/>
 
-					{/* <Area type="monotone" dataKey="amt" strokeWidth={2} stroke="gray"  fillOpacity={0.5} fill="url(#splitColor)" /> */}
-					{/* <Area type="monotone" dataKey="green" strokeWidth={2} stroke="#40c8b8" fillOpacity={0.5} fill="url(#colorGreen)" /> */}
+					<Area type="monotone" dataKey="amt" stroke="url(#strokeColor)" strokeWidth={2} fillOpacity={0.5} fill="url(#splitColor)" />
 				</>
 				}
 
