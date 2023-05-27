@@ -245,7 +245,7 @@ export default function BFGraph({
 	  };
 	  
 	  const off = gradientOffset();
-	return(console.log('single graph'),
+	return(
 		<ResponsiveContainer height={400}>
 		<AreaChart 
 			className='text-[14px] font-DM_Sans font-normal leading-normal tracking-wide w-full' 
