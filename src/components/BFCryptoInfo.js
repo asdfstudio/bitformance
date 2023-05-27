@@ -128,7 +128,15 @@ export default function BFCryptoInfo({
 
 		{!hideGraph &&
 		<div className={`bg-white ${singlePage ? 'sm:rounded-xl' : 'border-t-[1px] border-main-lightGrayBorder -mx-4 sm:-mx-6'}`}>
-			<GraphCard title="Currency Indexes" indexPrice={data.index.price} subtractWidth={adjustGraphWidth} halfGraph={true} isCompare={isCompare} hook={returnGraphData}/>
+			<GraphCard 
+				title="Currency Indexes" 
+				indexPrice={data.index.price} 
+				subtractWidth={adjustGraphWidth} 
+				halfGraph={true}
+				isCompare={isCompare} 
+				hook={returnGraphData}
+				panelId={panelId}
+			/>
 		</div>
 		}
 

@@ -1,7 +1,19 @@
 import BFGraph from './BFGraph'
 import { useState, useEffect } from 'react'
+import BFGraph2 from './BFGraph2'
+import BFGraph1 from './BFGraph1'
 
-export default function GraphCard({ title, indexPrice, subtractWidth = 0, holdings, isOverlay = false, halfGraph = false, isCompare = false, createIndex = false, hook = function () { return { data: {}, isLoading: false, isError: false }} }) {
+export default function GraphCard({ 
+	title, 
+	indexPrice, 
+	subtractWidth = 0, 
+	holdings, 
+	panelId = '',
+	isOverlay = false, 
+	halfGraph = false, 
+	isCompare = false, 
+	createIndex = false, 
+	hook = function () { return { data: {}, isLoading: false, isError: false }} }) {
 
 	const { data, isLoading, isError } = hook()
 
@@ -226,7 +238,51 @@ export default function GraphCard({ title, indexPrice, subtractWidth = 0, holdin
 				</div>
 			</div>
 			<div className='pb-4 text-[14px] font-DM_Sans font-normal leading-normal tracking-normal text-main-gray'>
-				<BFGraph subtractWidth={subtractWidth} indexPrice={indexPrice} halfGraph={halfGraph} isCompare={isCompare} createIndex={createIndex} data={shownGraphData} showOverlay={isOverlay} showPriceColored={graphColor === 'Price Colored'} graphInterval={graphInterval}/>
+				{
+					panelId == '2' && 
+					<BFGraph2
+					subtractWidth={subtractWidth} 
+					indexPrice={indexPrice} 
+					halfGraph={halfGraph} 
+					isCompare={isCompare} 
+					createIndex={createIndex} 
+					data={shownGraphData} 
+					// panelId={panelId}
+					showOverlay={isOverlay} 
+					showPriceColored={graphColor === 'Price Colored'} 
+					graphInterval={graphInterval}
+				/>
+				}
+				{
+					panelId == '1' && 
+					<BFGraph1
+					subtractWidth={subtractWidth} 
+					indexPrice={indexPrice} 
+					halfGraph={halfGraph} 
+					isCompare={isCompare} 
+					createIndex={createIndex} 
+					data={shownGraphData} 
+					// panelId={panelId}
+					showOverlay={isOverlay} 
+					showPriceColored={graphColor === 'Price Colored'} 
+					graphInterval={graphInterval}
+				/>
+				}
+				{
+					panelId == '' && 
+					<BFGraph
+					subtractWidth={subtractWidth} 
+					indexPrice={indexPrice} 
+					halfGraph={halfGraph} 
+					isCompare={isCompare} 
+					createIndex={createIndex} 
+					data={shownGraphData} 
+					// panelId={panelId}
+					showOverlay={isOverlay} 
+					showPriceColored={graphColor === 'Price Colored'} 
+					graphInterval={graphInterval}
+				/>
+				}
 			</div>
 		</div>
 	)

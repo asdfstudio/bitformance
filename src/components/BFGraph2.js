@@ -13,7 +13,7 @@ import moment from 'moment'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { formatMoney } from '../helpers';
 
-export default function BFGraph({ 
+export default function BFGraph2({ 
 	subtractWidth = 0, 
 	indexPrice, data = [], 
 	showOverlay = false, 
@@ -245,7 +245,7 @@ export default function BFGraph({
 	  };
 	  
 	  const off = gradientOffset();
-	return(console.log('single graph'),
+	return(console.log('graph 2', off),
 		<ResponsiveContainer height={400}>
 		<AreaChart 
 			className='text-[14px] font-DM_Sans font-normal leading-normal tracking-wide w-full' 

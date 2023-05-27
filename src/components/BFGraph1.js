@@ -13,7 +13,7 @@ import moment from 'moment'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { formatMoney } from '../helpers';
 
-export default function BFGraph({ 
+export default function BFGraph1({ 
 	subtractWidth = 0, 
 	indexPrice, data = [], 
 	showOverlay = false, 
@@ -245,7 +245,7 @@ export default function BFGraph({
 	  };
 	  
 	  const off = gradientOffset();
-	return(console.log('single graph'),
+	return(console.log('graph 1'),
 		<ResponsiveContainer height={400}>
 		<AreaChart 
 			className='text-[14px] font-DM_Sans font-normal leading-normal tracking-wide w-full' 
@@ -272,13 +272,13 @@ export default function BFGraph({
 					<stop offset="95%" stopColor="#fd5d60" stopOpacity={0.8}/>
 				</linearGradient>
 
-				<linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
+				<linearGradient id="splitColor1" x1="0" y1="0" x2="0" y2="1">
 				<stop offset="0%" stopColor="#40c8b8" stopOpacity={0.9} />
 					<stop offset={off} stopColor="#40c8b8" stopOpacity={0} />
 					<stop offset={off} stopColor="#fd5d60" stopOpacity={0} />
 				<stop offset="100%" stopColor="#fd5d60" stopOpacity={0.9} />
 				</linearGradient>
-				<linearGradient id="strokeColor" x1="0" y1="0" x2="0" y2="1">
+				<linearGradient id="strokeColor1" x1="0" y1="0" x2="0" y2="1">
 					<stop offset={off} stopColor="#40c8b8" stopOpacity={1} />
 					<stop offset={off} stopColor="#fd5d60" stopOpacity={1} />
 				</linearGradient>
@@ -310,7 +310,7 @@ export default function BFGraph({
 						 
 					/>
 
-					<Area type="monotone" dataKey="amt" stroke="url(#strokeColor)" strokeWidth={2} fillOpacity={0.5} fill="url(#splitColor)" />
+					<Area type="monotone" dataKey="amt" stroke="url(#strokeColor1)" strokeWidth={2} fillOpacity={0.5} fill="url(#splitColor1)" />
 				</>
 				}
 
