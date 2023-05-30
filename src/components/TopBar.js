@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
@@ -37,6 +37,7 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 			setLastName(lastName)
 			setPicture(picture)
 		}
+		setShowMenu(false)
 	}
 
 	useEffect(() => {
@@ -95,11 +96,23 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 		setTimer(newTimer)
 	}, [searchText])
 
-	const onClickOutsideListener = () => {
-		setShowMobileMenu(false)
-		setShowMenu(false)
-		document.removeEventListener("click", onClickOutsideListener)
-	  }
+	  let domNode = useRef();
+
+	  useEffect(() => {
+		  let maybeHandler = (event) => {
+		  if (!domNode.current.contains(event.target)) {
+
+			setShowMobileMenu(false)
+			setShowMenu(false)
+		  }
+		};
+  
+		  document.addEventListener("mousedown", maybeHandler);
+  
+		  return () => {
+		  document.removeEventListener("mousedown", maybeHandler);
+		  };
+	  });
 
 	return(<>
 		<div className="flex flex-row items-center w-full bg-main-gradientColor2 md:bg-white shadow p-2 py-3">
@@ -114,10 +127,8 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 			</div>
 			{showMobileMenu &&
 				<div 
+					ref={domNode}
 					id="dropdown"
-					onMouseLeave={() => {
-						document.addEventListener("click", onClickOutsideListener)
-					}} 
 					className="p-4 px-[20px] absolute left-0 top-[60px] z-10 w-full rounded-b-xl -mt-1 bg-gradient-to-b from-main-gradientColor2 to-main-gradientColor1 divide-y divide-gray-100 shadow"
 				>
 				    <ul className="space-y-4 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
@@ -179,24 +190,22 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 			
 			{username && <div className="ml-auto relative cursor-pointer">
 				<div 
-				id="dropdownDefault" 
-				data-dropdown-toggle="dropdown" 
-				onClick={() => setShowMenu(!showMenu) & setShowMobileMenu(false)} 
-				className="flex flex-row items-center gap-2 -my-1">
+					id="dropdownDefault" 
+					data-dropdown-toggle="dropdown" 
+					onClick={() => setShowMenu(!showMenu) & setShowMobileMenu(false)} 
+					className="flex flex-row items-center gap-2 -my-1">
 					<div className="hidden md:block">
 						<p className="text-[15px]">{firstName} {lastName}</p>
 						<p className="text-[14px] text-gray-400 text-right">@{username}</p>
 					</div>
 					<div className="rounded-full bg-white shadow p-1">
-						{picture ? <img className="w-[40px] h-[40px] rounded-full" src={picture} /> : <div className="w-[40px] h-[40px] flex justify-center items-center rounded-full bg-gray-100 p-2"><BFIcon iconName="no-picture" size="xs" /></div>}
+						{picture ? <img className="w-[46px] h-[40px] rounded-full sm:w-[40px] object-cover sm:h-[40px]" src={picture} /> : <div className="w-[40px] h-[40px] flex justify-center items-center rounded-full bg-gray-100 p-2"><BFIcon iconName="no-picture" size="xs" /></div>}
 					</div>
 				</div>
 				{showMenu &&
 					<div 
 						id="dropdown"
-						onMouseLeave={() => {
-							document.addEventListener("click", onClickOutsideListener)
-						}} 
+						ref={domNode}
 						className="p-4 absolute right-2 top-12 z-10 bg-white rounded-lg divide-y divide-gray-100 shadow w-56"
 					>
 						<ul className="space-y-2 py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">

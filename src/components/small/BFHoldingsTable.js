@@ -26,8 +26,9 @@ export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
 		<th onClick={() => sortBy(item.id, item.type)} key={item.id} scope="col" className="py-2 px-6">
 			<div className={`flex flex-row items-center 
 				${item.id === "name" && 'w-52'}
-				${item.id === "holdingQuantity" && '-mr-12'}
-				${item.id === "index" && '-mr-10'} 
+				${item.id === "changepct_24hour" && 'ml-8'}
+				${item.id === "holdingQuantity" && '-mr-6'}
+				${item.id === "index" && '-mr-6'} 
 			`}>
 		    <span className="ml-2 font-DM_Sans font-normal leading-normal tracking-wide">{item.label}</span>
 		    {sortable && <div className="ml-1 w-3 h-3 text-[7px] flex justify-center items-center">

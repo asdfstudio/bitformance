@@ -297,12 +297,12 @@ export default function BFGraph2({
 					<ReferenceLine 
 						y={firstPrice} 
 						label={{ 
-							position: 'insideRight',
+							position: 'insideBottomLeft',
 							offset: 10,
 							value: formatMoney(firstPrice), 
 							fill: 'black', 
-							fontSize: 13, 
-							fontWeight: 800,
+							fontSize: 12.5, 
+							fontWeight: 600,
 						}} 
 						strokeWidth={1} 
 						stroke="gray" 
