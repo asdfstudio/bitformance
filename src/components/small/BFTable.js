@@ -132,11 +132,11 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 											/>
 										</td>
 									</div>
-									<div className='flex flex-row items-center justify-center w-[350px] -mr-2 -ml-2 sm:w-auto pl-2 pr-2'>
+									<div className='flex flex-row items-center justify-center w-screen -mr-2 -ml-2 overflow-x-auto sm:w-auto pl-2 pr-2'>
 										{showHoldingRow === index && 
 										<td 
 											className={`bg-main-white rounded-b-xl drop-shadow-lg border-t-[1px]
-												border-main-lightGrayBorder pt-4 cursor-pointer overflow-x-scroll max-w-full
+												border-main-lightGrayBorder pt-4 cursor-pointer
 											`} 
 											colspan="8">
 											<BFHoldingsTable holdings={coin.rawStocks.map(stock => {
