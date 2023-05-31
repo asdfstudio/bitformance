@@ -120,7 +120,12 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 				<div className="ml-auto mr-4 space-x-4 cursor-pointer">
 					{/* <BFIcon iconName="search" color="white" /> */}
 					<span onClick={() => setShowMobileMenu(!showMobileMenu) & setShowMenu(false)}>
-						{!showMobileMenu ? <BFIcon iconName="menu" color="white" /> : <BFIcon iconName="close" color="white" />}
+						{!showMobileMenu ? <BFIcon iconName="menu" color="white" /> 
+						:
+						<span onClick={() => setShowMobileMenu(false)}> 
+							<BFIcon iconName="close" color="white" />
+						</span>
+						}
 					</span>
 				</div>
 			</div>
@@ -197,9 +202,16 @@ export default function TopBar({ isLoggedIn, showModalType, setShowModalType }) 
 						<p className="text-[15px]">{firstName} {lastName}</p>
 						<p className="text-[14px] text-gray-400 text-right">@{username}</p>
 					</div>
+					{!showMenu ? 
 					<div className="rounded-full bg-white shadow p-1">
 						{picture ? <img className="w-[46px] h-[40px] rounded-full sm:w-[40px] object-cover sm:h-[40px]" src={picture} /> : <div className="w-[40px] h-[40px] flex justify-center items-center rounded-full bg-gray-100 p-2"><BFIcon iconName="no-picture" size="xs" /></div>}
-					</div>
+					</div> :
+					<span onClick={() => setShowMenu(false)}>
+						<div className="rounded-full bg-white shadow p-1">
+							{picture ? <img className="w-[46px] h-[40px] rounded-full sm:w-[40px] object-cover sm:h-[40px]" src={picture} /> : <div className="w-[40px] h-[40px] flex justify-center items-center rounded-full bg-gray-100 p-2"><BFIcon iconName="no-picture" size="xs" /></div>}
+						</div>
+					</span>
+				}
 				</div>
 				{showMenu &&
 					<div 
