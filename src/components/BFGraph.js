@@ -26,34 +26,6 @@ export default function BFGraph({
 
 	const { width } = useWindowDimensions();
 
-	const createData = () => {
-		let start = new Date('2022-10-01')
-		const end = new Date('2022-10-31')
-
-		const array = []
-		while (start < end) {
-			array.push({
-				name: moment(start).format().slice(0, 10),
-				uv: Math.floor((Math.random() * 100)),
-				pv: Math.floor((Math.random() * 100)),
-				amt: Math.floor((Math.random() * 100)),
-			})
-			const newDate = start.setDate(start.getDate() + 1)
-			start = new Date(newDate)
-		}
-		return array
-	}
-
-	const intervals = {
-	  '24H': [60, 120, 180, 240, 295],
-	  '7D' : [60, 116, 172, 228, 284],
-	  '1M' : [5, 10, 15, 20, 25],
-	  '3M' : [18, 36, 54, 72],
-	  '6M' : [30, 60, 90, 120, 150],
-	  '1Y' : [60, 121, 182, 243, 304],
-	  '3Y' : [183, 366, 549, 732, 915]
-	}
-
 	function formatDate(unixTime, plotPeriod) {
 	  const date = moment.unix(unixTime)
 	  switch (plotPeriod) {
@@ -297,7 +269,7 @@ export default function BFGraph({
 					<ReferenceLine 
 						y={firstPrice} 
 						label={{ 
-							position: 'insideBottomLeft',
+							position: 'left',
 							offset: 10,
 							value: formatMoney(firstPrice), 
 							fill: 'black', 

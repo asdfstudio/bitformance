@@ -1,7 +1,7 @@
 import CoinRow from '../CoinRow'
 import BrowseCoinRow from '../BrowseCoinRow'
 import BFHoldingsTable from './BFHoldingsTable'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BFIcon from '../BFIcon'
 import BrowseCoinRowMobile from '../BrowseCoinRowMobile'
@@ -10,7 +10,6 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 
 	const navigate = useNavigate()
 	const [showHoldingRow, setShowHoldingRow] = useState(null)
-	const [holdings, setHoldings] = useState()
 	const [orderItem, setOrderItem] = useState(false)
 	const [indexesExpanded, setIndexesExpanded] = useState("")
 
@@ -135,10 +134,10 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 											/>
 										</td>
 									</div>
-									<div className='flex flex-row items-center justify-center w-screen -mr-3 -ml-2 sm:w-auto'>
+									<div className='flex flex-row items-center justify-center -mr-3 -ml-2'>
 										{showHoldingRow === index && 
 										<td 
-											className={`bg-main-white rounded-b-xl drop-shadow-lg border-t-[1px] border-main-lightGrayBorder pt-4 cursor-pointer overflow-x-auto max-w-full`} 
+											className={`bg-main-white rounded-b-xl drop-shadow-lg border-t-[1px] border-main-lightGrayBorder pt-4 cursor-pointer overflow-x-auto w-screen sm:w-auto`} 
 											colspan="8">
 											<BFHoldingsTable holdings={coin.rawStocks.map(stock => {
 												return {
