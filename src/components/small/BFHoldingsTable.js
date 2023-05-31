@@ -33,7 +33,7 @@ export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
 		    <span className="ml-2 font-DM_Sans font-normal leading-normal tracking-wide">{item.label}</span>
 		    {sortable && <div className="ml-1 w-3 h-3 text-[7px] flex justify-center items-center">
 			{
-					handleHeaderClick == true ? <BFIcon iconName="arrowUp" color={"#111111"}/> : <BFIcon iconName="arrowDown" color={"#111111"}/>
+					handleHeaderClick === true ? <BFIcon iconName="arrowUp" color={"#111111"}/> : <BFIcon iconName="arrowDown" color={"#111111"}/>
 				}
 				</div>}
 			</div>
