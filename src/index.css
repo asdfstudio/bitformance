@@ -12,12 +12,17 @@
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--secondary) var(--primary);
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
   width: 10px;
   height: 10px;
+}
+
+*::-webkit-overflow {
+  -webkit-overflow-scrolling: touch;
 }
 
 *::-webkit-scrollbar-track {
