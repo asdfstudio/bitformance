@@ -66,38 +66,36 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 	}
 
 	return(
-		<div className="flex overflow-x-auto relative sm:rounded-xl">
+		<div className="overflow-x-auto relative sm:rounded-xl">
 		    <table className={`w-full text-sm text-left ${tableStyle}`}>
-
 		        {showHeader &&
-		        <thead className='text-base cursor-pointer text-main-gray rounded-xl'>
-					{
-						type === 'top-cryptos' ? 
-							<tr className='grid grid-flow-col justify-between rounded-xl border-[1px] border-main-lightGrayBorder bg-main-lightGray'>
-								{headers.map(header => (
-									<HeaderColumn
-										key={header.label + '-coins'}
-										item={header}
-										onClick={handleHeaderClick}
-									/>
-								))}
-							</tr>
-						:
-						<div className='hidden sm:block'>
-							<tr className='px-4 grid grid-flow-col justify-between rounded-xl border-[1px] border-main-lightGrayBorder'>
-								{headers.map(header => (
-									<HeaderColumn
-										key={header.label + '-coins'}
-										item={header}
-										onClick={handleHeaderClick}
-									/>
-								))}
-							</tr>
-						</div>
-					}
-		        </thead>
+					<thead className='text-base cursor-pointer text-main-gray rounded-xl'>
+						{
+							type === 'top-cryptos' ? 
+								<tr className='grid grid-flow-col justify-between rounded-xl border-[1px] border-main-lightGrayBorder bg-main-lightGray'>
+									{headers.map(header => (
+										<HeaderColumn
+											key={header.label + '-coins'}
+											item={header}
+											onClick={handleHeaderClick}
+										/>
+									))}
+								</tr>
+							:
+							<div className='hidden sm:block'>
+								<tr className='px-4 grid grid-flow-col justify-between rounded-xl border-[1px] border-main-lightGrayBorder'>
+									{headers.map(header => (
+										<HeaderColumn
+											key={header.label + '-coins'}
+											item={header}
+											onClick={handleHeaderClick}
+										/>
+									))}
+								</tr>
+							</div>
+						}
+					</thead>
 		        }
-
 		        <tbody>
 					{rows.map((coin, index) => {
 						return type === 'top-cryptos' ? 
@@ -137,7 +135,9 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 									<div className='flex flex-row items-center justify-center w-screen -mr-2 -ml-2 sm:w-auto pl-2 pr-2'>
 										{showHoldingRow === index && 
 										<td 
-											className={`bg-main-white rounded-b-xl drop-shadow-lg border-t-[1px] border-main-lightGrayBorder pt-4 cursor-pointer overflow-x-auto max-w-full`} 
+											className={`bg-main-white rounded-b-xl drop-shadow-lg border-t-[1px]
+												border-main-lightGrayBorder pt-4 cursor-pointer overflow-x-auto max-w-full
+											`} 
 											colspan="8">
 											<BFHoldingsTable holdings={coin.rawStocks.map(stock => {
 												return {
