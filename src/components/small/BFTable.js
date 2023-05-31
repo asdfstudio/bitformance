@@ -132,7 +132,9 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 											/>
 										</td>
 									</div>
-									<div className='flex flex-row items-center justify-center w-screen -mr-2 -ml-2 sm:w-auto pl-2 pr-2'>
+									
+								</tr>
+								<div className='flex flex-row items-center justify-center w-screen -mr-2 -ml-2 sm:w-auto pl-2 pr-2'>
 										{showHoldingRow === index && 
 										<td 
 											className={`bg-main-white rounded-b-xl drop-shadow-lg border-t-[1px]
@@ -148,8 +150,7 @@ export default function BFTable({ showHeader = true, handleHeaderClick = functio
 											})} />
 										</td>
 										}
-										</div>
-								</tr>
+									</div>
 							</React.Fragment>)
 							: (<tr key={coin.id}>no valid type</tr>)
 					})}
