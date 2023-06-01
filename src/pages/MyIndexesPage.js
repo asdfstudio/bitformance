@@ -67,7 +67,7 @@ export default function MyIndexesPages() {
 	}, [])
 
 	return (
-		<div className="pt-4 bg-gray-50 sm:p-4">
+		<div className="bg-gray-50 sm:p-4">
 			<BFTable 
 				rows={order || []} 
 				type="my-indexes" 
