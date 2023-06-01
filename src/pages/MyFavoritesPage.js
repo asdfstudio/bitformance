@@ -68,7 +68,7 @@ export default function MyFavoritesPage() {
 	}, [])
 
 	return (
-		<div className="p-4 bg-gray-50">
+		<div className="pt-4 bg-gray-50 sm:p-4">
 			<BFTable 
 				rows={order || []} 
 				type="browse-cryptos" 
