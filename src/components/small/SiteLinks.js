@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import BFIcon from '../BFIcon'
 import { useMyIndexes, useFavoriteIndexes } from '../../endpoints/index'
@@ -14,6 +14,15 @@ export default function SiteLinks({ setShowModalType, setShowMobileMenu = functi
 
 	const [indexesExpanded, setIndexesExpanded] = useState(false)
 	const [siteSelected, setSiteSelected] = useState('')
+	const [isLogin, setLogin] = useState(false)
+	const username = localStorage.getItem('username')
+	useEffect(() => {
+		if (username) {
+			setLogin(true)
+		}else{
+			setLogin(false)
+		}
+	}, [username])
 
 	return(<>
 		<Link to="/" onClick={() => setShowMobileMenu(false) & setSiteSelected('home')} 
@@ -62,28 +71,38 @@ export default function SiteLinks({ setShowModalType, setShowMobileMenu = functi
 					<span className={`${colorStyle}`}>Browse</span>
 				</Link>
 			</div>
-			<Link to="/indexes/my-indexes" onClick={() => setShowMobileMenu(false) & setSiteSelected('my-indexes')} 
-			className={ siteSelected === 'my-indexes' ? 
-			`flex flex-row gap-2 items-center cursor-pointer h-[40px] bg-main-buttonBlue rounded-lg pl-6 bg-opacity-50`
-			 : 
-			`ml-6 flex flex-row gap-2 items-center cursor-pointer h-[40px]`
+
+			{
+				isLogin && 
+					<Link to="/indexes/my-indexes" onClick={() => setShowMobileMenu(false) & setSiteSelected('my-indexes')} 
+					className={ siteSelected === 'my-indexes' ? 
+					`flex flex-row gap-2 items-center cursor-pointer h-[40px] bg-main-buttonBlue rounded-lg pl-6 bg-opacity-50`
+					: 
+					`ml-6 flex flex-row gap-2 items-center cursor-pointer h-[40px]`
+					}
+					>
+						<BFIcon iconName="my-indexes" color="white" />
+						<span className={colorStyle}>My Indexes</span>
+						<span className="ml-auto w-[16px] h-[22px] rounded bg-main-buttonBlue text-sm flex items-center justify-center mr-2 font-DM_Sans font-medium leading-normal tracking-normal text-main-white">{data ? data.length : ''}</span>
+					</Link>
 			}
-			>
-				<BFIcon iconName="my-indexes" color="white" />
-				<span className={colorStyle}>My Indexes</span>
-				<span className="ml-auto w-[16px] h-[22px] rounded bg-main-buttonBlue text-sm flex items-center justify-center mr-2 font-DM_Sans font-medium leading-normal tracking-normal text-main-white">{data ? data.length : ''}</span>
-			</Link>
-			<Link to="/indexes/my-favorites" onClick={() => setShowMobileMenu(false) & setSiteSelected('my-favorites')} 
-			className={ siteSelected === 'my-favorites' ? 
-			`flex flex-row items-center gap-2 cursor-pointer h-[40px] bg-main-buttonBlue rounded-lg pl-6 bg-opacity-50`
-			 : 
-			`ml-6 flex flex-row items-center gap-2 cursor-pointer h-[40px]`
-			}
-			>
-				<BFIcon iconName="favorite" color="white" />
-				<span className={colorStyle}>My Favorites</span>
-				<span className="ml-auto w-[16px] h-[22px] rounded bg-main-buttonBlue text-sm flex items-center justify-center mr-2 font-DM_Sans font-medium leading-normal tracking-normal text-main-white">{favorites ? favorites.length: ''}</span>
-			</Link>
+
+			{
+				isLogin && 
+
+					<Link to="/indexes/my-favorites" onClick={() => setShowMobileMenu(false) & setSiteSelected('my-favorites')} 
+					className={ siteSelected === 'my-favorites' ? 
+					`flex flex-row items-center gap-2 cursor-pointer h-[40px] bg-main-buttonBlue rounded-lg pl-6 bg-opacity-50`
+					: 
+					`ml-6 flex flex-row items-center gap-2 cursor-pointer h-[40px]`
+					}
+					>
+						<BFIcon iconName="favorite" color="white" />
+						<span className={colorStyle}>My Favorites</span>
+						<span className="ml-auto w-[16px] h-[22px] rounded bg-main-buttonBlue text-sm flex items-center justify-center mr-2 font-DM_Sans font-medium leading-normal tracking-normal text-main-white">{favorites ? favorites.length: ''}</span>
+					</Link>
+			}	
+
 		</>}
 		<Link onClick={() => setShowMobileMenu(false) & setSiteSelected('compare')}  to="/compare" 
 		className={ siteSelected === 'compare' ? 
