@@ -356,8 +356,18 @@ export default function CreateIndexPage() {
 				{/* <div className={`bg-main-white fixed w-full md:w-72 right-0 ${previewShown ? 'bottom-0' : 'bottom-0 md:bottom-0'}`}> */}
 					<div className="flex flex-row gap-2 p-2 bg-main-white border rounded-lg mt-4 justify-end">
 						<button className="w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor bg-opacity-10 text-main-gColor py-2 md:w-[150px]" onClick={() => navigate(-1)}>Cancel</button>
-						{!previewShown && <button className="shadow w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor hover:bg-main-buttonBlue text-white py-2 md:w-[150px]" onClick={() => loadPreview()}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Preview'}</button>}
-						{previewShown && <button className="shadow w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor hover:bg-main-buttonBlue text-white py-2 md:w-[150px]" onClick={() => setShowMenu(!showMenu)}>{loadingPreview ? <BFLoading isCenter={true} /> : 'Create'}</button>}
+						{!previewShown && 
+							<button 
+								className="shadow w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor hover:bg-main-buttonBlue text-white py-2 md:w-[150px]" 
+								onClick={() => loadPreview()}>
+									{loadingPreview ? <BFLoading isCenter={true} /> : 'Preview'}
+							</button>}
+						{previewShown && 
+							<button 
+								className="shadow w-full text-[15px] font-DM_Sans font-bold leading-normal tracking-normal rounded bg-main-gColor hover:bg-main-buttonBlue text-white py-2 md:w-[150px]" 
+								onClick={() => setShowMenu(!showMenu)}>
+									{loadingPreview ? <BFLoading isCenter={true} /> : 'Create'}
+							</button>}
 					</div>
 			  	{/* </div> */}
 			</div>
