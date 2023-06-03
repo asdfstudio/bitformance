@@ -26,7 +26,7 @@ export default function ContactUsModal({ setShowModalType }) {
 		//error check
 
 		const result = await contactForm({ ...data })
-		console.log(result)
+		// console.log(result)
 		if (result.result) {
 			setFormSendSuccess(true)
 			return

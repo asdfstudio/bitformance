@@ -153,11 +153,6 @@ export default function BFSelectCryptos({
 				{selectedCryptos.map(symbol => 
 					<div onClick={() => handleSelectCrypto(symbol)} key={symbol + '-selected-cryptos'} className="relative flex flex-row justify-center" onMouseEnter={() => setHover(symbol)} onMouseLeave={() => setHover('')}>
 						<BFCryptoImage symbol={symbol} index={0}  />
-							{/* <p>{symbol.replace(/\(\w+\)/, '')}</p>
-							<p className="text-xs mt-0.5 text-gray-500">{symbol}</p>
-							{
-								console.log('********* ' + symbol)
-							} */}
 						{hover === symbol && <div className="z-50 absolute left-1/3 top-1">
 							<BFIcon iconName="close" color="gray" />
 						</div>}

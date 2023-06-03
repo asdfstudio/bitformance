@@ -42,8 +42,8 @@ export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
 
 
 	const sortBy = (id, type) => {
-		console.log(holdings)
-		console.log(id)
+		// console.log(holdings)
+		// console.log(id)
 		let sortOrder = 'desc'
 		if (sortField === id) {
 			sortOrder = previousSortOrder === 'desc' ? 'asc': 'desc'
@@ -81,7 +81,7 @@ export default function BFHoldingsTable({ holdings, handleHeaderClick }) {
 	}	
 
 	const onCoinRowClicked = (coin) => {
-		console.log(coin)
+		// console.log(coin)
 		navigate(`/coins/${coin.symbol}`)
 	}
 

@@ -10,7 +10,7 @@ export default function SignUpForm({ setShowModalType }) {
 	const [loading, setLoading] = useState(false)
 
 	function onRecaptchaChange(value) {
-	  console.log('captch value: ', value)
+	//   console.log('captch value: ', value)
 	  setCompletedRecaptcha(true)
 	}
 
@@ -39,7 +39,7 @@ export default function SignUpForm({ setShowModalType }) {
 		}
 
 		const result = await registerAccount({ ...data })
-		console.log(result)
+		// console.log(result)
 		if (result.result) {
 			setShowModalType('SIGN_IN')
 			localStorage.setItem('saved_username', data.username)

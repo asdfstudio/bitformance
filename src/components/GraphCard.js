@@ -44,9 +44,6 @@ export default function GraphCard({
 		const dataOne = data[0]
 		const dataTwo = data[1]
 
-		// console.log('data1', dataOne)
-		// console.log('data2', dataTwo)	
-
 		let daily_graph_data_one = dataOne.data.daily_graph_data
 		let daily_graph_data_two = dataTwo.data.daily_graph_data
 		let fivemin_graph_data_one = dataOne.data.fivemin_graph_data
@@ -101,16 +98,6 @@ export default function GraphCard({
 				amt: ((formatPrice[i] - initialIndexOne) / initialIndexOne) * 100,
 				amt2: ((formatPriceTwo[i] - initialIndexTwo) / initialIndexTwo) * 100
 			})
-
-			// console.log('******************************')
-
-			// console.log('formatPrice[i]', formatPrice[i])
-
-			// console.log('dataOne.data.index.initial_value', dataOne.data.index.initial_value)
-
-			// console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
-
-			// console.log('formatPriceTwo[i]', formatPriceTwo[i])
 		}
 		setFullGraphData(array)
 		setShownGraphData(array.slice(timeInterval))
@@ -195,12 +182,6 @@ export default function GraphCard({
 	      setShownGraphData([])
 	  }
 	}
-
-	// if (isLoading) return 'Loading...'
-	// if (isError) {
-	// 	console.log(isError)
-	// 	return 'Error...'
-	// }
 
 	return(
 		<div className="bg-white sm:rounded-xl">

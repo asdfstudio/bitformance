@@ -60,7 +60,6 @@ export default function CreateIndexPage() {
 		if (newIndex.result) {
 			if (fileSelected) {
 				const addLogo = await uploadImage(fileSelected, 'logo', newIndex.data._id.$oid)
-				console.log(addLogo)
 			}
 			mutate(baseUrl('/get-user-indexes'))
 			navigate(`/indexes/my-indexes/${newIndex.data._id.$oid}`)
