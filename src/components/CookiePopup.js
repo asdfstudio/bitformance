@@ -9,7 +9,7 @@ export default function CookiePopup() {
             <div className='block sm:hidden'>
                 <CookieConsent
                     location="bottom"
-                    buttonText="Accept"
+                    buttonText="Got It"
                     style={{ 
                         background: "rgba(255,255,255, 1)",
                         color: "#111111",
@@ -59,13 +59,13 @@ export default function CookiePopup() {
                     }}
                 >
                     <p className='text-[24px] font-medium font-DM_Sans'>Cookies & Privacy</p>
-                    <span className='text-[18px] font-DM_Sans font-normal'>This website uses cookies to ensure you</span>
+                    <span className='text-[18px] font-DM_Sans font-normal'>This website uses cookies to enhance the user experience.</span>
                 </CookieConsent>
             </div>
             <div className='hidden sm:block'>
                 <CookieConsent
                     location="bottom"
-                    buttonText="Accept"
+                    buttonText="Got It"
                     style={{ 
                         background: "rgba(255,255,255, 1)",
                         color: "#111111",
@@ -115,7 +115,7 @@ export default function CookiePopup() {
 
                 >
                     <p className='text-[24px] font-medium font-DM_Sans'>Cookies & Privacy</p>
-                    <span className='text-[18px] font-DM_Sans font-normal'>This website uses cookies to ensure you</span>
+                    <span className='text-[18px] font-DM_Sans font-normal'>This website uses cookies to enhance the user experience.</span>
                 </CookieConsent>
             </div>
         </div>
