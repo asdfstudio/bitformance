@@ -13,11 +13,18 @@ export default function MyIndexesPages() {
 	const [sortField, setSortField] = useState('name')
 	const [previousSortOrder, setSortOrder] = useState('desc')
 
-	// useEffect(() => {
-	// 	if (data) {
-	// 		setOrder(data)
-	// 	}
-	// }, [data])
+	const [loading, setLoading] = useState(false);
+
+	useEffect(() => {
+		setLoading(true);
+	  
+		if (data) {
+		  setOrder(data);
+		  setTimeout(() => {
+			setLoading(false);
+		  }, 100);
+		}
+	  }, [data]);
 
 	const sortBy = (id, type) => {
 		let sortOrder = 'desc'
@@ -70,6 +77,7 @@ export default function MyIndexesPages() {
 	if (isLoading) return <BFLoading />
 
 	return (
+		loading ? <BFLoading/> : 
 		<div className="bg-gray-50 sm:p-4">
 			<BFTable 
 				rows={order || []} 
