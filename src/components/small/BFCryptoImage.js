@@ -4,7 +4,7 @@ export default function BFCryptoImage({ symbol, index = 0, showNumber = false, i
 
 	const coin = coinImageMappings.find(coin => coin.symbol === symbol)
 
-	const zIndex = `z-${(index + 1)}0`
+	const zIndex = `z-${(index + 1)}00`
 	let adjust = ''
 	if (index > 0) {
 		adjust = 'ml-[-10px]'

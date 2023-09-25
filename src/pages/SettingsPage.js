@@ -41,7 +41,8 @@ export default function SettingsPage({ setShowModalType }) {
 		setLoading(true)
 		const names = name.split(' ')
 		const first_name = names[0]
-		const last_name = names.slice(-1)[0]
+		// const last_name = names.slice(-1)[0]
+		const last_name = names.slice(1).join(' ');
 		if (newPassword && confirmNewPassword) {
 			const result = await updateProfile({
 				new_password: newPassword,

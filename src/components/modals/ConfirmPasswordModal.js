@@ -47,7 +47,7 @@ export default function ConfirmPasswordModal({ setShowModalType }) {
 			    		<input name="password" className="w-full px-2 py-2 mt-2 text-sm border rounded-md bg-main-inputBackground" type="password" placeholder="******" />
 			    	</div>
 			    	<div className="mt-auto flex flex-row gap-2">
-			    		<button className="w-full rounded-lg bg-main-gColor bg-opacity-10 text-[15px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gColor py-2" onClick={() => redirect()}>Cancel</button>
+			    		<button type="button" className="w-full rounded-lg bg-main-gColor bg-opacity-10 text-[15px] font-DM_Sans font-bold leading-normal tracking-normal text-main-gColor py-2" onClick={() => redirect()}>Cancel</button>
 			    		<button type="submit" className="w-full rounded-lg bg-main-gColor text-[15px] font-DM_Sans font-bold leading-normal tracking-normal shadow-sm shadow-main-shadowBlue text-white py-2">Submit</button>
 			    	</div>
 		    	</div>

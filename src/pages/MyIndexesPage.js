@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BFTable from '../components/small/BFTable'
 import { useMyIndexes } from '../endpoints/index'
+import BFLoading from '../components/small/BFLoading'
 
 export default function MyIndexesPages() {
 
@@ -12,11 +13,11 @@ export default function MyIndexesPages() {
 	const [sortField, setSortField] = useState('name')
 	const [previousSortOrder, setSortOrder] = useState('desc')
 
-	useEffect(() => {
-		if (data) {
-			setOrder(data)
-		}
-	}, [data])
+	// useEffect(() => {
+	// 	if (data) {
+	// 		setOrder(data)
+	// 	}
+	// }, [data])
 
 	const sortBy = (id, type) => {
 		let sortOrder = 'desc'
@@ -65,6 +66,8 @@ export default function MyIndexesPages() {
 			navigate('/?sessionExpired=true')
 		}
 	}, [])
+
+	if (isLoading) return <BFLoading />
 
 	return (
 		<div className="bg-gray-50 sm:p-4">

@@ -220,7 +220,7 @@ export default function GraphCard({
 			</div>
 			<div className='pb-4 text-[14px] font-DM_Sans font-normal leading-normal tracking-normal text-main-gray'>
 				{
-					panelId == '2' && 
+					panelId === '2' && 
 					<BFGraph2
 					subtractWidth={subtractWidth} 
 					indexPrice={indexPrice} 
@@ -235,7 +235,7 @@ export default function GraphCard({
 				/>
 				}
 				{
-					panelId == '1' && 
+					panelId === '1' && 
 					<BFGraph1
 					subtractWidth={subtractWidth} 
 					indexPrice={indexPrice} 
@@ -250,7 +250,7 @@ export default function GraphCard({
 				/>
 				}
 				{
-					panelId == '' && 
+					panelId === '' && 
 					<BFGraph
 					subtractWidth={subtractWidth} 
 					indexPrice={indexPrice} 

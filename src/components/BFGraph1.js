@@ -55,10 +55,17 @@ export default function BFGraph1({
 	const formatter = new Intl.NumberFormat('en-US', {
 	  style: 'currency',
 	  currency: 'USD',
-	  // These options are needed to round to whole numbers if that's what you want.
-	  //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-	  maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+	  maximumFractionDigits: 2,
 	});
+
+	function formatValue(value) {
+		if (value >= 1) {
+		  return `$${Math.round(value)}`;
+		} else {
+		  const roundedValue = parseFloat(value.toFixed(4)); // Round to 4 decimal places
+		  return `$${roundedValue}`;
+		}
+	  }
 
 	const formatYAxis = (value) => {
 		if (showOverlay) {
@@ -149,8 +156,8 @@ export default function BFGraph1({
 			  </div>
 			  <div className="flex flex-col">
 				  {/* <p className="text-main-gray font-medium pr-1">Price: </p> */}
-				  <p className={showOverlay ? 'text-blue-400' : ''}>{showOverlay ? `${Math.min(payload[0].value).toFixed(2)}%` : formatter.format(payload[0].value)}</p>
-				  {showOverlay && <p className="text-green-400">{showOverlay ? `${Math.min(payload[1].value).toFixed(2)}%` : formatter.format(payload[1].value)}</p>}
+				  <p className={showOverlay ? 'text-blue-400' : ''}>{showOverlay ? `${Math.min(payload[0].value).toFixed(2)}%` : formatValue(payload[0].value)}</p>
+				  {showOverlay && <p className="text-green-400">{showOverlay ? `${Math.min(payload[1].value).toFixed(2)}%` : formatValue(payload[1].value)}</p>}
 			  </div>
 			</div>
 	  		)
@@ -163,8 +170,8 @@ export default function BFGraph1({
 			</div>
 			<div className="flex flex-col">
 				{/* <p className="text-main-gray font-medium pr-1">Price: </p> */}
-				<p className={showOverlay ? 'text-blue-400' : ''}>{showOverlay ? `${Math.min(payload[0].value).toFixed(2)}%` : formatter.format(payload[0].value)}</p>
-	        	{showOverlay && <p className="text-green-400">{showOverlay ? `${Math.min(payload[1].value).toFixed(2)}%` : formatter.format(payload[1].value)}</p>}
+				<p className={showOverlay ? 'text-blue-400' : ''}>{showOverlay ? `${Math.min(payload[0].value).toFixed(2)}%` : formatValue(payload[0].value)}</p>
+	        	{showOverlay && <p className="text-green-400">{showOverlay ? `${Math.min(payload[1].value).toFixed(2)}%` : formatValue(payload[1].value)}</p>}
 			</div>
 	      </div>
 	    );

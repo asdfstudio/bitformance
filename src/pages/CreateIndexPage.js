@@ -125,7 +125,7 @@ export default function CreateIndexPage() {
 			total += dataa[i];
 		}
 
-		if(total == maxWeight && total <= minWeight && isWeighted ){
+		if(total === maxWeight && total <= minWeight && isWeighted ){
 			return data
 		}else{
 			setShowAlertMenu(!showAlertMenu)
@@ -155,13 +155,13 @@ export default function CreateIndexPage() {
 		setPreviewShown(false)
 		setReturnData(null)
 
-		if (selectedCryptos.some(crypto => data.data[crypto] === false )) {
+		if (selectedCryptos.some(crypto => data?.data[crypto] === false )) {
 			setIsMarketCapWeightAvailable(false)
 			setWeightingMethod('equal_weight')
 		} else {
 			setIsMarketCapWeightAvailable(true)
 		}
-	}, [selectedCryptos, initialValue])
+	}, [selectedCryptos, initialValue, data])
 
 	const maxWord = 200;
 	const maxTitle = 30;
