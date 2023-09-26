@@ -6,7 +6,15 @@ import { useNavigate } from 'react-router-dom'
 import BFIcon from '../BFIcon'
 import BrowseCoinRowMobile from '../BrowseCoinRowMobile'
 
-export default function BFTable({ showHeader = true, handleHeaderClick = function() {}, condensedHeaders = false, rows, type, tableStyle = '', onRowClicked = function () {} }) {
+export default function BFTable({ 
+	showHeader = true, 
+	handleHeaderClick = function() {}, 
+	condensedHeaders = false, 
+	rows, 
+	type, 
+	tableStyle = '', 
+	onRowClicked = function () {} 
+}) {
 
 	const navigate = useNavigate()
 	const [showHoldingRow, setShowHoldingRow] = useState(null)

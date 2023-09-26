@@ -73,6 +73,8 @@ export default function BrowseCoinRow({
 		await mutate(baseUrl('/get-user-indexes'))
 		setLoadingFavorites(false)
 		setShowMenu(false)
+
+		navigate("/indexes/my-indexes")
 	}
 
 	return(<>

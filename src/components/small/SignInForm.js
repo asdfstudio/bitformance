@@ -48,7 +48,6 @@ export default function SignInForm({ setShowModalType, viewShown, setViewShown }
 		}
 
 		const result = await login(data.username, data.password)
-		// console.log(result)
 		if (!result.result) {
 			setErrorMessage(result.error)
 			setIsLoading(false)

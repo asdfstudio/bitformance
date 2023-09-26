@@ -5,87 +5,81 @@ import { useMyIndexes } from '../endpoints/index'
 import BFLoading from '../components/small/BFLoading'
 
 export default function MyIndexesPages() {
+  const navigate = useNavigate()
+  const { data } = useMyIndexes()
 
-	const navigate = useNavigate()
-	const { data, isLoading } = useMyIndexes()
+  const [order, setOrder] = useState(data)
+  const [sortField, setSortField] = useState('')
+  const [previousSortOrder, setSortOrder] = useState('desc')
+  const [loading, setLoading] = useState(true)
 
-	const [order, setOrder] = useState(data)
-	const [sortField, setSortField] = useState('name')
-	const [previousSortOrder, setSortOrder] = useState('desc')
+useEffect(() => {
+    if (data && order.length !== data.length) {
+      setOrder(data);
+    }
+	setLoading(false);
+  }, [data, order.length]);
 
-	const [loading, setLoading] = useState(false);
+  const sortBy = (id, type) => {
+    let sortOrder = 'desc'
+    if (sortField === id) {
+      sortOrder = previousSortOrder === 'desc' ? 'asc' : 'desc'
+    }
+    setSortOrder(sortOrder)
+    setSortField(id)
 
-	useEffect(() => {
-		setLoading(true);
-	  
-		if (data) {
-		  setOrder(data);
-		  setTimeout(() => {
-			setLoading(false);
-		  }, 100);
-		}
-	  }, [data]);
+    let newOrder = []
+    if (type === 'alphabet') {
+      newOrder = data.sort((a, b) => {
+        if (sortOrder === 'desc') {
+          return a.index[id] > b.index[id] ? 1 : -1
+        } else {
+          return a.index[id] < b.index[id] ? 1 : -1
+        }
+      })
+    } else if (type === 'computed') {
+      newOrder = data.sort((a, b) => {
+        if (sortOrder === 'desc') {
+          return a.rawStocks.reduce((sum, stock) => stock.market_cap + sum, 0) - b.rawStocks.reduce((sum, stock) => stock.market_cap + sum, 0)
+        } else {
+          return b.rawStocks.reduce((sum, stock) => stock.market_cap + sum, 0) - a.rawStocks.reduce((sum, stock) => stock.market_cap + sum, 0)
+        }
+      })
+    } else {
+      newOrder = data.sort((a, b) => {
+        if (sortOrder === 'desc') {
+          return a.index[id] - b.index[id]
+        } else {
+          return b.index[id] - a.index[id]
+        }
+      })
+    }
+    setOrder(newOrder)
+  }
 
-	const sortBy = (id, type) => {
-		let sortOrder = 'desc'
-		if (sortField === id) {
-			sortOrder = previousSortOrder === 'desc' ? 'asc': 'desc'
-		}
-		setSortOrder(sortOrder)
-		setSortField(id)
+  const rowClicked = (coin) => {
+    navigate(`/indexes/my-indexes/${coin._id.$oid}`)
+  }
 
-		let newOrder = []
-		if (type === 'alphabet') {
-			newOrder = data.sort((a, b) => {
-				if (sortOrder === 'desc') {
-					return a.index[id] > b.index[id] ? 1 : -1
-				} else {
-					return a.index[id] < b.index[id] ? 1 : -1
-				}
-			})
-		} else if (type === 'computed') {
-			newOrder = data.sort((a, b) => {
-				if (sortOrder === 'desc') {
-					return a.rawStocks.reduce((sum, stock) => stock.market_cap + sum, 0) - b.rawStocks.reduce((sum, stock) => stock.market_cap + sum, 0)
-				} else {
-					return b.rawStocks.reduce((sum, stock) => stock.market_cap + sum, 0) - a.rawStocks.reduce((sum, stock) => stock.market_cap + sum, 0)
-				}
-			})
-		} else {
-			newOrder = data.sort((a, b) => {
-				if (sortOrder === 'desc') {
-					return a.index[id] - b.index[id]
-				} else {
-					return b.index[id] - a.index[id]
-				}
-			})
-		}
-		setOrder(newOrder)
-	}	
+  useEffect(() => {
+    if (!localStorage.getItem('username')) {
+      navigate('/?sessionExpired=true')
+    }
+  }, [])
 
-
-	const rowClicked = (coin) => {
-		navigate(`/indexes/my-indexes/${coin._id.$oid}`)
-	}
-
-	useEffect(() => {
-		if (!localStorage.getItem('username')) {
-			navigate('/?sessionExpired=true')
-		}
-	}, [])
-
-	if (isLoading) return <BFLoading />
-
-	return (
-		loading ? <BFLoading/> : 
-		<div className="bg-gray-50 sm:p-4">
-			<BFTable 
-				rows={order || []} 
-				type="my-indexes" 
-				tableStyle="border-separate" 
-				onRowClicked={rowClicked}
-				handleHeaderClick={sortBy}
-			/>
-		</div>
-	)
+  return (
+    <div className="bg-gray-50 sm:p-4">
+      {loading ? (
+        <BFLoading />
+      ) : (
+        <BFTable
+          rows={order || []}
+          type="my-indexes"
+          tableStyle="border-separate"
+          onRowClicked={rowClicked}
+          handleHeaderClick={sortBy}
+        />
+      )}
+    </div>
+  )
 }

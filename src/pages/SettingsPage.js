@@ -25,9 +25,15 @@ export default function SettingsPage({ setShowModalType }) {
 	}, [])
 
 	useEffect(() => {
-		setEmail(data?.data?.email || '')
-		setName(`${data?.data?.first_name || ''} ${data?.data?.last_name || ''}`)
-	}, [data])
+		const firstName = data?.data?.first_name || '';
+		const lastName = data?.data?.last_name || '';
+	  
+		if (firstName && lastName) {
+		  setName(`${firstName} ${lastName}`);
+		} else {
+		  setName(firstName);
+		}
+	  }, [data]);
 
 	useEffect(() => {
 		if (tabSelected === 'profile') {
@@ -41,7 +47,6 @@ export default function SettingsPage({ setShowModalType }) {
 		setLoading(true)
 		const names = name.split(' ')
 		const first_name = names[0]
-		// const last_name = names.slice(-1)[0]
 		const last_name = names.slice(1).join(' ');
 		if (newPassword && confirmNewPassword) {
 			const result = await updateProfile({
@@ -49,6 +54,7 @@ export default function SettingsPage({ setShowModalType }) {
 				confirm_password: confirmNewPassword,
 				password: sessionStorage.getItem('password')
 			})
+
 			if (!result.result) {
 				setErrorMessage(result.error)
 			}
@@ -59,6 +65,7 @@ export default function SettingsPage({ setShowModalType }) {
 				last_name,
 				password: sessionStorage.getItem('password')
 			})
+
 			if (!result.result) {
 				setErrorMessage(result.error)
 			} else {

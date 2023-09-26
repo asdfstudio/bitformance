@@ -63,6 +63,7 @@ export default function CreateIndexPage() {
 			}
 			mutate(baseUrl('/get-user-indexes'))
 			navigate(`/indexes/my-indexes/${newIndex.data._id.$oid}`)
+			window.location.href.includes(`/indexes/my-indexes/${newIndex.data._id.$oid}`)
 			return
 		}
 		setLoadingPreview(false)
@@ -384,7 +385,7 @@ export default function CreateIndexPage() {
 						  </div>
 							<p className='text-[18px] font-DM_Sans font-medium leading-normal tracking-normal flex justify-center'>Index Created Successfully!</p>
 					  	<div className="mt-auto flex flex-col gap-2">
-						  <Link onClick={() => handleCreateIndex()}>
+						  <Link to='/indexes/my-indexes' onClick={() => handleCreateIndex()}>
 							<button type="submit" className="w-full rounded-lg bg-main-gColor text-[15px] font-DM_Sans font-bold leading-normal tracking-normal shadow-sm shadow-main-shadowBlue text-white py-2">Great, View Index</button>
 							</Link>
 						  <Link to='/indexes/my-indexes' onClick={() => handleCreateIndex()}>

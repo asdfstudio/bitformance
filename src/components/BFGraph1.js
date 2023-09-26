@@ -59,11 +59,29 @@ export default function BFGraph1({
 	});
 
 	function formatValue(value) {
-		if (value >= 1) {
+		const threshold = 1;
+	  
+		if (value >= threshold) {
 		  return `$${Math.round(value)}`;
 		} else {
-		  const roundedValue = parseFloat(value.toFixed(4)); // Round to 4 decimal places
-		  return `$${roundedValue}`;
+		  const valueStr = value.toString();
+		  const decimalIndex = valueStr.indexOf('.');
+		  
+		  if (decimalIndex !== -1) {
+			let firstNonZeroIndex = decimalIndex + 1;
+			while (firstNonZeroIndex < valueStr.length && valueStr[firstNonZeroIndex] === '0') {
+			  firstNonZeroIndex++;
+			}
+			
+			if (firstNonZeroIndex < valueStr.length) {
+			  const formattedValue = `${valueStr.slice(0, firstNonZeroIndex + 3)}`;
+			  return `$${formattedValue}`;
+			} else {
+			  return `$${Math.floor(value)}`;
+			}
+		  } else {
+			return `$${Math.round(value)}`;
+		  }
 		}
 	  }
 
