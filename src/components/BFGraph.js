@@ -58,29 +58,41 @@ export default function BFGraph({
 	  maximumFractionDigits: 0,
 	});
 
-	function formatValue(value) {
+	  function formatValue(value) {
 		const threshold = 1;
 	  
 		if (value >= threshold) {
 		  return `$${Math.round(value)}`;
 		} else {
 		  const valueStr = value.toString();
-		  const decimalIndex = valueStr.indexOf('.');
-		  
-		  if (decimalIndex !== -1) {
-			let firstNonZeroIndex = decimalIndex + 1;
-			while (firstNonZeroIndex < valueStr.length && valueStr[firstNonZeroIndex] === '0') {
-			  firstNonZeroIndex++;
-			}
-			
-			if (firstNonZeroIndex < valueStr.length) {
-			  const formattedValue = `${valueStr.slice(0, firstNonZeroIndex + 3)}`;
-			  return `$${formattedValue}`;
-			} else {
-			  return `$${Math.floor(value)}`;
-			}
+		  const hasExponent = valueStr.includes('e');
+	  
+		  if (hasExponent) {
+			// return `$${valueStr}`;
+			const valueStr = value.toExponential(); // Use exponential notation
+			const parts = valueStr.split('e');
+			const mantissa = parseFloat(parts[0]).toFixed(2); // Limit to 2 decimal places
+			const exponent = parts[1];
+			const formattedValue = `${mantissa}e${exponent}`;
+			return `$${formattedValue}`;
 		  } else {
-			return `$${Math.round(value)}`;
+			const decimalIndex = valueStr.indexOf('.');
+			
+			if (decimalIndex !== -1) {
+			  let firstNonZeroIndex = decimalIndex + 1;
+			  while (firstNonZeroIndex < valueStr.length && valueStr[firstNonZeroIndex] === '0') {
+				firstNonZeroIndex++;
+			  }
+			  
+			  if (firstNonZeroIndex < valueStr.length) {
+				const formattedValue = `${valueStr.slice(0, firstNonZeroIndex + 3)}`;
+				return `$${formattedValue}`;
+			  } else {
+				return `$${Math.floor(value)}`;
+			  }
+			} else {
+			  return `$${Math.round(value)}`;
+			}
 		  }
 		}
 	  }
