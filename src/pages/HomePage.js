@@ -3,9 +3,11 @@ import PerformersCard from '../components/PerformersCard'
 import MostPopularCard from '../components/MostPopularCard'
 import GraphCard from '../components/GraphCard'
 import TopMarketCap from '../components/TopMarketCapCryptos'
-import TwitterEnbeb from '../components/TwitterEnbeb'
 import { useTopFifty } from '../endpoints/index'
 import FooterMobile from '../components/small/FooterMobile'
+import FacebookTimelineEmbed from '../components/social/FacebookTimeline'
+import TwitterEmbed from '../components/social/TwitterEnbeb'
+import InstagramTimeline from '../components/social/InstagramTimeline'
 
 export default function HomePage() {
 
@@ -22,7 +24,11 @@ export default function HomePage() {
 					<TopMarketCap />
 				</div>
 				<div className="bg-main-white rounded-2xl col-start-1 col-span-3 xl:col-start-4">
-					<TwitterEnbeb />
+					<TwitterEmbed />
+					<div className='flex flex-col sm:flex-row xl:flex-col'>
+						<FacebookTimelineEmbed />
+						<InstagramTimeline />
+					</div>
 				</div>
 			</div>
 			<div className='bg-white md:hidden'>
